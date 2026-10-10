@@ -1,0 +1,39 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+import { UNOFFICIAL } from '../../site';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', (p) => !p.data.draft);
+  return posts.map((p) => ({ params: { slug: p.id }, props: { post: p } }));
+}
+const { post } = Astro.props;
+const { Content } = await render(post);
+const d = post.data;
+const fmt = (x: Date) => x.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+---
+<Base title={d.title} description={d.dek} article>
+  <div class="article">
+    <article class="card article-body">
+      <p class="eyebrow"><b>{d.kind}</b> · {d.readMinutes} min read</p>
+      {d.respondingTo ? (
+        <>
+          <h1>{d.respondingTo.lede}</h1>
+          <blockquote class="callout info" style="margin: 0 0 10px">“{d.respondingTo.quote}”{d.respondingTo.quoteBy && <> ({d.respondingTo.quoteBy})</>} <span class="small">· <a href={d.respondingTo.url}>{d.respondingTo.outlet}, {fmt(d.respondingTo.date)}</a></span></blockquote>
+          <p class="lede">{d.respondingTo.impact}</p>
+          <h2 style="margin-top: 0.6em">{d.title}</h2>
+        </>
+      ) : <h1>{d.title}</h1>}
+      <p class="muted small">By {d.author} · Published {fmt(d.published)} · Last checked {fmt(d.lastChecked)}{d.modelVersion && <> against <code>{d.modelVersion}</code></>}</p>
+      {d.summary.length > 0 && <div class="callout info"><b>In short</b><ul style="margin: 6px 0 0; padding-left: 18px">{d.summary.map((s) => <li>{s}</li>)}</ul></div>}
+      <Content />
+    </article>
+    <aside class="article-aside">
+      <div class="card">
+        <p class="mono-label">Sources</p>
+        <ul class="src-list">{d.sources.map((s) => <li><a href={s.url}>{s.title}</a> <span class="grade" data-g={s.grade}>{s.grade}</span></li>)}</ul>
+      </div>
+      <div class="card small muted">{UNOFFICIAL}</div>
+    </aside>
+  </div>
+</Base>

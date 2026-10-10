@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE, UNOFFICIAL } from '../site';
+---
+<Base title="About" description="Why Decision Layer exists: an independent, tested, plain-English field guide to Jev for business teams and insurance agencies.">
+  <section class="card page-head">
+    <p class="eyebrow">About</p>
+    <h1>A field guide written by people who run businesses, not by the vendor</h1>
+    <p class="lede">Jev arrived in September 2026 with developer docs and a lot of excitement. What was missing was an independent place that tests it on real business work, explains it in plain English, and is honest about where it falls short. That is {SITE.name}.</p>
+  </section>
+  <section class="grid g3">
+    <div class="card"><h3>Who it’s for</h3><p class="muted">Team leads in support, sales and operations; developers shipping automations; and insurance agencies and contact centers.</p></div>
+    <div class="card"><h3>Who’s behind it</h3><p class="muted">Published by {SITE.publisher}, which provides {SITE.services} to insurance agencies. Written by {SITE.byline}.</p></div>
+    <div class="card"><h3>What it isn’t</h3><p class="muted">{UNOFFICIAL} For official documentation, see <a href="https://docs.typesafe.ai/introduction">docs.typesafe.ai</a>.</p></div>
+  </section>
+</Base>

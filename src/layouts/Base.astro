@@ -1,0 +1,181 @@
+---
+import '@fontsource/space-grotesk/latin-500.css';
+import '@fontsource/space-grotesk/latin-600.css';
+import '@fontsource/inter/latin-400.css';
+import '@fontsource/inter/latin-500.css';
+import '@fontsource/inter/latin-600.css';
+import '@fontsource/jetbrains-mono/latin-400.css';
+import '@fontsource/jetbrains-mono/latin-500.css';
+import '../styles/global.css';
+import BrandMark from '../components/BrandMark.astro';
+import Icon from '../components/Icon.astro';
+import { SITE, NAV, DISCLOSURE_LINE, UNOFFICIAL } from '../site';
+
+interface Props { title?: string; description?: string; article?: boolean }
+const { title, description = SITE.tagline, article = false } = Astro.props;
+const fullTitle = title ? `${title} · ${SITE.name}` : `${SITE.name}: the independent field guide to Jev`;
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isCurrent = (href: string) => {
+  const h = href.replace(/\/$/, '');
+  return path === h || (h !== '' && path.startsWith(h + '/'));
+};
+const year = new Date().getFullYear();
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <meta property="og:title" content={title ?? SITE.name} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content={article ? 'article' : 'website'} />
+  <meta name="theme-color" content="#F2F3EF" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <slot name="head" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="wrap">
+    <header class="site-header" data-open="false">
+      <a href="/" class="brand" aria-label={`${SITE.name} home`}>
+        <BrandMark />
+        <span class="brand-name">{SITE.name}</span>
+        <span class="brand-tag">Independent</span>
+      </a>
+      <nav id="main-nav" class="nav" aria-label="Main">
+        {NAV.map((n) => <a href={n.href} aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a>)}
+        <a href="/for-agencies/" class="nav-agencies" aria-current={isCurrent('/for-agencies/') ? 'page' : undefined}>For agencies</a>
+      </nav>
+      <div class="header-tools">
+        <button class="search-btn" type="button" aria-haspopup="dialog" aria-controls="site-search" aria-label="Search the site"><Icon name="search" size={16} stroke={2} /><span class="search-label">Search</span><kbd>/</kbd></button>
+        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Menu"><Icon name="menu" /></button>
+      </div>
+    </header>
+
+    <dialog id="site-search" class="search-dlg" aria-label="Search the site">
+      <div class="search-box">
+        <label class="search-field">
+          <Icon name="search" size={20} stroke={2} />
+          <span class="sr-only">Search use cases, how-tos, posts and terms</span>
+          <input type="search" id="search-q" placeholder="Search use cases, how-tos, terms…" autocomplete="off" spellcheck="false" />
+          <button type="button" class="search-close" aria-label="Close search"><Icon name="x" size={18} stroke={2} /></button>
+        </label>
+        <p class="search-status" id="search-status" aria-live="polite">Try “routing”, “confidence”, “leads” or “noul”.</p>
+        <ol class="search-results" id="search-results" role="listbox" aria-label="Results"></ol>
+      </div>
+    </dialog>
+
+    <main id="main" style="display: contents">
+      <slot />
+    </main>
+
+    <footer class="card site-footer">
+      <div>
+        <span class="brand-name">{SITE.name}</span>
+        <p class="muted" style="margin-top: 8px">{UNOFFICIAL}</p>
+        <p class="muted">{DISCLOSURE_LINE} <a href="/methodology/#disclosures">Disclosures</a></p>
+      </div>
+      <nav aria-label="Footer">
+        <div><b>Learn</b><a href="/use-cases/">Use cases</a><a href="/how-to/">How-tos</a><a href="/blog/">Blog</a><a href="/glossary/">Glossary</a><a href="/start/">Start here</a></div>
+        <div><b>Trust</b><a href="/tests/">How we test</a><a href="/methodology/">Methodology</a><a href="/methodology/#disclosures">Disclosures</a><a href="/methodology/#corrections">Corrections</a></div>
+        <div><b>{SITE.publisher}</b><a href="/for-agencies/">For agencies</a><a href="/about/">About</a><a href={`mailto:${SITE.email}`}>Contact</a></div>
+      </nav>
+      <div class="legal">
+        <span>© {year} {SITE.publisher}. Independent analysis, not vendor documentation.</span>
+        <span>Official docs: <a href="https://docs.typesafe.ai/introduction">docs.typesafe.ai</a></span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Mobile menu
+    const header = document.querySelector<HTMLElement>('.site-header');
+    const btn = header?.querySelector<HTMLButtonElement>('.menu-btn');
+    btn?.addEventListener('click', () => {
+      const open = header!.dataset.open !== 'true';
+      header!.dataset.open = String(open);
+      btn.setAttribute('aria-expanded', String(open));
+    });
+
+    // Site search: lazy-loads /search.json and filters it client-side.
+    type Item = { s: string; t: string; u: string; d: string; x: string };
+    const dlg = document.querySelector<HTMLDialogElement>('#site-search')!;
+    const q = document.querySelector<HTMLInputElement>('#search-q')!;
+    const list = document.querySelector<HTMLOListElement>('#search-results')!;
+    const status = document.querySelector<HTMLElement>('#search-status')!;
+    let index: Item[] | null = null;
+    let active = -1;
+    const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
+    const mark = (s: string, terms: string[]) => {
+      let out = esc(s);
+      for (const t of terms) out = out.replace(new RegExp(`(${t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi'), '<mark>$1</mark>');
+      return out;
+    };
+    const snippet = (it: Item, terms: string[]) => {
+      const hay = `${it.d} ${it.x}`;
+      const i = hay.toLowerCase().indexOf(terms[0]);
+      if (i < 0 || i < 140) return hay.slice(0, 170) + (hay.length > 170 ? '…' : '');
+      return '…' + hay.slice(i - 60, i + 110) + '…';
+    };
+    const run = () => {
+      const terms = q.value.toLowerCase().split(/\s+/).filter((t) => t.length > 1);
+      active = -1;
+      if (!index || !terms.length) { list.innerHTML = ''; status.textContent = index ? 'Try “routing”, “confidence”, “leads” or “noul”.' : 'Loading…'; return; }
+      const hits = index.map((it) => {
+        const t = it.t.toLowerCase(), d = it.d.toLowerCase(), x = it.x.toLowerCase();
+        let score = 0;
+        for (const term of terms) {
+          const st = (t.includes(term) ? 10 : 0) + (d.includes(term) ? 4 : 0) + (x.includes(term) ? 1 : 0);
+          if (!st) return null;
+          score += st;
+        }
+        if (it.s.startsWith('Use case') || it.s.startsWith('Blog')) score += 1;
+        return { it, score };
+      }).filter(Boolean).sort((a, b) => b!.score - a!.score).slice(0, 12) as { it: Item }[];
+      status.textContent = hits.length ? `${hits.length === 12 ? 'Top 12' : hits.length} result${hits.length === 1 ? '' : 's'}` : 'No matches. Try a broader word.';
+      list.innerHTML = hits.map(({ it }, i) => `<li role="option" id="sr-${i}"><a href="${it.u}"><span class="sr-sec">${esc(it.s)}</span><span class="sr-t">${mark(it.t, terms)}</span><span class="sr-d">${mark(snippet(it, terms), terms)}</span></a></li>`).join('');
+    };
+    const open = async () => {
+      if (!dlg.open) dlg.showModal();
+      q.focus(); q.select();
+      if (!index) {
+        status.textContent = 'Loading…';
+        try { index = await (await fetch('/search.json')).json(); } catch { status.textContent = 'Search could not load. Please try again.'; return; }
+      }
+      run();
+    };
+    document.querySelectorAll('.search-btn').forEach((b) => b.addEventListener('click', open));
+    dlg.querySelector('.search-close')!.addEventListener('click', () => dlg.close());
+    dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+    dlg.addEventListener('close', () => { list.innerHTML = ''; q.value = ''; });
+    list.addEventListener('click', (e) => { if ((e.target as Element).closest('a')) dlg.close(); });
+    q.addEventListener('input', run);
+    q.addEventListener('keydown', (e) => {
+      const items = list.querySelectorAll('li');
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (!items.length) return;
+        active = (active + (e.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length;
+        items.forEach((li, i) => li.setAttribute('aria-selected', String(i === active)));
+        items[active].scrollIntoView({ block: 'nearest' });
+        q.setAttribute('aria-activedescendant', `sr-${active}`);
+      } else if (e.key === 'Enter') {
+        const a = items[Math.max(active, 0)]?.querySelector('a');
+        if (a) { e.preventDefault(); dlg.close(); location.href = a.href; }
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      const tag = (e.target as HTMLElement).tagName;
+      if ((e.key === '/' && !/INPUT|TEXTAREA|SELECT/.test(tag)) || (e.key.toLowerCase() === 'k' && (e.metaKey || e.ctrlKey))) { e.preventDefault(); open(); }
+    });
+
+    // Scroll reveal
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    }, { rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+  </script>
+</body>
+</html>

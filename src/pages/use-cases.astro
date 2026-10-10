@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+import Sources from '../components/Sources.astro';
+import { USE_CASES } from '../data/usecases';
+const areas = [...new Set(USE_CASES.map((u) => u.area))];
+---
+<Base title="Use cases" description="What Jev can decide: support routing, lead scoring, claims triage, QA scorecards, guardrails and more, each with fit, cautions and sources.">
+  <section class="card page-head">
+    <p class="eyebrow">Use cases · {USE_CASES.length} so far</p>
+    <h1>What you can hand Jev, and what to watch</h1>
+    <p class="lede">Each use case says what Jev decides, which question types it uses, how good a fit it is, and the catch. None of these are our test results yet; when we have run one, it moves to <a href="/tests/">Tests</a> and says so.</p>
+    <div class="filters" role="group" aria-label="Filter by area">
+      <button type="button" aria-pressed="true" data-area="all">All</button>
+      {areas.map((a) => <button type="button" aria-pressed="false" data-area={a}>{a}</button>)}
+    </div>
+  </section>
+  <div class="card" style="padding: 10px 14px">
+    <p class="small muted" style="margin: 0"><span class="fit" data-fit="Strong fit">Strong fit</span> short text, fixed options, cheap mistakes &nbsp;·&nbsp; <span class="fit" data-fit="Test first">Test first</span> promising, prove it on your data &nbsp;·&nbsp; <span class="fit" data-fit="Person in the loop">Person in the loop</span> decisions about people or money: Jev sorts, a person decides</p>
+  </div>
+  <section class="grid g3" id="uc-grid">
+    {USE_CASES.map((u) => (
+      <article class="card uc" id={u.slug} data-area={u.area}>
+        <div class="uc-top"><span class="tag">{u.area}</span><span class="fit" data-fit={u.fit}>{u.fit}</span></div>
+        <h3>{u.title}</h3>
+        <p class="decides">{u.decides}</p>
+        <div class="qs">{u.questions.map((q) => <span class={`qtype t-${q.toLowerCase()}`}>{q}</span>)}</div>
+        <dl class="uc-detail">
+          <dt>Why it fits</dt><dd>{u.why}</dd>
+          <dt>Watch for</dt><dd>{u.watch}</dd>
+          <dt>Sources</dt><dd><Sources keys={u.sources} compact /></dd>
+        </dl>
+        <div class="uc-foot"><span class="status">{u.status}</span>{u.agency && <a class="small" href="/for-agencies/">Agency guide</a>}</div>
+      </article>
+    ))}
+  </section>
+  <script>
+    const btns = document.querySelectorAll<HTMLButtonElement>('.filters button');
+    const cards = document.querySelectorAll<HTMLElement>('#uc-grid > article');
+    btns.forEach((b) => b.addEventListener('click', () => {
+      btns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      const a = b.dataset.area;
+      cards.forEach((c) => { c.hidden = a !== 'all' && c.dataset.area !== a; });
+    }));
+  </script>
+</Base>

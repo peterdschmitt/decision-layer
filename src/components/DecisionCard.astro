@@ -1,0 +1,38 @@
+---
+// The site's signature graphic: state in, typed decisions out. Uses the exact example and
+// outputs from TypeSafe's quick start, so nothing here is a result we produced.
+import { SRC } from '../data/sources';
+---
+<figure class="dcard" aria-label="Example: one support ticket in, three typed decisions out">
+  <div class="dcard-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dcard-path">POST /v1/systemone · jev-latest</span></div>
+  <div class="dcard-body">
+    <div class="dcard-col">
+      <p class="mono-label">state</p>
+      <blockquote class="dcard-state">“Hi, I've been trying to connect my Stripe account for 3 days and the integration keeps failing. I'm losing sales. Please help ASAP.”</blockquote>
+      <p class="mono-label">questions</p>
+      <ul class="dcard-qs">
+        <li><code>department</code><span class="qtype t-choice">Choice</span><span>billing · technical · sales</span></li>
+        <li><code>frustration</code><span class="qtype t-score">Score</span><span>calm → frustrated → very angry</span></li>
+        <li><code>is_urgent</code><span class="qtype t-noul">Noul</span><span>yes / no</span></li>
+      </ul>
+    </div>
+    <div class="dcard-col dcard-out">
+      <p class="mono-label">answers</p>
+      <div class="ans">
+        <div class="ans-k"><code>department</code></div>
+        <div class="chips"><span>billing</span><span class="on">technical</span><span>sales</span></div>
+      </div>
+      <div class="ans">
+        <div class="ans-k"><code>frustration</code><b>1.0</b></div>
+        <div class="scale"><i style="left: 50%"></i></div>
+        <div class="scale-l"><span>calm</span><span>frustrated but civil</span><span>very angry</span></div>
+      </div>
+      <div class="ans">
+        <div class="ans-k"><code>is_urgent</code><b>1.0</b></div>
+        <div class="meter"><i style="width: 100%"></i></div>
+      </div>
+      <p class="dcard-route"><span class="go">→ route to technical, flag urgent</span></p>
+    </div>
+  </div>
+  <figcaption>Example request and answers from <a href={SRC.quickstart.url}>TypeSafe’s quick start</a>, shown as published. Not our test.</figcaption>
+</figure>

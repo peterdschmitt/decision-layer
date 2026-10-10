@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+import Sources from '../components/Sources.astro';
+import { HOWTOS } from '../data/howtos';
+import { SRC } from '../data/sources';
+const levels = ['Start', 'Build', 'Production'] as const;
+---
+<Base title="How-tos" description="Step-by-step Jev guides: first call, gateways, question types, state, confidence thresholds, composite scoring, testing and cost.">
+  <section class="card page-head">
+    <p class="eyebrow">How-tos · {HOWTOS.length} planned</p>
+    <h1>From first call to production, in order</h1>
+    <p class="lede">Each guide ends with something working. Code is checked against a named Jev version and dated, because the model and its gateways are changing fast.</p>
+  </section>
+  <section class="grid g3">
+    {levels.map((lv) => (
+      <div class="card">
+        <p class="mono-label">{lv}</p>
+        <ol class="rows">
+          {HOWTOS.filter((h) => h.level === lv).map((h) => (
+            <li style="grid-template-columns: 30px 1fr"><span class="n">{String(h.n).padStart(2, '0')}</span><span class="t">{h.title}<span class="d">{h.outcome}</span><span class="d" style="margin-top: 4px"><span class="status">In the works</span></span></span></li>
+          ))}
+        </ol>
+      </div>
+    ))}
+  </section>
+  <section class="card">
+    <div class="grid g2">
+      <div>
+        <p class="eyebrow">Preview of guide 01</p>
+        <h2>The smallest useful request</h2>
+        <p class="muted">One piece of state, one yes/no question. This is TypeSafe’s own quick-start request; the guide walks through every field and the answer you get back.</p>
+        <Sources keys={['quickstart', 'api', 'models']} />
+      </div>
+      <pre><code>{`curl -X POST https://api.typesafe.ai/v1/systemone \\
+  -H "Authorization: Bearer $TYPESAFE_API_KEY" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "state": "Hi, I’ve been trying to connect my Stripe account for 3 days and the integration keeps failing.",
+    "model": "jev-latest",
+    "questions": {
+      "urgency": {
+        "type": "noul",
+        "instructions": "Does this message express urgency?"
+      }
+    }
+  }'`}</code></pre>
+    </div>
+    <p class="small muted" style="margin-top: 10px">Keep your key in an environment variable, never in code or a chat window. Request adapted from <a href={SRC.quickstart.url}>TypeSafe’s quick start</a> (state shortened).</p>
+  </section>
+</Base>
