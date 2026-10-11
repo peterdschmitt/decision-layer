@@ -2,7 +2,7 @@
 title: "Labels, not essays: sorting first notice of loss reports with Jev"
 dek: "A worked example for a claims desk. Four narrow questions, a few lines of routing code, and a person on every decision that touches a payout."
 kind: Worked example
-readMinutes: 9
+readMinutes: 11
 author: The Decision Layer desk
 published: 2026-10-11
 lastChecked: 2026-10-11
@@ -19,6 +19,7 @@ respondingTo:
   impact: "Most of claims intake is labeling: what kind of loss, is anyone hurt, is anything missing. Labels are now cheap. Deciding which labels a person must check, and how sure the software has to be before it moves a file, is still your call."
 summary:
   - "Fortune reports Jev spread fast among developers, and that OpenAI now has a rival product that also takes images."
+  - "How Jev works: it scores every allowed answer at once, and TypeSafe says it was trained to give honest odds. TypeSafe hasn’t said where its training data comes from."
   - "Below is a sketch of claims intake with Jev: four narrow questions about a first notice of loss, and routing rules written in plain code."
   - "Jev sorts the queue. It never approves, denies or prices a claim, and we left fraud scoring out on purpose."
   - "We haven’t run this on real or synthetic claims yet. The code shows the shape of the request; results will come in a separate, published test."
@@ -41,6 +42,15 @@ sources:
   - title: "TypeSafe docs: Jev 1.13 jaggedness"
     url: https://docs.typesafe.ai/model-jaggedness/jev-1.13.md
     grade: Official docs
+  - title: "TypeSafe: Introducing System One Models & Jev"
+    url: https://typesafe.ai/blog/introducing-system-one-models-and-jev
+    grade: Vendor claim
+  - title: "TypeSafe docs: AI primer (how TypeSafe trains decision models)"
+    url: https://docs.typesafe.ai/introduction/machine-learning-primer.md
+    grade: Official docs
+  - title: "Alex Molas: Jev can’t be calibrated (Sep 23, 2026)"
+    url: https://www.alexmolas.com/2026/09/23/jev-cant-be-calibrated.html
+    grade: Independent reporting
   - title: "NAIC: Artificial intelligence (insurance topics)"
     url: https://content.naic.org/insurance-topics/artificial-intelligence
     grade: Regulator
@@ -76,13 +86,28 @@ The second is honesty from the founder. Almeida told Fortune, “Making the mode
 
 Fortune also reports that OpenAI now has a competing Decisions API, priced higher than Jev per input token, and that it accepts images. Jev doesn’t. TypeSafe’s model page is plain about it: “Text only.” ([TypeSafe docs](https://docs.typesafe.ai/models.md)) For a claims desk that runs on photos, that matters. Everything below works on the words in a report, not the pictures attached to it.
 
-## Why claims intake is a labeling problem
+## The problem: a pile of reports that all need sorting
 
 TypeSafe lists insurance claims among its own example uses. The list includes “Classify first-notice-of-loss reports, adjuster notes, and supporting documents” and “Escalate uncertain or high-risk cases to a human adjuster.” ([TypeSafe docs](https://docs.typesafe.ai/concepts/use-case-map.md))
 
 Think about what a person does with a fresh first notice of loss. They read it and answer a handful of small questions. What kind of loss is this? Is anyone hurt? Do we know when and where it happened? Is it simple or messy? Then they drop it in a queue. None of that needs a written answer. It needs a label and a sense of how sure you are.
 
-## The worked example
+## How Jev works, and how it was trained
+
+Before you trust a tool with your queue, it helps to know what is inside it. Here is what TypeSafe has published, and where it stops.
+
+**It doesn’t write, so it can’t ramble.** A chatbot builds its answer one word at a time. Jev doesn’t. TypeSafe’s launch post says “Jev outputs all probabilities in parallel instead of autoregressively generating by token.” ([TypeSafe](https://typesafe.ai/blog/introducing-system-one-models-and-jev)) You give it the answers you’ll accept, and it scores every one of them at once. That is why it is fast, and why it can’t invent a fourth option when you gave it three.
+
+**It was trained for honest odds, not pleasing answers.** TypeSafe calls its training method “Reinforcement Learning for Calibrated Decisions (RLCD).” Its primer contrasts this with the method behind chatbots: “RLHF teaches a model to say things that people prefer.” RLCD instead aims for a model where “Higher probability should correspond to a greater chance that the answer is correct.” ([TypeSafe primer](https://docs.typesafe.ai/introduction/machine-learning-primer.md))
+
+**What “calibrated” is supposed to mean.** The primer puts it simply: “Outcomes assigned a probability of 0.2 should occur about 20% of the time.” Then it adds the caveat that matters for a claims desk: “These rates describe groups of predictions, not a guarantee about any single answer.” A 0.9 doesn’t mean this claim is right. It means that, across many claims scored 0.9, about nine in ten should be.
+
+**What TypeSafe hasn’t told us.** We couldn’t find where Jev’s training data comes from, how big the model is, or the details of the reward used in training. The launch post’s FAQ lists “Where does our training data come from?” but we couldn’t find an answer to it on the page. We’ll update this when TypeSafe publishes more.
+
+**Why that gap matters to you.** Calibration is measured against some set of examples, and your claims aren’t in TypeSafe’s set. Developer Alex Molas makes this point in a post titled “Jev can’t be calibrated,” and lands on practical advice: “treat Jev’s outputs as good scores (they rank examples well) rather than good probabilities.” ([Alex Molas](https://www.alexmolas.com/2026/09/23/jev-cant-be-calibrated.html)) In plain terms, Jev should put the riskiest reports near the top of the pile. Whether its 0.9 means 90% on your claims is something only your own past claims can tell you.
+
+## The use case: a first notice of loss, start to finish
+
 
 Here is a made-up report, the kind that comes in through a web form at 11 p.m.:
 
@@ -182,7 +207,7 @@ else:
     queue = f"standard_{loss['choice']}"
 ```
 
-For our sample report, we’d expect the injury rule to fire on “my neck is a bit sore.” That’s the point of the example. We haven’t run it, so treat that as what we expect, not a result.
+**Expected result for the sample report:** the injury rule fires on “my neck is a bit sore,” and the claim lands in the injury review queue, in front of a person, the night it comes in. We haven’t run this yet, so this is what we expect, not a measured result.
 
 The numbers in that code (0.2, 0.6, 0.85) are placeholders, not advice. TypeSafe says so too: “The correct threshold values depend on your domain and the performance of the model for your use case.” ([confidence docs](https://docs.typesafe.ai/confidence.md)) Their confidence page also doesn’t claim that a 0.9 means right nine times in ten. You find that out by running your own past claims through it and counting.
 
@@ -203,6 +228,6 @@ TypeSafe’s use-case map also lists risk assessment: turning “incident report
 
 TypeSafe charges $0.042 per million input tokens, and “Output tokens are free.” ([TypeSafe docs](https://docs.typesafe.ai/models.md)) Suppose a report plus four questions comes to roughly 600 tokens. That is our estimate, not a measurement. Ten thousand claims a month would then be about 6 million tokens, or about 25 cents. The model bill won’t be what decides this. The time you spend checking whether the labels are right will be.
 
-## What we haven’t done yet
+## The result, and what we haven’t done yet
 
 We haven’t run this code against Jev. The request format comes from TypeSafe’s API reference, and we’ll correct this post if a real call shows we got something wrong. Our next step is a published test on synthetic claims: a few hundred made-up reports with known answers, scored against Jev, a plain keyword rule and an LLM, with the data, code, cost and model version shown. Until then, the honest summary is the one Fortune’s reporting points to. The labels are cheap. Knowing when to trust them takes work, and it’s work worth doing before anyone’s claim depends on it.
