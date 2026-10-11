@@ -12,15 +12,20 @@ export const UNOFFICIAL = 'Decision Layer is independent. It is not affiliated w
 
 export const DISCLOSURE_LINE = `Published by ${SITE.publisher}, which provides ${SITE.services} to insurance agencies. We are not paid by any vendor we review. [CONFIRM: Conversely has no commercial relationship with TypeSafe AI or its competitors.]`;
 
+// The blog and the podcast lead. Use cases, how-tos and the glossary sit under Guides.
 export const NAV = [
-  { href: '/use-cases/', label: 'Use cases' },
-  { href: '/how-to/', label: 'How-tos' },
-  { href: '/tests/', label: 'Tests' },
   { href: '/blog/', label: 'Blog' },
-  { href: '/glossary/', label: 'Glossary' },
-  { href: '/methodology/', label: 'Methodology' },
+  { href: '/podcast/', label: 'Podcast' },
+  { href: '/guides/', label: 'Guides', also: ['/use-cases/', '/how-to/', '/glossary/', '/start/'] },
+  { href: '/tests/', label: 'Tests' },
   { href: '/about/', label: 'About' },
 ];
+
+export const PODCAST = {
+  title: 'Decision Layer',
+  tagline: 'Short, sourced episodes on Jev: what it decides well, where it breaks, and how to put it to work.',
+  category: 'Technology',
+};
 
 // Cornerstone posts planned in the content strategy (section 7, step 3). Shown as "in the works" until written.
 export const PLANNED = [

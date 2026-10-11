@@ -1,4 +1,5 @@
 ---
+import GuideLinks from '../components/GuideLinks.astro';
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import { ROLES } from '../site';
@@ -6,7 +7,7 @@ const paths: Record<string, { label: string; href: string; note: string }[]> = {
   manager: [
     { label: 'What Jev is, in two minutes', href: '/glossary/#jev', note: 'The one-paragraph version.' },
     { label: 'Use cases with fit ratings', href: '/use-cases/', note: 'Where it fits well, where to test first, where a person must decide.' },
-    { label: 'Reality check on the claims', href: '/#reality', note: 'What “zero hallucinations” and “193.6x faster” actually mean.' },
+    { label: 'Reality check on the claims', href: '/guides/#reality', note: 'What “zero hallucinations” and “193.6x faster” actually mean.' },
     { label: 'How we test', href: '/tests/', note: 'What a fair test looks like, so you can ask your team for one.' },
   ],
   developer: [
@@ -24,6 +25,7 @@ const paths: Record<string, { label: string; href: string; note: string }[]> = {
 };
 ---
 <Base title="Start here" description="Three paths into Jev: for team leads, for developers, and for insurance agencies.">
+  <GuideLinks />
   <section class="card page-head">
     <p class="eyebrow">Start here</p>
     <h1>Pick the path that sounds like you</h1>

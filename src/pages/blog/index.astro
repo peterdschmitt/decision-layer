@@ -3,6 +3,8 @@ import Base from '../../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 import { PLANNED } from '../../site';
 const posts = (await getCollection('posts', (p) => !p.data.draft)).sort((a, b) => +b.data.published - +a.data.published);
+const written = new Set(posts.map((p) => p.data.title));
+const upcoming = PLANNED.filter((p) => !written.has(p.title));
 const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 ---
 <Base title="Blog" description="Explainers, comparisons, worked examples and reality checks on Jev, each sourced and dated.">
@@ -26,7 +28,7 @@ const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'n
   <section class="card">
     <p class="mono-label">{posts.length ? 'Coming next' : 'Our first five posts, in the works'}</p>
     <ol class="rows">
-      {PLANNED.map((p, i) => <li><span class="n">{String(i + 1).padStart(2, '0')}</span><span class="t">{p.title}<span class="d">{p.dek}</span></span><span class="tag">{p.kind}</span></li>)}
+      {upcoming.map((p, i) => <li><span class="n">{String(posts.length + i + 1).padStart(2, '0')}</span><span class="t">{p.title}<span class="d">{p.dek}</span></span><span class="tag">{p.kind}</span></li>)}
     </ol>
   </section>
 </Base>

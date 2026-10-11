@@ -1,132 +1,59 @@
 ---
+// Home: the blog and the podcast lead; guides support them.
 import Base from '../layouts/Base.astro';
-import DecisionCard from '../components/DecisionCard.astro';
 import Icon from '../components/Icon.astro';
+import EpisodeRow from '../components/EpisodeRow.astro';
 import { getCollection } from 'astro:content';
-import { PLANNED, ROLES } from '../site';
+import { PLANNED } from '../site';
 import { USE_CASES } from '../data/usecases';
 import { HOWTOS } from '../data/howtos';
-import { SRC } from '../data/sources';
 
 const posts = (await getCollection('posts', (p) => !p.data.draft)).sort((a, b) => +b.data.published - +a.data.published);
-const agencyCases = USE_CASES.filter((u) => u.agency).slice(0, 4);
-const featured = USE_CASES.filter((u) => !u.agency).slice(0, 4);
+const episodes = (await getCollection('episodes')).sort((a, b) => b.data.number - a.data.number);
+const [lead, ...rest] = posts;
+const written = new Set(posts.map((p) => p.data.title));
+const upcoming = PLANNED.filter((p) => !written.has(p.title));
+const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 ---
 <Base>
-  <section class="hero">
-    <div class="card hero-copy">
-      <p class="eyebrow"><b>Independent</b> · field guide to Jev</p>
-      <h1>Jev decides. <em>We show you what to let it decide.</em></h1>
-      <p class="lede">Jev is TypeSafe AI’s new kind of model: it reads a ticket, an email or a transcript and returns typed answers with probabilities, not text. We explain the use cases, write the how-tos, run the tests, and tell you where it breaks.</p>
-      <div class="btns">
-        <a class="btn" href="/use-cases/">Browse use cases <Icon name="arrow" size={16} stroke={2} /></a>
-        <a class="btn ghost" href="/start/">Start here</a>
-      </div>
-      <div class="hero-facts">
-        <div><b>$0.042</b><span>per million input tokens; output free (<a href={SRC.models.url}>docs</a>)</span></div>
-        <div><b>3</b><span>question types: Choice, Score, Noul (<a href={SRC.primitives.url}>docs</a>)</span></div>
-        <div><b>Sep 15</b><span>2026 early-access launch (<a href={SRC.reg1.url}>The Register</a>)</span></div>
-      </div>
-    </div>
-    <DecisionCard />
-  </section>
-
-  <section class="grid g3 reveal" aria-label="The three question types">
-    <div class="card qcard">
-      <h3><span class="qtype t-choice">Choice</span> Pick one of a set</h3>
-      <p>Which team, which product, which next step. Up to 255 options, with a probability for each.</p>
-      <p class="ex">billing · <b>technical</b> · sales</p>
-    </div>
-    <div class="card qcard">
-      <h3><span class="qtype t-score">Score</span> Place on a scale</h3>
-      <p>How urgent, how good a fit, how complete. You describe every level in words.</p>
-      <p class="ex">cold → warm → <b>hot</b></p>
-    </div>
-    <div class="card qcard">
-      <h3><span class="qtype t-noul">Noul</span> Yes or no, as a probability</h3>
-      <p>Did the rep read the disclosure? Is this a refund request? One number from 0 to 1.</p>
-      <p class="ex">p(yes) = <b>0.94</b> <span class="muted">(illustrative)</span></p>
-    </div>
-  </section>
-
-  <section class="card reveal" aria-labelledby="thresh">
-    <div class="grid g2" style="align-items: center">
-      <div>
-        <p class="eyebrow">The idea that makes it useful</p>
-        <h2 id="thresh">Let code act when Jev is sure. Send the rest to a person.</h2>
-        <p class="muted">Every answer carries a probability. You decide the lines. TypeSafe’s own <a href={SRC.routing.url}>routing example</a> sends anything under 0.5 confidence to a human; the right lines for you come from testing on your own data.</p>
-        <a class="more" href="/how-to/">Read: setting confidence thresholds <Icon name="arrow" size={14} /></a>
-      </div>
-      <div>
-        <div class="strip" role="img" aria-label="Three zones: low confidence goes to a person, middle goes to a stronger model or review, high confidence acts automatically">
-          <div class="s-stop"><b>Unsure</b>Ask a person</div>
-          <div class="s-rev"><b>Fairly sure</b>Ask a stronger model or review</div>
-          <div class="s-go"><b>Sure</b>Act automatically</div>
+  {lead && (
+    <section class="lead-post">
+      <article class="card">
+        <p class="eyebrow"><b>Latest</b> · {lead.data.kind} · {fmt(lead.data.published)} · {lead.data.readMinutes} min read</p>
+        <h1><a href={`/blog/${lead.id}/`}>{lead.data.respondingTo?.lede ?? lead.data.title}</a></h1>
+        {lead.data.respondingTo && <p class="quote">“{lead.data.respondingTo.quote}”<span class="small"> · {lead.data.respondingTo.quoteBy ?? lead.data.respondingTo.outlet}</span></p>}
+        <p class="lede">{lead.data.dek}</p>
+        <div class="btns">
+          <a class="btn" href={`/blog/${lead.id}/`}>Read: {lead.data.title} <Icon name="arrow" size={16} stroke={2} /></a>
+          {lead.data.episode && <a class="btn ghost" href={`/podcast/${lead.data.episode}/`}><Icon name="headphones" size={16} /> Episode</a>}
         </div>
-        <p class="small muted">Illustration. Where the lines fall is your call, set from your own tests.</p>
+      </article>
+      <div class="card pod-hero">
+        <p class="mono-label"><Icon name="mic" size={14} /> The podcast</p>
+        <h2>Jev, in plain English</h2>
+        <p class="muted">Short episodes that pair with each post. Every source linked in the show notes.</p>
+        <ol class="episodes" style="background: var(--surface); border-radius: 8px; padding: 0 10px; color: var(--ink)">{episodes.slice(0, 3).map((ep) => <EpisodeRow ep={ep} />)}</ol>
+        <a class="more" style="margin-top: 10px" href="/podcast/">All episodes <Icon name="arrow" size={14} /></a>
       </div>
-    </div>
-  </section>
-
-  <div class="sec-head"><h2><span class="sec-num">01</span>Use cases for insurance agencies and contact centers</h2><a class="more" href="/for-agencies/">All agency use cases <Icon name="arrow" size={14} /></a></div>
-  <section class="grid g4">
-    {agencyCases.map((u) => (
-      <a class="card uc reveal" href={`/use-cases/#${u.slug}`} style="text-decoration: none; color: inherit">
-        <div class="uc-top"><span class="tag">{u.area}</span><span class="fit" data-fit={u.fit}>{u.fit}</span></div>
-        <h3>{u.title}</h3>
-        <p class="decides">{u.decides}</p>
-        <div class="uc-foot"><div class="qs">{u.questions.map((q) => <span class={`qtype t-${q.toLowerCase()}`}>{q}</span>)}</div><span class="status">{u.status}</span></div>
-      </a>
-    ))}
-  </section>
-
-  <div class="sec-head"><h2><span class="sec-num">02</span>Beyond insurance</h2><a class="more" href="/use-cases/">All {USE_CASES.length} use cases <Icon name="arrow" size={14} /></a></div>
-  <section class="grid g4">
-    {featured.map((u) => (
-      <a class="card uc reveal" href={`/use-cases/#${u.slug}`} style="text-decoration: none; color: inherit">
-        <div class="uc-top"><span class="tag">{u.area}</span><span class="fit" data-fit={u.fit}>{u.fit}</span></div>
-        <h3>{u.title}</h3>
-        <p class="decides">{u.decides}</p>
-        <div class="uc-foot"><div class="qs">{u.questions.map((q) => <span class={`qtype t-${q.toLowerCase()}`}>{q}</span>)}</div><span class="status">{u.status}</span></div>
-      </a>
-    ))}
-  </section>
+    </section>
+  )}
 
   <section class="grid g2">
-    <div class="card reveal">
-      <div class="sec-head" style="margin: 0 0 6px"><h2><span class="sec-num">03</span>How-tos</h2><a class="more" href="/how-to/">All {HOWTOS.length} <Icon name="arrow" size={14} /></a></div>
+    <div class="card">
+      <div class="sec-head" style="margin: 0 0 6px"><h2>From the blog</h2><a class="more" href="/blog/">All posts <Icon name="arrow" size={14} /></a></div>
       <ol class="rows">
-        {HOWTOS.slice(0, 5).map((h) => <li><span class="n">{String(h.n).padStart(2, '0')}</span><span class="t">{h.title}<span class="d">{h.outcome}</span></span><span class="tag">{h.level}</span></li>)}
+        {rest.map((p, i) => <li><span class="n">{String(i + 2).padStart(2, '0')}</span><a class="t" href={`/blog/${p.id}/`}>{p.data.title}<span class="d">{p.data.dek}</span></a><span class="tag">{p.data.kind}</span></li>)}
+        {upcoming.map((p, i) => <li><span class="n">{String(posts.length + i + 1).padStart(2, '0')}</span><span class="t">{p.title}<span class="d">{p.dek}</span></span><span class="tag">In the works</span></li>)}
       </ol>
     </div>
-    <div class="card reveal">
-      <div class="sec-head" style="margin: 0 0 6px"><h2><span class="sec-num">04</span>From the blog</h2><a class="more" href="/blog/">Blog <Icon name="arrow" size={14} /></a></div>
-      {posts.length ? (
-        <ol class="rows">{posts.slice(0, 5).map((p, i) => <li><span class="n">{String(i + 1).padStart(2, '0')}</span><a class="t" href={`/blog/${p.id}/`}>{p.data.title}<span class="d">{p.data.dek}</span></a><span class="tag">{p.data.kind}</span></li>)}</ol>
-      ) : (
-        <ol class="rows">{PLANNED.map((p, i) => <li><span class="n">{String(i + 1).padStart(2, '0')}</span><span class="t">{p.title}<span class="d">{p.dek}</span></span><span class="tag">In the works</span></li>)}</ol>
-      )}
+    <div class="card">
+      <div class="sec-head" style="margin: 0 0 6px"><h2>Guides</h2><a class="more" href="/guides/">All guides <Icon name="arrow" size={14} /></a></div>
+      <ol class="rows">
+        <li><span class="n">UC</span><a class="t" href="/use-cases/">{USE_CASES.length} use cases<span class="d">What Jev can decide, how well it fits, and where a person must stay in charge.</span></a><span class="tag">Guide</span></li>
+        <li><span class="n">IN</span><a class="t" href="/for-agencies/">For insurance agencies<span class="d">Lead scoring, call routing, QA scorecards and claims intake.</span></a><span class="tag">Guide</span></li>
+        <li><span class="n">HT</span><a class="t" href="/how-to/">{HOWTOS.length} how-tos<span class="d">From your first call to setting confidence thresholds.</span></a><span class="tag">In the works</span></li>
+        <li><span class="n">GL</span><a class="t" href="/glossary/">Glossary<span class="d">Choice, Score, Noul, confidence and the rest, in plain English.</span></a><span class="tag">Guide</span></li>
+      </ol>
     </div>
-  </section>
-
-  <section class="card night reveal" aria-labelledby="reality">
-    <div class="grid g2">
-      <div>
-        <p class="mono-label">Reality check</p>
-        <h2 id="reality">We read the claims closely so you don’t have to.</h2>
-        <p class="muted">Jev is new, fast and cheap, and the marketing is loud. We label every vendor number as a vendor number, test what we can, and say plainly when a claim needs a footnote.</p>
-        <a class="btn" style="background: #fff; color: var(--night); border-color: #fff" href="/methodology/">How we test and source</a>
-      </div>
-      <dl class="kv" style="color: var(--night-ink)">
-        <dt>“Zero hallucinations”</dt><dd>Means answers always fit the format you asked for. TypeSafe’s <a href={SRC.launch.url}>launch post</a> calls the 0% figure “not empirical”. Jev can still pick the wrong answer.</dd>
-        <dt>“193.6x faster”</dt><dd>The <a href={SRC.home.url}>homepage</a> example beside it (0.114s vs 8.566s) works out to about 75x. Both come from TypeSafe’s own evals.</dd>
-        <dt>Confidence</dt><dd>The <a href={SRC.confidence.url}>docs</a> define it as the shape of the probabilities and make no claim it equals real accuracy. Test it on your data.</dd>
-      </dl>
-    </div>
-  </section>
-
-  <div class="sec-head"><h2><span class="sec-num">05</span>Start where you are</h2></div>
-  <section class="grid g3">
-    {ROLES.map((r) => <a class="card reveal" href={`/start/#${r.key}`} style="text-decoration: none; color: inherit"><h3>{r.label}</h3><p class="muted" style="margin: 0">{r.blurb}</p></a>)}
   </section>
 </Base>

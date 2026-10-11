@@ -1,10 +1,12 @@
 ---
+import GuideLinks from '../components/GuideLinks.astro';
 import Base from '../layouts/Base.astro';
 import Sources from '../components/Sources.astro';
 import { USE_CASES } from '../data/usecases';
 const areas = [...new Set(USE_CASES.map((u) => u.area))];
 ---
 <Base title="Use cases" description="What Jev can decide: support routing, lead scoring, claims triage, QA scorecards, guardrails and more, each with fit, cautions and sources.">
+  <GuideLinks />
   <section class="card page-head">
     <p class="eyebrow">Use cases · {USE_CASES.length} so far</p>
     <h1>What you can hand Jev, and what to watch</h1>

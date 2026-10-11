@@ -1,9 +1,11 @@
 ---
+import GuideLinks from '../components/GuideLinks.astro';
 import Base from '../layouts/Base.astro';
 import { TERMS } from '../data/glossary';
 import { SRC } from '../data/sources';
 ---
 <Base title="Glossary" description="Plain-English definitions of Jev and System One terms: state, Choice, Score, Noul, confidence, fan-out, composite scoring, RLCD and more.">
+  <GuideLinks />
   <section class="card page-head">
     <p class="eyebrow">Glossary · {TERMS.length} terms</p>
     <h1>Jev’s vocabulary, in plain English</h1>

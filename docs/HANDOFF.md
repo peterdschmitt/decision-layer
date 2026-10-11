@@ -8,6 +8,9 @@ Everything a new Claude session (or person) needs to pick this project up withou
 - Separate site and brand from Peter's DPC site ("Straight Talk on Healthcare Options", repo peterdschmitt/blod-podcast). Don't change that repo or site from this work.
 - The approved strategy is in [strategy.md](strategy.md) (approved by Peter 2026-10-10). Its section 8 open questions are answered below.
 
+## Decisions Peter made (2026-10-11)
+- **Decision Layer is a blog and podcast site.** Posts and episodes lead (home = latest post plus the podcast). Use cases, how-tos and the glossary sit under Guides. The podcast has an episode list, episode pages (player, show notes, script, sources) and a feed at `/podcast.xml` that lists only published episodes with audio.
+
 ## Decisions Peter made (2026-10-10)
 - **Plan approved** (strategy steps 1 to 5).
 - **Site name: "Decision Layer".** The site says it is unofficial and not affiliated with TypeSafe AI; no TypeSafe logo; "Jev" is content, not the brand.
@@ -49,6 +52,7 @@ New content (pages, posts, tools) goes to Peter as a pull request plus a Vercel 
 - Don't use the Vercel tool's create_deployment for a branch: it targeted production. Rely on branch-push previews.
 
 ## Gotchas
+- Episodes live in `src/content/episodes/` (`status: planned` until audio exists). Posts close with `inTheNews` headlines and can link an `episode`.
 - `.astro` and `.svg` files copied through a shared files folder picked up an injected C2PA metadata block that broke the build. Copy source from git, not from shared folders.
 - If git complains about "dubious ownership", use `git -c safe.directory=*`.
 

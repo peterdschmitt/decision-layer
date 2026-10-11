@@ -7,6 +7,8 @@ import { TERMS } from '../data/glossary';
 const plain = (s = '') => s.replace(/<[^>]+>/g, ' ').replace(/!?\[([^\]]*)\]\([^)]*\)/g, '$1').replace(/[#*_`>|]/g, ' ').replace(/\s+/g, ' ').trim();
 
 const PAGES = [
+  { t: 'Podcast', u: '/podcast/', d: 'Short, sourced episodes on Jev, each paired with a blog post.' },
+  { t: 'Guides', u: '/guides/', d: 'Use cases, how-tos, the glossary and our reality check on TypeSafe’s claims.' },
   { t: 'Start here', u: '/start/', d: 'Three paths into Jev: for team leads, developers and insurance agencies.' },
   { t: 'Use cases', u: '/use-cases/', d: 'What Jev can decide, with fit ratings, cautions and sources.' },
   { t: 'How-tos', u: '/how-to/', d: 'From first API call to production: gateways, question types, state, thresholds, testing and cost.' },
@@ -19,8 +21,10 @@ const PAGES = [
 
 export async function GET() {
   const posts = await getCollection('posts', (p) => !p.data.draft);
+  const episodes = await getCollection('episodes');
   const items = [
     ...posts.map((p) => ({ s: `Blog · ${p.data.kind}`, t: p.data.title, u: `/blog/${p.id}/`, d: p.data.dek, x: plain([p.data.summary.join(' '), p.body].join(' ')) })),
+    ...episodes.map((e) => ({ s: 'Podcast', t: `Episode ${e.data.number}: ${e.data.title}`, u: `/podcast/${e.id}/`, d: e.data.summary, x: `podcast episode ${plain(e.body)}` })),
     ...USE_CASES.map((u) => ({ s: `Use case · ${u.area}`, t: u.title, u: `/use-cases/#${u.slug}`, d: u.decides, x: [u.why, u.watch, u.questions.join(' '), u.fit].join(' ') })),
     ...HOWTOS.map((h) => ({ s: `How-to · ${h.level}`, t: h.title, u: '/how-to/', d: h.outcome, x: '' })),
     ...TERMS.map((t) => ({ s: 'Glossary', t: t.term, u: `/glossary/#${t.id}`, d: t.def, x: '' })),

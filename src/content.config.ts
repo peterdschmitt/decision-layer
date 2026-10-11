@@ -32,7 +32,39 @@ const posts = defineCollection({
       url: z.string().url(),
       grade: z.enum(['Regulator', 'Official docs', 'Vendor claim', 'Vendor case study', 'Independent reporting', 'Our test']),
     })),
+    // Closes every post: real, verified, linked headlines.
+    inTheNews: z.array(z.object({
+      outlet: z.string(),
+      headline: z.string(),
+      url: z.string().url(),
+      date: z.coerce.date(),
+    })).default([]),
+    episode: z.string().optional(), // slug of the matching podcast episode
   }),
 });
 
-export const collections = { posts };
+// Podcast episodes. `planned` shows show notes and the script but no player; an episode only
+// enters the podcast feed once it is `published` with an audio file.
+const episodes = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/episodes' }),
+  schema: z.object({
+    number: z.number(),
+    title: z.string(),
+    summary: z.string(),
+    status: z.enum(['planned', 'published']).default('planned'),
+    date: z.coerce.date().optional(),
+    minutes: z.number().optional(),
+    audioUrl: z.string().url().optional(),
+    audioBytes: z.number().optional(),
+    hosts: z.array(z.string()).default([]),
+    guests: z.array(z.string()).default([]),
+    post: z.string().optional(), // slug of the matching blog post
+    sources: z.array(z.object({
+      title: z.string(),
+      url: z.string().url(),
+      grade: z.enum(['Regulator', 'Official docs', 'Vendor claim', 'Vendor case study', 'Independent reporting', 'Our test']),
+    })).default([]),
+  }),
+});
+
+export const collections = { posts, episodes };
