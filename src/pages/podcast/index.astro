@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import EpisodeRow from '../../components/EpisodeRow.astro';
+import { PODCAST } from '../../site';
+
+const episodes = (await getCollection('episodes')).sort((a, b) => b.data.number - a.data.number);
+const live = episodes.filter((e) => e.data.status === 'published' && e.data.audioUrl);
+---
+<Base title="Podcast" description={PODCAST.tagline}>
+  <section class="card pod-hero">
+    <p class="mono-label"><Icon name="mic" size={14} /> The {PODCAST.title} podcast</p>
+    <h1>Jev, in plain English. <span style="color: var(--accent-bright)">Short episodes, every source linked.</span></h1>
+    <p class="muted" style="max-width: 62ch">Each episode pairs with a blog post: what TypeSafe’s decision model is good at, where it breaks, and how support teams and insurance agencies can put it to work. Independent and not affiliated with TypeSafe AI.</p>
+    <div class="listen">
+      <a href="/podcast.xml"><Icon name="rss" size={14} /> Podcast feed</a>
+      <span><Icon name="headphones" size={14} /> Apple Podcasts <small>after episode 1</small></span>
+      <span><Icon name="headphones" size={14} /> Spotify <small>after episode 1</small></span>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="sec-head" style="margin: 0 0 6px"><h2>{live.length ? 'Episodes' : 'Season one, in production'}</h2><span class="status">{live.length ? `${live.length} published` : 'Scripts and show notes are up; audio coming soon'}</span></div>
+    <ol class="episodes">{episodes.map((ep) => <EpisodeRow ep={ep} />)}</ol>
+  </section>
+
+  <section class="grid g3">
+    <div class="card"><h3>Show notes with sources</h3><p class="muted" style="margin: 0">Every episode lists its sources, graded the same way as the blog, and links to the matching post.</p></div>
+    <div class="card"><h3>A script you can read</h3><p class="muted" style="margin: 0">The full script sits on each episode page, so you can skim instead of listen, and search finds it.</p></div>
+    <div class="card"><h3>No paid guests</h3><p class="muted" style="margin: 0">Nobody buys a spot. Any business tie a guest has is said at the top of the episode.</p></div>
+  </section>
+</Base>

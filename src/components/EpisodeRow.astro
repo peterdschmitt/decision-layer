@@ -1,0 +1,20 @@
+---
+import Icon from './Icon.astro';
+import type { CollectionEntry } from 'astro:content';
+interface Props { ep: CollectionEntry<'episodes'> }
+const { ep } = Astro.props;
+const d = ep.data;
+const live = d.status === 'published' && d.audioUrl;
+const date = d.date?.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+---
+<li>
+  <a class="episode" href={`/podcast/${ep.id}/`}>
+    <span class="ep-num" aria-hidden="true">{d.number}</span>
+    <span style="min-width: 0; display: block">
+      <span class="ep-meta">Episode {d.number}{date && ` · ${date}`}{d.minutes && ` · ${d.minutes} min`}</span>
+      <span class="ep-title" style="display: block">{d.title}</span>
+      <span class="ep-sum" style="display: block">{d.summary}</span>
+    </span>
+    {live ? <span class="ep-play" aria-label="Play"><Icon name="play" size={16} /></span> : <span class="ep-soon">Script ready · audio soon</span>}
+  </a>
+</li>

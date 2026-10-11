@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { SRC } from '../data/sources';
+---
+<Base title="Tests" description="How Decision Layer tests Jev: real or synthetic labeled data, a baseline, accuracy, calibration, speed and cost, with code and model version published.">
+  <section class="card page-head">
+    <p class="eyebrow">Tests</p>
+    <h1>We run it before we recommend it</h1>
+    <p class="lede">TypeSafe itself tells users to “run your own private evals, treat public ones with a grain of salt” (<a href={SRC.bench.url}>TypeSafe blog</a>). That is what this page is for.</p>
+  </section>
+
+  <section class="grid g2">
+    <div class="card">
+      <p class="mono-label">Published tests</p>
+      <h2>None yet</h2>
+      <p class="muted">Our first runs are being set up. Until a test is published here with its data and code, nothing on this site says “we tested it”.</p>
+      <p class="mono-label" style="margin-top: 14px">First in the queue</p>
+      <ol class="rows">
+        <li style="grid-template-columns: 30px 1fr"><span class="n">01</span><span class="t">Support ticket routing<span class="d">Jev vs a small LLM with structured output, on a public ticket dataset.</span></span></li>
+        <li style="grid-template-columns: 30px 1fr"><span class="n">02</span><span class="t">Insurance lead scoring<span class="d">Synthetic agency leads with known labels, so no real person’s data is used.</span></span></li>
+        <li style="grid-template-columns: 30px 1fr"><span class="n">03</span><span class="t">Does confidence match accuracy?<span class="d">A calibration check: when Jev says 0.9, is it right about 90% of the time?</span></span></li>
+      </ol>
+    </div>
+    <div class="card">
+      <p class="mono-label">Every test report includes</p>
+      <ul class="rows">
+        {[
+          ['Data', 'What it is, where it came from, how many examples, how it was labeled.'],
+          ['Baseline', 'What we compared against: an LLM, a classifier or a simple rule.'],
+          ['Accuracy', 'Overall, and on the hard cases, with the mistakes shown.'],
+          ['Calibration', 'How often answers were right at each confidence level.'],
+          ['Speed and cost', 'Median and slow-end response times; cost per 1,000 decisions at list price.'],
+          ['Version and date', 'The exact Jev version and gateway, and when we ran it.'],
+          ['Code', 'The script, so anyone can rerun it.'],
+        ].map(([k, v]) => <li style="grid-template-columns: 22px 1fr"><span class="n" style="color: var(--go)"><Icon name="check" size={16} stroke={2.2} /></span><span class="t">{k}<span class="d">{v}</span></span></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="callout info"><b>What we won’t do.</b> Repeat a speed or cost multiple without saying whose test it was, publish a test without its losing cases, or use real customer or policyholder data.</div>
+  </section>
+</Base>

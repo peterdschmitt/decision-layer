@@ -1,0 +1,23 @@
+---
+import GuideLinks from '../components/GuideLinks.astro';
+import Base from '../layouts/Base.astro';
+import { TERMS } from '../data/glossary';
+import { SRC } from '../data/sources';
+---
+<Base title="Glossary" description="Plain-English definitions of Jev and System One terms: state, Choice, Score, Noul, confidence, fan-out, composite scoring, RLCD and more.">
+  <GuideLinks />
+  <section class="card page-head">
+    <p class="eyebrow">Glossary · {TERMS.length} terms</p>
+    <h1>Jev’s vocabulary, in plain English</h1>
+    <p class="lede">Each definition links to where TypeSafe defines the term, so you can check our wording against theirs.</p>
+  </section>
+  <section class="grid g2">
+    {TERMS.map((t) => (
+      <article class="card" id={t.id}>
+        <h3>{t.term}</h3>
+        <p style="color: var(--ink-2); font-size: 14px">{t.def}</p>
+        <p class="small" style="margin: 0"><a href={SRC[t.source].url}>{SRC[t.source].title}</a></p>
+      </article>
+    ))}
+  </section>
+</Base>

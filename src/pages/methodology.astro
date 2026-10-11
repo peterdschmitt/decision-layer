@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE, UNOFFICIAL } from '../site';
+import { SRC, GRADES } from '../data/sources';
+---
+<Base title="Methodology and disclosures" description="How Decision Layer sources claims, labels vendor numbers, tests Jev, stays independent of TypeSafe AI, and logs corrections.">
+  <section class="card page-head">
+    <p class="eyebrow">Methodology</p>
+    <h1>How we source, test and stay independent</h1>
+  </section>
+  <section class="card prose" style="max-width: none">
+    <div class="grid g2" style="gap: 28px">
+      <div>
+        <h2 style="margin-top: 0">Sources</h2>
+        <p>Every factual claim links to its source, and every source carries a label:</p>
+        <ul>
+          {GRADES.map((g) => <li><span class="grade" data-g={g.label}>{g.label}</span> {g.note}</li>)}
+        </ul>
+        <p>Quotes are verbatim and checked against the page. Headlines named in our posts are real and linked. If we can’t confirm something, we cut it or say we couldn’t.</p>
+        <h2>Testing</h2>
+        <p>We test on public or synthetic data, compare against a baseline, publish the losing cases, and name the Jev version and date. See <a href="/tests/">how we test</a>.</p>
+        <h2>Editing</h2>
+        <p>Every post goes through research, a source check, a plain-language edit and a final human sign-off before it is published. Code samples are run, not just written.</p>
+      </div>
+      <div>
+        <h2 id="disclosures" style="margin-top: 0">Disclosures</h2>
+        <p>{UNOFFICIAL}</p>
+        <p>{SITE.name} is published by {SITE.publisher}, which provides {SITE.services} to insurance agencies. [DISCLOSURE: Peter to confirm whether Conversely has any relationship with TypeSafe AI or a competitor, or builds with Jev for clients. Any such tie will be stated here and on every related page.]</p>
+        <p>No vendor pays for coverage, placement or reviews. We do not use affiliate links.</p>
+        <h2>Not legal or compliance advice</h2>
+        <p>Guides for insurance agencies describe operational tooling. They are not legal advice, and they do not replace the AI and insurance rules in your state.</p>
+        <h2 id="corrections">Corrections</h2>
+        <p>Found a mistake? Email <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. Corrections are listed here with the date and what changed.</p>
+        <p class="muted">No corrections yet.</p>
+        <h2>Our sources on TypeSafe’s own approach</h2>
+        <p>TypeSafe publishes a list of where its current model is weak (<a href={SRC.jagged.url}>Jev 1.13 jaggedness</a>) and argues against leaning on public benchmarks (<a href={SRC.bench.url}>Lies, Damned Lies, and Benchmarks</a>). We hold its claims to the same standard.</p>
+      </div>
+    </div>
+  </section>
+</Base>

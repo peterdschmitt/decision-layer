@@ -1,0 +1,50 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import { getCollection, getEntry, render } from 'astro:content';
+import { UNOFFICIAL } from '../../site';
+
+export async function getStaticPaths() {
+  const eps = await getCollection('episodes');
+  return eps.map((e) => ({ params: { slug: e.id }, props: { ep: e } }));
+}
+const { ep } = Astro.props;
+const { Content } = await render(ep);
+const d = ep.data;
+const post = d.post ? await getEntry('posts', d.post) : undefined;
+const live = d.status === 'published' && d.audioUrl;
+const fmt = (x: Date) => x.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+---
+<Base title={`Episode ${d.number}: ${d.title}`} description={d.summary} article>
+  <div class="article">
+    <article class="card article-body">
+      <div class="pod-hero card" style="margin: 0 0 16px">
+        <p class="mono-label"><Icon name="mic" size={14} /> Episode {d.number}{d.date && <> · {fmt(d.date)}</>}{d.minutes && <> · about {d.minutes} min</>}</p>
+        <h1 style="font-size: clamp(32px, 4.4vw, 52px)">{d.title}</h1>
+        <p class="muted" style="margin: 0 0 6px">{d.summary}</p>
+        {live ? (
+          <audio class="player" controls preload="none" src={d.audioUrl}>Your browser can’t play audio. <a href={d.audioUrl}>Download the episode</a>.</audio>
+        ) : (
+          <p class="no-audio">Audio coming soon. The script and show notes are below.</p>
+        )}
+        {d.hosts.length > 0 && <p class="small muted" style="margin: 6px 0 0">With {d.hosts.join(', ')}{d.guests.length > 0 && <>; guests {d.guests.join(', ')}</>}</p>}
+      </div>
+      {post && (
+        <a class="read-instead" href={`/blog/${post.id}/`}>
+          <span><span class="k">Prefer to read? · {post.data.readMinutes} min</span><span class="t">{post.data.title}</span></span>
+          <Icon name="arrow" size={20} stroke={2} />
+        </a>
+      )}
+      <Content />
+    </article>
+    <aside class="article-aside">
+      {d.sources.length > 0 && (
+        <div class="card">
+          <p class="mono-label">Sources</p>
+          <ul class="src-list">{d.sources.map((s) => <li><a href={s.url}>{s.title}</a> <span class="grade" data-g={s.grade}>{s.grade}</span></li>)}</ul>
+        </div>
+      )}
+      <div class="card small muted">{UNOFFICIAL}</div>
+    </aside>
+  </div>
+</Base>

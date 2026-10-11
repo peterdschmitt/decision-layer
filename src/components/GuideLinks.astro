@@ -1,0 +1,15 @@
+---
+// The Guides sub-menu, shown on the Guides hub and each guide section.
+const LINKS = [
+  { href: '/use-cases/', label: 'Use cases' },
+  { href: '/how-to/', label: 'How-tos' },
+  { href: '/glossary/', label: 'Glossary' },
+  { href: '/start/', label: 'Start here' },
+  { href: '/for-agencies/', label: 'For agencies' },
+];
+const path = Astro.url.pathname;
+---
+<nav class="card guide-links" aria-label="Guides">
+  <a href="/guides/" class="mono-label" style="border: 0; padding-left: 0">Guides</a>
+  {LINKS.map((l) => <a href={l.href} aria-current={path.startsWith(l.href) ? 'page' : undefined}>{l.label}</a>)}
+</nav>

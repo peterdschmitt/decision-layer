@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE, UNOFFICIAL, DISCLOSURE_LINE } from '../site';
+import { GRADES } from '../data/sources';
+---
+<Base title="About" description="Why Decision Layer exists: an independent, tested, plain-English field guide to Jev for business teams and insurance agencies.">
+  <section class="card page-head">
+    <p class="eyebrow">About</p>
+    <h1>The independent field guide to Jev</h1>
+    <p class="lede" style="font-weight: 600">Use cases, how-tos, tests and reality checks on TypeSafe AI’s decision model, written for the people deciding whether to use it.</p>
+    <p class="lede">Jev arrived in September 2026 with developer docs and a lot of excitement. What was missing was an independent place that tests it on real business work, explains it in plain English, and is honest about where it falls short. That is {SITE.name}.</p>
+  </section>
+  <section class="grid g3">
+    <div class="card"><h3>Who it’s for</h3><p class="muted">Team leads in support, sales and operations; developers shipping automations; and insurance agencies and contact centers.</p></div>
+    <div class="card"><h3>Who’s behind it</h3><p class="muted">Published by {SITE.publisher}, which provides {SITE.services} to insurance agencies. Written by {SITE.byline}.</p></div>
+    <div class="card"><h3>What it isn’t</h3><p class="muted">{UNOFFICIAL} For official documentation, see <a href="https://docs.typesafe.ai/introduction">docs.typesafe.ai</a>.</p></div>
+  </section>
+  <section class="card">
+    <div class="sec-head" style="margin: 0 0 12px"><h2>How we grade sources</h2><a class="more" href="/methodology/">Methodology</a></div>
+    <div class="grades">
+      {GRADES.map((g) => <div><span class="grade" data-g={g.label}>{g.label}</span><p>{g.note}</p></div>)}
+    </div>
+  </section>
+  <section class="card" id="disclosure" style="border-top: 3px solid var(--orange)">
+    <h2>Disclosure</h2>
+    <p>{UNOFFICIAL}</p>
+    <p class="muted" style="margin: 0">{DISCLOSURE_LINE} No sponsorships or paid placements.</p>
+  </section>
+</Base>

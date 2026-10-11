@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+import Sources from '../components/Sources.astro';
+import { USE_CASES } from '../data/usecases';
+import { SITE } from '../site';
+const cases = USE_CASES.filter((u) => u.agency);
+---
+<Base title="For insurance agencies" description="Jev use cases for insurance agencies and contact centers: lead scoring, call and ticket routing, QA scorecards, compliance checks and claims intake, with a person in the loop.">
+  <section class="card page-head">
+    <p class="eyebrow">For insurance agencies and contact centers</p>
+    <h1>Where Jev fits in an agency, and where a person must stay</h1>
+    <p class="lede">TypeSafe’s own use-case list names insurance claims, underwriting risk, lead generation and customer support. We have found no published worked examples for agencies yet. These guides are meant to be the first.</p>
+  </section>
+
+  <section class="grid g3">
+    {cases.map((u) => (
+      <article class="card uc" id={u.slug}>
+        <div class="uc-top"><span class="fit" data-fit={u.fit}>{u.fit}</span><span class="status">{u.status}</span></div>
+        <h3>{u.title}</h3>
+        <p class="decides">{u.decides}</p>
+        <div class="qs">{u.questions.map((q) => <span class={`qtype t-${q.toLowerCase()}`}>{q}</span>)}</div>
+        <dl class="uc-detail"><dt>Watch for</dt><dd>{u.watch}</dd></dl>
+      </article>
+    ))}
+  </section>
+
+  <section class="grid g2">
+    <div class="card">
+      <h2>Ground rules we follow in every agency guide</h2>
+      <ul class="prose" style="padding-left: 18px; margin: 0">
+        <li><b>Jev sorts, people decide.</b> Anything that changes a person’s coverage, price, claim or eligibility goes to a licensed or authorized person.</li>
+        <li><b>No protected traits.</b> Lead and claims questions never ask about, or infer, race, religion, disability or other protected characteristics.</li>
+        <li><b>Synthetic data in examples.</b> Our worked examples use made-up leads, calls and claims, never real policyholder data.</li>
+        <li><b>Check the rules in your state.</b> Many states have adopted the NAIC’s model bulletin on insurers’ use of AI. We will cite the specific rules in each guide; this site is not legal advice.</li>
+        <li><b>Numbers and dates in code.</b> Jev is weaker with raw numbers and dates, so ages, premiums and renewal dates are worked out in code first.</li>
+      </ul>
+      <Sources keys={['useCaseMap', 'jagged', 'naic']} />
+    </div>
+    <div class="card night">
+      <p class="mono-label">Commercial · clearly labeled</p>
+      <h2>About {SITE.publisher}</h2>
+      <p class="muted">{SITE.publisher} provides {SITE.services} to insurance agencies. It publishes this site. Nothing here is sponsored. [CONFIRM: no relationship with TypeSafe AI.]</p>
+      <p class="muted">[SERVICES: Peter to describe what Conversely offers agencies, and whether it builds with Jev for clients. If it does, that will be disclosed on every related page.]</p>
+      <a class="btn" style="background: #fff; color: var(--night); border-color: #fff" href={`mailto:${SITE.email}`}>Contact {SITE.publisher}</a>
+    </div>
+  </section>
+</Base>

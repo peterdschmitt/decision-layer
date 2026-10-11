@@ -21,3 +21,7 @@ npm run build    # outputs dist/
 - Every claim is sourced; vendor numbers are labeled as vendor claims; quotes are verbatim.
 - Nothing goes live until Peter says "publish".
 - The Jev API key is read from the `TYPESAFE_API_KEY` environment variable. Never commit it.
+
+## Project notes
+- `docs/HANDOFF.md`: Peter's decisions, editorial rules, open items and Vercel details. Start here.
+- `docs/strategy.md`: the approved landscape and content strategy.

@@ -1,0 +1,9 @@
+---
+import { SRC, type SrcKey } from '../data/sources';
+interface Props { keys: SrcKey[]; compact?: boolean }
+const { keys, compact = false } = Astro.props;
+const list = [...new Set(keys)].map((k) => SRC[k]);
+---
+<ul class:list={['src-list', { compact }]}>
+  {list.map((s) => <li><a href={s.url} rel="noopener">{s.title}</a> <span class="grade" data-g={s.grade}>{s.grade}</span></li>)}
+</ul>
