@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { SITE, UNOFFICIAL } from '../site';
-import { SRC } from '../data/sources';
+import { SRC, GRADES } from '../data/sources';
 ---
 <Base title="Methodology and disclosures" description="How Decision Layer sources claims, labels vendor numbers, tests Jev, stays independent of TypeSafe AI, and logs corrections.">
   <section class="card page-head">
@@ -14,11 +14,7 @@ import { SRC } from '../data/sources';
         <h2 style="margin-top: 0">Sources</h2>
         <p>Every factual claim links to its source, and every source carries a label:</p>
         <ul>
-          <li><span class="grade" data-g="Official docs">Official docs</span> TypeSafe’s documentation and the gateways’ own pages. Good for how things work.</li>
-          <li><span class="grade" data-g="Vendor claim">Vendor claim</span> TypeSafe’s marketing and blog. Reported, not confirmed.</li>
-          <li><span class="grade" data-g="Vendor case study">Vendor case study</span> A customer story written by TypeSafe.</li>
-          <li><span class="grade" data-g="Independent reporting">Independent reporting</span> News outlets such as TechCrunch, Bloomberg and The Register.</li>
-          <li><span class="grade" data-g="Our test">Our test</span> Something we ran ourselves, published on <a href="/tests/">Tests</a> with data and code.</li>
+          {GRADES.map((g) => <li><span class="grade" data-g={g.label}>{g.label}</span> {g.note}</li>)}
         </ul>
         <p>Quotes are verbatim and checked against the page. Headlines named in our posts are real and linked. If we can’t confirm something, we cut it or say we couldn’t.</p>
         <h2>Testing</h2>

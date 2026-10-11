@@ -1,9 +1,9 @@
 ---
-import '@fontsource/space-grotesk/latin-500.css';
-import '@fontsource/space-grotesk/latin-600.css';
-import '@fontsource/inter/latin-400.css';
-import '@fontsource/inter/latin-500.css';
-import '@fontsource/inter/latin-600.css';
+import '@fontsource/barlow-condensed/latin-500.css';
+import '@fontsource/barlow-condensed/latin-600.css';
+import '@fontsource/barlow/latin-400.css';
+import '@fontsource/barlow/latin-500.css';
+import '@fontsource/barlow/latin-600.css';
 import '@fontsource/jetbrains-mono/latin-400.css';
 import '@fontsource/jetbrains-mono/latin-500.css';
 import '../styles/global.css';
@@ -31,19 +31,19 @@ const year = new Date().getFullYear();
   <meta property="og:title" content={title ?? SITE.name} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content={article ? 'article' : 'website'} />
-  <meta name="theme-color" content="#F2F3EF" />
+  <meta name="theme-color" content="#0E1F3F" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <slot name="head" />
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
-  <div class="wrap">
-    <p class="indie-strip"><b>Independent.</b> Not affiliated with TypeSafe AI, the maker of Jev. <a href="/methodology/#disclosures">Disclosures</a></p>
-    <header class="site-header" data-open="false">
+  <p class="indie-strip"><b>Independent.</b> Not affiliated with TypeSafe AI, the maker of Jev. <a href="/methodology/#disclosures">Disclosures</a></p>
+  <header class="site-header" data-open="false">
+    <div class="bar">
       <a href="/" class="brand" aria-label={`${SITE.name} home`}>
         <BrandMark />
         <span class="brand-name">{SITE.name}</span>
-        <span class="brand-tag">Independent</span>
+        <span class="brand-tag">Unofficial</span>
       </a>
       <nav id="main-nav" class="nav" aria-label="Main">
         {NAV.map((n) => <a href={n.href} aria-current={[n.href, ...(n.also ?? [])].some(isCurrent) ? 'page' : undefined}>{n.label}</a>)}
@@ -53,9 +53,10 @@ const year = new Date().getFullYear();
         <button class="search-btn" type="button" aria-haspopup="dialog" aria-controls="site-search" aria-label="Search the site"><Icon name="search" size={16} stroke={2} /><span class="search-label">Search</span><kbd>/</kbd></button>
         <button class="menu-btn" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Menu"><Icon name="menu" /></button>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <dialog id="site-search" class="search-dlg" aria-label="Search the site">
+  <dialog id="site-search" class="search-dlg" aria-label="Search the site">
       <div class="search-box">
         <label class="search-field">
           <Icon name="search" size={20} stroke={2} />
@@ -68,18 +69,21 @@ const year = new Date().getFullYear();
       </div>
     </dialog>
 
-    <main id="main" style="display: contents">
+  <main id="main">
+    <slot name="hero" />
+    <div class="wrap">
       <slot />
-    </main>
+    </div>
+  </main>
 
-    <footer class="card site-footer">
+    <footer class="site-footer-band"><div class="site-footer">
       <div>
         <span class="brand-name">{SITE.name}</span>
         <p class="muted" style="margin-top: 8px">{UNOFFICIAL}</p>
         <p class="muted">{DISCLOSURE_LINE} <a href="/methodology/#disclosures">Disclosures</a></p>
       </div>
       <nav aria-label="Footer">
-        <div><b>Read and listen</b><a href="/blog/">Blog</a><a href="/podcast/">Podcast</a><a href="/guides/">Guides</a><a href="/use-cases/">Use cases</a><a href="/glossary/">Glossary</a></div>
+        <div><b>Read and listen</b><a href="/podcast/">Podcast</a><a href="/blog/">Blog</a><a href="/guides/">Guides</a><a href="/use-cases/">Use cases</a><a href="/glossary/">Glossary</a></div>
         <div><b>Trust</b><a href="/tests/">How we test</a><a href="/methodology/">Methodology</a><a href="/methodology/#disclosures">Disclosures</a><a href="/methodology/#corrections">Corrections</a></div>
         <div><b>{SITE.publisher}</b><a href="/for-agencies/">For agencies</a><a href="/about/">About</a><a href={`mailto:${SITE.email}`}>Contact</a></div>
       </nav>
@@ -87,8 +91,7 @@ const year = new Date().getFullYear();
         <span>© {year} {SITE.publisher}. Independent analysis, not vendor documentation.</span>
         <span>Official docs: <a href="https://docs.typesafe.ai/introduction">docs.typesafe.ai</a></span>
       </div>
-    </footer>
-  </div>
+    </div></footer>
 
   <script>
     // Mobile menu

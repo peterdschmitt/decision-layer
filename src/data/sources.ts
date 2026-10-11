@@ -35,3 +35,14 @@ export const SRC = {
 } as const satisfies Record<string, { title: string; url: string; grade: Grade }>;
 
 export type SrcKey = keyof typeof SRC;
+
+// The six labels, in order of how much weight they carry on their own. Shown on the home page,
+// the About page and Methodology.
+export const GRADES: { label: Grade; note: string }[] = [
+  { label: 'Regulator', note: 'A regulator’s own rule, bulletin or guidance, such as the NAIC.' },
+  { label: 'Our test', note: 'Something we ran ourselves, published on Tests with its data and code.' },
+  { label: 'Independent reporting', note: 'News outlets with editors, such as TechCrunch or The Register.' },
+  { label: 'Official docs', note: 'TypeSafe’s documentation and the gateways’ own pages. Good for how things work.' },
+  { label: 'Vendor case study', note: 'A customer story written by TypeSafe. Reported, not confirmed.' },
+  { label: 'Vendor claim', note: 'TypeSafe’s marketing and blog. Reported, not confirmed.' },
+];

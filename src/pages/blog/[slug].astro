@@ -17,23 +17,30 @@ const fmt = (x: Date) => x.toLocaleDateString('en-US', { month: 'long', day: 'nu
 <Base title={d.title} description={d.dek} article>
   <div class="article">
     <article class="card article-body">
-      <p class="eyebrow"><b>{d.kind}</b> · {d.readMinutes} min read</p>
-      {d.respondingTo ? (
-        <>
-          <h1>{d.respondingTo.lede}</h1>
-          <blockquote class="callout info" style="margin: 0 0 10px">“{d.respondingTo.quote}”{d.respondingTo.quoteBy && <> ({d.respondingTo.quoteBy})</>} <span class="small">· <a href={d.respondingTo.url}>{d.respondingTo.outlet}, {fmt(d.respondingTo.date)}</a></span></blockquote>
-          <p class="lede">{d.respondingTo.impact}</p>
-          <h2 style="margin-top: 0.6em">{d.title}</h2>
-        </>
-      ) : <h1>{d.title}</h1>}
-      <p class="muted small">By {d.author} · Published {fmt(d.published)} · Last checked {fmt(d.lastChecked)}{d.modelVersion && <> against <code>{d.modelVersion}</code></>}</p>
+      <div class="post-head">
+        <p class="eyebrow"><b>{d.kind}</b> · {d.readMinutes} min read · {d.sources.length} sources</p>
+        {d.respondingTo ? (
+          <>
+            <h1>{d.respondingTo.lede}</h1>
+            <blockquote class="quote" style="margin: 12px 0">“{d.respondingTo.quote}”{d.respondingTo.quoteBy && <> ({d.respondingTo.quoteBy})</>} <span class="small">· <a href={d.respondingTo.url}>{d.respondingTo.outlet}, {fmt(d.respondingTo.date)}</a></span></blockquote>
+            <p class="lede">{d.respondingTo.impact}</p>
+            <h2 style="margin-top: 0.6em">{d.title}</h2>
+          </>
+        ) : <h1>{d.title}</h1>}
+        <p class="byline"><span>By <b>{d.author}</b></span><span>Published {fmt(d.published)}</span><span>Sources checked {fmt(d.lastChecked)}</span></p>
+      </div>
+      {ep && (
+        <a class="ep-band" href={`/podcast/${ep.id}/`}>
+          <span class="ic"><Icon name="headphones" size={20} /></span>
+          <span><span class="k">Listen instead · Episode {ep.data.number}{ep.data.minutes && ` · ${ep.data.minutes} min`}</span>{ep.data.status === 'published' && ep.data.audioUrl ? ep.data.title : `${ep.data.title}. Audio coming soon; the script and show notes are up.`}</span>
+        </a>
+      )}
       {d.summary.length > 0 && <div class="callout info"><b>In short</b><ul style="margin: 6px 0 0; padding-left: 18px">{d.summary.map((s) => <li>{s}</li>)}</ul></div>}
-      {ep && <a class="ep-link" href={`/podcast/${ep.id}/`}><Icon name="headphones" size={18} /> <span><b>Listen:</b> Episode {ep.data.number}, {ep.data.title}{ep.data.status !== 'published' && ' (audio coming soon; script and show notes are up)'}</span></a>}
       <Content />
       {d.inTheNews.length > 0 && (
         <section class="in-news" aria-labelledby="in-news">
           <h2 id="in-news">In the news</h2>
-          <ul>{d.inTheNews.map((n) => <li><a href={n.url}>{n.headline}</a> <span class="muted small">{n.outlet}, {fmt(n.date)}</span></li>)}</ul>
+          <ul>{d.inTheNews.map((n) => <li><span class="src">{n.outlet} · {fmt(n.date)}</span><a href={n.url}>{n.headline}</a></li>)}</ul>
         </section>
       )}
     </article>
