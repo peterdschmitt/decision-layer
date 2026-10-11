@@ -14,8 +14,8 @@ export const DISCLOSURE_LINE = `Published by ${SITE.publisher}, which provides $
 
 // The blog and the podcast lead. Use cases, how-tos and the glossary sit under Guides.
 export const NAV = [
-  { href: '/blog/', label: 'Blog' },
-  { href: '/podcast/', label: 'Podcast' },
+  { href: '/podcast/', label: 'Listen' },
+  { href: '/blog/', label: 'Read' },
   { href: '/guides/', label: 'Guides', also: ['/use-cases/', '/how-to/', '/glossary/', '/start/'] },
   { href: '/tests/', label: 'Tests' },
   { href: '/about/', label: 'About' },

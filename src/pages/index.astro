@@ -1,59 +1,135 @@
 ---
-// Home: the blog and the podcast lead; guides support them.
+// Home: a navy band leads with the latest post and the podcast; a start-here path, the feed,
+// topics and the source grades follow. Only real content is shown: no invented episodes or plays.
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
-import EpisodeRow from '../components/EpisodeRow.astro';
 import { getCollection } from 'astro:content';
 import { PLANNED } from '../site';
 import { USE_CASES } from '../data/usecases';
 import { HOWTOS } from '../data/howtos';
+import { TERMS } from '../data/glossary';
+import { GRADES } from '../data/sources';
 
 const posts = (await getCollection('posts', (p) => !p.data.draft)).sort((a, b) => +b.data.published - +a.data.published);
 const episodes = (await getCollection('episodes')).sort((a, b) => b.data.number - a.data.number);
-const [lead, ...rest] = posts;
+const [lead] = posts;
+const latestEp = episodes[0];
+const leadEp = lead?.data.episode ? episodes.find((e) => e.id === lead.data.episode) : undefined;
 const written = new Set(posts.map((p) => p.data.title));
 const upcoming = PLANNED.filter((p) => !written.has(p.title));
+const live = (e: (typeof episodes)[number]) => e.data.status === 'published' && !!e.data.audioUrl;
 const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+const pad = (n: number) => String(n).padStart(2, '0');
+
+// The feed: each post, then the episode that pairs with it; any unpaired episodes after.
+const paired = new Set(posts.map((p) => p.data.episode).filter(Boolean));
+const feed = [
+  ...posts.flatMap((p) => {
+    const ep = episodes.find((e) => e.id === p.data.episode);
+    return [{ type: 'post' as const, p }, ...(ep ? [{ type: 'ep' as const, e: ep }] : [])];
+  }),
+  ...episodes.filter((e) => !paired.has(e.id)).map((e) => ({ type: 'ep' as const, e })),
+];
+
+const start = [
+  lead && { n: '01', href: `/blog/${lead.id}/`, title: lead.data.title, meta: `Read · ${lead.data.readMinutes} min` },
+  latestEp && { n: '02', href: `/podcast/${latestEp.id}/`, title: `Episode ${latestEp.data.number}: ${latestEp.data.title}`, meta: live(latestEp) ? `Listen · ${latestEp.data.minutes} min` : 'Script and show notes · audio soon' },
+  { n: '03', href: '/use-cases/', title: `${USE_CASES.length} things Jev can decide`, meta: 'Guide · use cases' },
+].filter(Boolean) as { n: string; href: string; title: string; meta: string }[];
+
+const topics = [
+  { href: '/use-cases/', name: 'Use cases', desc: 'What Jev can decide, and where a person stays in charge.', count: `${USE_CASES.length} guides` },
+  { href: '/for-agencies/', name: 'Insurance agencies', desc: 'Leads, call routing, QA and claims intake.', count: 'Guide' },
+  { href: '/how-to/', name: 'How-tos', desc: 'From your first call to confidence thresholds.', count: `${HOWTOS.length} in the works` },
+  { href: '/tests/', name: 'Tests', desc: 'How we test, and what we will publish.', count: 'None published yet' },
+  { href: '/glossary/', name: 'Glossary', desc: 'Choice, Score, Noul and confidence in plain English.', count: `${TERMS.length} terms` },
+];
 ---
 <Base>
-  {lead && (
-    <section class="lead-post">
-      <article class="card">
-        <p class="eyebrow"><b>Latest</b> · {lead.data.kind} · {fmt(lead.data.published)} · {lead.data.readMinutes} min read</p>
-        <h1><a href={`/blog/${lead.id}/`}>{lead.data.respondingTo?.lede ?? lead.data.title}</a></h1>
-        {lead.data.respondingTo && <p class="quote">“{lead.data.respondingTo.quote}”<span class="small"> · {lead.data.respondingTo.quoteBy ?? lead.data.respondingTo.outlet}</span></p>}
-        <p class="lede">{lead.data.dek}</p>
-        <div class="btns">
-          <a class="btn" href={`/blog/${lead.id}/`}>Read: {lead.data.title} <Icon name="arrow" size={16} stroke={2} /></a>
-          {lead.data.episode && <a class="btn ghost" href={`/podcast/${lead.data.episode}/`}><Icon name="headphones" size={16} /> Episode</a>}
+  <Fragment slot="hero">
+    {lead && (
+      <section class="band" aria-label="Latest">
+        <div class="band-in">
+          <article class="band-main">
+            <p class="kicker"><span class="tag hot">Latest post</span> {lead.data.kind} · {fmt(lead.data.published)} · {lead.data.readMinutes} min read</p>
+            <h1><a href={`/blog/${lead.id}/`}>{lead.data.respondingTo?.lede ?? lead.data.title}</a></h1>
+            {lead.data.respondingTo && <p class="quote">“{lead.data.respondingTo.quote}”<small>{lead.data.respondingTo.quoteBy ?? lead.data.respondingTo.outlet}</small></p>}
+            <p class="dek">{lead.data.dek}</p>
+            <div class="btns">
+              <a class="btn hot" href={`/blog/${lead.id}/`}>Read the post <Icon name="arrow" size={16} stroke={2} /></a>
+              {leadEp && <a class="btn ghost" href={`/podcast/${leadEp.id}/`}><Icon name="headphones" size={16} /> Episode {leadEp.data.number}</a>}
+            </div>
+          </article>
+          {latestEp && (
+            <aside class="band-side band-main" aria-label="The podcast">
+              <span class="ghost-num" aria-hidden="true">{pad(latestEp.data.number)}</span>
+              <p class="kicker"><Icon name="mic" size={14} /> The podcast · Episode {latestEp.data.number}</p>
+              <h2><a href={`/podcast/${latestEp.id}/`}>{latestEp.data.title}</a></h2>
+              {live(latestEp) ? null : <span class="soon">Script ready · audio soon</span>}
+              <p class="dek">{latestEp.data.summary}</p>
+              <div class="btns">
+                <a class="btn hot" href={`/podcast/${latestEp.id}/`}>{live(latestEp) ? <><Icon name="play" size={16} /> Play</> : 'Show notes and script'}</a>
+                <a class="btn ghost" href="/podcast/">All episodes</a>
+              </div>
+            </aside>
+          )}
         </div>
-      </article>
-      <div class="card pod-hero">
-        <p class="mono-label"><Icon name="mic" size={14} /> The podcast</p>
-        <h2>Jev, in plain English</h2>
-        <p class="muted">Short episodes that pair with each post. Every source linked in the show notes.</p>
-        <ol class="episodes" style="background: var(--surface); border-radius: 8px; padding: 0 10px; color: var(--ink)">{episodes.slice(0, 3).map((ep) => <EpisodeRow ep={ep} />)}</ol>
-        <a class="more" style="margin-top: 10px" href="/podcast/">All episodes <Icon name="arrow" size={14} /></a>
-      </div>
-    </section>
-  )}
+        {upcoming.length > 0 && (
+          <div class="band-strip">
+            <div class="band-strip-in">
+              {upcoming.slice(0, 4).map((p, i) => (
+                <a href="/blog/"><span class="n">{pad(posts.length + i + 1)}</span><span class="t">{p.title}</span><span class="m">{p.kind} · in the works</span></a>
+              ))}
+            </div>
+          </div>
+        )}
+      </section>
+    )}
+  </Fragment>
 
-  <section class="grid g2">
-    <div class="card">
-      <div class="sec-head" style="margin: 0 0 6px"><h2>From the blog</h2><a class="more" href="/blog/">All posts <Icon name="arrow" size={14} /></a></div>
-      <ol class="rows">
-        {rest.map((p, i) => <li><span class="n">{String(i + 2).padStart(2, '0')}</span><a class="t" href={`/blog/${p.id}/`}>{p.data.title}<span class="d">{p.data.dek}</span></a><span class="tag">{p.data.kind}</span></li>)}
-        {upcoming.map((p, i) => <li><span class="n">{String(posts.length + i + 1).padStart(2, '0')}</span><span class="t">{p.title}<span class="d">{p.dek}</span></span><span class="tag">In the works</span></li>)}
-      </ol>
+  <div class="big-head"><h2>New here? <em>Start here.</em></h2><span class="status">Three pieces, the quickest way in</span></div>
+  <section class="grid g3">
+    {start.map((s) => (
+      <a class="card tile" href={s.href}><span class="num">{s.n}</span><h3>{s.title}</h3><span class="meta">{s.meta}</span></a>
+    ))}
+  </section>
+
+  <section class="grid" style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); align-items: start">
+    <div class="card" style="grid-column: span 2; min-width: 0">
+      <div class="sec-head" style="margin: 0 0 4px"><h2>The feed</h2><span class="status">Posts and episodes, newest first</span></div>
+      <div>
+        {feed.map((f) => f.type === 'post' ? (
+          <a class="feed-item" href={`/blog/${f.p.id}/`}>
+            <span class="kind read" aria-hidden="true"><Icon name="arrow" size={18} stroke={2} />Read</span>
+            <span><span class="k">{f.p.data.kind} · {fmt(f.p.data.published)} · {f.p.data.readMinutes} min</span><span class="t">{f.p.data.title}</span><span class="d">{f.p.data.dek}</span></span>
+          </a>
+        ) : (
+          <a class="feed-item" href={`/podcast/${f.e.id}/`}>
+            <span class="kind" aria-hidden="true"><Icon name="headphones" size={18} />Ep {f.e.data.number}</span>
+            <span><span class="k">Episode {f.e.data.number} · {live(f.e) ? `${f.e.data.minutes} min` : 'script ready, audio soon'}</span><span class="t">{f.e.data.title}</span><span class="d">{f.e.data.summary}</span></span>
+          </a>
+        ))}
+        {upcoming.map((p) => (
+          <div class="feed-item later">
+            <span class="kind read" aria-hidden="true">Soon</span>
+            <span><span class="k">{p.kind} · in the works</span><span class="t">{p.title}</span><span class="d">{p.dek}</span></span>
+          </div>
+        ))}
+      </div>
     </div>
-    <div class="card">
-      <div class="sec-head" style="margin: 0 0 6px"><h2>Guides</h2><a class="more" href="/guides/">All guides <Icon name="arrow" size={14} /></a></div>
-      <ol class="rows">
-        <li><span class="n">UC</span><a class="t" href="/use-cases/">{USE_CASES.length} use cases<span class="d">What Jev can decide, how well it fits, and where a person must stay in charge.</span></a><span class="tag">Guide</span></li>
-        <li><span class="n">IN</span><a class="t" href="/for-agencies/">For insurance agencies<span class="d">Lead scoring, call routing, QA scorecards and claims intake.</span></a><span class="tag">Guide</span></li>
-        <li><span class="n">HT</span><a class="t" href="/how-to/">{HOWTOS.length} how-tos<span class="d">From your first call to setting confidence thresholds.</span></a><span class="tag">In the works</span></li>
-        <li><span class="n">GL</span><a class="t" href="/glossary/">Glossary<span class="d">Choice, Score, Noul, confidence and the rest, in plain English.</span></a><span class="tag">Guide</span></li>
-      </ol>
+    <div style="display: grid; gap: 14px; min-width: 0">
+      <h2 style="margin: 6px 2px 0">Browse by topic</h2>
+      <nav class="topics" aria-label="Topics" style="grid-template-columns: 1fr">
+        {topics.map((t) => <a href={t.href}><b>{t.name}</b><span>{t.desc}</span><i>{t.count} ›</i></a>)}
+      </nav>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="sec-head" style="margin: 0 0 12px"><h2>How we grade sources</h2><a class="more" href="/methodology/">Methodology <Icon name="arrow" size={14} /></a></div>
+    <p class="muted" style="max-width: 70ch">Every claim on this site carries one of six labels. TypeSafe’s own numbers are always marked as vendor claims, and quotes are verbatim.</p>
+    <div class="grades">
+      {GRADES.map((g) => <div><span class="grade" data-g={g.label}>{g.label}</span><p>{g.note}</p></div>)}
     </div>
   </section>
 </Base>

@@ -18,9 +18,9 @@ const fmt = (x: Date) => x.toLocaleDateString('en-US', { month: 'long', day: 'nu
 <Base title={`Episode ${d.number}: ${d.title}`} description={d.summary} article>
   <div class="article">
     <article class="card article-body">
-      <div class="pod-hero card" style="margin: -8px -10px 16px">
+      <div class="pod-hero card" style="margin: 0 0 16px">
         <p class="mono-label"><Icon name="mic" size={14} /> Episode {d.number}{d.date && <> · {fmt(d.date)}</>}{d.minutes && <> · about {d.minutes} min</>}</p>
-        <h1 style="font-size: clamp(26px, 3.4vw, 40px)">{d.title}</h1>
+        <h1 style="font-size: clamp(32px, 4.4vw, 52px)">{d.title}</h1>
         <p class="muted" style="margin: 0 0 6px">{d.summary}</p>
         {live ? (
           <audio class="player" controls preload="none" src={d.audioUrl}>Your browser can’t play audio. <a href={d.audioUrl}>Download the episode</a>.</audio>
@@ -29,7 +29,12 @@ const fmt = (x: Date) => x.toLocaleDateString('en-US', { month: 'long', day: 'nu
         )}
         {d.hosts.length > 0 && <p class="small muted" style="margin: 6px 0 0">With {d.hosts.join(', ')}{d.guests.length > 0 && <>; guests {d.guests.join(', ')}</>}</p>}
       </div>
-      {post && <p><a href={`/blog/${post.id}/`}>Read the full post: {post.data.title}</a></p>}
+      {post && (
+        <a class="read-instead" href={`/blog/${post.id}/`}>
+          <span><span class="k">Prefer to read? · {post.data.readMinutes} min</span><span class="t">{post.data.title}</span></span>
+          <Icon name="arrow" size={20} stroke={2} />
+        </a>
+      )}
       <Content />
     </article>
     <aside class="article-aside">

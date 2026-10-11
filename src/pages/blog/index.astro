@@ -5,6 +5,7 @@ import { PLANNED } from '../../site';
 const posts = (await getCollection('posts', (p) => !p.data.draft)).sort((a, b) => +b.data.published - +a.data.published);
 const written = new Set(posts.map((p) => p.data.title));
 const upcoming = PLANNED.filter((p) => !written.has(p.title));
+const [lead, ...rest] = posts;
 const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 ---
 <Base title="Blog" description="Explainers, comparisons, worked examples and reality checks on Jev, each sourced and dated.">
@@ -13,16 +14,18 @@ const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'n
     <h1>Explainers, worked examples and reality checks</h1>
     <p class="lede">Every post names the Jev version it was checked against and the date it was last checked.</p>
   </section>
-  {posts.length > 0 && (
-    <section class="grid g3">
-      {posts.map((p) => (
-        <a class="card uc" href={`/blog/${p.id}/`} style="text-decoration: none; color: inherit">
-          <div class="uc-top"><span class="tag">{p.data.kind}</span><span class="status">{fmt(p.data.published)}</span></div>
-          <h3>{p.data.title}</h3>
-          <p class="decides">{p.data.dek}</p>
-          <div class="uc-foot"><span class="status">{p.data.readMinutes} min read</span></div>
-        </a>
-      ))}
+  {lead && (
+    <a class="card tile" href={`/blog/${lead.id}/`} style="min-height: 0; border-top: 3px solid var(--orange)">
+      <span class="eyebrow" style="margin: 0"><b>Latest</b> · {lead.data.kind} · {fmt(lead.data.published)} · {lead.data.readMinutes} min read</span>
+      <h2 style="font-size: clamp(30px, 4vw, 46px); margin: 0">{lead.data.title}</h2>
+      <p class="lede" style="margin: 0">{lead.data.dek}</p>
+    </a>
+  )}
+  {rest.length > 0 && (
+    <section class="card">
+      <ol class="rows">
+        {rest.map((p, i) => <li><span class="n">{String(i + 2).padStart(2, '0')}</span><a class="t" href={`/blog/${p.id}/`}>{p.data.title}<span class="d">{p.data.dek} · {fmt(p.data.published)} · {p.data.readMinutes} min</span></a><span class="tag">{p.data.kind}</span></li>)}
+      </ol>
     </section>
   )}
   <section class="card">
