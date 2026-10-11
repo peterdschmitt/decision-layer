@@ -27,7 +27,7 @@ const fmt = (x: Date) => x.toLocaleDateString('en-US', { month: 'long', day: 'nu
             <h2 style="margin-top: 0.6em">{d.title}</h2>
           </>
         ) : <h1>{d.title}</h1>}
-        <p class="byline"><span>By <b>{d.author}</b></span><span>Published {fmt(d.published)}</span><span>Last checked {fmt(d.lastChecked)}{d.modelVersion && <> against <code>{d.modelVersion}</code></>}</span></p>
+        <p class="byline"><span>By <b>{d.author}</b></span><span>Published {fmt(d.published)}</span><span>Sources checked {fmt(d.lastChecked)}</span></p>
       </div>
       {ep && (
         <a class="ep-band" href={`/podcast/${ep.id}/`}>

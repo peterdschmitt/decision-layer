@@ -14,12 +14,10 @@ const posts = (await getCollection('posts', (p) => !p.data.draft)).sort((a, b) =
 const episodes = (await getCollection('episodes')).sort((a, b) => b.data.number - a.data.number);
 const [lead] = posts;
 const latestEp = episodes[0];
-const leadEp = lead?.data.episode ? episodes.find((e) => e.id === lead.data.episode) : undefined;
 const written = new Set(posts.map((p) => p.data.title));
 const upcoming = PLANNED.filter((p) => !written.has(p.title));
 const live = (e: (typeof episodes)[number]) => e.data.status === 'published' && !!e.data.audioUrl;
 const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
-const pad = (n: number) => String(n).padStart(2, '0');
 
 // The feed: each post, then the episode that pairs with it; any unpaired episodes after.
 const paired = new Set(posts.map((p) => p.data.episode).filter(Boolean));
@@ -47,44 +45,42 @@ const topics = [
 ---
 <Base>
   <Fragment slot="hero">
-    {lead && (
-      <section class="band" aria-label="Latest">
-        <div class="band-in">
-          <article class="band-main">
-            <p class="kicker"><span class="tag hot">Latest post</span> {lead.data.kind} · {fmt(lead.data.published)} · {lead.data.readMinutes} min read</p>
-            <h1><a href={`/blog/${lead.id}/`}>{lead.data.respondingTo?.lede ?? lead.data.title}</a></h1>
-            {lead.data.respondingTo && <p class="quote">“{lead.data.respondingTo.quote}”<small>{lead.data.respondingTo.quoteBy ?? lead.data.respondingTo.outlet}</small></p>}
-            <p class="dek">{lead.data.dek}</p>
-            <div class="btns">
-              <a class="btn hot" href={`/blog/${lead.id}/`}>Read the post <Icon name="arrow" size={16} stroke={2} /></a>
-              {leadEp && <a class="btn ghost" href={`/podcast/${leadEp.id}/`}><Icon name="headphones" size={16} /> Episode {leadEp.data.number}</a>}
-            </div>
-          </article>
-          {latestEp && (
-            <aside class="band-side band-main" aria-label="The podcast">
-              <span class="ghost-num" aria-hidden="true">{pad(latestEp.data.number)}</span>
-              <p class="kicker"><Icon name="mic" size={14} /> The podcast · Episode {latestEp.data.number}</p>
-              <h2><a href={`/podcast/${latestEp.id}/`}>{latestEp.data.title}</a></h2>
-              {live(latestEp) ? null : <span class="soon">Script ready · audio soon</span>}
-              <p class="dek">{latestEp.data.summary}</p>
-              <div class="btns">
-                <a class="btn hot" href={`/podcast/${latestEp.id}/`}>{live(latestEp) ? <><Icon name="play" size={16} /> Play</> : 'Show notes and script'}</a>
-                <a class="btn ghost" href="/podcast/">All episodes</a>
-              </div>
-            </aside>
-          )}
+    <section class="band" aria-labelledby="pitch-title">
+      <div class="pitch">
+        <p class="kicker">The independent field guide to Jev · not affiliated with TypeSafe AI</p>
+        <h1 id="pitch-title">What Jev can decide for your business, <em>and what it can’t.</em></h1>
+        <p class="dek">Jev is TypeSafe AI’s new decision model: it reads text and picks an answer instead of writing one. We explain it in plain English, link every claim to its source, and show where it fits support teams and insurance agencies, and where it doesn’t.</p>
+        <div class="btns">
+          <a class="btn hot" href="/start/">Start here <Icon name="arrow" size={16} stroke={2} /></a>
+          <a class="btn ghost" href="/for-agencies/">For insurance agencies</a>
         </div>
-        {upcoming.length > 0 && (
-          <div class="band-strip">
-            <div class="band-strip-in">
-              {upcoming.slice(0, 4).map((p, i) => (
-                <a href="/blog/"><span class="n">{pad(posts.length + i + 1)}</span><span class="t">{p.title}</span><span class="m">{p.kind} · in the works</span></a>
-              ))}
+      </div>
+      {(lead || latestEp) && (
+        <div class="latest">
+          <div class="latest-in">
+            <p class="latest-label"><span>Latest release</span>{lead && <span class="when">{fmt(lead.data.published)}</span>}</p>
+            <div class="latest-grid">
+              {lead && (
+                <a class="rel" href={`/blog/${lead.id}/`}>
+                  <span class="rel-k"><Icon name="arrow" size={14} stroke={2} /> New post · {lead.data.kind} · {lead.data.readMinutes} min read</span>
+                  <span class="rel-t">{lead.data.title}</span>
+                  {lead.data.respondingTo && <span class="rel-d">Responding to {lead.data.respondingTo.outlet}: “{lead.data.respondingTo.quote}”</span>}
+                  <span class="rel-go">Read the post ›</span>
+                </a>
+              )}
+              {latestEp && (
+                <a class="rel" href={`/podcast/${latestEp.id}/`}>
+                  <span class="rel-k"><Icon name="headphones" size={14} /> Podcast · Episode {latestEp.data.number}{live(latestEp) ? ` · ${latestEp.data.minutes} min` : ' · script ready, audio soon'}</span>
+                  <span class="rel-t">{latestEp.data.title}</span>
+                  <span class="rel-d">{latestEp.data.summary}</span>
+                  <span class="rel-go">{live(latestEp) ? 'Listen ›' : 'Show notes and script ›'}</span>
+                </a>
+              )}
             </div>
           </div>
-        )}
-      </section>
-    )}
+        </div>
+      )}
+    </section>
   </Fragment>
 
   <div class="big-head"><h2>New here? <em>Start here.</em></h2><span class="status">Three pieces, the quickest way in</span></div>
