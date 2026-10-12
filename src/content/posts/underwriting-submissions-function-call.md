@@ -84,7 +84,7 @@ Today a person reads every one. That is slow, and on a busy day the thin or risk
 
 - **Choice** “fits when the answer is one of a known set of options with no order between them.” Class of business is a Choice.
 - **Score** “fits when the answer falls on a spectrum and you can describe what each point on that spectrum means.” The answer “is a position along your levels, and can fall between two of them.”
-- **Noul** “fits a clean yes/no question where the probability itself is the useful signal.” Values “near 1 is a strong yes, near 0 a strong no, near 0.5 uncertain.”
+- **Noul** “fits a clean yes/no question where the probability itself is the useful signal.” As the docs put it: “Near 1 is a strong yes, near 0 a strong no, near 0.5 uncertain.”
 
 **It scores every allowed answer at once.** A chatbot writes its reply word by word. TypeSafe says “Jev outputs all probabilities in parallel instead of autoregressively generating by token.” ([TypeSafe](https://typesafe.ai/blog/introducing-system-one-models-and-jev)) The docs add that the model “returns a probability distribution over your options or levels, never a value outside them.” That is the honest meaning of “can’t hallucinate”: it can’t invent a class of business you didn’t list.
 
