@@ -19,7 +19,7 @@ respondingTo:
   impact: "Most of claims intake is labeling: what kind of loss, is anyone hurt, is anything missing. Labels are now cheap. Deciding which labels a person must check, and how sure the software has to be before it moves a file, is still your call."
 summary:
   - "Fortune reports Jev spread fast among developers, and that OpenAI now has a rival product that also takes images."
-  - "How Jev works: it scores every allowed answer at once, and TypeSafe says it was trained to give honest odds. TypeSafe hasn’t said where its training data comes from."
+  - "How Jev was trained: TypeSafe says its method aims for honest odds, so a 0.9 should be right about nine times in ten across many claims. It hasn’t said what data it trained on, so we show how to check the numbers on your own past claims."
   - "Below is a sketch of claims intake with Jev: four narrow questions about a first notice of loss, and routing rules written in plain code."
   - "Jev sorts the queue. It never approves, denies or prices a claim, and we left fraud scoring out on purpose."
   - "We haven’t run this on real or synthetic claims yet. The code shows the shape of the request; results will come in a separate, published test."
@@ -76,6 +76,8 @@ inTheNews:
     date: 2026-09-30
 ---
 
+*Second in our series. [What Jev is, and what it isn’t](/blog/what-jev-is-and-isnt/) covers the basics. This one is about how Jev was trained, and what its numbers do and don’t promise.*
+
 ## What Fortune found
 
 Fortune’s Wen Shao spoke with TypeSafe’s CEO, Diogo Almeida, and with developers who have been building on Jev since it launched in September. Two things stood out to us.
@@ -92,11 +94,9 @@ TypeSafe lists insurance claims among its own example uses. The list includes �
 
 Think about what a person does with a fresh first notice of loss. They read it and answer a handful of small questions. What kind of loss is this? Is anyone hurt? Do we know when and where it happened? Is it simple or messy? Then they drop it in a queue. None of that needs a written answer. It needs a label and a sense of how sure you are.
 
-## How Jev works, and how it was trained
+## How Jev was trained, and what its numbers mean
 
-Before you trust a tool with your queue, it helps to know what is inside it. Here is what TypeSafe has published, and where it stops.
-
-**It doesn’t write, so it can’t ramble.** A chatbot builds its answer one word at a time. Jev doesn’t. TypeSafe’s launch post says “Jev outputs all probabilities in parallel instead of autoregressively generating by token.” ([TypeSafe](https://typesafe.ai/blog/introducing-system-one-models-and-jev)) You give it the answers you’ll accept, and it scores every one of them at once. That is why it is fast, and why it can’t invent a fourth option when you gave it three.
+Before you let a number move a claim, it helps to know where the number comes from. Here is what TypeSafe has published, and where it stops.
 
 **It was trained for honest odds, not pleasing answers.** TypeSafe calls its training method “Reinforcement Learning for Calibrated Decisions (RLCD).” Its primer contrasts this with the method behind chatbots: “RLHF teaches a model to say things that people prefer.” RLCD instead aims for a model where “Higher probability should correspond to a greater chance that the answer is correct.” ([TypeSafe primer](https://docs.typesafe.ai/introduction/machine-learning-primer.md))
 
@@ -105,6 +105,8 @@ Before you trust a tool with your queue, it helps to know what is inside it. Her
 **What TypeSafe hasn’t told us.** We couldn’t find where Jev’s training data comes from, how big the model is, or the details of the reward used in training. The launch post’s FAQ lists “Where does our training data come from?” but we couldn’t find an answer to it on the page. We’ll update this when TypeSafe publishes more.
 
 **Why that gap matters to you.** Calibration is measured against some set of examples, and your claims aren’t in TypeSafe’s set. Developer Alex Molas makes this point in a post titled “Jev can’t be calibrated,” and lands on practical advice: “treat Jev’s outputs as good scores (they rank examples well) rather than good probabilities.” ([Alex Molas](https://www.alexmolas.com/2026/09/23/jev-cant-be-calibrated.html)) In plain terms, Jev should put the riskiest reports near the top of the pile. Whether its 0.9 means 90% on your claims is something only your own past claims can tell you.
+
+**How to check it on your own claims.** You don’t need TypeSafe’s data to test this. Take a few hundred past first notices of loss where you already know the answer, such as whether an injury claim followed. Run them through the same questions. Group the answers by probability: everything Jev scored between 0.8 and 0.9 in one pile, 0.9 to 1.0 in the next, and so on. Then count how often each pile was right. If the 0.9 pile is right about nine times in ten, the numbers mean what they say on your claims. If it is right six times in ten, you’ve learned that before a customer did. That count is also how you pick the thresholds in the routing code below.
 
 ## The use case: a first notice of loss, start to finish
 
@@ -178,12 +180,11 @@ resp = requests.post(
 answers = resp.json()["answers"]
 ```
 
-A few choices in there are deliberate, and each one comes from TypeSafe’s own list of weak spots:
+Three choices in there are specific to claims:
 
-- **“Other or unclear” goes first.** The docs say Jev “leans toward the option that comes first.” If it is going to lean, we want it to lean toward the safe bucket, not toward “auto collision.”
-- **We don’t ask about the date.** Jev “reads dates as text, not as ordered quantities.” Your form already captures a date of loss. Check it, and whether it falls inside the policy period, in code.
 - **The injury question is worded broadly on purpose.** “A bit sore” is the kind of phrase that turns a bumper claim into a bodily injury claim weeks later. We would rather a person see it today.
-- **The report is treated as untrusted.** Customers write this text. The docs say Jev “does not treat it as hostile by default,” so nothing in the report should be able to move a file past a person.
+- **We don’t ask about the date.** Your form already captures a date of loss. Checking it against the policy period is a job for code, not for Jev, which reads dates as text.
+- **“Other or unclear” is listed first,** so a report Jev can’t place leans toward a person. Our [underwriting post](/blog/underwriting-submissions-function-call/) explains why option order matters.
 
 ## Routing on the answers, in plain code
 
@@ -209,7 +210,7 @@ else:
 
 **Expected result for the sample report:** the injury rule fires on “my neck is a bit sore,” and the claim lands in the injury review queue, in front of a person, the night it comes in. We haven’t run this yet, so this is what we expect, not a measured result.
 
-The numbers in that code (0.2, 0.6, 0.85) are placeholders, not advice. TypeSafe says so too: “The correct threshold values depend on your domain and the performance of the model for your use case.” ([confidence docs](https://docs.typesafe.ai/confidence.md)) Their confidence page also doesn’t claim that a 0.9 means right nine times in ten. You find that out by running your own past claims through it and counting.
+The numbers in that code (0.2, 0.6, 0.85) are placeholders, not advice. TypeSafe says so too: “The correct threshold values depend on your domain and the performance of the model for your use case.” ([confidence docs](https://docs.typesafe.ai/confidence.md)) The pile-counting check above is how you find yours.
 
 ## What Jev should never do here
 
@@ -220,9 +221,9 @@ This is the part we feel strongly about.
 - **No protected traits as inputs,** and nothing that stands in for them.
 - **Know your state’s rules.** The NAIC, the body of state insurance regulators, adopted a model bulletin on insurers’ use of AI in December 2023, and states decide whether and how to apply it. ([NAIC](https://content.naic.org/insurance-topics/artificial-intelligence)) Check where yours stands with your compliance team before anything here goes near production.
 
-## The same pattern for underwriting
+## The same idea for underwriting
 
-TypeSafe’s use-case map also lists risk assessment: turning “incident reports, claims notes, transaction descriptions, and vendor assessments into probabilistic risk indicators.” For an agency, the honest version is small. Use Jev to tag a commercial submission’s free-text notes (“mentions prior water losses,” “describes a business use that isn’t on the application”) so an underwriter knows where to look first. The underwriter still reads the file and sets the price.
+Underwriting submissions have the same shape: free text in, a few small decisions out. We work through one, a remodeler who “occasionally” fixes roofs, in [A function call for underwriters](/blog/underwriting-submissions-function-call/).
 
 ## What it costs
 
