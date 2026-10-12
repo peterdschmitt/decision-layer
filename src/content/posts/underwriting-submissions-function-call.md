@@ -19,7 +19,7 @@ respondingTo:
   impact: "A submission is unstructured state: a few paragraphs about what a business does. The decisions you need from it are small and typed. Jev can make those cheaply. Whether you trust them, and where a person steps in, is the part no model decides for you."
 summary:
   - "The problem: an agency gets free-text commercial submissions and has to sort them by class of business, flag risky operations and spot thin descriptions before a carrier sees them."
-  - "How Jev works: you write the “function signature” (the questions and allowed answers), and Jev scores every allowed answer at once. TypeSafe says it trained Jev for honest odds; it hasn’t said what data it trained on."
+  - "How Jev reads your question: you write the “function signature” (the questions and allowed answers), Jev scores every allowed answer at once, and the wording of your options is most of what it has to go on."
   - "The use case: one made-up contractor submission, four questions, routing in plain code. An underwriter still reads every file and sets the price."
   - "We haven’t run this against Jev. The result below is what we expect, not a measurement."
 sources:
@@ -35,14 +35,8 @@ sources:
   - title: "TypeSafe: Introducing System One Models & Jev"
     url: https://typesafe.ai/blog/introducing-system-one-models-and-jev
     grade: Vendor claim
-  - title: "TypeSafe docs: AI primer (how TypeSafe trains decision models)"
-    url: https://docs.typesafe.ai/introduction/machine-learning-primer.md
-    grade: Official docs
   - title: "TypeSafe docs: Example use cases (risk assessment)"
     url: https://docs.typesafe.ai/concepts/use-case-map.md
-    grade: Official docs
-  - title: "TypeSafe docs: Confidence"
-    url: https://docs.typesafe.ai/confidence.md
     grade: Official docs
   - title: "TypeSafe docs: Jev 1.13 jaggedness"
     url: https://docs.typesafe.ai/model-jaggedness/jev-1.13.md
@@ -66,11 +60,13 @@ inTheNews:
     date: 2026-10-01
 ---
 
+*Third in our series. [What Jev is, and what it isn’t](/blog/what-jev-is-and-isnt/) covers the basics, and [Labels, not essays](/blog/claims-intake-labels-not-essays/) covers how Jev was trained and what its probabilities mean. This one is about how Jev reads the question you write, and how to write questions it reads well.*
+
 ## What Forbes said
 
 Ron Schmelzer’s piece for Forbes is a tour of why developers took to Jev: the price, the speed, and the fact that it never writes a sentence. The line that frames it comes from TypeSafe’s founder, Diogo Almeida, comparing Jev to a function call.
 
-Forbes is also careful in the right places. It reports a LangChain test in which “Jev matched the human reviewer’s binary judgments on all 500 repeated decisions,” and then notes how small that test was: one agent and a handful of tasks. It also explains that “can’t hallucinate” only means Jev can’t answer outside the options you give it. It doesn’t mean the answer is right.
+Forbes is also careful in the right places. It reports a LangChain test in which “Jev matched the human reviewer’s binary judgments on all 500 repeated decisions,” and then notes how small that test was: one agent and a handful of tasks.
 
 ## The problem: submissions that all look different
 
@@ -78,19 +74,19 @@ An agency writing small commercial business gets submissions in every shape. One
 
 Today a person reads every one. That is slow, and on a busy day the thin or risky ones get noticed late. TypeSafe’s own use-case map points at this kind of work: turning “incident reports, claims notes, transaction descriptions, and vendor assessments into probabilistic risk indicators.” ([TypeSafe docs](https://docs.typesafe.ai/concepts/use-case-map.md))
 
-## How Jev works: the function call, taken apart
+## How Jev reads your question: the function call, taken apart
 
-**You write the signature.** A function in code takes inputs and returns a value of a set type. Jev works the same way. The input is the “state,” here the submission text. The return types are questions you define, and there are three kinds ([TypeSafe docs](https://docs.typesafe.ai/primitives.md)):
+**You write the signature.** A function in code takes inputs and returns a value of a set type. Jev works the same way. The input is the “state,” here the submission text. The return types are the three question types from our [first post](/blog/what-jev-is-and-isnt/), and TypeSafe’s docs give a rule of thumb for when each one fits ([TypeSafe docs](https://docs.typesafe.ai/primitives.md)):
 
 - **Choice** “fits when the answer is one of a known set of options with no order between them.” Class of business is a Choice.
 - **Score** “fits when the answer falls on a spectrum and you can describe what each point on that spectrum means.” The answer “is a position along your levels, and can fall between two of them.”
 - **Noul** “fits a clean yes/no question where the probability itself is the useful signal.” As the docs put it: “Near 1 is a strong yes, near 0 a strong no, near 0.5 uncertain.”
 
-**It scores every allowed answer at once.** A chatbot writes its reply word by word. TypeSafe says “Jev outputs all probabilities in parallel instead of autoregressively generating by token.” ([TypeSafe](https://typesafe.ai/blog/introducing-system-one-models-and-jev)) The docs add that the model “returns a probability distribution over your options or levels, never a value outside them.” That is the honest meaning of “can’t hallucinate”: it can’t invent a class of business you didn’t list.
+**It scores every allowed answer at once.** A chatbot writes its reply word by word. TypeSafe says “Jev outputs all probabilities in parallel instead of autoregressively generating by token.” ([TypeSafe](https://typesafe.ai/blog/introducing-system-one-models-and-jev)) The docs add that the model “returns a probability distribution over your options or levels, never a value outside them.” So it can’t invent a class of business you didn’t list, and the wording of your options is most of what it has to go on.
 
-**Confidence is about shape, not truth.** Every Choice and Score answer carries a confidence number. The docs say it “summarizes how peaked that distribution is.” ([TypeSafe docs](https://docs.typesafe.ai/primitives.md)) A high number means Jev put most of its weight on one answer. It doesn’t mean the answer has been checked.
+**Confidence is about shape, not truth.** Every Choice and Score answer carries a confidence number. The docs say it “summarizes how peaked that distribution is.” ([TypeSafe docs](https://docs.typesafe.ai/primitives.md)) A high number means Jev put most of its weight on one answer. It doesn’t mean the answer has been checked; whether a 0.9 really means 90% is a separate question, which our [claims post](/blog/claims-intake-labels-not-essays/) covers.
 
-**How it was trained, and what we still don’t know.** TypeSafe calls its training method “Reinforcement Learning for Calibrated Decisions (RLCD).” Its primer says the goal is that “Higher probability should correspond to a greater chance that the answer is correct,” and warns that these rates “describe groups of predictions, not a guarantee about any single answer.” ([TypeSafe primer](https://docs.typesafe.ai/introduction/machine-learning-primer.md)) TypeSafe hasn’t published where its training data comes from, how large the model is, or how the reward is scored. Nothing we read says the training included insurance submissions. That is why the thresholds below have to be checked against your own files.
+**Your wording is the program.** Because Jev only sees the state and your options, the descriptions you write do the work that code does elsewhere. TypeSafe’s advice is concrete ([TypeSafe docs](https://docs.typesafe.ai/primitives.md)): for a Choice, list every option and add an “other” or “none of the above” when the list might not cover every input. For a Score, write each level so it can be told apart from the ones next to it. For a Noul, spell out what yes and no mean, because “An unclear definition makes that probability hard to interpret.”
 
 ## The use case: one contractor submission
 
@@ -168,6 +164,7 @@ Why the questions look like this:
 - **“Even occasionally” is in the hazard question on purpose.** “Occasionally we do small roof repairs” is exactly the sentence a tired reader skims past.
 - **We ask whether a loss is mentioned, not how many or how recent.** Counting and dates are weak spots on TypeSafe’s own list. Loss runs come from the carrier, and a person reads them.
 - **Each question asks one thing.** The docs warn that a question needing several hops of reasoning “costs accuracy.” So we never ask “is this a good risk?”
+- **Each detail level is written to stand apart.** “Main activity is clear, details are missing” and “activities, staff and subcontracting are all described” can’t be mistaken for each other. Vague levels like “fair” and “good” could be.
 
 ## Routing on the answers
 
@@ -191,7 +188,7 @@ else:
     queue = f"market_to_{cls['choice']}_carriers"
 ```
 
-The thresholds (0.3, 0.6, 1.0) are placeholders. TypeSafe says “The correct threshold values depend on your domain and the performance of the model for your use case.” ([confidence docs](https://docs.typesafe.ai/confidence.md))
+The thresholds (0.3, 0.6, 1.0) are placeholders. Our [claims post](/blog/claims-intake-labels-not-essays/) shows how to set them by checking Jev against files where you already know the answer.
 
 ## The result
 
