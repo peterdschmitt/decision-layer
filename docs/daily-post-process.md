@@ -16,7 +16,7 @@ Peter's ask (2026-10-11): a blog post every day, emailed to him, with a way for 
 4. **Check for overlap with earlier posts.** Read every earlier post and draft (published and unpublished). Each post owns one "how Jev works" topic; see the series map below, pick a topic not yet covered, and add it to the map. Don't re-explain what an earlier post covers: link to it in one line instead. Run the quote check (no verbatim quote, longer than a few words, should appear in two posts) and fix any repeats. Open the new post with a one-line note saying where it sits in the series.
 5. **Edit for a human voice** (several passes: cut filler, no em-dashes, no hype words, short sentences).
 6. **Create the shared draft** as a Claude Doc titled "Decision Layer draft, <date>: <title>", with the full post text, the preview link and a short "what to check" list. Peter edits there or comments; Claude folds his edits back into the post on the next pass.
-7. **Push** the post to a branch `claude/post-<date>` cut from `main`. Vercel builds a preview.
+7. **Push** the post to a branch `claude/post-<date>` cut from the newest unpublished draft branch (so every draft and its cross-links show in one preview), or from `main` once the drafts are merged. Vercel builds a preview.
 8. **Email Peter** at peter@converselyai.com with the subject "Decision Layer draft for <date>: <title>", the headline, a three-line summary, the shared-doc link and the preview link.
 9. **Reply in the project thread** with the same two links.
 10. **Publish only when Peter says "publish"** (merge to `main`).
@@ -28,8 +28,9 @@ Peter's ask (2026-10-11): a blog post every day, emailed to him, with a way for 
 | What Jev is, and what it isn't (Oct 11, live) | General | The basics: what you send, the three question types, cost, the weak spots |
 | Labels, not essays (Oct 11 draft) | Claims intake | How Jev was trained (RLCD), what a calibrated probability means, checking it on your own past claims |
 | A function call for underwriters (Oct 12 draft) | Underwriting submissions | How Jev reads your question: scoring every option at once, confidence, writing options it reads well |
+| Jev, its clones and your service inbox (Oct 13 draft) | Agency service inbox | What’s likely inside Jev, and how it compares with a chatbot, a classifier you train yourself and the clones; your test set is what you keep |
 
-Topics not yet covered (candidates): what goes in the state and what to leave out; fan-out and combining several answers in code; speed and cost at real volumes; Jev vs an LLM vs a trained classifier; guarding against text written to fool it; the open-source and OpenAI rivals.
+Topics not yet covered (candidates): what goes in the state and what to leave out; fan-out and combining several answers in code; speed and cost at real volumes; guarding against text written to fool it.
 
 ## How Peter's edits come back
 
