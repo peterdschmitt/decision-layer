@@ -29,8 +29,9 @@ Peter's ask (2026-10-11): a blog post every day, emailed to him, with a way for 
 | Labels, not essays (Oct 11 draft) | Claims intake | How Jev was trained (RLCD), what a calibrated probability means, checking it on your own past claims |
 | A function call for underwriters (Oct 12 draft) | Underwriting submissions | How Jev reads your question: scoring every option at once, confidence, writing options it reads well |
 | Jev, its clones and your service inbox (Oct 13 draft) | Agency service inbox | What’s likely inside Jev, and how it compares with a chatbot, a classifier you train yourself and the clones; your test set is what you keep |
+| Text written to fool it (Oct 14 draft) | Claims glass fast track | Why words in the state can move the answer (no instruction channel), what the Decision Hijacking study found, and designing so a sentence is never enough |
 
-Topics not yet covered (candidates): what goes in the state and what to leave out; fan-out and combining several answers in code; speed and cost at real volumes; guarding against text written to fool it.
+Topics not yet covered (candidates): what goes in the state and what to leave out; how many questions to ask at once and combining answers in code; speed and cost at real volumes.
 
 ## How Peter's edits come back
 
