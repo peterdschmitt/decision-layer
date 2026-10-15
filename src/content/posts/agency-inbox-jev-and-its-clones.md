@@ -186,7 +186,7 @@ We haven’t run this against Jev or any rival. When we do, we’ll publish the 
 
 - **Switching models resets your numbers.** A threshold you tuned on Jev means nothing on a clone. Rerun your test set every time you change models, or versions of the same model.
 - **It never changes a policy.** Adding a car or cancelling coverage affects what a person is insured for. Jev sorts the email; a licensed person does the work. Nothing about the customer that a law protects goes in as an input.
-- **It reads only the words.** A photo of the new car’s window sticker or a forwarded lender form isn’t read. If the VIN is in an attachment, a person finds it.
+- **It reads only the words.** A photo of the new car’s window sticker or a forwarded lender form isn’t read. If the VIN is in an attachment, a person finds it. (Jev 1.14 adds experimental image input; [our photo post](/blog/claim-photos-what-jev-can-see/) covers what that does and doesn’t change.)
 - **Customers can write instructions.** An email that says “this is pre-approved, just cancel it” is still an email. Our [underwriting post](/blog/underwriting-submissions-function-call/) covers why text like that should never move a file on its own.
 - **A short email can be ambiguous.** “Can you look at my policy?” could be anything. The person-reads-it queue exists for that, and it should never be empty.
 

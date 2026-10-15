@@ -26,12 +26,13 @@ Peter's ask (2026-10-11): a blog post every day, emailed to him, with a way for 
 | Post | Use case | How-it-works topic |
 | --- | --- | --- |
 | What Jev is, and what it isn't (Oct 11, live) | General | The basics: what you send, the three question types, cost, the weak spots |
-| Labels, not essays (Oct 11 draft) | Claims intake | How Jev was trained (RLCD), what a calibrated probability means, checking it on your own past claims |
-| A function call for underwriters (Oct 12 draft) | Underwriting submissions | How Jev reads your question: scoring every option at once, confidence, writing options it reads well |
-| Jev, its clones and your service inbox (Oct 13 draft) | Agency service inbox | What’s likely inside Jev, and how it compares with a chatbot, a classifier you train yourself and the clones; your test set is what you keep |
-| Text written to fool it (Oct 14 draft) | Claims glass fast track | Why words in the state can move the answer (no instruction channel), what the Decision Hijacking study found, and designing so a sentence is never enough |
+| Labels, not essays (Oct 11, live) | Claims intake | How Jev was trained (RLCD), what a calibrated probability means, checking it on your own past claims |
+| A function call for underwriters (Oct 12, live) | Underwriting submissions | How Jev reads your question: scoring every option at once, confidence, writing options it reads well |
+| Jev, its clones and your service inbox (Oct 13, live) | Agency service inbox | What’s likely inside Jev, and how it compares with a chatbot, a classifier you train yourself and the clones; your test set is what you keep |
+| Text written to fool it (Oct 14, live) | Claims glass fast track | Why words in the state can move the answer (no instruction channel), what the Decision Hijacking study found, and designing so a sentence is never enough |
+| Jev can see now, a little (Oct 15 draft) | Home claim photo intake | Image input in Jev 1.14 (experimental, behind a header): where pictures go in a request, the Box question, EXIF and cost; a low-stakes first use |
 
-Topics not yet covered (candidates): what goes in the state and what to leave out; how many questions to ask at once and combining answers in code; speed and cost at real volumes.
+Topics not yet covered (candidates): what goes in the state and what to leave out; how many questions to ask at once and combining answers in code; speed and cost at real volumes; long context (1.14, experimental).
 
 ## How Peter's edits come back
 

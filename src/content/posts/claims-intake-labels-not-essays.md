@@ -86,7 +86,7 @@ The first is Paolo Rosson’s line about paying for an essay when you need a lab
 
 The second is honesty from the founder. Almeida told Fortune, “Making the models reliable was so much harder than expected.” We believe him, and it is a good reason not to assume reliability you haven’t measured yourself.
 
-Fortune also reports that OpenAI now has a competing Decisions API, priced higher than Jev per input token, and that it accepts images. Jev doesn’t. TypeSafe’s model page is plain about it: “Text only.” ([TypeSafe docs](https://docs.typesafe.ai/models.md)) For a claims desk that runs on photos, that matters. Everything below works on the words in a report, not the pictures attached to it.
+Fortune also reports that OpenAI now has a competing Decisions API, priced higher than Jev per input token, and that it accepts images. Jev didn’t when we wrote this: TypeSafe’s model page said “Text only.” ([TypeSafe docs](https://docs.typesafe.ai/models.md)) For a claims desk that runs on photos, that matters. Everything below works on the words in a report, not the pictures attached to it. *Update, Oct 15: Jev 1.14 adds image input as an experimental feature. See [Jev can see now, a little](/blog/claim-photos-what-jev-can-see/).*
 
 ## The problem: a pile of reports that all need sorting
 
