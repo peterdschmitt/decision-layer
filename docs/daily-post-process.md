@@ -31,6 +31,7 @@ Peter's ask (2026-10-11): a blog post every day, emailed to him, with a way for 
 | Jev, its clones and your service inbox (Oct 13, live) | Agency service inbox | What’s likely inside Jev, and how it compares with a chatbot, a classifier you train yourself and the clones; your test set is what you keep |
 | Text written to fool it (Oct 14, live) | Claims glass fast track | Why words in the state can move the answer (no instruction channel), what the Decision Hijacking study found, and designing so a sentence is never enough |
 | Jev can see now, a little (Oct 15 draft) | Home claim photo intake | Image input in Jev 1.14 (experimental, behind a header): where pictures go in a request, the Box question, EXIF and cost; a low-stakes first use |
+| Does the answer wobble? (Oct 16 draft) | Auto claim subrogation referrals | Bias and sensitivity: what the Bocconi study found (picks hold, probabilities move with order and irrelevant numbers, small name gaps), and a variant test to measure the wobble on your own files |
 
 Topics not yet covered (candidates): what goes in the state and what to leave out; how many questions to ask at once and combining answers in code; speed and cost at real volumes; long context (1.14, experimental).
 
