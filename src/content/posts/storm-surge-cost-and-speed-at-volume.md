@@ -20,6 +20,9 @@ sources:
   - title: "TypeSafe docs: API reference (usage field and rate-limit handling)"
     url: https://docs.typesafe.ai/api.md
     grade: Official docs
+  - title: "TypeSafe docs: Questions (asking several at once)"
+    url: https://docs.typesafe.ai/primitives
+    grade: Official docs
   - title: "Vercel Community: Jev requests shed with 429 (thread started Sep 26, 2026)"
     url: https://community.vercel.com/t/typesafe-ai-jev-requests-shed-with-429-and-providerattemptcount-0-per-team-throttling/49779
     grade: Independent reporting
@@ -54,7 +57,7 @@ That’s the week a decision model should earn its keep. It’s also the week yo
 
 **Every response tells you what it cost.** Each answer comes back with a `usage` object holding `input_tokens` and `output_tokens`. ([API reference](https://docs.typesafe.ai/api.md)) You don’t have to estimate. Send a sample, add up the `input_tokens`, and you know.
 
-**What TypeSafe doesn’t say about counting.** The API reference doesn’t explain how the tokens in a request with several questions are counted, for example whether the claim text is counted once or once per question. Its own example responses show slightly different token counts for similar requests, with no explanation. That’s another reason to measure on your own files rather than guess.
+**Several questions, one bill.** TypeSafe’s [questions page](https://docs.typesafe.ai/primitives) says an extra question adds only the cost of its own text, so asking all your questions about a claim in one request is cheaper than one request per question. The API reference’s example responses still show slightly different token counts for similar requests, with no explanation. That’s another reason to measure on your own files rather than guess.
 
 **The limit is speed, not money.** “Limits are measured in tokens per second and requests per second,” the model page says. They are set per organization, and going over returns an error, `429 Too Many Requests`. The page doesn’t list the numbers; it points you to TypeSafe’s developer console, where each organization sees its own. So nobody outside your account can tell you how fast you can go.
 
