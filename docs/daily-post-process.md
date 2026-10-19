@@ -34,8 +34,9 @@ Peter's ask (2026-10-11): a blog post every day, emailed to him, with a way for 
 | Does the answer wobble? (Oct 16 draft) | Auto claim subrogation referrals | Bias and sensitivity: what the Bocconi study found (picks hold, probabilities move with order and irrelevant numbers, small name gaps), and a variant test to measure the wobble on your own files |
 | Twenty thousand claims by Tuesday (Oct 17 draft) | Storm-surge claims intake | Cost and speed at volume: pay per input token, measure with the usage field, per-org rate limits and 429 backoff, falling back to people when there's no answer |
 | Six small questions instead of one big one (Oct 18 draft) | Agency commercial renewal list | Many questions in one call: answered in parallel and in isolation, cheap to add, decomposing a judgment, and a composite score in code |
+| Jev is everywhere now (Oct 19 draft) | Agency certificate-of-insurance requests | What goes in the state: facts vs. judgments, named parts kept together, short inputs, sending only what the decision needs |
 
-Topics not yet covered (candidates): what goes in the state and what to leave out; long context (1.14, experimental).
+Topics not yet covered (candidates): long context (1.14, experimental).
 
 ## How Peter's edits come back
 
