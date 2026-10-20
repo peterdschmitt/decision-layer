@@ -35,8 +35,9 @@ Peter's ask (2026-10-11): a blog post every day, emailed to him, with a way for 
 | Twenty thousand claims by Tuesday (Oct 17 draft) | Storm-surge claims intake | Cost and speed at volume: pay per input token, measure with the usage field, per-org rate limits and 429 backoff, falling back to people when there's no answer |
 | Six small questions instead of one big one (Oct 18 draft) | Agency commercial renewal list | Many questions in one call: answered in parallel and in isolation, cheap to add, decomposing a judgment, and a composite score in code |
 | Jev is everywhere now (Oct 19 draft) | Agency certificate-of-insurance requests | What goes in the state: facts vs. judgments, named parts kept together, short inputs, sending only what the decision needs |
+| Sixty pages of contract, three questions (Oct 20 draft) | Agency review of subcontract insurance requirements | Long context: default 32k/64k limits, the long-context header (262k), same price but less reliable, splitting vs. sending whole, and measuring both on known contracts |
 
-Topics not yet covered (candidates): long context (1.14, experimental).
+Topics not yet covered (candidates): none left from the original list. Next posts need a new topic; ask Peter or propose one in the draft doc (for example: versions and model updates, latency in live workflows, or testing before launch).
 
 ## How Peter's edits come back
 
