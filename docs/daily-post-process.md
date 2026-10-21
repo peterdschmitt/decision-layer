@@ -36,8 +36,9 @@ Peter's ask (2026-10-11): a blog post every day, emailed to him, with a way for 
 | Six small questions instead of one big one (Oct 18 draft) | Agency commercial renewal list | Many questions in one call: answered in parallel and in isolation, cheap to add, decomposing a judgment, and a composite score in code |
 | Jev is everywhere now (Oct 19 draft) | Agency certificate-of-insurance requests | What goes in the state: facts vs. judgments, named parts kept together, short inputs, sending only what the decision needs |
 | Sixty pages of contract, three questions (Oct 20 draft) | Agency review of subcontract insurance requirements | Long context: default 32k/64k limits, the long-context header (262k), same price but less reliable, splitting vs. sending whole, and measuring both on known contracts |
+| Jev 1.14 is about to become the default (Oct 21 draft) | Claims intake router upgrade | Versions and updates: versioned IDs vs. moving aliases, the scheduled jev-latest switch, pinning, logging the model field, replaying past claims before upgrading |
 
-Topics not yet covered (candidates): none left from the original list. Next posts need a new topic; ask Peter or propose one in the draft doc (for example: versions and model updates, latency in live workflows, or testing before launch).
+Topics not yet covered (candidates, proposed by Claude while waiting on Peter): speed in live workflows (a phone or web form waiting on the answer); running a test before launch end to end; multilingual input (1.14’s stated biggest gain).
 
 ## How Peter's edits come back
 
