@@ -39,8 +39,9 @@ Peter's ask (2026-10-11): a blog post every day, emailed to him, with a way for 
 | Jev 1.14 is about to become the default (Oct 21 draft) | Claims intake router upgrade | Versions and updates: versioned IDs vs. moving aliases, the scheduled jev-latest switch, pinning, logging the model field, replaying past claims before upgrading |
 | “Necesito agregar un carro” (Oct 22 draft) | Agency service inbox, Spanish and mixed-language email | Language support: English strongest, other languages “handled but not equally well,” no published per-language numbers, measuring misses by language, routing unclear non-English email to bilingual staff at the same priority |
 | The customer is waiting on the next screen (Oct 23 draft) | Online auto claim form, live next-screen choice | Speed when a person waits: independent latency tests (median, p95, p99, slowest), no published guarantee, a time budget, one try and a safe fallback, measuring your own tail |
+| Before claim reports leave the building (Oct 24 draft) | Claims intake, personal and health details | Data handling: no training on inputs, open-ended standard retention, zero retention for enterprise, U.S. hosting, SOC 2 on request, unanswered questions; stripping identifiers before sending |
 
-Topics not yet covered (candidates, proposed by Claude while waiting on Peter): running a test before launch end to end; security and data handling (what TypeSafe keeps, SOC 2, subprocessors).
+Topics not yet covered (candidates, proposed by Claude while waiting on Peter): running a test before launch end to end; underwriting appetite checks against rules a person wrote; monitoring answers after launch (drift).
 
 ## How Peter's edits come back
 
