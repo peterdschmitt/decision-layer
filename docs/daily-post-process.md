@@ -41,8 +41,9 @@ Peter's ask (2026-10-11): a blog post every day, emailed to him, with a way for 
 | The customer is waiting on the next screen (Oct 23 draft) | Online auto claim form, live next-screen choice | Speed when a person waits: independent latency tests (median, p95, p99, slowest), no published guarantee, a time budget, one try and a safe fallback, measuring your own tail |
 | Before claim reports leave the building (Oct 24 draft) | Claims intake, personal and health details | Data handling: no training on inputs, open-ended standard retention, zero retention for enterprise, U.S. hosting, SOC 2 on request, unanswered questions; stripping identifiers before sending |
 | Three months after launch (Oct 25 draft) | Agency commercial submission router, live | Monitoring after launch: confidence ranks well but isn’t calibrated mid-range (OpenRouter), TypeSafe’s “adjust as you observe,” no monitoring guidance; weekly sample by confidence band and leading indicators |
+| OpenAI now sells a Jev rival (Oct 26 draft) | Home water claims, same-day mitigation dispatch | Testing before launch, start to finish: a written error budget, audited past claims, tuning the threshold on 30% and judging on the held-out 70% (Vals AI found half its models, Jev included, missed the budget there), the same harness for every vendor |
 
-Topics not yet covered (candidates, proposed by Claude while waiting on Peter): running a test before launch end to end; underwriting appetite checks against rules a person wrote.
+Topics not yet covered (candidates, proposed by Claude while waiting on Peter): underwriting appetite checks against rules a person wrote; choosing between Jev and a competitor on more than accuracy (contracts, support, lock-in).
 
 ## How Peter's edits come back
 
