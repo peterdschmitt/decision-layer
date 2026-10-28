@@ -2,7 +2,7 @@
 title: "Five dates in one claim email: let code find them and Jev pick the one that matters"
 dek: "Jev doesn’t write text, so it can’t copy a date out of an email. TypeSafe’s docs say to find the candidates another way and let Jev choose. Here is a worked plan for pulling the date of loss out of a first notice, with the math left to code."
 kind: Worked example
-readMinutes: 8
+readMinutes: 11
 author: The Decision Layer desk
 published: 2026-10-28
 lastChecked: 2026-10-28
@@ -10,9 +10,9 @@ modelVersion: jev-1.13.0
 episode: ep-019-which-date
 summary:
   - "No outlet on our list had a new Jev story we could verify today, so the post starts with its topic. Recent headlines are at the end."
-  - "The problem: a claim email mentions several dates, and the claims system needs exactly one of them, the date of loss, to check coverage."
-  - "How it works: TypeSafe says Jev isn’t trained to generate text, and that for extraction you should find the possible values with regex or a generative model and let Jev pick. It publishes no limit on how many options a choice can hold."
-  - "The use case: a pattern finds every date, Jev picks which one is the loss, code checks it against the policy period, and anything unclear goes to an adjuster. The result is expected, not measured."
+  - "The problem: a customer’s claim email mentions several dates (when they bought the policy, when the accident happened, when they noticed it). The claims system needs just one, the day the damage happened, to check the policy covered that day."
+  - "How it works: Jev can’t copy text out of an email, but it’s good at picking from a list. So a simple program finds every date, and Jev picks which one is the day of the damage. TypeSafe’s own docs recommend exactly this split."
+  - "The result: a program checks that date against the policy dates, and anything unclear goes to a person. We haven’t run it yet, so this is what we expect, not what we measured."
 sources:
   - title: "TypeSafe docs: Model jaggedness, jev-1.13"
     url: https://docs.typesafe.ai/model-jaggedness/jev-1.13.md
@@ -52,6 +52,16 @@ A made-up first notice of loss arrives by email at an auto carrier:
 Before anything else, the claims system needs the date of loss, because coverage depends on it. Was the policy in force that day? Is the claim reported late? Those are questions about one specific date. The email has five dates in it, and only one is the date of loss. It’s Oct 14, the day the car was hit, not Oct 16, the day the customer noticed.
 
 A person reads this in seconds. A pattern that finds dates finds all five and can’t tell which is which. And Jev, on its own, can’t hand you the date at all.
+
+## Why it matters to an agency
+
+If you run an agency, you see this every week. A customer emails or texts about a claim, and the first thing anyone needs is the date it happened. Your service team reads the message, picks the date, and types it into the carrier’s claim form or your management system. Most of the time that takes seconds. The trouble is the other times.
+
+- **The wrong date sends the claim down the wrong path.** If someone types the day the customer noticed the dent instead of the day it happened, the claim can look like it falls outside the policy, or look late, when it isn’t. That means a callback, a delay and an unhappy customer.
+- **The policy dates and the loss date have to line up.** In our example the customer bought the policy on Sept 30. A loss on Sept 28 would be a very different conversation from a loss on Oct 14. Getting that one date right is the whole question.
+- **Volume makes small misses add up.** After a storm or a busy weekend, one person might read dozens of these in a row. Tired eyes grab the first date they see.
+
+The goal here isn’t to take the person out of it. It’s to have the date filled in, with the sentence it came from shown next to it, so your team checks it instead of hunting for it, and anything unclear gets flagged before it goes out.
 
 ## How it works: Jev picks, something else finds
 
@@ -125,6 +135,27 @@ def check(pick, found, policy, received):
 ## The result
 
 **Expected, not measured:** for this email we’d expect the pattern to find five dates and Jev to pick Oct 14, with Oct 16 as the runner-up. The noticing date is the one most likely to pull it off course, which is why the question names it. The code turns “Oct 14” into Oct 14, 2026, finds it inside a policy that started Sept 30, and sends the claim to standard intake with the date filled in. If Jev had split its answer between the 14th and the 16th, the claim would go to an adjuster to confirm, which is what happens today for every claim.
+
+### The example, start to finish
+
+Here is what we expect each step to do with the email above, in order:
+
+| Step | Who does it | What happens with this email |
+| --- | --- | --- |
+| 1. Email arrives | The claims inbox | The message comes in on Oct 21 from a customer whose policy runs Sept 30, 2026 to March 30, 2027. |
+| 2. Find the dates | A simple pattern in code | It finds five: “9/30,” “3/30/27,” “Oct 14,” “the 16th” and “10/23,” each with the words around it. |
+| 3. Build the question | Code | The five dates become five options, plus a sixth: “none of these, or the email doesn’t say.” |
+| 4. Pick the date of loss | Jev | We expect it to choose “Oct 14 … hit my parked car,” with “the 16th … didn’t notice the dent” a distant second. |
+| 5. Ask again, reversed | Jev | Same question with the options in the opposite order. If the pick changes, the claim goes to a person. |
+| 6. Check confidence | Code | If Jev’s confidence is below the bar (0.7 here, a placeholder), a person confirms the date. |
+| 7. Turn text into a date | Code | “Oct 14” becomes Oct 14, 2026, using the year the email arrived. |
+| 8. Check the policy | Code | Oct 14 is after Sept 30 and before March 30, so the policy was in force. |
+| 9. Route it | Code | Standard intake, with the date filled in and the sentence it came from shown beside it. |
+| 10. Confirm | An adjuster or your service team | A person glances at the date and the sentence, and confirms or fixes it. Anything about coverage is their call. |
+
+**What happens on a messier email.** Say the customer wrote “my car got hit sometime last week, I noticed it on the 16th.” The pattern finds only “the 16th,” and that’s the noticing date. The right answer isn’t among the options, so we’d expect Jev to pick “none or unclear,” and the claim goes to a person to ask the customer. That’s the system working: it says “I don’t know” instead of guessing.
+
+**What happens near the edge of the policy.** If the email said the car was hit on Sept 28, two days before the policy started, step 8 would fail. The claim wouldn’t be denied by the system. It would go to an adjuster marked “coverage review,” with the date and the sentence on top, so a person makes that call with the facts in front of them.
 
 We haven’t run this. When we do, we’ll publish the made-up emails, the candidates found, Jev’s picks, how often the order swap changed the answer, and the model version.
 
