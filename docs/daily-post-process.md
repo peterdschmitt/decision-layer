@@ -43,8 +43,9 @@ Peter's ask (2026-10-11): a blog post every day, emailed to him, with a way for 
 | Three months after launch (Oct 25 draft) | Agency commercial submission router, live | Monitoring after launch: confidence ranks well but isn’t calibrated mid-range (OpenRouter), TypeSafe’s “adjust as you observe,” no monitoring guidance; weekly sample by confidence band and leading indicators |
 | OpenAI now sells a Jev rival (Oct 26 draft) | Home water claims, same-day mitigation dispatch | Testing before launch, start to finish: a written error budget, audited past claims, tuning the threshold on 30% and judging on the held-out 70% (Vals AI found half its models, Jev included, missed the budget there), the same harness for every vendor |
 | The appetite guide is the rulebook (Oct 27 draft) | Small apartment building appetite pre-screen | Jev next to rules a person wrote: numbers and dates in code (jaggedness page), literal reading, one question per guide line, a threshold per rule from confidence-gated routing, every flag tied to its guide line, no automatic declines |
+| Five dates in one claim email (Oct 28 draft) | Auto first notice of loss, date of loss | Extraction when Jev can’t write: find candidates with regex (or a generative model), build choice options per email with surrounding words, Jev picks, date math in code, order-swap check |
 
-Topics not yet covered (candidates, proposed by Claude while waiting on Peter): choosing between Jev and a competitor on more than accuracy (contracts, support, lock-in); combining Jev with a generative model for extraction (TypeSafe says to use regex or a generative model to pull text out, and Jev to choose).
+Topics not yet covered (candidates, proposed by Claude while waiting on Peter): choosing between Jev and a competitor on more than accuracy (contracts, support, lock-in); score questions and what the levels mean; Jev in a phone or chat flow with a person on the other end.
 
 ## How Peter's edits come back
 
