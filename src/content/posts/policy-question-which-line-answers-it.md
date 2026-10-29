@@ -87,13 +87,21 @@ TypeSafe publishes a step-by-step recipe for exactly this, built on GitHub’s T
 Here is a short excerpt of a made-up homeowners policy, already split into numbered lines. A real policy runs to hundreds of lines; we come back to that below.
 
 > L041| COVERAGE B – OTHER STRUCTURES. We cover other structures on the residence premises set apart from the dwelling by clear space, such as fences, sheds and detached garages.
+>
 > L042| The limit for Coverage B is 10% of the Coverage A limit.
+>
 > …
+>
 > L088| We insure for direct physical loss to property described in Coverages A and B caused by windstorm or hail.
+>
 > …
+>
 > L103| Trees. We pay for damage to covered property caused by a tree, including one from a neighboring property, that falls because of a peril we insure.
+>
 > L104| We also pay up to $1,000 per loss to remove fallen trees from the premises, but only if the tree damaged a covered structure.
+>
 > …
+>
 > L131| Deductible. We pay only the part of the loss above the deductible shown on the Declarations.
 
 **Step 1: number the lines.** Split the policy text into lines (by sentence or by clause) and put a label in front of each. Keep the original text untouched, so whatever Jev points to can be quoted word for word.
