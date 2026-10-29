@@ -76,6 +76,7 @@ const renderer = {
 };
 marked.use({ renderer });
 
+const r = meta.respondingTo;
 const fmtDate = (d) => new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 const news = (meta.inTheNews ?? []).map((n) => `<li style="margin:0 0 8px;font-size:15px;line-height:1.5;"><a href="${esc(n.url)}" style="color:${C.orangeInk};">${esc(n.headline)}</a> <span style="color:${C.muted};">${esc(n.outlet)}, ${fmtDate(n.date)}</span></li>`).join('');
 const sources = (meta.sources ?? []).map((s) => `<li style="margin:0 0 6px;font-size:14px;"><a href="${esc(s.url)}" style="color:${C.orangeInk};">${esc(s.title)}</a> <span style="color:${C.muted};">(${esc(s.grade)})</span></li>`).join('');
@@ -93,8 +94,11 @@ const html = `<!doctype html>
     <div style="font-size:13px;letter-spacing:2px;text-transform:uppercase;color:${C.orange};font-weight:bold;">Decision Layer</div>
     <div style="font-size:12px;color:${C.navyMuted};margin:2px 0 18px;">Unofficial. Not affiliated with TypeSafe.</div>
     <div style="font-size:13px;color:${C.navyMuted};text-transform:uppercase;letter-spacing:1px;">${esc(meta.kind ?? 'Post')} · ${meta.readMinutes ?? ''} min read</div>
-    <h1 style="font-family:${font};font-size:28px;line-height:1.2;color:#FFFFFF;margin:8px 0 12px;">${esc(meta.title)}</h1>
-    <p style="font-size:16px;line-height:1.55;color:${C.navyInk};margin:0 0 14px;">${esc(meta.dek ?? '')}</p>
+    ${r ? `<h1 style="font-family:${font};font-size:26px;line-height:1.25;color:#FFFFFF;margin:8px 0 14px;">${esc(r.lede)}</h1>
+    <div style="border-left:4px solid ${C.orange};padding:6px 0 6px 14px;margin:0 0 14px;font-size:17px;line-height:1.5;color:#FFFFFF;font-style:italic;">“${esc(r.quote)}”<div style="font-style:normal;font-size:13px;color:${C.navyMuted};margin-top:6px;">${r.quoteBy ? esc(r.quoteBy) + ' · ' : ''}<a href="${esc(r.url)}" style="color:${C.orange};">${esc(r.outlet)}, ${fmtDate(r.date)}</a></div></div>
+    <p style="font-size:16px;line-height:1.55;color:${C.navyInk};margin:0 0 14px;">${esc(r.impact)}</p>
+    <div style="font-size:15px;color:${C.orange};font-weight:bold;margin:0 0 10px;">${esc(meta.title)}</div>` : `<h1 style="font-family:${font};font-size:28px;line-height:1.2;color:#FFFFFF;margin:8px 0 12px;">${esc(meta.title)}</h1>
+    <p style="font-size:16px;line-height:1.55;color:${C.navyInk};margin:0 0 14px;">${esc(meta.dek ?? '')}</p>`}
     <div style="font-size:13px;color:${C.navyMuted};">${esc(meta.author ?? '')} · ${fmtDate(meta.published)}${meta.modelVersion ? ` · Model: ${esc(meta.modelVersion)}` : ''}</div>
   </td></tr>
   <tr><td style="padding:24px 24px 8px;">

@@ -1,7 +1,7 @@
 ---
 number: 20
 title: "“Is my fence covered?”"
-summary: "Jev points to the lines in a policy that answer a customer’s question, and a separate yes/no check says when the policy doesn’t answer it at all. A person still gives the answer."
+summary: "Don’t let AI answer a coverage question. Let Jev point your team to the lines in the policy that answer it, and say plainly when the policy is silent."
 status: planned
 minutes: 7
 hosts: ["The Decision Layer desk"]
@@ -17,7 +17,7 @@ sources:
 
 ## Show notes
 
-- 00:00 No headline today; a fence, a neighbor’s oak and a coverage question
+- 00:00 CNBC on AI coverage and Anthropic’s filing; a fence, a neighbor’s oak and a coverage question
 - 00:50 The problem: the answer is in the policy, but where?
 - 01:40 Why it matters: coverage answers carry risk, and storms bring the same question thirty times
 - 02:40 How it works: number every line, let Jev point, then ask separately whether the answer exists

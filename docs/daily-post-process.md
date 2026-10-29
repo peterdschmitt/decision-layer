@@ -6,13 +6,16 @@ Peter's ask (2026-10-11): a blog post every day, emailed to him, with a way for 
 
 1. **Pick the news.** One fresh story from an approved outlet (HANDOFF.md, "Headline outlets"), not one used as a lead in the last 7 days (see the daily post log in project memory). Verify the quote word for word at the source. If no approved outlet has a fresh story you can verify, ask Peter instead of stretching the list.
 2. **Pick the use case.** Favor insurance claims, underwriting and agency operations. One concrete, made-up example (synthetic data only).
-3. **Write the post in this shape:**
-   - **Headline (the `respondingTo` lede):** the outlet and its news, the verified quote, what it means for "you". Honest feeling, no hype.
-   - **The problem:** what a person on that desk does today, and what goes wrong or costs time.
-   - **How Jev works:** the mechanism behind this use case, in plain words. Every claim about how Jev works or how it was trained must come from a source we can link (TypeSafe's docs, launch post or primer, or independent reporting), labeled as TypeSafe's claim where it is one. Say plainly what TypeSafe hasn't published (as of 2026-10-11: where the training data comes from, model size, the reward details).
-   - **The use case:** the example input, the questions asked, and the code.
-   - **The result:** what happens to the example, labeled "expected" until we have run it, and "tested" only with published data, code, model version and date.
-   - **Where it breaks / what Jev should never do here,** and **In the news** (real, checked, linked headlines).
+3. **Write it like a sharp human expert, not a report** (Peter, 2026-10-29, on the first fence draft: "this is total slop!"). The bar is a blog post a busy agency owner would forward, not a machine write-up.
+   - **Always a news hook.** Lead (the `respondingTo` block) with a fresh story from an approved outlet and a verbatim, verified quote, then what it means for the reader. The story doesn't have to be about Jev: AI, insurance, claims, storms and regulation all work if the post earns the link. Verify the quote at the outlet or its primary source (court filing, SEC filing, official post). "No news today" is a last resort; say so in the thread first.
+   - **Open with a scene.** A real-feeling moment at an agency or claims desk (made up, and plain that it's made up where it matters), not a definition.
+   - **One clear point.** Say what Jev should and shouldn't do in this situation, and why it matters to the agency. Cut everything that doesn't serve it.
+   - **5 to 7 minutes.** Short sections with human headings. Plain words; explain any technical term once, in passing.
+   - **No boilerplate.** No "Nth in our series" list, no "note on today's news", no repeated summary. The "In short" box is three plain lines and must not repeat the lede.
+   - **Hedge once.** One "We haven't run this yet" line in "The fine print", not "expected, not measured" all through the post.
+   - **Show it at the desk.** A short table of who does what (service person, Jev, carrier), then the messier case where it should say "I don't know".
+   - **Code last.** One short "For your developer" section at the end, or a link. No code in the middle of the story.
+   - **Sources stay honest.** Every claim about Jev links to TypeSafe's docs or independent reporting. Never claim tests or reviews that didn't happen.
 4. **Check for overlap with earlier posts.** Read every earlier post and draft (published and unpublished). Each post owns one "how Jev works" topic; see the series map below, pick a topic not yet covered, and add it to the map. Don't re-explain what an earlier post covers: link to it in one line instead. Run the quote check (no verbatim quote, longer than a few words, should appear in two posts) and fix any repeats. Open the new post with a one-line note saying where it sits in the series.
 5. **Edit for a human voice** (several passes: cut filler, no em-dashes, no hype words, short sentences).
 6. **Create the shared draft** as a Claude Doc titled "Decision Layer draft, <date>: <title>", with the full post text, the preview link and a short "what to check" list. Peter edits there or comments; Claude folds his edits back into the post on the next pass.
