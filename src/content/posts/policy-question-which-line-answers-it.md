@@ -1,8 +1,8 @@
 ---
-title: "“Is my fence covered?” Don’t let AI answer that. Let it show you the line"
-dek: "A customer asks a coverage question after a storm. The answer is somewhere in a policy nobody has memorized. Here’s how Jev can point your team to the exact sentences, and tell you when the policy says nothing at all."
+title: "“Is my fence covered?” Five reasons Jev beats a chatbot and a PDF search for this question"
+dek: "A chatbot can make up a coverage answer. A PDF search misses the sentence that uses different words. Jev does neither: it points your team to the exact lines, shows how sure it is, and says when the policy is silent."
 kind: Worked example
-readMinutes: 6
+readMinutes: 5
 author: The Decision Layer desk
 published: 2026-10-29
 lastChecked: 2026-10-29
@@ -16,17 +16,23 @@ respondingTo:
   date: 2026-10-28
   quote: "Because our models may behave in ways that no user or developer intended, claims arising from such actions could result in substantial liability."
   quoteBy: "Anthropic, in the S-1 filing CNBC reported on"
-  impact: "An AI that tells a customer “yes, you’re covered” and is wrong is your errors and omissions problem, not the vendor’s. The safer job for AI at a service desk is smaller: find the sentences in the policy that answer the question, and say so plainly when there aren’t any. A licensed person still gives the answer."
+  impact: "An AI that tells a customer “yes, you’re covered” and is wrong is your errors and omissions problem, not the vendor’s. That’s exactly why Jev fits a service desk better than a chatbot: it can’t write an answer at all. It can only point to the lines in the policy, show how sure it is, and say when the policy is silent. A licensed person still gives the answer."
 summary:
-  - "Customers ask what their policy says, and finding the right sentence in a 40-page PDF takes your team ten minutes a question. After a storm, that’s the whole morning."
-  - "Jev can point to the lines that answer the question, and, in a separate check, say whether the policy answers it at all. That second check is what keeps it from confidently pointing at the wrong thing."
-  - "Your service person reads three sentences instead of a whole policy, and still writes the answer."
+  - "Jev can’t invent a coverage answer. It only points to lines in the policy, so your person checks real wording in seconds."
+  - "It finds the right sentence even when the words don’t match the customer’s, shows a score for every line, and says plainly when the policy doesn’t answer."
+  - "It costs a fraction of a cent per question, so it can run on every email after a storm."
 sources:
   - title: "Anthropic, PBC: Form S-1 registration statement (Oct 26, 2026)"
     url: https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/anthropicpbc-sx1.htm
     grade: Regulator
   - title: "TypeSafe docs: Line-by-line search (cookbook)"
     url: https://docs.typesafe.ai/cookbooks/semantic_find.md
+    grade: Official docs
+  - title: "TypeSafe docs: Introduction"
+    url: https://docs.typesafe.ai/introduction.md
+    grade: Official docs
+  - title: "TypeSafe docs: Models (pricing)"
+    url: https://docs.typesafe.ai/models.md
     grade: Official docs
   - title: "TypeSafe docs: Choice"
     url: https://docs.typesafe.ai/primitives/choice.md
@@ -50,31 +56,27 @@ inTheNews:
     date: 2026-10-09
 ---
 
-## The email that’s waiting at 8 a.m.
+## Why Jev is better for this job
+
+A customer asks whether something is covered. Today your team has two options: search the policy PDF, or try one of the AI chatbots everyone is talking about. Jev beats both, for five reasons.
+
+**1. It can’t make up an answer.** A chatbot writes sentences, and a sentence can be wrong in a way that sounds right. Jev doesn’t write anything. TypeSafe describes it as “No text generation, no parsing”: you give it a fixed set of options and it picks among them ([TypeSafe](https://docs.typesafe.ai/introduction.md)). Here, the options are the numbered lines of the customer’s policy. The worst it can do is point at the wrong line, and your person sees that in seconds because the real wording is right there.
+
+**2. It reads for meaning, not matching words.** Search the PDF for “fence” and you may get nothing, because the policy calls fences “other structures.” Jev compares the question with every line. In TypeSafe’s published example, the question “who owns the code I upload?” went straight to the line that reads “You own Your Content,” with a score of 0.95, even though the words barely overlap ([TypeSafe](https://docs.typesafe.ai/cookbooks/semantic_find.md)).
+
+**3. It shows how sure it is, line by line.** Jev returns a score for every line, not just one answer. Your person reads the top three, and a close race between two lines is a signal to read more carefully.
+
+**4. It can say “the policy doesn’t answer this.”** This is the one that protects you. A pick-the-line question always picks something; TypeSafe warns that “some line ranks first even when the document doesn’t answer the question.” So you ask a second, separate yes-or-no question in the same request: does any line answer this? In TypeSafe’s example, a question the document didn’t answer still got a top line scored 0.86, but the yes-or-no check came back at 0.14, meaning not in this document. Here, “not in the policy” is a built-in answer, not something you hope the AI volunteers.
+
+**5. It’s cheap enough to run on every email.** Jev costs $0.042 per million tokens, the small chunks of text it reads ([TypeSafe pricing](https://docs.typesafe.ai/models.md)). A policy section of a few thousand words costs a small fraction of a cent per question. After a storm, you can run it on all thirty emails in the inbox without thinking about the bill.
+
+## The proof: one storm email, start to finish
 
 It stormed last night. This is one of thirty messages in your agency’s inbox:
 
 > “A big branch from my neighbor’s oak came down on our back fence. Half the fence is flat. Is that covered? And who pays to get the branch hauled away?”
 
-Your service person knows homeowners policies. They don’t know this one by heart. The honest answer depends on four things the policy may or may not say: whether a fence counts as covered property, whether wind is a covered cause, how a neighbor’s tree is treated, and whether hauling debris has its own limit.
-
-So they open the PDF and search for “fence.” Maybe it isn’t in there. Then “tree.” Then “debris.” Ten minutes later they have an answer, and twenty-nine emails to go.
-
-The tempting fix is a chatbot that reads the policy and answers the customer. That’s exactly the kind of AI behavior Anthropic warned investors about this week. A wrong “yes, you’re covered” costs you, not the software company.
-
-## A smaller, safer job for AI
-
-Here’s what we’d ask Jev to do instead. Not answer. Point.
-
-**Number every line of the policy, and ask Jev which line answers the question.** Jev doesn’t write sentences. It picks from options you give it and tells you how sure it is about each. Here the options are just the line numbers. It comes back with a score for every line, and your person reads the top three.
-
-**Then ask a second question: does the policy answer this at all?** This is the part people skip, and it’s the part that matters. When you ask Jev to pick, it always picks something. TypeSafe, the company behind Jev, says so in its own recipe for this exact technique: “Choice probabilities always add up to 1, so some line ranks first even when the document doesn’t answer the question.” ([TypeSafe](https://docs.typesafe.ai/cookbooks/semantic_find.md))
-
-TypeSafe’s worked example shows why that’s dangerous. Asked whether GitHub’s terms of service require arbitration, which they don’t, Jev still ranked one line at 0.86. That looks like a confident answer. The separate yes-or-no check came back at 0.14: not in this document. Without the second check, a busy person reads 0.86 and quotes the wrong line.
-
-## What it looks like at your desk
-
-Take a made-up policy with these lines in it:
+The customer’s policy is made up for this example, but it reads like a real one:
 
 > **L041** Coverage B, Other Structures. We cover structures set apart from the dwelling, such as fences, sheds and detached garages.
 >
@@ -89,8 +91,8 @@ Here’s how the morning goes:
 | | Who | What happens |
 | --- | --- | --- |
 | 1 | Your service person | Types the customer’s two questions: is the fence covered, and is hauling the branch covered. |
-| 2 | Jev | Points to L103, L041 and L088 for the fence, and L104 for the branch. |
-| 3 | Jev | Says yes, the policy addresses both. |
+| 2 | Jev | Should point to L103, L041 and L088 for the fence, and L104 for the branch. |
+| 3 | Jev | Should say yes, the policy addresses both. |
 | 4 | Your service person | Reads four sentences, not forty pages. Replies in their own words: the fence falls under other structures, a neighbor’s tree is covered if wind brought it down, hauling is covered up to $1,000 because it hit the fence, and the deductible applies. |
 | 5 | The carrier | Decides the claim, as always. |
 
