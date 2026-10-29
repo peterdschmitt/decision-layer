@@ -71,7 +71,9 @@ The goal here isn’t to take the person out of it. It’s to have the date fill
 
 **The options can change with every email.** A choice question takes a map of named options, each with a description, and returns the chosen one plus a probability for every option. ([Primitives](https://docs.typesafe.ai/primitives.md)) Nothing says the options have to be fixed in advance, so the dates found in this email can become this email’s options.
 
-**What TypeSafe hasn’t published.** We found no limit on how many options a choice can hold, no guidance on options built fresh for each request, and no test results on extraction tasks. We also found no advice on how to describe a candidate so Jev can tell it apart from its neighbors. That last part is up to you, and it matters: two options that both say “a date” give Jev nothing to choose between.
+**What TypeSafe has and hasn’t published.** A choice question accepts up to 255 options ([Choice](https://docs.typesafe.ai/primitives/choice.md)), far more than one email has dates. TypeSafe also has two step-by-step recipes close to this one: [Pre-parsed value extraction](https://docs.typesafe.ai/cookbooks/pre_parsed_value_extraction_cookbook.md), which finds candidates with patterns and lets Jev pick, and [Date extraction](https://docs.typesafe.ai/cookbooks/date_extraction_cookbook.md), which asks Jev for the parts of a date and works out the real date in code. We didn’t find accuracy numbers for either on claim emails, or advice on how to describe a candidate so Jev can tell it apart from its neighbors. That last part is up to you, and it matters: two options that both say “a date” give Jev nothing to choose between.
+
+*Correction, Oct 29: the first version of this post said TypeSafe publishes no limit on how many options a choice can hold, and missed the two recipes above. Both are now fixed.*
 
 **What that means for you.** Use something exact to find the candidates, use Jev to pick between them, and use code for anything you do with the result.
 
