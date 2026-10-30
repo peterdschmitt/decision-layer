@@ -51,7 +51,8 @@ Peter's ask (2026-10-11): a blog post every day, emailed to him, with a way for 
 | Five dates in one claim email (Oct 28 draft) | Auto first notice of loss, date of loss | Extraction when Jev can’t write: find candidates with regex (or a generative model), build choice options per email with surrounding words, Jev picks, date math in code, order-swap check |
 | “Is my fence covered?” (Oct 29 draft) | Agency service desk, homeowners coverage question | Finding the answering line in a document: number every line, a Choice over line IDs (up to 255, two passes beyond), a separate Noul for whether the answer exists because Choice always ranks something, TypeSafe’s 0.7/0.35 cut-offs to tune, a person answers |
 
-Topics not yet covered (candidates, proposed by Claude while waiting on Peter): choosing between Jev and a competitor on more than accuracy (contracts, support, lock-in); score questions and what the levels mean; Jev in a phone or chat flow with a person on the other end.
+| Sixty storm emails, three people (Oct 30 draft) | Agency inbox after a storm, call-back order | Score questions: levels written as situations (not numbers), a probability per level and confidence when torn, a separate top level for danger, cheap batch rating; Jev rates, people act |
+Topics not yet covered (candidates, proposed by Claude while waiting on Peter): choosing between Jev and a competitor on more than accuracy (contracts, support, lock-in); Jev in a phone or chat flow with a person on the other end.
 
 ## How Peter's edits come back
 
