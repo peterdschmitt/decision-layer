@@ -1,5 +1,5 @@
 ---
-title: "The LLM went from 80% right to 100% right. It didn’t get smarter. It got a partner that never writes a word."
+title: "The LLM went from 80% right to 100% right. It didn’t get smarter. It got a decision model."
 dek: "In a published test, an LLM read two invoices and got 1 in 5 values wrong, with no sign which. Coupled with a decision model, the same LLM made 15 right calls out of 15: every correct value let through, every wrong one stopped before anyone acted on it. That is the difference between AI a person has to check and a process that runs on its own with confidence, and in accounts payable it is the gap between a $10.18 invoice and a $2.36 one. Here’s why it matters, how a decision model works, and how to make the change in your own process."
 kind: Explainer
 readMinutes: 12
