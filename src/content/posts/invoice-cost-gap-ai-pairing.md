@@ -1,6 +1,6 @@
 ---
 title: "Stop using LLMs alone. On its own, an LLM got 1 in 5 invoice values wrong, so someone had to check every one. Coupled with a decision model, it was 100% right, and the process could finally run on its own: faster, and at a fraction of the cost."
-dek: "Most companies use AI one way: an LLM on its own, with a person checking what it produces. That method can’t automate anything, because an LLM alone gives no sign which of its answers are wrong. Coupling the LLM with a decision model changes the method and the output: a probability behind every value, and a rule you own that acts on it. In a published two-invoice test, the coupled pair made 15 right calls out of 15. In accounts payable, the gap between checking everything and letting it run is the gap between a $10.18 invoice and a $2.36 one. Here’s why the method matters, how a decision model works, and how to make the switch."
+dek: "Most companies use AI one way: an LLM on its own, with a person checking what it produces. That method can’t automate anything: an LLM alone gives no sign which of its answers are wrong, so you either pay a person to confirm everything or take a risk of hallucinations you can’t quantify. Coupling the LLM with a decision model changes the method and the output: a probability behind every value, and a rule you own that acts on it. In a published two-invoice test, the coupled pair made 15 right calls out of 15. In accounts payable, the gap between checking everything and letting it run is the gap between a $10.18 invoice and a $2.36 one. Here’s why the method matters, how a decision model works, and how to make the switch."
 kind: Explainer
 readMinutes: 12
 author: The Decision Layer desk
@@ -25,7 +25,7 @@ snapshot:
   - label: "Where the money is"
     text: "About $782,000 a year for a business processing 100,000 invoices, from processing cost alone. Paying in days instead of weeks also opens early-payment discounts worth 2% of qualifying spend, an annualized return of roughly 37%."
   - label: "Why AI alone hasn’t delivered it"
-    text: "An LLM alone produces something to check: values with no measure of how far to trust them. If it’s wrong 1 time in 5 and you can’t tell which, a person has to check all 5. The person stays in the loop, so the process stays the same."
+    text: "An LLM alone produces values with no measure of how far to trust them. If it’s wrong 1 time in 5 and you can’t tell which, you either pay a person to confirm all 5, or skip the check and take a risk of hallucinations you can’t quantify. Coupled with a decision model, that risk gets a number, and you choose where to set it."
   - label: "What to do"
     text: "Couple the LLM with a decision model. The output changes from something to check into something to act on: a probability behind every value and a rule you own that decides. The process runs on its own by default, and people handle only the exceptions."
   - label: "What we haven’t done"
@@ -100,9 +100,9 @@ inTheNews:
 
 Most companies putting AI into their processes use it the same way: an LLM on its own, with a person behind it. The LLM reads, drafts or sorts. The person checks. It feels like progress, but the method has a ceiling, and the ceiling is the person.
 
-Picture an LLM that reads your invoices and gets 4 out of 5 values right. That sounds good. It isn’t, because nothing in its output tells you which value is the wrong one. A wrong invoice number reads exactly like a right one. So someone has to check every value on every invoice, and the AI hasn’t taken a single step out of the process. It has only added one.
+Picture an LLM that reads your invoices and gets 4 out of 5 values right. That sounds good. It isn’t, because nothing in its output tells you which value is the wrong one. A wrong invoice number reads exactly like a right one. That leaves two choices, and both are bad. Have a person confirm every value on every invoice, and the AI hasn’t taken a single step out of the process; it has only added one. Or skip the check and let the LLM’s output run, and you are taking a risk of hallucinations you can’t put a number on: no one can say how many wrong payments are going out, or which ones.
 
-That’s the ceiling: AI-assisted, with a person on every case. The work feels faster, but the cost per case, the cycle time and the headcount barely move, because the person never leaves the loop.
+Most companies pick the first, and that’s the ceiling: AI-assisted, with a person on every case. The work feels faster, but the cost per case, the cycle time and the headcount barely move, because the person never leaves the loop.
 
 The number in the headline isn’t made up. In a published test, an LLM-based reader pulled fifteen values from two supplier invoices photographed on a phone and got three of them wrong: 20%. None of the three looked wrong.
 
