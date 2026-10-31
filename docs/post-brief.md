@@ -64,6 +64,8 @@ Peter gives the point, Claude crafts the headline (Peter, 14:11Z: "That's the po
 
 Peter (14:15Z): "Write a much longer headline." Headlines are long and carry the full arc: the problem with a number, the suspense, the decision model named as the reveal, and the payoff (full automation, speed, cost). Long is not wordy (Peter, 14:16Z: "you are being wordy for no reason. Who cares about bigger, smarter etc."): every phrase must carry the problem, the decision model or the payoff, nothing else. Example: "An LLM got 1 in 5 invoice values wrong, so someone had to check every one. Coupled with a decision model, it was 100% right, and the process could finally run on its own: faster, and at a fraction of the cost."
 
+Lead with the method change (Peter, 14:17Z: "It's about changing the method of only using llms. It's about coupling the two!!!!"). The headline's first words name the shift from LLMs alone to coupling an LLM with a decision model; the numbers are the proof, not the lead. Example: "Stop using LLMs alone. On its own, an LLM got 1 in 5 invoice values wrong, so someone had to check every one. Coupled with a decision model, it was 100% right, and the process could finally run on its own: faster, and at a fraction of the cost."
+
 ## 5. The lens passes
 
 Do real, separate passes, one lens at a time, and fix what each finds. Then tell Peter in one line per lens what it changed. Don't claim a pass you didn't do.
