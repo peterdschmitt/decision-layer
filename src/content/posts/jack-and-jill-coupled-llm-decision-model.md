@@ -1,6 +1,6 @@
 ---
-title: "Stop using LLMs alone. Jack & Jill had an LLM score 6,000 job candidates for every open role, and the bill kept climbing. Then it coupled the LLM with a decision model: screening costs fell 88%, the work ran twice as fast, quality held, and it was fully live in 10 days."
-dek: "An LLM is good at reading a candidate closely and poor value when it has to give a first score to thousands of them. However, when coupled with a decision model, the thousands get sorted fast and cheaply, and the LLM is kept for the close read. We show you how Jack & Jill did it, and how to do the same."
+title: "How a recruiting company cut screening costs 88% using a decision model, without losing accuracy"
+dek: "Stop using LLMs alone. Jack & Jill had an LLM score 6,000 job candidates for every open role, and the bill kept climbing. Then it coupled the LLM with a decision model: screening costs fell 88%, the work ran twice as fast, quality held, and it was fully live in 10 days."
 kind: Worked example
 readMinutes: 10
 author: Peter Schmitt
@@ -47,6 +47,8 @@ sources:
     url: https://www.unite.ai/openai-makes-decisions-api-generally-available-with-gpt-6-luna/
     grade: Vendor claim
 ---
+
+An LLM is good at reading a candidate closely and poor value when it has to give a first score to thousands of them. However, when coupled with a decision model, the thousands get sorted fast and cheaply, and the LLM is kept for the close read. We show you how Jack & Jill did it, and how to do the same.
 
 Jack & Jill is a hiring company built around two AI agents. Jack works for job seekers; Jill works for the companies hiring them. When both agree a candidate fits a role, they introduce the two directly. The company says it has worked with more than 5,000 companies and 400,000 professionals, and has raised $60 million.
 
