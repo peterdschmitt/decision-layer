@@ -3,7 +3,7 @@ title: "Stop using LLMs alone. On its own, an LLM got 1 in 5 of the details it r
 dek: "The default way to automate with AI is an LLM on its own: one model doing every step, at LLM prices and LLM speed, with every output carrying a risk of hallucination no one can measure. The companies pulling ahead have changed the method. They couple the LLM with a decision model, which scores every case in milliseconds with a probability attached, and they let the LLM do only the work that needs it. Here is what the coupling did to accuracy in a published invoice test, five companies that made the switch, what it was worth, how a decision model works, and how to make the change in your own process."
 kind: Explainer
 readMinutes: 12
-author: The Decision Layer desk
+author: Peter Schmitt
 audience: For executives, operations and transformation leaders deciding how AI runs their processes
 published: 2026-10-31
 lastChecked: 2026-10-31
