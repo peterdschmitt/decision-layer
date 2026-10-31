@@ -21,6 +21,8 @@ Most companies bolt an LLM onto a process and get output someone still has to ch
 
 - **Then "we show you how."** Peter: "Then. The 'we show you how'". After the point and why it matters, the post walks the reader through how to make the change in their own process, step by step: the process before, the process after, what to build, how to set the confidence bar, and how to prove it on their own work before trusting it.
 
+- **Explain the decision model itself.** Peter (14:09Z): "We also need an explanation of what it is, how it works, how the data is trained, and how to implement." Every post has a short section covering what a decision model is, how it works (scores the answers you allow, all at once, with a probability), how it's trained (only what vendors publish, e.g. TypeSafe's RLCD and calibration, and what they haven't disclosed), and how to implement it. Reuse and re-verify /mnt/project-files/videos/jev-training-explainer/script.md and videos/jev-explainer-v3/script.md.
+
 ## 2. Who reads it
 
 - The reader is executives and leaders deciding how AI runs their processes. It is not insurance staff and not junior employees. Insurance is one example among many.
