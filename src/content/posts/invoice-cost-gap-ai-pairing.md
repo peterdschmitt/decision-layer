@@ -1,6 +1,6 @@
 ---
-title: "In a published test, AI got 1 in 5 invoice numbers wrong. A different kind of AI caught every one."
-dek: "On two supplier invoices in TypeSafe’s test, an LLM-based reader misread 20% of the values, and nothing in its output said which. A decision model, a different kind of AI, flagged all three errors and cleared the rest. That pairing is how a finance team gets to the touchless processing behind best-in-class costs: $2.36 an invoice against an average of $10.18. Here is what it’s worth in cost, cash and customers, and how to work out your own number."
+title: "In a published test, an LLM alone got 1 in 5 invoice numbers wrong. Paired with a decision model, every error was caught."
+dek: "On two supplier invoices in TypeSafe’s test, an LLM-based reader working alone misread 20% of the values, and nothing in its output said which. Working together with a decision model, the same reading came out with every error flagged and every correct value cleared. That pairing is how a finance team gets to the touchless processing behind best-in-class costs: $2.36 an invoice against an average of $10.18. Here is what it’s worth in cost, cash and customers, and how to work out your own number."
 kind: Explainer
 readMinutes: 12
 author: The Decision Layer desk
@@ -13,7 +13,7 @@ stats:
   - value: "20%"
     label: "of invoice values the LLM-based reader got wrong in TypeSafe’s test (3 of 15)"
   - value: "3 of 3"
-    label: "errors the decision model flagged, with no correct values sent to a person"
+    label: "errors caught with the LLM and decision model working together, and no correct values sent to a person"
   - value: "77%"
     label: "lower cost per invoice at best-in-class AP teams ($2.36 vs $10.18)"
   - value: "96% vs 38%"
