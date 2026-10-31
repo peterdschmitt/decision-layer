@@ -1,6 +1,6 @@
 ---
 title: "Stop using LLMs alone. On its own, an LLM got 1 in 5 of the details it read off invoices wrong; coupled with a decision model, it made every call right. Jack & Jill coupled the two and cut screening costs 88% with no loss in quality. Datadog did it to score the risk of every command its AI agent writes. The method works in every industry."
-dek: "Most companies automate with an LLM on its own: one model doing every step, at LLM prices and LLM speed, with every output carrying a risk of hallucination no one can measure. The companies pulling ahead have changed the method. They couple the LLM with a decision model, which scores every case in milliseconds with a probability attached, and they let the LLM do only the work that needs it. Here is what the coupling did to accuracy in a published invoice test, five companies that made the switch, what it was worth, how a decision model works, and how to make the change in your own process."
+dek: "The default way to automate with AI is an LLM on its own: one model doing every step, at LLM prices and LLM speed, with every output carrying a risk of hallucination no one can measure. The companies pulling ahead have changed the method. They couple the LLM with a decision model, which scores every case in milliseconds with a probability attached, and they let the LLM do only the work that needs it. Here is what the coupling did to accuracy in a published invoice test, five companies that made the switch, what it was worth, how a decision model works, and how to make the change in your own process."
 kind: Explainer
 readMinutes: 12
 author: The Decision Layer desk
@@ -88,7 +88,7 @@ inTheNews:
 
 ## The method is the problem: LLMs alone
 
-Most companies automating with AI use it the same way: an LLM on its own, doing every step. It reads, sorts, scores, routes and writes, and its output flows straight into the next step.
+The default way to automate with AI today is an LLM on its own, doing every step. It reads, sorts, scores, routes and writes, and its output flows straight into the next step.
 
 That method has two costs leaders feel but rarely name.
 
@@ -111,7 +111,7 @@ An LLM coupled with a decision model is the same kind of change. The decision mo
 | What the LLM does | Everything | The reading, writing and deep review only it can do |
 | What the process becomes | Automated blind, or not automated at all | Fully automated, with confidence |
 
-The companies below didn’t adopt a new tool. They changed the method.
+The cases below show what changes when you do.
 
 ## The accuracy case: from hallucinations to every call right
 
@@ -143,11 +143,11 @@ The money wasn’t the only change. Because each call became so cheap and fast, 
 
 ## Why it matters: money, customers and revenue
 
-**Money.** The savings come from one move: taking the high-volume calls away from the LLM. Jack & Jill’s screening cost fell 88%, worth $265,000 a year at today’s volume and a projected $500,000 with growth. Sierra’s cost per call fell 90%. Ramp’s fell 30%. To size it for your own process, take the number of high-volume calls an LLM makes for you each year and multiply by its cost per call. That’s the pool these companies cut by 30% to 90%.
+**Money.** The savings come from one move: taking the high-volume calls away from the LLM. The model cost of Jack & Jill’s screening step fell 88%, worth $265,000 a year at today’s volume and a projected $500,000 with growth. Sierra’s cost per call fell 90%. Ramp’s fell 30%. To size it for your own process, take the number of high-volume calls an LLM makes for you each year and multiply by its cost per call. That’s the pool these companies cut by 30% to 90%. The switch itself is small: Jack & Jill went from first test to production in 10 days. Budget for the integration and the test on your own history; that, not the model, is the real cost.
 
-**Customers.** Speed is what customers feel. Speak cut the pause before its tutor’s next action by more than 90%. Sierra held its customer outcomes while answering faster. Jack & Jill’s new candidates now see matched roles the moment they sign up. When a call takes milliseconds instead of seconds, it can sit inside the moment the customer is waiting.
+**Customers.** Speed is what customers feel. Speak cut the pause before its tutor’s next action by more than 90%. Sierra held its customer outcomes while answering faster. Jack & Jill’s new candidates now see matched roles the moment they sign up. When a call takes milliseconds instead of seconds, it can sit inside the moment the customer is waiting. And when a call goes against a customer, the score and the logged reason mean someone can explain it, which is exactly what NPR’s story says AI detectors fail to do.
 
-**Revenue.** This is the least obvious gain, and it may be the largest. When a call costs a tenth of what it did, work that never paid for itself starts to: Jack & Jill’s matched-roles-at-signup feature exists because each check became cheap enough to run on every new candidate. Every company above can now run checks it would have skipped. Those become features, faster service and better matches, which is where revenue grows.
+**Revenue.** This gain is indirect, and it is the one to watch. When a call costs a fraction of what it did, work that never paid for itself starts to. Jack & Jill now runs its decision model in more than 15 workflows, including matching every new candidate to every suitable open role the moment they sign up, which TypeSafe says means faster, better matches for hiring managers and candidates alike. In a marketplace, faster matches are what bring both sides back.
 
 **Risk.** Datadog and Box show the other side of the ledger. A probability on every call means you know where the risk is and can set the bar for what runs on its own. That is what lets leaders automate a process they would otherwise keep manual.
 
@@ -155,7 +155,7 @@ The money wasn’t the only change. Because each call became so cheap and fast, 
 
 **What it is.** A decision model is a different type of AI from the LLM it’s coupled with. It writes nothing. You give it some material and a question with the answers you’ll accept (yes or no, one of a list, a score on a scale), and it returns its pick with a probability. TypeSafe calls Jev “a frontier-intelligence function call: unstructured state in, typed probabilistic decisions out” ([TypeSafe](https://typesafe.ai/blog/introducing-system-one-models-and-jev)).
 
-**How it works.** An LLM writes its answer one word at a time. A decision model scores every allowed answer at once. In TypeSafe’s words, “Jev outputs all probabilities in parallel instead of autoregressively generating by token.” That is why it’s fast and cheap enough to ask about every case. Both Jev and OpenAI’s Decisions API charge only for what goes in, not for what comes out, which is a large part of why the companies above cut costs by 30% to 90% ([TypeSafe](https://docs.typesafe.ai/models.md)).
+**How it works.** An LLM writes its answer one word at a time. A decision model scores every allowed answer at once. In TypeSafe’s words, “Jev outputs all probabilities in parallel instead of autoregressively generating by token.” That is why it’s fast and cheap enough to ask about every case. Both Jev and OpenAI’s Decisions API charge only for what goes in, not for what comes out ([TypeSafe](https://docs.typesafe.ai/models.md)). For Jack & Jill, TypeSafe attributes the saving to exactly that: an input price a sixth of the LLM’s, and no charge for output.
 
 **How it’s trained.** ChatGPT-style models are trained with RLHF, which, in TypeSafe’s words, “teaches a model to say things that people prefer” and “can also reward sycophancy and confident-sounding hallucinations.” Jev is trained with what TypeSafe calls reinforcement learning for calibrated decisions, or RLCD. The model “does not generate text”, “returns decisions and probabilities”, and a “higher probability should correspond to a greater chance that the answer is correct” ([TypeSafe primer](https://docs.typesafe.ai/introduction/machine-learning-primer.md)). That property is called calibration: across many answers, the ones scored 0.2 should come true about 20% of the time. TypeSafe notes this describes “groups of predictions, not a guarantee about any single answer.”
 
@@ -184,7 +184,7 @@ Here is the method before and after, for any process where AI makes calls at vol
 
 **5. Set the bar.** Choose the confidence level above which a case runs on its own. Set it stricter where mistakes cost more, as Box does by sending lower-confidence certificates to reviewers. Your test from step 4 tells you what each bar means in errors and in work saved.
 
-**6. Switch, and own it.** Move the calls over, run in shadow mode for a few weeks if the stakes are high, then let it run. Give the cost, the error rate and the bars to one named owner, review a sample every week, and look for the features the new cost makes possible.
+**6. Switch, and own it.** Move the calls over, run in shadow mode for a few weeks if the stakes are high, then let it run. Give the cost, the error rate and the bars to one named owner, review a sample every week, keep the LLM-only path as a fallback if the decision model is unavailable, and look for the features the new cost makes possible.
 
 ## The same method in other processes
 
