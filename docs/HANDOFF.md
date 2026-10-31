@@ -14,7 +14,7 @@ Everything a new Claude session (or person) needs to pick this project up withou
 ## Decisions Peter made (2026-10-10)
 - **Plan approved** (strategy steps 1 to 5).
 - **Site name: "Decision Layer".** The site says it is unofficial and not affiliated with TypeSafe AI; no TypeSafe logo; "Jev" is content, not the brand.
-- **Headline outlets:** household-name outlets (WSJ, NYT, Washington Post, AP, Reuters, CNBC, CNN, NBC, CBS, ABC, NPR, Bloomberg, USA Today, Forbes, Fox Business) **plus tech outlets** (TechCrunch, The Verge, Wired, Business Insider, Axios and similar). Not trade newsletters or vendor blogs. Use a different outlet on each post and don't repeat one within a week.
+- **Headline outlets:** household-name outlets (WSJ, NYT, Washington Post, AP, Reuters, CNBC, CNN, NBC, CBS, ABC, NPR, Bloomberg, USA Today, Forbes, Fox Business) **plus tech outlets** (TechCrunch, The Verge, Wired, Business Insider, Axios and similar). Not trade newsletters or vendor blogs. Use a different outlet on each post and don't repeat one within a week. **Superseded 2026-10-31 14:46Z (Peter): news hooks are optional and any credible outlet works, including trade press and primary sources; see post-brief.md.**
 - **Jev API key:** Peter has one. It must come in as the environment secret `TYPESAFE_API_KEY` (claude.ai Project settings, cloud environment, or Vercel env vars). Never pasted in chat, never committed, never printed in logs.
 - **Repo:** Peter created peterdschmitt/decision-layer. He said it's private, but GitHub showed it public on 2026-10-10; he can change that in the repo's Settings, General, Danger Zone.
 

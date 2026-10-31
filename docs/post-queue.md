@@ -2,6 +2,8 @@
 
 Peter (2026-10-31 14:40Z): "We should do a separate post on each one!" Each daily run takes the next unchecked item, writes a full post on it following [post-brief.md](post-brief.md), then ticks it here. Every post still leads with the method change (stop using LLMs alone; couple the LLM with a decision model) and the unknown-risk theme. Run full research on each one before writing, and verify every number at its source.
 
+Since 2026-10-31 14:46Z (Peter, "Change all five") this list is only the start: it is fed from [use-case-catalog.md](use-case-catalog.md). Each run's research adds new cases to the catalog, and the strongest new ones (named company, real scale, a business number) join the queue here. Keep industries mixed.
+
 - [ ] **Jack & Jill (hiring):** a decision model scores 6,000 candidates per role and an LLM reviews the shortlist. 88% lower screening cost, twice as fast, no loss in quality, live in 10 days, $500K a year projected, 15+ workflows. Source: https://typesafe.ai/blog/jack-jill-jev-case-study
 - [ ] **Datadog (software operations, AI agents):** a decision model scores the risk of every command an AI agent writes before it runs. 40x faster p95 than frontier models, comparable accuracy. Source: OpenAI Decisions API announcement, via https://www.unite.ai/openai-makes-decisions-api-generally-available-with-gpt-6-luna/
 - [ ] **Ad copy and creative (marketing):** the LLM writes, the decision model chooses. Ad Lab, Higgsfield, Matt Berman's 724-ad teardown, Jev for Marketers. Use the full research report in /mnt/project-files/decision-layer/reports/.

@@ -11,7 +11,7 @@ Approved working copy: https://claude.ai/artifact/8sQF4UgHgRPaT5ZA7cLeek (Peter 
 | 3 | Byline | Who it's for | "For executives, operations and transformation leaders deciding how AI runs their processes" | Narrows to one industry or level |
 | 4 | Big numbers | Proof at a glance | 3 to 4: percentages and annual dollars, with a source note | Per-unit costs; numbers not sourced in the body |
 | 5 | Snapshot | A busy reader can stop here | Why it matters / Where the money is / Why AI alone hasn't delivered it / What to do / What we haven't done | Vague lines; repeats the line under the headline |
-| 6 | Why this matters today | News hook | Fresh approved-outlet story, verified quote, what it teaches leaders | Unverified quote; outlet used as a lead in the last 7 days |
+| 6 | Why this matters today (optional) | News hook, only when one fits | Fresh story from any credible outlet, verified quote, what it teaches leaders | Unverified quote; a stretched story that doesn't fit the use case (leave the box out instead) |
 | 7 | The method is the problem | Name the trap | What an LLM alone costs in this use case: unknown risk, cost per step, speed | Reads as "AI is bad" not "the method is wrong" |
 | 8 | The new method: couple the two | Show the change | Tractor and hydraulics; side-by-side table for this use case with a risk row | Generic table; decision model framed as checking or fixing the LLM |
 | 9 | The case, in full | Prove it | Who and scale; process before; what the LLM does vs the decision model; how they tested; results; time to production; what it unlocked | No named company; unsourced numbers; sample size as the story |
@@ -27,7 +27,7 @@ Approved working copy: https://claude.ai/artifact/8sQF4UgHgRPaT5ZA7cLeek (Peter 
 ## Part 2: the process (ten stages, each with a gate and a written record)
 
 1. **Pick the topic** from [post-queue.md](post-queue.md). Gate: a named, real deployment with numbers exists.
-2. **Full research**: vendor blogs and case studies, news, GitHub, community catalogs, n8n/Make templates, X/LinkedIn/YouTube demos; open every source. Record: a fact sheet (number, link, exact wording, label: vendor claim / self-reported / community demo / independent). Gate: every number the post will use is on it; never "nothing exists" after one search.
+2. **Full research**: vendor blogs and case studies, news, GitHub, community catalogs, n8n/Make templates, X/LinkedIn/YouTube demos; open every source. Record: a fact sheet (number, link, exact wording, label: vendor claim / self-reported / community demo / independent). Gate: every number the post will use is on it; never "nothing exists" after one search. Runs on every post, not only when Peter asks. Add every new use case found to use-case-catalog.md, labelled; keep thin items in with their label rather than drop them.
 3. **Write the point** in one sentence: LLM alone does X with an unknown risk; coupled with a decision model it does Y, worth Z. Gate: method change first, decision model named, money number.
 4. **Headline**: 10+ candidates scored 1 to 5 on stops an executive / true and scoped / shows the coupling / has a number; publisher pass on the top five. Record: top three. Gate: method-first, decision model named, no filler, no per-unit cost.
 5. **Draft to the outline** from the fact sheet only. Gate: every section passes its "Fails if".
@@ -51,7 +51,7 @@ Approved working copy: https://claude.ai/artifact/8sQF4UgHgRPaT5ZA7cLeek (Peter 
 - [ ] At least four industries
 - [ ] Full research done and recorded
 - [ ] All seven lenses ran, logged
-- [ ] News quote verified; outlet not a lead in the last 7 days
+- [ ] News quote verified, or no news box because no story fits
 - [ ] Page and email checked at phone width; preview opens the current build
 - [ ] Every note from Peter is in the brief and this draft passes it
 - [ ] Nothing goes live until Peter says "publish"
