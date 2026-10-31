@@ -4,7 +4,7 @@ export const SITE = {
   publisher: 'Conversely',
   services: 'performance services',
   tagline: 'The independent field guide to Jev: what it is good at, where it breaks, and how to put it to work.',
-  byline: 'The Decision Layer desk', // [BYLINE: Peter to confirm the author name]
+  byline: 'Peter Schmitt', // confirmed by Peter 2026-10-31
   email: 'info@converselyai.com',
 };
 
@@ -19,6 +19,7 @@ export const NAV = [
   { href: '/guides/', label: 'Guides', also: ['/use-cases/', '/how-to/', '/glossary/', '/start/'] },
   { href: '/tests/', label: 'Tests' },
   { href: '/about/', label: 'About' },
+  { href: '/subscribe/', label: 'Subscribe' },
 ];
 
 export const PODCAST = {

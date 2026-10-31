@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import SubscribeBox from '../components/SubscribeBox.astro';
+---
+<Base title="Subscribe" description="Subscribe to The Decision Layer and get access to the private repository of worked examples: LLMs coupled with decision models, in working code.">
+  <section class="card page-head">
+    <p class="eyebrow">Subscribe</p>
+    <h1>Get every worked example, in code</h1>
+    <p class="sub-status" data-status hidden></p>
+  </section>
+  <SubscribeBox heading="Subscribe for access" id="form" />
+</Base>
+<script>
+  const p = new URLSearchParams(location.search);
+  const el = document.querySelector<HTMLElement>('[data-status]');
+  const text: Record<string, string> = {
+    invited: 'You’re subscribed. Check your email for the GitHub invite.',
+    queued: 'You’re subscribed. Your GitHub invite is on its way.',
+    email: 'That email didn’t look right. Please try again.',
+    github: 'That GitHub username didn’t look right. Please try again.',
+    nouser: 'GitHub has no user with that name. Please try again.',
+    later: 'Something went wrong on our side. Please try again in a few minutes.',
+  };
+  const code = p.get('code');
+  if (el && code && text[code]) { el.textContent = text[code]; el.hidden = false; }
+</script>
