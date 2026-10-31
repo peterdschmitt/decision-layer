@@ -258,7 +258,7 @@ a.card:hover h3 { color: var(--orange-ink); }
 .grade[data-g="Regulator"] { background: var(--navy); color: #fff; }
 .grade[data-g="Official docs"] { background: var(--accent-wash); color: var(--navy-3); }
 .grade[data-g="Independent reporting"] { background: var(--go-wash); color: var(--go); }
-.grade[data-g="Vendor claim"], .grade[data-g="Vendor case study"] { background: var(--review-wash); color: var(--review); }
+.grade[data-g="Vendor claim"], .grade[data-g="Vendor case study"], .grade[data-g="Company report"] { background: var(--review-wash); color: var(--review); }
 .grade[data-g="Our test"] { background: var(--orange-wash); color: var(--orange-ink); }
 
 /* Prose pages */

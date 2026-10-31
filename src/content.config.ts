@@ -34,7 +34,7 @@ const posts = defineCollection({
     sources: z.array(z.object({
       title: z.string(),
       url: z.string().url(),
-      grade: z.enum(['Regulator', 'Official docs', 'Vendor claim', 'Vendor case study', 'Independent reporting', 'Our test']),
+      grade: z.enum(['Regulator', 'Official docs', 'Vendor claim', 'Vendor case study', 'Company report', 'Independent reporting', 'Our test']),
     })),
     // Closes every post: real, verified, linked headlines.
     inTheNews: z.array(z.object({
@@ -66,7 +66,7 @@ const episodes = defineCollection({
     sources: z.array(z.object({
       title: z.string(),
       url: z.string().url(),
-      grade: z.enum(['Regulator', 'Official docs', 'Vendor claim', 'Vendor case study', 'Independent reporting', 'Our test']),
+      grade: z.enum(['Regulator', 'Official docs', 'Vendor claim', 'Vendor case study', 'Company report', 'Independent reporting', 'Our test']),
     })).default([]),
   }),
 });
