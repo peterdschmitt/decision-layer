@@ -1,6 +1,6 @@
 # Writing process v2 (agreed with Peter, 2026-10-31)
 
-This merges Peter's founder-writing prompt with our process. Working copy, written with Peter part by part: https://claude.ai/artifact/6ZdPMG7rZvL6UMzcaMQ2J4. The rules behind it are in [post-brief.md](post-brief.md); where an older doc conflicts, this file and the brief win. **The post's sections are being agreed with Peter now (Oct 31 evening); until that's done, use the required elements in Part 5.**
+This merges Peter's founder-writing prompt with our process. Working copy, written with Peter part by part: https://claude.ai/artifact/6ZdPMG7rZvL6UMzcaMQ2J4. The rules behind it are in [post-brief.md](post-brief.md); where an older doc conflicts, this file and the brief win. **The seven post sections were agreed with Peter on 2026-10-31 (Part 5).**
 
 ## 1. Start from real material
 
@@ -63,23 +63,14 @@ This is the doc, Part 2: Peter's beliefs, how he builds an argument, the phrases
 1. Write from the winning card and the fact sheet only.
 2. Run 10 to 12 minutes.
 3. Fit the order to the format.
-4. Include these required elements, until the section grill replaces them:
-   a. Headline: a verdict with a twist, method first, decision model named.
-   b. The line under the headline: grant the other side, then turn ("However, when coupled with a decision model…").
-   c. Byline.
-   d. Three to four big numbers, as percentages and annual dollars.
-   e. Five-line snapshot.
-   f. The trap: an LLM alone is an unknown risk.
-   g. The coupling: the tractor and hydraulics once, plus a side-by-side table.
-   h. The case as a story of a turn.
-   i. Money, customers, revenue and risk.
-   j. What a decision model is and how it is trained.
-   k. We show you how.
-   l. Four or more industries.
-   m. Which model.
-   n. Hard questions leaders will ask.
-   o. Fine print.
-   p. For your developer.
+4. Use the seven sections agreed with Peter on 2026-10-31. They replace the old 16 required elements and apply to every post, not only one case. Include every detail the source gives, and say plainly what it doesn't.
+   1. **Headline, opening line and big numbers.** The headline names the company, the method change (stop using an LLM alone, couple it with a decision model) and the result, and names the decision model. The opening line grants what LLMs do well, then turns: "However, when coupled with a decision model…". Then 3 or 4 big numbers, as percentages and annual dollar totals. Byline Peter Schmitt.
+   2. **The story, in full detail.** Who the company is. How the process worked before: the steps, the volume, and where the cost or risk piled up (the trap: an LLM alone is an unknown, unquantified risk). What they changed: what the LLM does now and what the decision model does. How they tested it, how fast it went live, and what it unlocked next. If a post covers several companies, this becomes two or three shorter stories.
+   3. **How it works.** What a decision model is. How it's trained: what the maker publishes and what it hasn't disclosed. What this company did to set it up: the questions it asks, its cut-offs, and the data it tested on. Use the tractor and hydraulics image once.
+   4. **What it means for you.** Money, customers, revenue and risk at the reader's scale. Where else it works: real examples from other industries, labelled. The hard questions a skeptical leader would ask, answered. Then how to make the same change in your own process, step by step.
+   5. **For your developer.** One short code snippet (10 to 15 lines) showing the coupling for this post's process: the decision model makes the call, a rule acts on its score, and the LLM writes or handles what falls below the bar. The snippet is our own code, never copied, and says "expected, not measured", because we don't run model calls ourselves. Link the matching worked example in https://github.com/peterdschmitt/decision-layer-examples. If none matches, add one to that repo with the post. Also link other people's public repos that do the same thing, each labelled (for example, community demo).
+   6. **The fine print.** Who published each number, which decision model and LLM were used, caveats stated once in plain words, what we still don't know, and the sources.
+   7. **One next step.** One action for the reader. Peter has not yet picked which one (subscribe, the examples repo, or contact him). Until he does, point to the matching example in the examples repo.
 5. Hooks:
    a. At least 10 headline candidates, scored.
    b. The top three go to Peter.
