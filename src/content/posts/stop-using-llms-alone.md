@@ -113,9 +113,9 @@ An LLM coupled with a decision model is the same kind of change. The decision mo
 
 The companies below didn’t adopt a new tool. They changed the method.
 
-## The accuracy case: 1 in 5 wrong, then every call right
+## The accuracy case: from hallucinations to every call right
 
-In TypeSafe’s published invoice test, an LLM-based reader pulled the supplier, invoice number, date, amount and bank details from supplier invoices photographed on a phone. On its own, it got 1 in 5 of those details wrong, and none of the wrong ones looked wrong: an invoice number off by one letter, another off by one digit, a date two years in the future ([TypeSafe](https://docs.typesafe.ai/cookbooks/ocr_confidence_bounding_boxes.md)).
+In TypeSafe’s published invoice test, an LLM-based reader pulled the supplier, invoice number, date, amount and bank details from supplier invoices photographed on a phone. On its own, it got 1 in 5 of those details wrong, and none of the wrong ones looked wrong. That is what a hallucination looks like in a process: an invoice number off by one letter, another off by one digit, a date two years in the future ([TypeSafe](https://docs.typesafe.ai/cookbooks/ocr_confidence_bounding_boxes.md)).
 
 Coupled with a decision model, the same LLM made every call right. Jev answered two narrow questions about each detail (does it match the whole page, and does it match a close-up of where it’s printed?), and with a bar of 0.25 it let every correct detail through and stopped every wrong one before anyone acted on it. The LLM didn’t change. The method did.
 
