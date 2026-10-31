@@ -1,0 +1,93 @@
+# The post brief
+
+This is everything Peter has asked for, in one place. Every daily post is checked against every line before it goes to him. If a rewrite fixes one point, re-check all the others: a fix must never drop earlier feedback. When Peter gives new direction, add it here the same day, with his words and the date.
+
+## 1. Why the site exists
+
+The site shows one idea: **an LLM coupled with a decision model produces a dramatically different output.** An LLM alone gives you a reading or a draft that someone still has to check. Coupled with a decision model, it gives you a decision you can act on, such as cleared, routed, approved or sent, with a probability behind it and a logged reason.
+
+- Peter: "It's the entire philosophy!", "It's why we're building this site. To show this concept", "It's not two llms working together. It's that an llm coupled with a decision model creates a dramatically different output."
+- Never write "two models working together", because it reads as two LLMs.
+- Never call the decision model "a different kind of AI", and never say it fixes, checks or catches the LLM.
+- The payoff, in Peter's words: higher quality and more robust actionable outcomes, less slop, more legitimate outcomes, faster accurate action, "for fractions of the cost and dramatic improvements in speed".
+- **Analogy:** the tractor is the LLM and the hydraulics are the decision model. Together they give immense power: digging fast and precisely, and lifting enormous loads with little effort. Never use brakes, a checker, an editor or precision as the analogy.
+
+## 2. Who reads it
+
+- The reader is executives and leaders deciding how AI runs their processes. It is not insurance staff and not junior employees. Insurance is one example among many.
+- Write for "an executive that demands detail". Every post answers these questions, with sourced numbers:
+  - Why does this matter?
+  - Why should it make a difference?
+  - Why spend time understanding it?
+  - How will it make me money?
+  - How will it improve my customer relationships?
+  - How will it generate more revenue?
+
+## 3. Altitude
+
+- Macro, not micro. Peter: "It's not about did it catch a simple line in an email. It's about how to improve x percent."
+- Each post moves a business number by a percentage, backed by a sourced benchmark gap.
+- A single caught error is evidence for the mechanism. It gets one short section, never the whole story.
+
+## 4. The headline (the most important line)
+
+Peter: "There is nothing interesting about this headline! Nothing!" and "where did my 20 percent go?!?"
+
+A headline must:
+
+- **Lead with the most surprising sourced number.** For the Oct 31 post, that is Peter's hook: the LLM alone was wrong about 20%, or 1 in 5, of the time.
+- **Show the change in output** that coupling makes, or the money it moves.
+- **Make an executive stop scrolling.** Use a tension, a cost or a reversal. It must not read as a description.
+- **Stay true.** Scope the number to its source in the headline or the first line of the dek. Never mix a test's result with an industry benchmark as if one caused the other.
+- **Keep Peter's words.** Never drop a number or phrase Peter suggested without asking him first.
+
+The process:
+
+1. Write at least 10 candidates.
+2. Score each one 1 to 5 on four tests: stops an executive, true and scoped, shows the coupling, and has a number.
+3. Run the top five through the publisher lens: would it earn a business front page?
+4. Put the top three or four in the thread and the email with one line on each.
+5. Use Peter's pick, or the recommended one if he hasn't answered by the time of sending.
+
+A good example: "The LLM got 1 in 5 invoice numbers wrong. Coupled with a decision model, not one error got through." A bad example is a description with no number or tension, like "An LLM alone reads the invoice. Coupled with a decision model, it clears it for payment."
+
+## 5. The lens passes
+
+Do real, separate passes, one lens at a time, and fix what each finds. Then tell Peter in one line per lens what it changed. Don't claim a pass you didn't do.
+
+| Lens | What it asks |
+| --- | --- |
+| Skeptical CFO | Is every number sourced? What is the payback? What is left out? |
+| CRO or head of revenue | Where is the revenue? |
+| COO | How would we run it, and who owns it? |
+| Head of customer experience | What do customers feel? |
+| Skeptic | Is there any claim we can't back? |
+| Line and copy editor | Is it clear? Does it have rhythm? Cut the fluff. |
+| Publisher or editor-in-chief | Would the headline, angle and lede earn a top business publication's front page? |
+
+## 6. Format
+
+- **Look:** the paper look, with orange as the accent. The design thread owns the page template.
+- **Top of the page, in this order:**
+  1. Title
+  2. Dek, which scopes the hook number
+  3. Byline with the audience line
+  4. Stat strip, with the hook number first
+  5. Snapshot: Why it matters, Where the money is, Why AI alone hasn't delivered it, What to do, What we haven't done
+  6. Why this matters today, the news hook with a verified quote
+- **Length:** 10 to 12 minutes. The body order is in [daily-post-process.md](daily-post-process.md), step 3.
+- **Side-by-side table:** every post has a table comparing an LLM alone with an LLM coupled with a decision model.
+- **Category, not only Jev:** name rivals where they fit, sourced. Use the examples repo's pattern names (Draft and decide, Read and weigh, Propose and choose, Sort and solve, Plan and pace).
+
+## 7. Standing rules
+
+- Email the whole post through Resend, never Gmail.
+- Nothing goes live until Peter says "publish".
+- Verify every quote and citation.
+- Never claim tests or reviews that didn't happen.
+- The site is unofficial and not affiliated with any vendor.
+- Peter never touches GitHub.
+
+## 8. Final check before sending
+
+Go through every line of sections 1 to 7 and confirm each one holds. If any line fails, fix it before sending.
