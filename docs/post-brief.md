@@ -8,6 +8,12 @@ Every post argues for a change of method: **stop using LLMs alone; couple an LLM
 
 **Second central theme (Peter, 14:24Z: "No one automates and then manually reviews. They take an unknown risk." / "This is another central theme!"):** never write that companies using an LLM alone have a person check its output. They don't: they let it run and carry an unknown risk of hallucination, or they don't automate at all and pay people. Coupling turns the unknown risk into a known one, a probability on every output and a bar you set, so the process runs on its own with confidence. This supersedes the earlier "someone has to check every one" wording.
 
+**Also every post (Peter, 14:26-14:30Z):**
+- **Real use cases at real scale.** "There are so many real use cases!!!!!" Lead with published, named deployments (e.g. Jack & Jill, Datadog, Box, Sierra, Ramp, Speak), verified at the source and labeled as self-reported. A small test can be supporting evidence, but don't feature its sample size ("Just don't share the detail of only 2 invoices"); say once in the fine print that small tests show the mechanism, not a rate.
+- **CFO altitude.** "No one cares about 10 dollars or 2 dollars." Use percentages and annual dollar impact (88% lower cost, $500K a year), never per-unit costs.
+- **Every industry.** "Make sure this is for all industries and not just insurance." Spread examples across industries; insurance is at most one of many.
+- **Accuracy from hallucinations.** Peter liked "improving accuracy from hallucinations": show how coupling turns hallucination-prone output into right calls (1 in 5 wrong alone, every call right coupled).
+
 ## 1. Why the site exists
 
 The site shows one idea: **an LLM coupled with a decision model produces a dramatically different output.** An LLM alone gives you a reading or a draft that someone still has to check. Coupled with a decision model, it gives you a decision you can act on, such as cleared, routed, approved or sent, with a probability behind it and a logged reason.

@@ -1,39 +1,39 @@
 ---
 number: 22
-title: "The 1-in-5 invoice error"
-summary: "Best-in-class finance teams process invoices for 77% less, mostly because almost none need a person. Why an LLM alone hasn’t closed that gap, how pairing it with a decision model can, and what it’s worth in cost, cash and customers."
+title: "Stop using LLMs alone"
+summary: "Why the usual method, an LLM on its own doing every step, carries an unknown risk and a high cost, and what Jack & Jill, Datadog, Box, Sierra and Ramp gained by coupling an LLM with a decision model: up to 88% lower cost, up to 40x faster, with quality held."
 status: planned
 minutes: 12
 hosts: ["The Decision Layer desk"]
-post: invoice-cost-gap-ai-pairing
+post: stop-using-llms-alone
 sources:
-  - title: "Medius: How much does it cost to process an invoice? (Sept 17, 2026; cites Ardent Partners)"
-    url: https://www.medius.com/blog/how-much-does-cost-process-invoice-where-you-save/
+  - title: "TypeSafe: How Jack & Jill cut candidate screening costs by 88% with Jev (Oct 7, 2026)"
+    url: https://typesafe.ai/blog/jack-jill-jev-case-study
     grade: Vendor claim
-  - title: "APQC: 4 KPIs that set good accounts payable organizations apart"
-    url: https://www.apqc.org/blog/4-kpis-set-good-accounts-payable-organizations-apart
-    grade: Independent reporting
-  - title: "Insurance Journal: JD Power: Homeowners claims satisfaction rises as repair times improve (Mar 18, 2026)"
-    url: https://www.insurancejournal.com/news/national/2026/03/17/862324.htm
+  - title: "Unite.AI: OpenAI makes Decisions API generally available with GPT-6 Luna"
+    url: https://www.unite.ai/openai-makes-decisions-api-generally-available-with-gpt-6-luna/
+    grade: Vendor claim
+  - title: "TechCrunch: OpenAI makes its Jev competitor widely available (Oct 22, 2026)"
+    url: https://techcrunch.com/2026/10/22/openai-makes-its-jev-competitor-widely-available-as-decision-model-competition-heats-up/
     grade: Independent reporting
 ---
 
 ## Show notes
 
-- 00:00 Ten dollars an invoice versus two: the gap between average and best-in-class finance teams
-- 01:30 Where the gap comes from: the share of invoices nobody touches
-- 03:00 Why an LLM alone hasn’t closed it, and the tractor and the hydraulics
-- 05:00 The math for 100,000 invoices, and what the checks cost
-- 06:30 Money, customers and revenue: discounts, faster payouts, pricing power
-- 08:30 Six levers leaders control, and how to find your own X%
-- 10:30 Which decision model, and the fine print
+- 00:00 Stop using LLMs alone: the unknown risk and the cost of one model doing every step
+- 01:30 The new method: couple an LLM with a decision model (the tractor and the hydraulics)
+- 03:00 The accuracy case: 1 in 5 invoice details wrong, then every call right
+- 04:30 Jack & Jill: 88% lower screening cost, twice as fast, live in 10 days
+- 06:30 Datadog, Box, Sierra and Ramp: risk scored before it runs, faster routing, cheaper calls
+- 08:00 What a decision model is, how it works and how it’s trained
+- 09:30 Six steps to make the switch in your own process
 
 ## Script
 
-**Cold open.** The average company spends $10.18 to process an invoice. The best spend $2.36. The difference isn’t software licenses. It’s how many invoices need a person.
+**Cold open.** Most companies automate with an LLM on its own. Every answer it gives carries a risk no one can measure, and every step costs LLM prices.
 
-**The idea.** An LLM can read any invoice but can’t say which readings are wrong, so people still check them. A decision model scores every value in milliseconds for a fraction of a cent, so confident invoices go straight through.
+**The idea.** Couple the LLM with a decision model. The decision model makes the high-volume calls in milliseconds, each with a probability, and a rule you own decides what runs on its own. The LLM does only what needs it.
 
-**The prize.** About $782,000 a year at 100,000 invoices, early-payment discounts worth roughly 37% a year annualized, and faster payouts that J.D. Power links to happier customers.
+**The proof.** In a published invoice test, an LLM alone got 1 in 5 details wrong; coupled, every call was right. Jack & Jill cut screening costs 88% with no loss in quality. Datadog scores every agent command’s risk before it runs.
 
-**Close.** Measure your baseline, run it in shadow mode, and let your own numbers set your X%. We haven’t run this yet; when we do, we’ll publish everything.
+**Close.** Find your high-volume calls, split the work, test on your own history, set the bar, and switch. These are the companies’ own numbers; your test is the one that counts.
