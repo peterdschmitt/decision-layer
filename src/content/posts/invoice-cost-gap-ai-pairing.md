@@ -1,5 +1,5 @@
 ---
-title: "Stop using LLMs alone. On its own, an LLM got 1 in 5 invoice values wrong, so someone had to check every one. However, when coupled with a decision model, it was 100% right, and the process could finally run on its own: faster, and at a fraction of the cost."
+title: "Stop using LLMs alone. On its own, an LLM read invoices and 1 in 5 of the numbers it pulled were actually wrong, so someone had to check every one. However, when coupled with a decision model, it was 100% right, and the process could finally run on its own: faster, and at a fraction of the cost."
 dek: "Most companies use AI one way: an LLM on its own, with a person checking what it produces. That method can’t automate anything: an LLM alone gives no sign which of its answers are wrong, so you either pay a person to confirm everything or take a risk of hallucinations you can’t quantify. Coupling the LLM with a decision model changes the method and the output: a probability behind every value, and a rule you own that acts on it. In a published two-invoice test, the coupled pair made 15 right calls out of 15. In accounts payable, the gap between checking everything and letting it run is the gap between a $10.18 invoice and a $2.36 one. Here’s why the method matters, how a decision model works, and how to make the switch."
 kind: Explainer
 readMinutes: 12
