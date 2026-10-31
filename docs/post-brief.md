@@ -62,6 +62,8 @@ The process:
 
 Peter gives the point, Claude crafts the headline (Peter, 14:11Z: "That's the point I'm making. You need to craft the headline"). A good example, from Peter's point "one LLM is wrong 20 percent of the time; coupled with a decision model it is 100 percent right": "The LLM went from 80% right to 100% right. It didn't get smarter. It got a decision model." Number, turn, and the coupling as the reveal. Peter (14:12Z): "Much better. I don't want shorter, I want more intrigue and interest building headlines." Build a curiosity gap: hold back the reveal for the dek. Peter rejected "It got a partner that never writes a word" ("No!!!!!", 14:14Z): intrigue must never hide or rename the decision model; the coupling is the reveal and must be named. A bad example is a description with no number or tension, like "An LLM alone reads the invoice. Coupled with a decision model, it clears it for payment."
 
+Peter (14:15Z): "Write a much longer headline." Headlines are long and carry the full arc: the problem with a number, the suspense, the decision model named as the reveal, and the payoff (full automation, speed, cost). Example: "An LLM got 1 in 5 invoice values wrong, so someone still had to check every one. Then it went to 100% right without getting smarter, bigger or retrained. It got a decision model, and the process could finally run on its own: faster, and at a fraction of the cost."
+
 ## 5. The lens passes
 
 Do real, separate passes, one lens at a time, and fix what each finds. Then tell Peter in one line per lens what it changed. Don't claim a pass you didn't do.
