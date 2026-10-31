@@ -1,6 +1,6 @@
 ---
-title: "An LLM alone reads the invoice. Coupled with a decision model, it clears it for payment."
-dek: "On its own, an LLM produces a reading that someone still has to re-check: in a published test it misread 1 in 5 invoice numbers, with no sign which. Coupled with a decision model, the same LLM produces a different output altogether: invoices cleared for payment, each with a score behind every value, and only real doubt sent to a person. That difference in output is the gap between a $10.18 invoice and a $2.36 one. Here’s what it’s worth in cost, cash and customers, and how to work out your own number."
+title: "The LLM went from 80% right to 100% right. It didn’t get smarter. It got a decision model."
+dek: "In a published test, an LLM read two invoices and got 1 in 5 values wrong, with no sign which. Coupled with a decision model, the same LLM made 15 right calls out of 15: every correct value let through, every wrong one stopped before anyone acted on it. That is the difference between AI a person has to check and a process that runs on its own with confidence, and in accounts payable it is the gap between a $10.18 invoice and a $2.36 one. Here’s why it matters, how a decision model works, and how to make the change in your own process."
 kind: Explainer
 readMinutes: 12
 author: The Decision Layer desk
@@ -10,26 +10,26 @@ lastChecked: 2026-10-31
 modelVersion: jev-1.14.0
 episode: ep-022-check-the-scanner
 stats:
-  - value: "20%"
-    label: "of invoice values the LLM-based reader got wrong in TypeSafe’s test (3 of 15)"
-  - value: "0 of 3"
-    label: "of those errors got through once the LLM was coupled with a decision model, and no correct values were held back"
+  - value: "80%"
+    label: "of invoice values an LLM-based reader got right on its own in TypeSafe’s published test (12 of 15), with no sign which 3 were wrong"
+  - value: "100%"
+    label: "right calls once the same LLM was coupled with a decision model (15 of 15): all 3 errors stopped, all 12 correct values let through"
+  - value: "96% vs 38%"
+    label: "PO invoices processed with no human touch, best-in-class AP teams vs average"
   - value: "77%"
     label: "lower cost per invoice at best-in-class AP teams ($2.36 vs $10.18)"
-  - value: "96% vs 38%"
-    label: "PO invoices processed with no human touch, best-in-class vs average"
-statsNote: "The first two are from TypeSafe’s published test on two invoices (Jev 1.14, Oct 15, 2026), too small to predict an error rate. The last two are Ardent Partners benchmarks reported by Medius, an AP software vendor, in September 2026. None are our measurements."
+statsNote: "The first two are from TypeSafe’s published test on two invoices (Jev 1.14, Oct 15, 2026), which proves the mechanism, not a rate. The last two are Ardent Partners benchmarks reported by Medius, an AP software vendor, in September 2026. None are our measurements."
 snapshot:
   - label: "Why it matters"
-    text: "Invoice processing is a cost line, a cash lever and a supplier relationship at once. The spread between average and best-in-class teams is large, measured, and mostly explained by one thing you can change: how much of the work runs without a person."
+    text: "Most companies have put AI into their processes and kept a person on every case. That isn’t automation, and it’s why the cost barely moves. The prize is the step from AI-assisted to fully automated with confidence, and in accounts payable the benchmarks put it at 77% off the cost of every invoice."
   - label: "Where the money is"
-    text: "About $782,000 a year for a business processing 100,000 invoices, from cost alone. Paying in days instead of weeks also opens early-payment discounts worth 2% of qualifying spend, an annualized return of roughly 37%."
-  - label: "Why the LLM alone hasn’t delivered it"
-    text: "An LLM alone outputs a reading: values with no measure of how far to trust them. A reading has to be re-checked by a person, so the invoice still counts as touched and the cost barely moves."
+    text: "About $782,000 a year for a business processing 100,000 invoices, from processing cost alone. Paying in days instead of weeks also opens early-payment discounts worth 2% of qualifying spend, an annualized return of roughly 37%."
+  - label: "Why AI alone hasn’t delivered it"
+    text: "An LLM alone produces something to check: values with no measure of how far to trust them. If it’s wrong 1 time in 5 and you can’t tell which, a person has to check all 5. The person stays in the loop, so the process stays the same."
   - label: "What to do"
-    text: "Couple the LLM with a decision model. The output changes from a reading to a decision: this invoice is cleared for payment, or this one value needs a person, with a probability behind each call, in milliseconds, for a fraction of a cent."
+    text: "Couple the LLM with a decision model. The output changes from something to check into something to act on: a probability behind every value and a rule you own that decides. The process runs on its own by default, and people handle only the exceptions."
   - label: "What we haven’t done"
-    text: "Measured this ourselves. The benchmarks are industry figures and the only public test of the pairing used two invoices. Your own baseline is the number that matters."
+    text: "Measured this ourselves. The benchmarks are industry figures, and the only public test of the coupling used two invoices. Your own baseline and a month of shadow testing are what tell you your number."
 respondingTo:
   lede: "NPR reports that AI writing detectors are flagging people’s own work as machine-written, with no explanation and no clear way to appeal. A magazine editor who uses these tools says a flag should start a human look, not end in a verdict."
   outlet: NPR
@@ -38,11 +38,11 @@ respondingTo:
   date: 2026-10-31
   quote: "Submissions should end in rejection, not an accusation."
   quoteBy: "Neil Clarke, publisher and editor of Clarkesworld, quoted by NPR"
-  impact: "Detectors show the two ways AI fails at scale: it decides on its own with no measured doubt, or it flags so much that people end up doing the work anyway. Neither saves money. The operations that win with AI design for measured doubt from the start: every automated decision carries a score, a rule you own decides what moves on its own, and people see only the cases that need them. That output comes from coupling an LLM with a decision model, not from either one alone."
+  impact: "Detectors show the trap every leader faces with AI in a process. Without a measured level of confidence, you have two bad choices: let the AI decide and live with its mistakes, or have people review everything and lose the point of automating. Automation you can trust needs a third option: every output carries a probability, a rule you own decides what runs on its own, and people see only what needs them. That comes from coupling an LLM with a decision model, not from either one alone."
 summary:
-  - "Best-in-class AP teams spend 77% less per invoice than average and finish in days, mostly because almost none of their invoices need a person."
-  - "Pairing an LLM with a decision model is the design that can raise that touchless rate: the LLM reads, the decision model scores every value, your rules decide."
-  - "The prize is cost, early-payment discounts and faster customer payouts; measure your own baseline before you trust any number."
+  - "If AI is wrong 1 time in 5 and you can’t tell which, a person checks every case, so AI-assisted processes never become automated ones."
+  - "Coupling the LLM with a decision model changes the output from something to check into something to act on, so the process can run on its own with confidence."
+  - "In accounts payable that is the gap between 38% and 96% touchless and $10.18 vs $2.36 an invoice. Here’s how to make the change, step by step."
 sources:
   - title: "Medius: How much does it cost to process an invoice? (Sept 17, 2026; cites Ardent Partners)"
     url: https://www.medius.com/blog/how-much-does-cost-process-invoice-where-you-save/
@@ -62,11 +62,20 @@ sources:
   - title: "TypeSafe docs: OCR confidence and bounding boxes (cookbook)"
     url: https://docs.typesafe.ai/cookbooks/ocr_confidence_bounding_boxes.md
     grade: Official docs
-  - title: "TypeSafe docs: Models (pricing)"
+  - title: "TypeSafe docs: Models (pricing, customization, data handling)"
     url: https://docs.typesafe.ai/models.md
     grade: Official docs
   - title: "TechCrunch: OpenAI makes its Jev competitor widely available (Oct 22, 2026)"
     url: https://techcrunch.com/2026/10/22/openai-makes-its-jev-competitor-widely-available-as-decision-model-competition-heats-up/
+    grade: Independent reporting
+  - title: "TypeSafe: Introducing System One models and Jev (launch post)"
+    url: https://typesafe.ai/blog/introducing-system-one-models-and-jev
+    grade: Vendor claim
+  - title: "TypeSafe docs: Machine learning primer (RLCD and calibration)"
+    url: https://docs.typesafe.ai/introduction/machine-learning-primer.md
+    grade: Official docs
+  - title: "Alex Molas: Jev can't be calibrated (Sept 23, 2026)"
+    url: https://www.alexmolas.com/2026/09/23/jev-cant-be-calibrated.html
     grade: Independent reporting
 inTheNews:
   - outlet: NPR
@@ -87,43 +96,56 @@ inTheNews:
     date: 2026-10-22
 ---
 
-## The gap is the share of work nobody touches
+## The point: 80% right means 100% checked
 
-Every finance leader knows the cost-per-invoice number. Fewer look at what drives it. Ardent Partners’ benchmarks, as reported by the AP software vendor Medius in September, put the average cost of processing an invoice at $10.18 and the best-in-class cost at $2.36 ([Medius](https://www.medius.com/blog/how-much-does-cost-process-invoice-where-you-save/)). That is 77% less.
+Picture an LLM that reads your invoices and gets 4 out of 5 values right. That sounds like progress. It isn’t, because nothing in its output tells you which value is the wrong one. A wrong invoice number reads exactly like a right one. So someone has to check every value on every invoice, and the AI hasn’t taken a single step out of the process. It has only added one.
 
-The same research shows where the gap comes from. The average company processes 38.3% of its purchase-order invoices without a person touching them, and takes 11.6 days per invoice. Best-in-class teams hit 96.3% touchless and finish in 1.4 days. Medius’s own reading of that data: the jump in touchless processing “is where the bulk of AP automation ROI actually comes from.” Treat a vendor’s numbers with care, but an independent benchmarker points the same way. APQC finds that top performers’ AP costs are “one-fifth of what it is for organizations performing in the bottom quartile,” that top performers take half as many days from receipt to payment, and that bottom performers need four times as many staff ([APQC](https://www.apqc.org/blog/4-kpis-set-good-accounts-payable-organizations-apart)).
+That is where most companies are with AI today: AI-assisted, with a person on every case. The work feels faster, but the cost per case, the cycle time and the headcount barely move, because the person never leaves the loop.
 
-So the question for a leader isn’t “should we use AI on invoices?” It’s “what would it take to move our touchless rate from 38% toward 96%?”
+The number in the headline isn’t made up. In a published test, an LLM-based reader pulled fifteen values from two supplier invoices photographed on a phone and got three of them wrong: 20%. None of the three looked wrong.
 
-## Why the LLM alone hasn’t closed it
+## Coupled with a decision model, the output changes
 
-LLMs changed the reading part of the job. They can pull a supplier, an amount and a due date out of almost any invoice, in any layout, from a scan or a phone photo. That should have sent touchless rates soaring, yet the benchmarks still show the average company at 38%.
+A tractor on its own can cross a field and pull a load. Couple it with hydraulics and the output changes in kind: trenches dug in minutes, loads lifted that no crew could move, with a touch of a lever. It isn’t a better tractor. It’s a machine that does a different job.
 
-The reason is what an LLM alone produces. Its output is a reading: a list of values, fluent and confident, with no measure of how far to trust any of them. You can’t pay a supplier on a reading. So people re-check it, the invoice still counts as touched, and the cost and the days barely move. The LLM made reading faster. It didn’t change what comes out the other end.
-
-## The tractor and the hydraulics
-
-A tractor on its own can cross a field and pull a load. Couple it with hydraulics and the output is different in kind: trenches dug in minutes, loads lifted that no crew could move, with a touch of a lever. It isn’t a better tractor. It’s a machine that does a different job.
-
-An LLM coupled with a decision model is the same kind of change. The LLM reads every invoice into structured values. The decision model, such as Jev from TypeSafe or one of its new rivals from OpenAI and others, answers a few narrow questions about each value in milliseconds: does this amount match the page, is this the invoice date, is this the bank account on file? Each answer is a probability, so a rule you own can act on it.
-
-What comes out is no longer a reading. It’s a decision:
+An LLM coupled with a decision model is the same kind of change. The LLM reads each invoice into values. The decision model, such as Jev from TypeSafe or one of its new rivals, answers narrow questions about each value: does this amount match the page, is this the invoice date? Every answer comes with a probability, and a rule you own acts on it. What comes out is no longer something to check. It’s something to act on:
 
 | | An LLM alone | An LLM coupled with a decision model |
 | --- | --- | --- |
-| What you get | A list of values | An invoice cleared for payment, or one value marked for a person |
+| What you get | A list of values to check | A decision: proceed, or send this one value to a person |
 | How sure it is | No measure | A probability behind every value |
-| What happens next | A person re-checks it | Your rule acts on it, in milliseconds |
+| Who checks it | A person, every case | A person, only where there’s real doubt |
+| What happens next | Waits in a queue | Your rule acts on it at once |
 | Why it was done | The model’s word | The questions, the scores and the rule, logged |
-| Who touches it | Everyone, every time | Only the invoices with real doubt |
+| What the process becomes | AI-assisted | Fully automated, with confidence |
 
-That change in output is what moves the number that matters. Touchless becomes the default and human time goes where it counts, which is exactly what best-in-class teams look like.
+We call this pattern **Read and weigh**: the LLM supplies the material and the decision model supplies the call. It’s one of five patterns for coupling an LLM with a decision model, each with a worked example in our [open examples repository](https://github.com/peterdschmitt/decision-layer-examples).
 
-We call this pattern **Read and weigh**: the LLM supplies the material, the decision model supplies fast direction. It is one of five patterns for coupling an LLM with a decision model, each with a worked example in our [open examples repository](https://github.com/peterdschmitt/decision-layer-examples).
+## The test: 20% wrong alone, 100% right coupled
 
-## The math for a 100,000-invoice operation
+Here is what happened when TypeSafe coupled that same reader with Jev ([TypeSafe](https://docs.typesafe.ai/cookbooks/ocr_confidence_bounding_boxes.md)). The three values the LLM got wrong:
 
-Here is what the benchmark gap is worth at one realistic volume. These are industry figures multiplied out, not a forecast for your business:
+| Invoice | Field | The LLM read | The paper says |
+| --- | --- | --- | --- |
+| Milkwood | Invoice number | AN400074 | IN400074 |
+| Siyakhula | Invoice number | INV03070 | INV03079 |
+| Siyakhula | Date | 16/09/2028 | 16/09/2026 |
+
+Jev answered two yes-or-no questions about each of the fifteen values: does it match the whole page, and does it match a close-up of where it’s printed? With a bar of 0.25, the coupled system made fifteen right calls out of fifteen. It let the twelve correct values through and stopped all three wrong ones before anyone acted on them. No correct value was held back, and no wrong one got through. Neither question alone would have stopped all three. Together they stopped every one.
+
+That is the whole idea in miniature. The LLM didn’t get smarter. Coupled with a decision model, its output became something you can automate.
+
+Two invoices prove the mechanism, not a rate. Your rate is something you measure on your own documents, and the steps below show how.
+
+## Why it matters: the gap between assisted and automated
+
+Every finance leader knows the cost-per-invoice number. Fewer look at what drives it. Ardent Partners’ benchmarks, as reported by the AP software vendor Medius in September, put the average cost of processing an invoice at $10.18 and the best-in-class cost at $2.36: 77% less ([Medius](https://www.medius.com/blog/how-much-does-cost-process-invoice-where-you-save/)).
+
+The driver is the share of work no person touches. Average teams process 38.3% of purchase-order invoices without a human touch and take 11.6 days per invoice. Best-in-class teams hit 96.3% and take 1.4 days. Medius’s reading of the data: the jump in touchless processing “is where the bulk of AP automation ROI actually comes from.” Treat a vendor’s numbers with care, but the independent benchmarker APQC points the same way. It finds that top performers’ AP costs are “one-fifth of what it is for organizations performing in the bottom quartile”, and that bottom performers need four times as many staff ([APQC](https://www.apqc.org/blog/4-kpis-set-good-accounts-payable-organizations-apart)).
+
+So the question for a leader isn’t “should we use AI on invoices?” It’s “what would it take to move our touchless rate from 38% toward 96%, safely?” An LLM alone can’t answer that, for the reason in the headline. An LLM coupled with a decision model can, because it gives you the confidence to let the work run on its own.
+
+**The math for a 100,000-invoice operation.** These are industry figures multiplied out, not a forecast for your business:
 
 | | Average AP team | Best-in-class AP team |
 | --- | --- | --- |
@@ -132,67 +154,79 @@ Here is what the benchmark gap is worth at one realistic volume. These are indus
 | PO invoices with no human touch | 38.3% | 96.3% |
 | Days to process a PO invoice | 11.6 | 1.4 |
 
-The gap is about $782,000 a year, plus ten days of cycle time on every invoice, which matters for early-payment discounts and supplier relationships.
+The gap is about $782,000 a year, plus ten days on every invoice.
 
-What would the decision model cost? Jev charges $0.042 per million input tokens ([TypeSafe](https://docs.typesafe.ai/models.md)). Even if checking one invoice took 100,000 tokens, far more than a page of text, it would cost less than half a cent. At 100,000 invoices, that is under $420 a year. (TypeSafe doesn’t list a separate price for images yet, so price photo checks with the vendor.) The checks are close to free. What isn’t free is building the workflow around them: the integration, the rules and the month of shadow testing. That cost isn’t in these numbers, and it’s the one to put next to your own estimate of the gain.
+**What the decision model costs.** Jev charges $0.042 per million input tokens ([TypeSafe](https://docs.typesafe.ai/models.md)). Even if checking one invoice took 100,000 tokens, far more than a page of text, it would cost less than half a cent, or under $420 a year at 100,000 invoices. TypeSafe doesn’t list a separate price for images yet, so price photo checks with the vendor. The checks are close to free. What isn’t free is building the workflow around them: the integration, the rules and a month of shadow testing. Put that cost next to your own estimate of the gain.
 
-## What it’s worth: money, customers and revenue
+**Money.** The cost gap is the first line. The second is cash. The most common supplier term in business-to-business trade is “2/10 net 30”: take 2% off if you pay within 10 days. The Association for Financial Professionals puts the annualized return of taking that discount at “roughly 37%” ([AFP](https://www.financialprofessionals.org/training-resources/resources/articles/Details/when-does-it-pay-to-take-an-early-payment-discount)). You can only take it if invoices clear in days. If $10 million of your annual spend carries 2/10 terms, paying it on time is worth $200,000 a year.
 
-**Money.** The cost gap above is only the first line. The second is cash. The most common supplier term in business-to-business trade is “2/10 net 30”: take 2% off if you pay within 10 days, otherwise pay in 30. The Association for Financial Professionals puts the annualized return of taking that discount at “roughly 37%” ([AFP](https://www.financialprofessionals.org/training-resources/resources/articles/Details/when-does-it-pay-to-take-an-early-payment-discount)). You can only take it if invoices clear in days. At the average 11.6 days, the typical invoice misses that window. To size it for yourself: if $10 million of your annual spend carries 2/10 terms, paying it on time is worth $200,000 a year.
+**Customers.** The same change works on the processes customers feel. In J.D. Power’s 2026 study of homeowners’ insurance claims, faster repair and payment cycles helped lift overall satisfaction 20 points to 702 on a 1,000-point scale, and offset the negative effects of higher prices. The average customer still waited 40.7 days for final payment ([Insurance Journal](https://www.insurancejournal.com/news/national/2026/03/17/862324.htm)). Every case that can run without waiting for a person takes days off that clock.
 
-**Customers.** The same design works on the processes your customers feel. In J.D. Power’s 2026 study of homeowners’ insurance claims, faster repair and payment cycles helped lift overall satisfaction 20 points to 702 on a 1,000-point scale, and offset the negative effects of higher prices. The average customer still waited 40.7 days for final payment, and “time it took to settle the claim” is one of the eight things the study measures ([Insurance Journal](https://www.insurancejournal.com/news/national/2026/03/17/862324.htm)). Every claim that can be paid without waiting for a person is days off that clock.
+**Revenue.** This is mostly a cost and speed story, and the revenue case is indirect. J.D. Power’s finding suggests speed protects pricing. Paying suppliers in days gives you something to offer when you negotiate terms. And the people you stop spending on checking can go to work that grows the business.
 
-**Revenue.** This is mostly a cost and speed story, and it’s worth being honest about that. The revenue case is indirect but real. J.D. Power’s finding suggests speed protects pricing: faster cycles offset the hit to satisfaction from higher prices. Paying suppliers in days, not weeks, gives you something to offer when you negotiate terms. And the people you stop spending on review can go to the work that grows the business. APQC finds that bottom-performing AP functions need four times as many staff as top performers.
+## What a decision model is, how it works and how it’s trained
 
-## The evidence: one LLM, two invoices, two different outputs
+**What it is.** A decision model is a different type of AI from the LLM it’s coupled with. It writes nothing. You give it some material and a question with the answers you’ll accept (yes or no, one of a list, a score on a scale), and it returns its pick with a probability. TypeSafe calls Jev “a frontier-intelligence function call: unstructured state in, typed probabilistic decisions out” ([TypeSafe](https://typesafe.ai/blog/introducing-system-one-models-and-jev)).
 
-The math only holds if coupling really changes the output. The best public evidence so far is small but clear. In a published TypeSafe test, OCR and an LLM read fifteen values from two supplier invoices photographed on a phone. On their own, their output was a reading with three wrong values and nothing to say which. Coupled with Jev answering two questions about each of those fifteen values (does it match the whole page, and does it match a close-up of where it’s printed?), the output became a decision: twelve values cleared to act on, and the three wrong ones sent to a person. Neither question would have sorted all three on its own ([TypeSafe](https://docs.typesafe.ai/cookbooks/ocr_confidence_bounding_boxes.md)).
+**How it works.** A chatbot writes its answer one word at a time. A decision model scores every allowed answer at once. In TypeSafe’s words, “Jev outputs all probabilities in parallel instead of autoregressively generating by token.” That is why it’s fast and cheap enough to ask about every value on every case. TypeSafe claims Jev is “two orders of magnitude faster and more efficient” than LLMs on these tasks. That’s the vendor’s claim, and worth testing.
 
-Two invoices prove the mechanism, not the rate. The rate is what you measure on your own documents, and it decides how far your touchless number can move.
+**How it’s trained.** ChatGPT-style models are trained with RLHF, which, in TypeSafe’s words, “teaches a model to say things that people prefer” and “can also reward sycophancy and confident-sounding hallucinations.” Jev is trained with what TypeSafe calls reinforcement learning for calibrated decisions, or RLCD. The model “does not generate text”, “returns decisions and probabilities”, and a “higher probability should correspond to a greater chance that the answer is correct” ([TypeSafe primer](https://docs.typesafe.ai/introduction/machine-learning-primer.md)). That property is called calibration: across many answers, the ones scored 0.2 should come true about 20% of the time. TypeSafe notes this describes “groups of predictions, not a guarantee about any single answer.”
 
-## Six levers leaders control
+Three things leaders should know about the training. Jev “is not trained on customer requests or responses”. It isn’t fine-tuned on your data: “the same weights serve every account”, and you shape it through the material and the questions you send ([TypeSafe](https://docs.typesafe.ai/models.md)). And TypeSafe hasn’t published where its training data comes from or how big the model is. One independent developer, Alex Molas, adds a useful caution: “calibration is not just a property of the model, but also of your data distribution.” His advice is to treat the outputs as good scores that rank cases well, and to measure calibration on your own data before relying on the exact numbers ([Alex Molas](https://www.alexmolas.com/2026/09/23/jev-cant-be-calibrated.html)). That is exactly what the steps below do.
 
-1. **Measure the baseline first.** Your touchless rate, cost per invoice and days to pay, and the top reasons invoices get touched today. Without those numbers, no AI result means anything.
-2. **Design the questions, not the prompts.** For each field: does it match the page, does it match the purchase order, is it in a normal range for this supplier? Small questions anyone can read and audit.
-3. **Set the dial by risk.** The bar for letting an invoice through on its own is a business decision. Set it higher for large amounts and new suppliers, lower for routine ones, and set it by testing on past invoices where you know the right answers.
-4. **Run in shadow mode.** For a month, people still review everything while the pairing makes its calls in the background. Compare them. Then let the clean invoices go.
-5. **Give it an owner.** The touchless rate, the error rate and the bars belong to one named leader, reviewed monthly like any other operating metric.
-6. **Keep the paper trail.** Every invoice that goes through untouched carries its scores and the rule that passed it. That’s what makes the outcome defensible to an auditor, a supplier or your board, and what keeps a bank-detail change from ever paying without a phone call.
+## We show you how: from AI-assisted to fully automated in six steps
 
-## The same math in other processes
+Here is the process before and after:
 
-Accounts payable is the clearest case because the benchmarks are public. The shape repeats anywhere an LLM reads and someone acts on what it read: claims that could be paid without an adjuster’s touch, customer onboarding that could clear without a manual document check, shipping documents that could post without a clerk. In each, the metric to move is the same: the share of cases no person has to touch, at an error rate you can defend.
+| Step | Today: AI-assisted | After: automated with confidence |
+| --- | --- | --- |
+| Invoice arrives | Queued for a person | Read by the LLM at once |
+| Values pulled | The LLM, or a person keying them | The LLM |
+| Values checked | A person, every value, every invoice | The decision model, every value, in seconds |
+| Decision | A person approves | Your rule: clears the bar, it proceeds; doesn’t, one value goes to a person |
+| Exceptions | Mixed in with everything else | A short list, each with the doubtful value boxed |
+| Record | A name on an approval | The questions, scores and rule, logged with the invoice |
 
-## How to find your X%
+**1. Measure today’s baseline.** Pull three numbers: your touchless rate, your cost per case and your days to complete. Then list the top reasons cases get touched. If you don’t have these, no AI result will mean anything.
 
-You can estimate your own number before you buy anything:
+**2. Find your X%.** Multiply your annual volume by the cost of a touched case minus the cost of an untouched one. That’s the value of one point of touchless rate. The gap between your rate and the best-in-class rate, times that value, is the size of the prize.
 
-1. **Annual volume** times **the cost of a touched case minus the cost of an untouched one** gives you the value of one percentage point of touchless rate.
-2. **Run the pairing on a few hundred past cases** where you know the right answers. The share that clears your bar with no errors is a first estimate of where your touchless rate could go.
-3. **Multiply the points you could gain by the value of a point**, then divide by what the process costs today. That’s your X%, measured on your own work instead of borrowed from a benchmark.
+**3. Write the questions.** For each value the LLM reads, write a few narrow yes-or-no questions anyone can audit: does it match the page, does it match the purchase order, is it normal for this supplier? Narrow questions are what make the answers reliable and the decisions defensible.
+
+**4. Set the confidence bar on your own history.** Take a few hundred past cases where you know the right answers. Run the LLM and the decision model on them. Pick the bar where no wrong value gets through, and count how many cases would have run untouched. That count is your first real touchless estimate. Set stricter bars for large amounts and new suppliers, and always phone the supplier about a changed bank account.
+
+**5. Run in shadow mode for a month.** People keep checking everything while the coupled system makes its calls in the background. Compare the two every week. Where the system and the people disagree, find out who was right.
+
+**6. Flip the default.** Let cases that clear the bar run on their own, and send only the exceptions to people. Give the touchless rate, the error rate and the bars to one named owner, review a sample every week, and raise the bars you trust step by step.
+
+## The same change in other processes
+
+Accounts payable is the clearest case because its benchmarks are public. The same change applies anywhere an LLM reads and a person acts on what it read: insurance claims that could pay without an adjuster’s touch, customer onboarding that could clear without a manual document check, shipping paperwork that could post without a clerk. In each case, the number to move is the share of cases no person has to touch, at an error rate you can defend.
 
 ## Which decision model for this job
 
 Jev isn’t the only decision model anymore. OpenAI made its Jev competitor widely available in October ([TechCrunch](https://techcrunch.com/2026/10/22/openai-makes-its-jev-competitor-widely-available-as-decision-model-competition-heats-up/)), and Microsoft, Cloudflare, AWS and others now offer similar models.
 
-- **Jev 1.14 (TypeSafe):** has a published, step-by-step test of this exact pairing on invoices. Its image questions are early release, not yet ready for production.
-- **Other decision models:** we haven’t checked which can answer questions about images. If your invoices arrive as text or the LLM has already transcribed them, any of them can score the values. Test two on the same past invoices and let your numbers pick.
+- **Jev 1.14 (TypeSafe):** has a published, step-by-step test of this exact coupling on invoices. Its image questions are early release and not yet ready for production.
+- **Other decision models:** we haven’t checked which can answer questions about images. If the LLM has already turned the invoice into text, any of them can score the values. Test two on the same past cases and let your numbers pick.
 
 ## Questions leaders will ask
 
-**Does this replace the AP team?** It changes what they spend time on. Best-in-class teams still have people; they spend them on exceptions, suppliers and cash, not on re-keying.
+**Is it really 100% right?** In the published test, yes: fifteen right calls out of fifteen. That’s two invoices, so it proves the mechanism, not a rate. Your step 4 and step 5 numbers are the ones to trust.
 
-**Why not just buy a better LLM?** A better LLM produces a more accurate reading, but it is still a reading, so every invoice still gets re-checked. The change in output comes from coupling it with a decision model, not from a bigger LLM.
+**Does this replace the AP team?** It changes what they do. Best-in-class teams still have people, but they spend their time on exceptions, suppliers and cash, not on re-checking.
 
-**Could it let a bad invoice through?** Yes, at some rate. That’s why you set the bar on your own past invoices, keep higher bars for large amounts, and always call on bank-detail changes. The question is whether that rate beats today’s manual error rate, and you can measure both.
+**Why not just buy a better LLM?** A better LLM is wrong less often, but it still can’t tell you which answers are wrong, so you still check everything. The change comes from coupling it with a decision model, not from a bigger LLM.
 
-**How fast could we see results?** The baseline takes days. A shadow-mode test takes about a month. After that, the pace depends on how fast you raise the bars you trust.
+**Could a bad invoice get through?** Yes, at some rate. That’s why you set the bar on your own history, keep stricter bars for large amounts and bank details, and log every decision. Compare that rate with today’s manual error rate, which you can measure too.
+
+**How fast could we see results?** The baseline takes days. Shadow mode takes about a month. After that, the pace depends on how fast you raise the bars you trust.
 
 ## The fine print
 
-- **We haven’t run this yet.** The cost, touchless and cycle-time figures are Ardent Partners benchmarks reported by Medius, an AP software vendor, and APQC’s research. The field-level evidence is TypeSafe’s two-invoice test. None of it is our measurement, and none of it predicts your result.
-- **Image checks aren’t production-ready.** TypeSafe calls image questions “dreamer-ready,” meaning not yet ready for production, and says the format and answers can change between releases.
-- **Touchless isn’t free of risk.** Every point of touchless rate you add is a decision you’ve chosen to automate. Set the bar, log every decision and review a sample every week.
+- **We haven’t run this ourselves.** The cost, touchless and cycle-time figures are Ardent Partners benchmarks reported by Medius, an AP software vendor, plus APQC’s research. The 20% and the 100% come from TypeSafe’s two-invoice test. None of these are our measurements, and none predict your result.
+- **Image checks aren’t production-ready.** TypeSafe calls image questions “dreamer-ready”, meaning not yet ready for production, and says the format and answers can change between releases.
+- **Automation is a choice you own.** Every point of touchless rate you add is a decision you’ve chosen to automate. Set the bar, log every call and review a sample every week.
 
 ## For your developer
 
