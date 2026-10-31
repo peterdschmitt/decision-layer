@@ -2,6 +2,10 @@
 
 This is everything Peter has asked for, in one place. Every daily post is checked against every line before it goes to him. If a rewrite fixes one point, re-check all the others: a fix must never drop earlier feedback. When Peter gives new direction, add it here the same day, with his words and the date.
 
+## 0. The underlying tone of every post (Peter, 2026-10-31 14:18Z: "this needs to be the underlying tone for all of them")
+
+Every post argues for a change of method: **stop using LLMs alone; couple an LLM with a decision model.** The headline opens on that shift, the dek and snapshot lead with it, and the body opens with "the method is the problem" before "the new method: couple the two". Numbers, tests and benchmarks are proof of the method, never the lead. Model headline: "Stop using LLMs alone. On its own, an LLM got 1 in 5 invoice values wrong, so someone had to check every one. Coupled with a decision model, it was 100% right, and the process could finally run on its own: faster, and at a fraction of the cost."
+
 ## 1. Why the site exists
 
 The site shows one idea: **an LLM coupled with a decision model produces a dramatically different output.** An LLM alone gives you a reading or a draft that someone still has to check. Coupled with a decision model, it gives you a decision you can act on, such as cleared, routed, approved or sent, with a probability behind it and a logged reason.
