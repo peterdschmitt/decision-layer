@@ -1,6 +1,6 @@
 ---
-title: "How Harness cut an AI security check’s cost 99.9% with a decision model, and knew which 3.4% to doubt"
-dek: "Stop using LLMs alone. Harness had an LLM read thousands of API calls for every customer just to answer one question: does this endpoint send data to an AI model? Then it coupled the LLM with a decision model: costs fell 99.9%, answers came 20 times faster, accuracy held near 99%, and every mistake landed in the 3.4% of cases the model had marked as unsure."
+title: "How Harness cut an AI security check’s cost 99.9% using a decision model"
+dek: "Stop using LLMs alone. Harness had an LLM read thousands of API calls for every customer just to answer one question: does this endpoint send data to an AI model? Then it coupled the LLM with a decision model: costs fell 99.9%, answers came 20 times faster than a single LLM call, accuracy held near 99%, and every mistake landed in the 3.4% of cases where the model’s probability showed it was unsure."
 kind: Worked example
 readMinutes: 10
 author: Peter Schmitt
@@ -10,7 +10,7 @@ lastChecked: 2026-10-31
 modelVersion: jev-1.14.0
 stats:
   - value: "99.9%"
-    label: "lower cost than Harness’s original LLM pipeline, by its estimate, and about 150 times cheaper than a single, leaner LLM call"
+    label: "lower cost than Harness’s original LLM pipeline, by its estimate (about 99.7% once the LLM safety valve is counted, by my arithmetic)"
   - value: "20x"
     label: "faster: a typical answer took 0.8 seconds, against 16 seconds for a single LLM call"
   - value: "98.6%"
@@ -55,7 +55,7 @@ An LLM is good at explaining a finding and poor value when it has to answer the 
 
 Harness sells software that helps more than 1,000 large companies build, ship and secure their code, according to its website.
 
-One of its security products answers a question most companies can’t: which of our systems send data to an AI model? Every team is shipping AI features, and each one can open a door. An endpoint that passes customer text to an LLM can be tricked by instructions hidden in that text, can leak sensitive data, and may send it to an AI vendor the security team has never reviewed. You can’t govern what you haven’t found. So for every customer, Harness reads the traffic flowing through every endpoint and labels each one: is this an AI API, and does it return AI-written content?
+One of its security products answers a question most companies can’t: which of our systems send data to an AI model? An endpoint that passes customer text to an LLM can be tricked by instructions hidden in that text, can leak sensitive data, and may send it to an AI vendor the security team has never reviewed. So for every customer, Harness reads the traffic flowing through every endpoint and labels each one: is this an AI API, and does it return AI-written content?
 
 Harness gave that job to an LLM. It worked, and Harness trusted the results. But the bill grew with every endpoint and every scan, and the LLM’s measure of its own certainty told Harness almost nothing. So it stopped using an LLM alone for that call and coupled its LLM with a decision model, TypeSafe’s Jev: a model that doesn’t write, but answers a narrow question with a probability. By Harness’s estimate, costs fell 99.9%; on its test, answers came 20 times faster and accuracy held near 99%. And every one of the decision model’s mistakes sat in a small, flagged group of cases.
 
@@ -80,7 +80,7 @@ The four fields the rest of the product reads didn’t change, so no dashboard o
 
 ## The test
 
-Harness took 500 endpoints from one enterprise customer’s production traffic, 43 of them AI APIs. The team labelled each by hand, starting from the LLM’s answers and paying particular attention to 20 ambiguous ones. Then it ran all three approaches on the same inputs.
+Harness took 500 endpoints from one enterprise customer’s production traffic (Harness names it as Zendesk’s), 43 of them AI APIs. The team labelled each by hand, starting from the LLM’s answers and paying particular attention to 20 ambiguous ones. Then it ran all three approaches on the same inputs.
 
 | | Original LLM pipeline | One LLM call | Jev (decision model), LLM for explanations |
 | --- | --- | --- | --- |
@@ -93,11 +93,11 @@ On the raw score, the single LLM call was slightly more accurate. Jev made 7 mis
 
 But every one of those 7 mistakes came from 17 endpoints, 3.4% of the total, where Jev’s probability sat in the middle, between 0.3 and 0.8: the model was telling Harness it wasn’t sure. Everywhere else it made no mistakes at all. All 448 endpoints it scored below 0.3 were correctly cleared, all 25 it scored above 0.9 were correctly flagged, and the 10 in between were right too.
 
-So Harness is now deploying the coupling with a safety valve: any endpoint Jev scores between 0.2 and 0.8 goes to one LLM call for a second look. Harness puts that at about 17 extra LLM calls per 1,000 endpoints across the customer’s traffic. (Its test set held more AI APIs and hard cases than normal traffic: 8.6% AI APIs against about 4.5% overall, so the unsure band was bigger there.)
+So Harness is now deploying the coupling with a safety valve: any endpoint Jev scores between 0.2 and 0.8 goes to one LLM call for a second look. Harness puts that at under 2% of endpoints in the customer’s normal traffic. (Its test set held more AI APIs and hard cases than normal traffic, 8.6% AI APIs against about 4.5% overall, so the unsure band was bigger there.)
 
 ## What it’s worth
 
-There are no annual dollar figures. Harness’s math is in multiples: the coupled design costs about 1,200 times less than the original pipeline and about 150 times less than the single LLM call. Jev bills only for what it reads; it writes nothing, so there are no output or “thinking” costs, and one decision-model call per endpoint replaces about seven LLM calls.
+There are no annual dollar figures. Harness’s math is in multiples: the coupled design costs about 1,200 times less than the original pipeline and about 150 times less than the single LLM call. Those figures leave out the safety valve. By my arithmetic on Harness’s own numbers, adding an LLM call for the unsure 2% still leaves the cost about 99.7% below the original pipeline and roughly 40 times below the single LLM call. Jev bills only for what it reads; it writes nothing, so there are no output or “thinking” costs, and one decision-model call per endpoint replaces about seven LLM calls.
 
 A check that costs 99.9% less can run on every endpoint, for every customer, on every scan, instead of being rationed.
 
@@ -105,11 +105,11 @@ A check that costs 99.9% less can run on every endpoint, for every customer, on 
 
 **What a decision model does.** You give it the material, here a sample of an endpoint’s traffic, and a question with the answers you allow: yes or no, one of a set of options, or a place on a scale you describe. Harness asks yes-or-no questions; TypeSafe calls them Noul questions. The model returns a probability, such as 0.04 for “almost certainly not an AI API” or 0.96 for “almost certainly is”. Because it generates no text, it answers in about a second and costs a fraction of an LLM call.
 
-Think of hydraulics on a tractor. The engine is the same; the hydraulics multiply what it can lift. Harness’s LLM is still the engine for explaining findings and for the hard cases. Coupled with the decision model, the system labels every endpoint at a sliver of the cost.
+Think of hydraulics on a tractor: the same engine lifts far more. Harness’s LLM is still the engine for explaining findings and for the hard cases; coupled with the decision model, the system labels every endpoint at a sliver of the cost.
 
-**Why the probability matters more than the price.** An LLM saying it is “highly confident” is the model describing its own text. A decision model is trained so its probability can be taken literally: of all the answers it scores 0.8, about 80% should be right. At Harness, the model’s doubt tracked its errors. That turns an unknown hallucination risk into a known number: in this test, 3.4% of cases, with every error inside them.
+**Why the probability matters more than the price.** An LLM saying it is “highly confident” is the model describing its own text. A decision model is trained so its probability can be taken literally: of all the answers it scores 0.8, about 80% should be right. At Harness, the model’s doubt tracked its errors. That turns an unknown hallucination risk into a known number.
 
-**How Jev is trained, from what TypeSafe publishes.** TypeSafe trains Jev with a method it calls reinforcement learning for calibrated decisions, or RLCD, aimed at probabilities that mean what they say. Jev “is not trained on customer requests or responses”, and “the same weights serve every account”, so you tailor it through the request: the material you send and how you word each question. TypeSafe hasn’t published what data Jev was trained on.
+**How Jev is trained, from what TypeSafe publishes.** TypeSafe trains Jev specifically so that its probabilities mean what they say; it calls the method RLCD. Jev “is not trained on customer requests or responses”, and “the same weights serve every account”, so you tailor it through the request: the material you send and how you word each question. TypeSafe hasn’t published what data Jev was trained on.
 
 **What Harness set up.** Two yes-or-no questions per endpoint, sent with a trimmed sample of its traffic: the top three requests, with long fields cut short. Harness’s code applies the thresholds. The middle band goes to an LLM; positives get an LLM-written reason; negatives get a standard one. Harness hasn’t published the exact wording of its questions or which LLM it uses.
 
@@ -119,9 +119,9 @@ Think of hydraulics on a tractor. The engine is the same; the hydraulics multipl
 
 **Customers.** An answer in about a second instead of 16 means checks can run while the customer waits, not in an overnight batch.
 
-**Revenue.** In my view the link is coverage: a check you can afford to run everywhere is a feature you can sell everywhere. Harness reports no revenue figure.
+**Revenue.** Harness reports no revenue figure. The plausible link is coverage: a check that is cheap enough runs for every customer, not only the biggest.
 
-**Risk.** Automate with an LLM alone and you have two choices: pay people to recheck the output, or let it run and accept a risk you can’t size. A decision model puts a number on every answer, so you choose where the line sits and who owns what falls inside it. That is how you automate fully with confidence.
+**Risk.** Automate with an LLM alone and you have two choices: pay people to recheck the output, or let it run and accept a risk you can’t size. A decision model puts a number on every answer, so you choose where the line sits and who owns what falls inside it. That is what lets a process run on its own with confidence.
 
 ### The same move in other industries
 
@@ -164,7 +164,7 @@ QUESTIONS = {
 def classify(client, trimmed_spans):
     a = client.system_one(model="jev-1.14.0", state=trimmed_spans, questions=QUESTIONS).answers
     p = a["is_ai_api"].noul
-    if 0.2 < p < 0.8:                        # the unsure band: about 17 in 1,000 in Harness's traffic
+    if 0.2 < p < 0.8:                        # the unsure band: under 2% of Harness's traffic
         return llm_classify(trimmed_spans)   # one LLM call, only here
     return {"is_ai_api": p >= 0.8, "returns_ai_generated_content": a["returns_ai"].noul >= 0.5,
             "probability": p,
@@ -177,7 +177,7 @@ Start with TypeSafe’s [Noul reference](https://docs.typesafe.ai/primitives/nou
 
 - **Who published the numbers.** Every Harness figure comes from its own engineering post of Oct 5, 2026, updated Oct 15. The costs are labelled estimates, not invoices. Brizz and GlassFlow figures come from their own posts; Box from OpenAI’s announcement as reported by Unite.AI. I have measured none of them.
 - **Models.** Before: an LLM Harness doesn’t name, in a pipeline of summaries and a final decision. After: Jev for the two yes-or-no calls, and an LLM for explanations and, once deployed, the uncertain band.
-- **What the test can show.** 500 endpoints from one customer’s traffic, 43 of them AI APIs. Harness names the customer’s traffic as Zendesk’s. The labels started from the LLM’s answers and were checked by hand, which in my view, if anything, favours the LLM. Seven errors in 500 is a small number, and the uncertain band was drawn after the results were in, on the same 500 endpoints. Treat the clean result outside the band as strong evidence from one test, and check the band on fresh data before relying on it.
+- **What the test can show.** 500 endpoints from one customer’s traffic, 43 of them AI APIs. The labels started from the LLM’s answers and were checked by hand, which in my view, if anything, favours the LLM. Seven errors in 500 is a small number, and the uncertain band was drawn after the results were in, on the same 500 endpoints. Treat the clean result outside the band as strong evidence from one test, and check the band on fresh data before relying on it.
 - **What isn’t live yet.** Harness says it is “deploying” the design with the LLM handling the uncertain band. It hasn’t published production results, annual volumes or dollar savings.
 - **What we don’t know.** The exact question wording, the LLM used, the combined accuracy once the LLM handles the uncertain band, and what Jev was trained on.
 - **This site** is independent and not affiliated with TypeSafe, Harness, OpenAI, Cloudflare or any company named here.
