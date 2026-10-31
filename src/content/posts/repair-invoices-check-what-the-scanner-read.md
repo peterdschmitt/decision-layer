@@ -154,7 +154,7 @@ In each, the LLM gives you reach and the decision model gives you something you 
 
 Jev isn’t the only decision model anymore. OpenAI made its Jev competitor widely available in October ([TechCrunch](https://techcrunch.com/2026/10/22/openai-makes-its-jev-competitor-widely-available-as-decision-model-competition-heats-up/)), and Microsoft, Cloudflare, AWS and others now offer similar models. For this job, the question to ask each vendor is simple: can it answer a yes-or-no question about an image, and is that ready for production?
 
-- **Jev 1.14 (TypeSafe):** the only one with a published, step-by-step test of this exact job, the one used here. Images are early release.
+- **Jev 1.14 (TypeSafe):** has a published, step-by-step test of this exact job, the one used here. Images are early release.
 - **Other decision models:** we haven’t checked which accept images yet. If one does, run the same two-week test on it. The pattern doesn’t depend on the vendor, and your answer key lets you compare them on your own documents.
 
 ## Questions leaders will ask
