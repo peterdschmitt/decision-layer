@@ -52,6 +52,7 @@ Peter's ask (2026-10-11): a blog post every day, emailed to him, with a way for 
 | “Is my fence covered?” (Oct 29 draft) | Agency service desk, homeowners coverage question | Finding the answering line in a document: number every line, a Choice over line IDs (up to 255, two passes beyond), a separate Noul for whether the answer exists because Choice always ranks something, TypeSafe’s 0.7/0.35 cut-offs to tune, a person answers |
 
 | Sixty storm emails, three people (Oct 30 draft) | Agency inbox after a storm, call-back order | Score questions: levels written as situations (not numbers), a probability per level and confidence when torn, a separate top level for danger, cheap batch rating; Jev rates, people act |
+| The scanner read 2028 (Oct 31 draft) | Agency claim paperwork, invoice photos from contractors | Checking values another tool read: a Noul per value against the whole page and against a crop of its Box, flag below 0.25 on either, neither check alone catches all misreads, unreadable means no, images are dreamer-ready (not production) |
 Topics not yet covered (candidates, proposed by Claude while waiting on Peter): choosing between Jev and a competitor on more than accuracy (contracts, support, lock-in); Jev in a phone or chat flow with a person on the other end.
 
 ## How Peter's edits come back
