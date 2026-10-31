@@ -1,6 +1,6 @@
 ---
 title: "Stop using LLMs alone. Jack & Jill had an LLM score 6,000 job candidates for every open role, and the bill kept climbing. Then it coupled the LLM with a decision model: screening costs fell 88%, the work ran twice as fast, quality held, and it was fully live in 10 days."
-dek: "An LLM is good at reading a candidate closely and poor value when it has to give a first score to thousands of them. However, when coupled with a decision model, the decision model sorts the thousands and the LLM is kept for the close read. Here is exactly how Jack & Jill did it, how they tested it, what it is worth, and how to make the same change in your own process."
+dek: "An LLM is good at reading a candidate closely and poor value when it has to give a first score to thousands of them. However, when coupled with a decision model, the thousands get sorted fast and cheaply, and the LLM is kept for the close read. Here is exactly how Jack & Jill did it, how they tested it, what it is worth, and how to make the same change in your own process."
 kind: Worked example
 readMinutes: 12
 author: Peter Schmitt
