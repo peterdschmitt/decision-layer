@@ -1,5 +1,5 @@
 // Every source the site cites, in one place. `grade` says what kind of evidence it is.
-export type Grade = 'Regulator' | 'Official docs' | 'Vendor claim' | 'Vendor case study' | 'Independent reporting' | 'Our test';
+export type Grade = 'Regulator' | 'Official docs' | 'Vendor claim' | 'Vendor case study' | 'Company report' | 'Independent reporting' | 'Our test';
 
 export const SRC = {
   intro: { title: 'TypeSafe docs: Introduction', url: 'https://docs.typesafe.ai/introduction', grade: 'Official docs' },
@@ -36,7 +36,7 @@ export const SRC = {
 
 export type SrcKey = keyof typeof SRC;
 
-// The six labels, in order of how much weight they carry on their own. Shown on the home page,
+// The seven labels, in order of how much weight they carry on their own. Shown on the home page,
 // the About page and Methodology.
 export const GRADES: { label: Grade; note: string }[] = [
   { label: 'Regulator', note: 'A regulator’s own rule, bulletin or guidance, such as the NAIC.' },
@@ -44,5 +44,6 @@ export const GRADES: { label: Grade; note: string }[] = [
   { label: 'Independent reporting', note: 'News outlets with editors, such as TechCrunch or The Register.' },
   { label: 'Official docs', note: 'TypeSafe’s documentation and the gateways’ own pages. Good for how things work.' },
   { label: 'Vendor case study', note: 'A customer story written by TypeSafe. Reported, not confirmed.' },
+  { label: 'Company report', note: 'A company’s own account of its results, such as an engineering blog post. Self-reported, not confirmed.' },
   { label: 'Vendor claim', note: 'TypeSafe’s marketing and blog. Reported, not confirmed.' },
 ];
