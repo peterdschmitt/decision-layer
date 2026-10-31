@@ -4,7 +4,7 @@ Peter's ask (2026-10-11): a blog post every day, emailed to him, with a way for 
 
 ## Each day
 
-**Follow [post-outline.md](post-outline.md): its 17-section outline, its ten-stage process with gates, and its final checklist. It overrides the older body order below.**
+**Follow [post-outline.md](post-outline.md) (writing process v2, agreed with Peter Oct 31): idea cards, full research, format-led draft, seven lenses plus cold-read gate, draft doc order. It overrides the older steps below.**
 
 0. **Pick the topic from [post-queue.md](post-queue.md)**: take the next unchecked item, and tick it when the draft is sent.
 **Guardrails changed 2026-10-31 14:46Z (Peter chose "Change all five"); see the top of post-brief.md. Where an older line below conflicts, post-brief.md wins.**
