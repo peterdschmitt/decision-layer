@@ -1,5 +1,7 @@
 # The post brief
 
+The section-by-section outline, the ten-stage writing process and the final checklist are in [post-outline.md](post-outline.md) (Peter, 14:42Z: "We need an outline for what goes into a post. And a process that helps get these written correctly.").
+
 This is everything Peter has asked for, in one place. Every daily post is checked against every line before it goes to him. If a rewrite fixes one point, re-check all the others: a fix must never drop earlier feedback. When Peter gives new direction, add it here the same day, with his words and the date.
 
 ## 0. The underlying tone of every post (Peter, 2026-10-31 14:18Z: "this needs to be the underlying tone for all of them")

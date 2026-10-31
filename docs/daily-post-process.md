@@ -4,6 +4,8 @@ Peter's ask (2026-10-11): a blog post every day, emailed to him, with a way for 
 
 ## Each day
 
+**Follow [post-outline.md](post-outline.md): its 17-section outline, its ten-stage process with gates, and its final checklist. It overrides the older body order below.**
+
 0. **Pick the topic from [post-queue.md](post-queue.md)**: take the next unchecked item, and tick it when the draft is sent.
 1. **Pick the news.** One fresh story from an approved outlet (HANDOFF.md, "Headline outlets"), not one used as a lead in the last 7 days (see the daily post log in project memory). Verify the quote word for word at the source. If no approved outlet has a fresh story you can verify, ask Peter instead of stretching the list.
 2. **Pick the use case.** Favor insurance claims, underwriting and agency operations. One concrete, made-up example (synthetic data only).
