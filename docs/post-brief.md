@@ -14,6 +14,8 @@ Every post argues for a change of method: **stop using LLMs alone; couple an LLM
 - **Every industry.** "Make sure this is for all industries and not just insurance." Spread examples across industries; insurance is at most one of many.
 - **Accuracy from hallucinations.** Peter liked "improving accuracy from hallucinations": show how coupling turns hallucination-prone output into right calls (1 in 5 wrong alone, every call right coupled).
 
+**Research before saying "none found" (Peter, 14:37Z: "A simple search found that Jev has an ad function already built... Why did you not discover it or any of the other ways of using Jev for this."):** for every use case, search at least: vendor case studies and blogs (TypeSafe, OpenAI and rivals), news coverage, GitHub (search "jev" plus the use case), the community catalogs [awesome-jev-use-cases](https://github.com/walidboulanouar/awesome-jev-use-cases) (74 demos, 150+ repos) and [jev-usecases](https://github.com/vamsikrishna2421/jev-usecases), n8n and Make templates, and X or LinkedIn demos. Never tell Peter something doesn't exist after one search. Label community demos as demos, not results.
+
 ## 1. Why the site exists
 
 The site shows one idea: **an LLM coupled with a decision model produces a dramatically different output.** An LLM alone gives you a reading or a draft that someone still has to check. Coupled with a decision model, it gives you a decision you can act on, such as cleared, routed, approved or sent, with a probability behind it and a logged reason.
