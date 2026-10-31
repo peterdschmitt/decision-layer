@@ -55,7 +55,7 @@ const renderer = {
     return `<code style="font-family:${mono};font-size:14px;background:${C.wash};padding:1px 4px;border-radius:3px;">${text}</code>`;
   },
   code({ text }) {
-    return `<pre style="font-family:${mono};font-size:13px;line-height:1.5;background:${C.navy};color:${C.navyInk};padding:14px 16px;border-radius:6px;overflow-x:auto;white-space:pre;margin:0 0 16px;">${esc(text)}</pre>`;
+    return `<pre style="font-family:${mono};font-size:13px;line-height:1.5;background:${C.navy};color:${C.navyInk};padding:14px 16px;border-radius:6px;white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere;margin:0 0 16px;">${esc(text)}</pre>`;
   },
   blockquote({ tokens }) {
     const inner = this.parser.parse(tokens);
