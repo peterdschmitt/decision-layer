@@ -1,9 +1,9 @@
 ---
 number: 22
-title: "The scanner said 2028"
-summary: "AI detectors should flag for a person, not accuse. Same for software reading invoice photos: Jev checks each value twice and sends the doubtful ones to your team, boxed on the photo."
+title: "The AI read 15 numbers"
+summary: "An LLM reads the paperwork; a decision model scores every value it read. The tractor and the hydraulics, shown on a published invoice test, and what it changes for leaders running paperwork-heavy processes."
 status: planned
-minutes: 9
+minutes: 10
 hosts: ["The Decision Layer desk"]
 post: repair-invoices-check-what-the-scanner-read
 sources:
@@ -17,18 +17,20 @@ sources:
 
 ## Show notes
 
-- 00:00 NPR on AI detectors that flag people’s own writing, and why a flag should go to a person
-- 00:50 Five reasons Jev is the right checker for values read off invoice photos
-- 03:00 The proof: a burst pipe, three invoices, two wrong values caught
-- 04:30 The messy one: a total printed on a fold
-- 05:20 The fine print: not production-ready yet, and set your own cut-off
+- 00:00 NPR on AI detectors that hand out verdicts, and what that teaches about AI in any process
+- 01:00 The tractor and the hydraulics: why an LLM and a decision model work in tandem
+- 02:30 Five reasons the pairing beats either tool alone
+- 04:30 The worked example: two invoices, fifteen numbers, three errors caught
+- 06:30 The same pattern in claims, payables, onboarding, logistics and billing
+- 07:30 What changes for leaders, and a two-week test on your own documents
+- 09:00 Which decision model for this job, and the fine print
 
 ## Script
 
-**Cold open.** The scanner said 2028. The invoice said 2026. Nobody would spot that in a list.
+**Cold open.** The AI read fifteen numbers off two invoices. Three were wrong, and none of them looked wrong.
 
-**Why Jev.** It checks instead of reading again. It looks at the whole page and at a close-up, because neither catches everything alone. It leaves the right values alone. It shows where to look. And it works with the scanner you already have.
+**The idea.** The LLM is the tractor: it reads anything. The decision model is the hydraulics: it scores every value the LLM produced, fast and cheaply enough to do it at full volume.
 
-**The proof.** Three misreads on two invoices in TypeSafe’s test, all three caught, nothing correct flagged.
+**The proof.** In TypeSafe’s test, the decision model flagged all three errors and cleared the other twelve. A person looked at three values, not fifteen.
 
-**Close.** Jev flags. Your person fixes. The carrier pays. We haven’t run this yet; when we do, we’ll publish everything.
+**Close.** You design the questions, you set the dial, and people only touch real doubt. We haven’t run this yet; when we do, we’ll publish everything.
