@@ -1,6 +1,6 @@
 ---
-title: "In a published test, an LLM working alone misread 1 in 5 invoice numbers. Working in tandem with a decision model, not one error got through."
-dek: "Neither kind of model can run a finance process on its own. An LLM reads any invoice but can’t say how sure it is of each value; a decision model can put a number on anything but can’t read a crumpled photo. Together they do what neither can: move invoices straight through, at volume, with a score behind every one. That is the gap between a $10.18 invoice and a $2.36 one. Here’s what it’s worth in cost, cash and customers, and how to work out your own number."
+title: "An LLM alone reads the invoice. Coupled with a decision model, it clears it for payment."
+dek: "On its own, an LLM produces a reading that someone still has to re-check: in a published test it misread 1 in 5 invoice numbers, with no sign which. Coupled with a decision model, the same LLM produces a different output altogether: invoices cleared for payment, each with a score behind every value, and only real doubt sent to a person. That difference in output is the gap between a $10.18 invoice and a $2.36 one. Here’s what it’s worth in cost, cash and customers, and how to work out your own number."
 kind: Explainer
 readMinutes: 12
 author: The Decision Layer desk
@@ -13,7 +13,7 @@ stats:
   - value: "20%"
     label: "of invoice values the LLM-based reader got wrong in TypeSafe’s test (3 of 15)"
   - value: "0 of 3"
-    label: "of those errors got through once the LLM and a decision model worked together, and no correct values were held back"
+    label: "of those errors got through once the LLM was coupled with a decision model, and no correct values were held back"
   - value: "77%"
     label: "lower cost per invoice at best-in-class AP teams ($2.36 vs $10.18)"
   - value: "96% vs 38%"
@@ -24,10 +24,10 @@ snapshot:
     text: "Invoice processing is a cost line, a cash lever and a supplier relationship at once. The spread between average and best-in-class teams is large, measured, and mostly explained by one thing you can change: how much of the work runs without a person."
   - label: "Where the money is"
     text: "About $782,000 a year for a business processing 100,000 invoices, from cost alone. Paying in days instead of weeks also opens early-payment discounts worth 2% of qualifying spend, an annualized return of roughly 37%."
-  - label: "Why one model isn’t enough"
-    text: "An LLM can read any invoice but can’t put a number on how sure it is of each value, so people re-read its work. A decision model can put a number on anything but can’t turn a photo into fields. Each has the half the other lacks."
+  - label: "Why the LLM alone hasn’t delivered it"
+    text: "An LLM alone outputs a reading: values with no measure of how far to trust them. A reading has to be re-checked by a person, so the invoice still counts as touched and the cost barely moves."
   - label: "What to do"
-    text: "Run them in tandem. The LLM reads and structures every invoice; the decision model answers narrow questions about each value in milliseconds for a fraction of a cent; your rules move confident invoices straight through. Together they lift work no team could lift by hand."
+    text: "Couple the LLM with a decision model. The output changes from a reading to a decision: this invoice is cleared for payment, or this one value needs a person, with a probability behind each call, in milliseconds, for a fraction of a cent."
   - label: "What we haven’t done"
     text: "Measured this ourselves. The benchmarks are industry figures and the only public test of the pairing used two invoices. Your own baseline is the number that matters."
 respondingTo:
@@ -38,7 +38,7 @@ respondingTo:
   date: 2026-10-31
   quote: "Submissions should end in rejection, not an accusation."
   quoteBy: "Neil Clarke, publisher and editor of Clarkesworld, quoted by NPR"
-  impact: "Detectors show the two ways AI fails at scale: it decides on its own with no measured doubt, or it flags so much that people end up doing the work anyway. Neither saves money. The operations that win with AI design for measured doubt from the start: every automated decision carries a score, a rule you own decides what moves on its own, and people see only the cases that need them. That design takes two models working together: one that reads and writes, and one that answers, with a number, how sure to be."
+  impact: "Detectors show the two ways AI fails at scale: it decides on its own with no measured doubt, or it flags so much that people end up doing the work anyway. Neither saves money. The operations that win with AI design for measured doubt from the start: every automated decision carries a score, a rule you own decides what moves on its own, and people see only the cases that need them. That output comes from coupling an LLM with a decision model, not from either one alone."
 summary:
   - "Best-in-class AP teams spend 77% less per invoice than average and finish in days, mostly because almost none of their invoices need a person."
   - "Pairing an LLM with a decision model is the design that can raise that touchless rate: the LLM reads, the decision model scores every value, your rules decide."
@@ -95,23 +95,31 @@ The same research shows where the gap comes from. The average company processes 
 
 So the question for a leader isn’t “should we use AI on invoices?” It’s “what would it take to move our touchless rate from 38% toward 96%?”
 
-## Why one model on its own hasn’t closed it
+## Why the LLM alone hasn’t closed it
 
-LLMs changed the reading part of the job. They can pull a supplier, an amount and a due date out of almost any invoice, in any layout, from a scan or a phone photo. That should have sent touchless rates soaring, yet the benchmarks still show the average company at 38%. The reason is that an LLM on its own gives you a reading but no measure of how much to trust it. It is fluent and confident either way, so people re-read its work, the invoice still counts as touched, and the cost and the days barely move.
+LLMs changed the reading part of the job. They can pull a supplier, an amount and a due date out of almost any invoice, in any layout, from a scan or a phone photo. That should have sent touchless rates soaring, yet the benchmarks still show the average company at 38%.
 
-Decision models have the opposite shape. Jev from TypeSafe, and now rival models from OpenAI and others, write nothing at all. They answer a narrow question you define, with a probability, in milliseconds, for a fraction of a cent. But hand one a crumpled phone photo and ask it to fill in an invoice record, and it has nothing to work with. It needs something to judge.
-
-Each model has exactly the half the other lacks. That is the whole idea behind this site.
+The reason is what an LLM alone produces. Its output is a reading: a list of values, fluent and confident, with no measure of how far to trust any of them. You can’t pay a supplier on a reading. So people re-check it, the invoice still counts as touched, and the cost and the days barely move. The LLM made reading faster. It didn’t change what comes out the other end.
 
 ## The tractor and the hydraulics
 
-A tractor on its own can cross a field and pull a load. Hydraulics on their own are a pump and some hoses. Put them together and you get a different machine: it digs a trench in minutes and lifts loads no crew could move, with a touch of a lever. Neither part got bigger. Working together, they multiplied what each could do.
+A tractor on its own can cross a field and pull a load. Couple it with hydraulics and the output is different in kind: trenches dug in minutes, loads lifted that no crew could move, with a touch of a lever. It isn’t a better tractor. It’s a machine that does a different job.
 
-An LLM is the tractor: general, powerful, able to read and draft almost anything. A decision model is the hydraulics: it puts force behind that work by answering, at full volume, the questions that decide what happens next. Does this amount match the page? Is this the invoice date? Is this supplier’s bank account the one on file? Each answer is a probability, so a rule you own can act on it.
+An LLM coupled with a decision model is the same kind of change. The LLM reads every invoice into structured values. The decision model, such as Jev from TypeSafe or one of its new rivals from OpenAI and others, answers a few narrow questions about each value in milliseconds: does this amount match the page, is this the invoice date, is this the bank account on file? Each answer is a probability, so a rule you own can act on it.
 
-In tandem, they move the number that matters. The LLM reads every invoice into structured values. The decision model answers a few narrow questions about each value. Invoices where every answer clears your bar go straight through. The few with real doubt go to a person, with the doubtful values marked. Touchless becomes the default and human time goes where it counts, which is exactly what best-in-class teams look like. Neither model gets you there alone.
+What comes out is no longer a reading. It’s a decision:
 
-We call this pattern **Read and weigh**: the LLM supplies the material, the decision model supplies fast direction. It is one of five ways to run the two in tandem, each with a worked example in our [open examples repository](https://github.com/peterdschmitt/decision-layer-examples).
+| | An LLM alone | An LLM coupled with a decision model |
+| --- | --- | --- |
+| What you get | A list of values | An invoice cleared for payment, or one value marked for a person |
+| How sure it is | No measure | A probability behind every value |
+| What happens next | A person re-checks it | Your rule acts on it, in milliseconds |
+| Why it was done | The model’s word | The questions, the scores and the rule, logged |
+| Who touches it | Everyone, every time | Only the invoices with real doubt |
+
+That change in output is what moves the number that matters. Touchless becomes the default and human time goes where it counts, which is exactly what best-in-class teams look like.
+
+We call this pattern **Read and weigh**: the LLM supplies the material, the decision model supplies fast direction. It is one of five patterns for coupling an LLM with a decision model, each with a worked example in our [open examples repository](https://github.com/peterdschmitt/decision-layer-examples).
 
 ## The math for a 100,000-invoice operation
 
@@ -136,9 +144,9 @@ What would the decision model cost? Jev charges $0.042 per million input tokens 
 
 **Revenue.** This is mostly a cost and speed story, and it’s worth being honest about that. The revenue case is indirect but real. J.D. Power’s finding suggests speed protects pricing: faster cycles offset the hit to satisfaction from higher prices. Paying suppliers in days, not weeks, gives you something to offer when you negotiate terms. And the people you stop spending on review can go to the work that grows the business. APQC finds that bottom-performing AP functions need four times as many staff as top performers.
 
-## The evidence: what the pair did on two invoices
+## The evidence: one LLM, two invoices, two different outputs
 
-The math only holds if the two models together sort good readings from bad ones. The best public evidence so far is small but clear. In a published TypeSafe test, OCR and an LLM read fifteen values from two supplier invoices photographed on a phone. Working alone, they got three wrong, and nothing in their output said which. With Jev answering two questions about each of those fifteen readings (does it match the whole page, and does it match a close-up of where it’s printed?), the three wrong values scored low and the twelve right ones cleared. Neither question would have sorted all three on its own ([TypeSafe](https://docs.typesafe.ai/cookbooks/ocr_confidence_bounding_boxes.md)).
+The math only holds if coupling really changes the output. The best public evidence so far is small but clear. In a published TypeSafe test, OCR and an LLM read fifteen values from two supplier invoices photographed on a phone. On their own, their output was a reading with three wrong values and nothing to say which. Coupled with Jev answering two questions about each of those fifteen values (does it match the whole page, and does it match a close-up of where it’s printed?), the output became a decision: twelve values cleared to act on, and the three wrong ones sent to a person. Neither question would have sorted all three on its own ([TypeSafe](https://docs.typesafe.ai/cookbooks/ocr_confidence_bounding_boxes.md)).
 
 Two invoices prove the mechanism, not the rate. The rate is what you measure on your own documents, and it decides how far your touchless number can move.
 
@@ -174,7 +182,7 @@ Jev isn’t the only decision model anymore. OpenAI made its Jev competitor wide
 
 **Does this replace the AP team?** It changes what they spend time on. Best-in-class teams still have people; they spend them on exceptions, suppliers and cash, not on re-keying.
 
-**Why not just buy a better LLM?** A better LLM reads more accurately, but on its own it still can’t say how sure it is of each reading, so every invoice still gets reviewed. The gain comes from the pair, not from either model getting bigger.
+**Why not just buy a better LLM?** A better LLM produces a more accurate reading, but it is still a reading, so every invoice still gets re-checked. The change in output comes from coupling it with a decision model, not from a bigger LLM.
 
 **Could it let a bad invoice through?** Yes, at some rate. That’s why you set the bar on your own past invoices, keep higher bars for large amounts, and always call on bank-detail changes. The question is whether that rate beats today’s manual error rate, and you can measure both.
 
@@ -188,7 +196,7 @@ Jev isn’t the only decision model anymore. OpenAI made its Jev competitor wide
 
 ## For your developer
 
-The decision model’s half of the pair is two yes-or-no questions per value the LLM read: does it match the whole page, and does it match a close-up of its box? This is trimmed from [TypeSafe’s cookbook](https://docs.typesafe.ai/cookbooks/ocr_confidence_bounding_boxes.md), which has the full code including the zoom step:
+The decision model’s part is two yes-or-no questions per value the LLM read: does it match the whole page, and does it match a close-up of its box? This is trimmed from [TypeSafe’s cookbook](https://docs.typesafe.ai/cookbooks/ocr_confidence_bounding_boxes.md), which has the full code including the zoom step:
 
 ```python
 import os
