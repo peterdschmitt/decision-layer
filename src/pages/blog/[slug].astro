@@ -25,7 +25,7 @@ const epLabel = ep && `Listen · Episode ${ep.data.number}${ep.data.minutes ? ` 
   <header class="post-hero" slot="hero">
     <div class="post-hero-in">
       <p class="post-kicker"><a href="/blog/">Read</a><span>{d.kind}</span><span>{d.readMinutes} min read</span><span>{d.sources.length} sources</span></p>
-      <h1>{d.title}</h1>
+      <h1 class={d.title.length > 110 ? "h-long" : d.title.length > 70 ? "h-mid" : undefined}>{d.title}</h1>
       <p class="post-dek">{d.dek}</p>
       <div class="post-by">
         <span class="by-mark" aria-hidden="true">DL</span>

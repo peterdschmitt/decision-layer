@@ -690,3 +690,12 @@ body.paper .rail-listen .k { font: var(--micro); letter-spacing: .12em; color: v
 body.paper .rail-listen small { color: var(--muted); }
 @media (min-width: 641px) { body.paper .snap li { grid-template-columns: 2.2em 13em minmax(0, 1fr); } }
 body.paper .rail-listen .k { letter-spacing: .06em; }
+
+/* Long, full-arc headlines (Peter wants them) are set like a newspaper's long headline, not a poster. */
+body.paper .post-hero h1.h-mid { font-size: clamp(32px, 4vw, 52px); line-height: 1.04; max-width: 24ch; }
+body.paper .post-hero h1.h-long { font-size: clamp(26px, 2.7vw, 38px); line-height: 1.14; max-width: 34ch; letter-spacing: -.005em; }
+@media (max-width: 640px) {
+  .post-stats .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .post-stats .stat:nth-child(odd) { border-left: 0; }
+  .post-stats .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
+}
