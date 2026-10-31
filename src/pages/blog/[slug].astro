@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import { getCollection, getEntry, render } from 'astro:content';
 import Icon from '../../components/Icon.astro';
+import SubscribeBox from '../../components/SubscribeBox.astro';
 import { UNOFFICIAL } from '../../site';
 
 export async function getStaticPaths() {
@@ -9,47 +10,135 @@ export async function getStaticPaths() {
   return posts.map((p) => ({ params: { slug: p.id }, props: { post: p } }));
 }
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 const d = post.data;
 const ep = d.episode ? await getEntry('episodes', d.episode) : undefined;
 const fmt = (x: Date) => x.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+const short = (x: Date) => x.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+const toc = headings.filter((h) => h.depth === 2);
+const epLive = ep && ep.data.status === 'published' && ep.data.audioUrl;
+const epLabel = ep && `Listen · Episode ${ep.data.number}${ep.data.minutes ? ` · ${ep.data.minutes} min` : ''}`;
 ---
-<Base title={d.title} description={d.dek} article>
-  <div class="article">
-    <article class="card article-body">
-      <div class="post-head">
-        <p class="eyebrow"><b>{d.kind}</b> · {d.readMinutes} min read · {d.sources.length} sources</p>
-        {d.respondingTo ? (
-          <>
-            <h1>{d.respondingTo.lede}</h1>
-            <blockquote class="quote" style="margin: 12px 0">“{d.respondingTo.quote}”{d.respondingTo.quoteBy && <> ({d.respondingTo.quoteBy})</>} <span class="small">· <a href={d.respondingTo.url}>{d.respondingTo.outlet}, {fmt(d.respondingTo.date)}</a></span></blockquote>
-            <p class="lede">{d.respondingTo.impact}</p>
-            <h2 style="margin-top: 0.6em">{d.title}</h2>
-          </>
-        ) : <h1>{d.title}</h1>}
-        <p class="byline"><span>By <b>{d.author}</b></span><span>Published {fmt(d.published)}</span><span>Sources checked {fmt(d.lastChecked)}</span></p>
+<Base title={d.title} description={d.dek} article paper>
+  <div class="read-progress" aria-hidden="true"><span></span></div>
+
+  <header class="post-hero" slot="hero">
+    <div class="post-hero-in">
+      <p class="post-kicker"><a href="/blog/">Read</a><span>{d.kind}</span><span>{d.readMinutes} min read</span><span>{d.sources.length} sources</span></p>
+      <h1 class={d.title.length > 110 ? "h-long" : d.title.length > 70 ? "h-mid" : undefined}>{d.title}</h1>
+      <p class="post-dek">{d.dek}</p>
+      <div class="post-by">
+        <span class="by-mark" aria-hidden="true">DL</span>
+        <span class="by-text">
+          <span>By <b>{d.author}</b></span>
+          {d.audience && <span class="by-aud">{d.audience}</span>}
+          <span class="by-meta">Published {short(d.published)} · Sources checked {short(d.lastChecked)}{d.modelVersion && <> · Checked against {d.modelVersion}</>}</span>
+        </span>
+        {ep && (
+          <a class="listen-chip" href={`/podcast/${ep.id}/`}>
+            <span class="ic"><Icon name={epLive ? 'play' : 'headphones'} size={16} /></span>
+            <span>{epLabel}{!epLive && <small>Script up, audio soon</small>}</span>
+          </a>
+        )}
       </div>
-      {ep && (
-        <a class="ep-band" href={`/podcast/${ep.id}/`}>
-          <span class="ic"><Icon name="headphones" size={20} /></span>
-          <span><span class="k">Listen instead · Episode {ep.data.number}{ep.data.minutes && ` · ${ep.data.minutes} min`}</span>{ep.data.status === 'published' && ep.data.audioUrl ? ep.data.title : `${ep.data.title}. Audio coming soon; the script and show notes are up.`}</span>
-        </a>
+      {d.stats.length > 0 && (
+        <div class="post-stats">
+          <div class="stats" style={`--n:${d.stats.length}`}>{d.stats.map((s) => <div class="stat"><span class="v">{s.value}</span><span class="l">{s.label}</span></div>)}</div>
+          {d.statsNote && <p class="note">{d.statsNote}</p>}
+        </div>
       )}
-      {d.summary.length > 0 && <div class="callout info"><b>In short</b><ul style="margin: 6px 0 0; padding-left: 18px">{d.summary.map((s) => <li>{s}</li>)}</ul></div>}
-      <Content />
-      {d.inTheNews.length > 0 && (
-        <section class="in-news" aria-labelledby="in-news">
-          <h2 id="in-news">In the news</h2>
-          <ul>{d.inTheNews.map((n) => <li><span class="src">{n.outlet} · {fmt(n.date)}</span><a href={n.url}>{n.headline}</a></li>)}</ul>
+    </div>
+  </header>
+
+  <div class="post-grid">
+    <div class="post-main">
+      {d.snapshot.length > 0 ? (
+        <section class="snap" aria-labelledby="snap-h">
+          <h2 id="snap-h" class="box-h">Snapshot <span>the whole post in {d.snapshot.length} lines</span></h2>
+          <ol>{d.snapshot.map((s) => <li><b>{s.label}</b><span>{s.text}</span></li>)}</ol>
+        </section>
+      ) : d.summary.length > 0 && (
+        <section class="snap" aria-labelledby="snap-h">
+          <h2 id="snap-h" class="box-h">In short</h2>
+          <ul>{d.summary.map((s) => <li><span>{s}</span></li>)}</ul>
         </section>
       )}
-    </article>
-    <aside class="article-aside">
-      <div class="card">
-        <p class="mono-label">Sources</p>
-        <ul class="src-list">{d.sources.map((s) => <li><a href={s.url}>{s.title}</a> <span class="grade" data-g={s.grade}>{s.grade}</span></li>)}</ul>
+
+      {d.respondingTo && (
+        <section class="news-hook" aria-labelledby="hook-h">
+          <h2 id="hook-h" class="box-h">Why this matters today</h2>
+          <p class="hook-src"><span class="outlet">{d.respondingTo.outlet}</span><a href={d.respondingTo.url}>{d.respondingTo.headline}</a><span class="date">{fmt(d.respondingTo.date)}</span></p>
+          <p>{d.respondingTo.lede}</p>
+          <blockquote class="hook-quote"><p>“{d.respondingTo.quote}”</p>{d.respondingTo.quoteBy && <footer>{d.respondingTo.quoteBy}</footer>}</blockquote>
+          <p>{d.respondingTo.impact}</p>
+        </section>
+      )}
+
+      {toc.length > 2 && (
+        <details class="toc-inline">
+          <summary>On this page <span>{toc.length} sections</span></summary>
+          <ol>{toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
+        </details>
+      )}
+
+      <div class="prose">
+        <Content />
       </div>
-      <div class="card small muted">{UNOFFICIAL}</div>
+
+      {d.inTheNews.length > 0 && (
+        <section class="news-list" aria-labelledby="in-news">
+          <h2 id="in-news" class="box-h">In the news</h2>
+          <ul>{d.inTheNews.map((n) => (
+            <li><a href={n.url}><span class="outlet">{n.outlet}</span><span class="hl">{n.headline}</span><span class="date">{short(n.date)}</span></a></li>
+          ))}</ul>
+        </section>
+      )}
+
+      <SubscribeBox />
+
+      <p class="post-end"><a href="/blog/">All posts</a><span>{UNOFFICIAL}</span></p>
+    </div>
+
+    <aside class="post-rail" aria-label="About this post">
+      {toc.length > 2 && (
+        <nav class="rail-card rail-toc" aria-label="On this page">
+          <p class="mono-label">On this page</p>
+          <ol>{toc.map((h) => <li><a href={`#${h.slug}`} data-toc={h.slug}>{h.text}</a></li>)}</ol>
+        </nav>
+      )}
+      {ep && (
+        <a class="rail-card rail-listen" href={`/podcast/${ep.id}/`}>
+          <span class="ic"><Icon name="headphones" size={20} /></span>
+          <span><span class="k">{epLabel}</span>{ep.data.title}{!epLive && <small>Audio coming soon; the script and show notes are up.</small>}</span>
+        </a>
+      )}
+      <div class="rail-card">
+        <p class="mono-label">Sources</p>
+        <ul class="src-list compact">{d.sources.map((s) => <li><a href={s.url}>{s.title}</a> <span class="grade" data-g={s.grade}>{s.grade}</span></li>)}</ul>
+      </div>
     </aside>
   </div>
+
+  <script>
+    const bar = document.querySelector<HTMLElement>('.read-progress span');
+    const main = document.querySelector<HTMLElement>('.post-main');
+    const onScroll = () => {
+      if (!bar || !main) return;
+      const r = main.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, -r.top / Math.max(1, r.height - innerHeight)));
+      bar.style.transform = `scaleX(${p})`;
+    };
+    addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    const links = new Map([...document.querySelectorAll<HTMLAnchorElement>('[data-toc]')].map((a) => [a.dataset.toc, a]));
+    if (links.size && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver((es) => {
+        for (const e of es) if (e.isIntersecting) {
+          links.forEach((a) => a.removeAttribute('aria-current'));
+          links.get(e.target.id)?.setAttribute('aria-current', 'true');
+        }
+      }, { rootMargin: '-15% 0px -75% 0px' });
+      links.forEach((_, id) => { const h = document.getElementById(id!); if (h) io.observe(h); });
+    }
+  </script>
 </Base>

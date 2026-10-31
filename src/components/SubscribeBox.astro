@@ -1,0 +1,58 @@
+---
+interface Props { heading?: string; id?: string }
+const { heading = 'Get the code: subscribe', id = 'subscribe' } = Astro.props;
+---
+<section class="subscribe-box" id={id} aria-labelledby={`${id}-h`}>
+  <h2 id={`${id}-h`} class="box-h">{heading}</h2>
+  <p>Every post comes with a worked example: the LLM and the decision model coupled in working code, with tests. The examples live in a private GitHub repository. Subscribe and you get access to all of them, plus each new one as it's published.</p>
+  <form class="sub-form" method="post" action="/api/subscribe" data-subscribe>
+    <label><span>Email</span><input type="email" name="email" required autocomplete="email" maxlength="254" /></label>
+    <label><span>GitHub username</span><input type="text" name="github" required autocomplete="username" maxlength="39" pattern="@?[A-Za-z0-9][A-Za-z0-9\-]{0,38}" placeholder="e.g. octocat" /></label>
+    <label class="hp" aria-hidden="true"><span>Website</span><input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+    <button type="submit">Subscribe and get access</button>
+    <p class="sub-msg" role="status" aria-live="polite"></p>
+  </form>
+  <p class="sub-fine">GitHub will email you an invite to the repository. Accept it to see the code. We use your email only to send you new posts and examples.</p>
+</section>
+<script>
+  const MSG: Record<string, string> = {
+    invited: 'Done. Check your email for the GitHub invite, then accept it to open the repository.',
+    queued: 'Thanks, you’re subscribed. Your GitHub invite is on its way.',
+    email: 'That email doesn’t look right. Please check it.',
+    github: 'That GitHub username doesn’t look right. It’s the name in your github.com profile address.',
+    nouser: 'GitHub has no user with that name. Please check it.',
+    later: 'Something went wrong on our side. Please try again in a few minutes.',
+  };
+  document.querySelectorAll<HTMLFormElement>('form[data-subscribe]').forEach((form) => {
+    const msg = form.querySelector<HTMLElement>('.sub-msg')!;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button')!;
+      btn.disabled = true; msg.textContent = 'Sending…';
+      try {
+        const r = await fetch(form.action, { method: 'POST', headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify(Object.fromEntries(new FormData(form))) });
+        const out = await r.json().catch(() => ({ code: 'later' }));
+        msg.textContent = MSG[out.code] || MSG.later;
+        msg.dataset.ok = String(!!out.ok);
+        if (out.ok) form.reset();
+      } catch { msg.textContent = MSG.later; msg.dataset.ok = 'false'; }
+      btn.disabled = false;
+    });
+  });
+</script>
+<style>
+  .subscribe-box { border: 1px solid var(--line); border-top: 3px solid var(--orange); background: var(--surface); padding: 20px; margin: 32px 0; }
+  .subscribe-box p { margin: 8px 0; }
+  .sub-form { display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; align-items: end; margin-top: 14px; }
+  .sub-form label { display: grid; gap: 4px; font-size: 0.85rem; color: var(--muted); }
+  .sub-form input { font: inherit; font-size: 1rem; padding: 10px 12px; border: 1px solid var(--line); background: #fff; color: var(--ink); min-width: 0; }
+  .sub-form button { font: inherit; font-weight: 600; padding: 11px 16px; border: 0; background: var(--orange); color: #fff; cursor: pointer; }
+  .sub-form button:disabled { opacity: 0.6; }
+  .sub-form .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .sub-msg { grid-column: 1 / -1; margin: 0; min-height: 1.2em; }
+  .sub-msg[data-ok='true'] { color: var(--go); }
+  .sub-msg[data-ok='false'] { color: var(--stop); }
+  .sub-fine { font-size: 0.85rem; color: var(--muted); }
+  @media (max-width: 640px) { .sub-form { grid-template-columns: 1fr; } .sub-form button { width: 100%; } }
+</style>
