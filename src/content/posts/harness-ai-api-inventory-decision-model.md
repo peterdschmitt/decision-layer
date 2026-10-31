@@ -5,7 +5,7 @@ kind: Worked example
 readMinutes: 10
 author: Peter Schmitt
 audience: For executives, operations, security and transformation leaders deciding how AI runs their processes
-published: 2026-11-01
+published: 2026-10-31
 lastChecked: 2026-10-31
 modelVersion: jev-1.14.0
 stats:
