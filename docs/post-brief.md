@@ -21,9 +21,9 @@ This is everything Peter has asked for, in one place. Every daily post is checke
   2. The story in full detail: who, how it worked before (steps, volume, where cost or risk piled up), what changed (LLM's job vs the decision model's job), how they tested, how fast it went live, what it unlocked.
   3. How it works: what a decision model is, how it's trained (published vs not disclosed), how this company set it up (questions, cut-offs, test data).
   4. What it means for you: money, customers, revenue, risk; other industries with real labelled examples; hard questions answered; step-by-step how to change your own process.
-  5. For your developer: one 10-15 line snippet of the coupling (our own code, "expected, not measured"), the matching worked example in decision-layer-examples (add one if none exists), and other public repos, labelled.
+  5. For your developer: one 10-15 line snippet of the coupling (our own code, "expected, not measured"), the matching worked example in the private decision-layer-examples repo, linked via /subscribe/ (add one if none exists), and other public repos, labelled.
   6. Fine print: who published each number, models used, caveats once, what we don't know, sources.
-  7. One next step: subscribe (Peter, 18:35Z: "how about subscribe to get access to the github repository?"). How access works is waiting on Peter's pick; no subscribe form exists yet.
+  7. One next step: subscribe. Peter, 18:37Z: "private repo. access when subscribed". The subscribe box at the end of every post takes email plus GitHub username and invites the reader to the private examples repo. Never link the repo directly in a post; link /subscribe/.
   Share every detail the source gives, and say plainly what it doesn't. Full text in post-outline.md Part 5.
 - **No strong idea, no post.** "Yes": on a day the material holds no strong idea, send Peter one specific question instead of a post.
 
