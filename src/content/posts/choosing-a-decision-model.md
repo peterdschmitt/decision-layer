@@ -174,7 +174,7 @@ Public code from others, each labelled:
 
 ## The fine print
 
-- **Who published the numbers.** Fabio Akita ran his own benchmark and published the cases and results. Construct, GlassFlow and Better Stack each report their own tests on their own posts. Artificial Analysis publishes its index. Microsoft’s price and the analysts’ comments come through InfoWorld. I have measured none of them.
+- **Who published the numbers.** Fabio Akita ran his own benchmark and published the cases and results. Construct, GlassFlow and Better Stack each report their own tests on their own posts. Artificial Analysis publishes its index. Microsoft’s model details and the analysts’ comments come through InfoWorld. I have measured none of them.
 - **My arithmetic.** The 1.2 million and the annual costs take Mr. Akita’s accuracy and his price per 10,000 short emails and scale them to 12 million decisions a year; the dearest, Clef, comes to about $760. His texts were short; longer ones cost proportionally more.
 - **What the tests can show.** All are small. Mr. Akita’s cases were written with AI help and checked against his policies, without independent human labels, with 12 scenarios per task in each language. Construct’s 117 cases were synthetic and labelled with an AI assistant, and Clef’s lead over Jev there is not statistically significant. GlassFlow’s reference was the LLM’s own decisions, not confirmed incidents. Better Stack’s referee was another model. Treat each as one careful test, not a ranking for your work.
 - **Versions.** Mr. Akita and Construct tested Jev 1.13.0; Artificial Analysis tested Jev 1.13. TypeSafe now serves 1.14.0, which none of these tests covers. Construct’s September-to-October drop rests on three test questions.
