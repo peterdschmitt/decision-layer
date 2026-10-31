@@ -29,7 +29,7 @@ snapshot:
   - label: "What to do"
     text: "Run them in tandem. The LLM reads and structures every invoice; the decision model answers narrow questions about each value in milliseconds for a fraction of a cent; your rules move confident invoices straight through. Together they lift work no team could lift by hand."
   - label: "What we haven’t done"
-    text: "Measured this ourselves. The benchmarks are industry figures and the only public test of the field-level checks used two invoices. Your own baseline is the number that matters."
+    text: "Measured this ourselves. The benchmarks are industry figures and the only public test of the pairing used two invoices. Your own baseline is the number that matters."
 respondingTo:
   lede: "NPR reports that AI writing detectors are flagging people’s own work as machine-written, with no explanation and no clear way to appeal. A magazine editor who uses these tools says a flag should start a human look, not end in a verdict."
   outlet: NPR
