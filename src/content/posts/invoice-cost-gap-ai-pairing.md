@@ -111,6 +111,8 @@ An LLM is the tractor: general, powerful, able to read and draft almost anything
 
 In tandem, they move the number that matters. The LLM reads every invoice into structured values. The decision model answers a few narrow questions about each value. Invoices where every answer clears your bar go straight through. The few with real doubt go to a person, with the doubtful values marked. Touchless becomes the default and human time goes where it counts, which is exactly what best-in-class teams look like. Neither model gets you there alone.
 
+We call this pattern **Read and weigh**: the LLM supplies the material, the decision model supplies fast direction. It is one of five ways to run the two in tandem, each with a worked example in our [open examples repository](https://github.com/peterdschmitt/decision-layer-examples).
+
 ## The math for a 100,000-invoice operation
 
 Here is what the benchmark gap is worth at one realistic volume. These are industry figures multiplied out, not a forecast for your business:
