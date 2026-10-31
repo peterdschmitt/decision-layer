@@ -1,36 +1,39 @@
 ---
 number: 22
-title: "The AI read 15 numbers"
-summary: "An LLM reads the paperwork; a decision model scores every value it read. The tractor and the hydraulics, shown on a published invoice test, and what it changes for leaders running paperwork-heavy processes."
+title: "The 77% invoice gap"
+summary: "Best-in-class finance teams process invoices for 77% less, mostly because almost none need a person. Why an LLM alone hasn’t closed that gap, how pairing it with a decision model can, and what it’s worth in cost, cash and customers."
 status: planned
-minutes: 10
+minutes: 12
 hosts: ["The Decision Layer desk"]
-post: repair-invoices-check-what-the-scanner-read
+post: invoice-cost-gap-ai-pairing
 sources:
-  - title: "NPR: Your writing was flagged as AI. What does that actually mean? (Oct 31, 2026)"
-    url: https://www.npr.org/2026/10/31/nx-s1-5963520/ai-writing-detectors-pangram
+  - title: "Medius: How much does it cost to process an invoice? (Sept 17, 2026; cites Ardent Partners)"
+    url: https://www.medius.com/blog/how-much-does-cost-process-invoice-where-you-save/
+    grade: Vendor claim
+  - title: "APQC: 4 KPIs that set good accounts payable organizations apart"
+    url: https://www.apqc.org/blog/4-kpis-set-good-accounts-payable-organizations-apart
     grade: Independent reporting
-  - title: "TypeSafe docs: OCR confidence and bounding boxes (cookbook)"
-    url: https://docs.typesafe.ai/cookbooks/ocr_confidence_bounding_boxes.md
-    grade: Official docs
+  - title: "Insurance Journal: JD Power: Homeowners claims satisfaction rises as repair times improve (Mar 18, 2026)"
+    url: https://www.insurancejournal.com/news/national/2026/03/17/862324.htm
+    grade: Independent reporting
 ---
 
 ## Show notes
 
-- 00:00 NPR on AI detectors that hand out verdicts, and what that teaches about AI in any process
-- 01:00 The tractor and the hydraulics: why an LLM and a decision model work in tandem
-- 02:30 Five reasons the pairing beats either tool alone
-- 04:30 The worked example: two invoices, fifteen numbers, three errors caught
-- 06:30 The same pattern in claims, payables, onboarding, logistics and billing
-- 07:30 What changes for leaders, and a two-week test on your own documents
-- 09:00 Which decision model for this job, and the fine print
+- 00:00 Ten dollars an invoice versus two: the gap between average and best-in-class finance teams
+- 01:30 Where the gap comes from: the share of invoices nobody touches
+- 03:00 Why an LLM alone hasn’t closed it, and the tractor and the hydraulics
+- 05:00 The math for 100,000 invoices, and what the checks cost
+- 06:30 Money, customers and revenue: discounts, faster payouts, pricing power
+- 08:30 Six levers leaders control, and how to find your own X%
+- 10:30 Which decision model, and the fine print
 
 ## Script
 
-**Cold open.** The AI read fifteen numbers off two invoices. Three were wrong, and none of them looked wrong.
+**Cold open.** The average company spends $10.18 to process an invoice. The best spend $2.36. The difference isn’t software licenses. It’s how many invoices need a person.
 
-**The idea.** The LLM is the tractor: it reads anything. The decision model is the hydraulics: it scores every value the LLM produced, fast and cheaply enough to do it at full volume.
+**The idea.** An LLM can read any invoice but can’t say which readings are wrong, so people still check them. A decision model scores every value in milliseconds for a fraction of a cent, so confident invoices go straight through.
 
-**The proof.** In TypeSafe’s test, the decision model flagged all three errors and cleared the other twelve. A person looked at three values, not fifteen.
+**The prize.** About $782,000 a year at 100,000 invoices, early-payment discounts worth roughly 37% a year annualized, and faster payouts that J.D. Power links to happier customers.
 
-**Close.** You design the questions, you set the dial, and people only touch real doubt. We haven’t run this yet; when we do, we’ll publish everything.
+**Close.** Measure your baseline, run it in shadow mode, and let your own numbers set your X%. We haven’t run this yet; when we do, we’ll publish everything.
