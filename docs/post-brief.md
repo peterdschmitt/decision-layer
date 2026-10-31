@@ -23,7 +23,7 @@ This is everything Peter has asked for, in one place. Every daily post is checke
   4. What it means for you: money, customers, revenue, risk; other industries with real labelled examples; hard questions answered; step-by-step how to change your own process.
   5. For your developer: one 10-15 line snippet of the coupling (our own code, "expected, not measured"), the matching worked example in decision-layer-examples (add one if none exists), and other public repos, labelled.
   6. Fine print: who published each number, models used, caveats once, what we don't know, sources.
-  7. One next step. Peter hasn't picked it yet (subscribe, examples repo, or contact him); until then, the matching example in the repo.
+  7. One next step: subscribe (Peter, 18:35Z: "how about subscribe to get access to the github repository?"). How access works is waiting on Peter's pick; no subscribe form exists yet.
   Share every detail the source gives, and say plainly what it doesn't. Full text in post-outline.md Part 5.
 - **No strong idea, no post.** "Yes": on a day the material holds no strong idea, send Peter one specific question instead of a post.
 
