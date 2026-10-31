@@ -599,7 +599,7 @@ body.paper {
 body.paper a { color: var(--ink); text-decoration-color: rgba(27,22,19,.35); }
 body.paper a:hover { color: var(--orange-ink); text-decoration-color: currentColor; }
 body.paper .mono-label, body.paper .eyebrow { font: var(--micro); letter-spacing: .12em; color: var(--muted); }
-body.paper pre { background: #231D19; color: #F3EDE4; border-left-color: var(--orange); }
+body.paper pre, body.paper pre.astro-code { background: #FFFDF9 !important; color: var(--ink); border: 1px solid var(--line); border-left: 3px solid var(--orange); border-radius: 6px; padding: 16px 18px; }
 body.paper code { background: var(--surface-2); }
 body.paper .grade { font: 500 10.5px var(--mono); letter-spacing: .06em; }
 
