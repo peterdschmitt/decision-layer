@@ -172,7 +172,7 @@ Jev isn’t the only decision model anymore. OpenAI made its Jev competitor wide
 
 **Could it let a bad invoice through?** Yes, at some rate. That’s why you set the bar on your own past invoices, keep higher bars for large amounts, and always call on bank-detail changes. The question is whether that rate beats today’s manual error rate, and you can measure both.
 
-**How fast could we see results?** The baseline takes days. A shadow-mode test takes about a month. The benchmark gap took best-in-class teams years of process work; the pairing attacks the part that used to need people.
+**How fast could we see results?** The baseline takes days. A shadow-mode test takes about a month. After that, the pace depends on how fast you raise the bars you trust.
 
 ## The fine print
 
