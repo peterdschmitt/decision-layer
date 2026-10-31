@@ -82,7 +82,7 @@ The four fields the rest of the product reads didn’t change, so no dashboard o
 
 Harness took 500 endpoints from one enterprise customer’s production traffic (Harness names it as Zendesk’s), 43 of them AI APIs. The team labelled each by hand, starting from the LLM’s answers and paying particular attention to 20 ambiguous ones. Then it ran all three approaches on the same inputs.
 
-| | Original LLM pipeline | One LLM call | Jev (decision model), LLM for explanations |
+| | Original LLM pipeline | One LLM call | Decision model + LLM |
 | --- | --- | --- | --- |
 | Cost | baseline | about 88% lower | 99.9% lower |
 | Typical answer (slowest 5%) | not comparable | 16 s (28 s) | 0.8 s (1.1 s) |
