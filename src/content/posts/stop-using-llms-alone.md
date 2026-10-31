@@ -188,7 +188,7 @@ Here is the method before and after, for any process where AI makes calls at vol
 
 ## The same method in other processes
 
-The examples above already span hiring, software operations, document handling, customer service, education and finance. The method carries to any industry where AI makes the same call many times: retail returns approved or flagged, bank transactions screened, patient messages triaged in healthcare, shipments routed in logistics, leads scored in sales, support tickets sorted in software, claims fast-tracked in insurance. In each, the decision model makes the calls, the LLM does the work that needs it, and a rule you own decides what runs on its own.
+The examples above already span hiring, software operations, document handling, customer service, education and finance. The method carries to any industry where AI makes the same call many times: retail returns approved or flagged, bank transactions screened, patient messages triaged in healthcare, shipments routed in logistics, leads scored in sales, ad copy and creative chosen in marketing (the LLM writes dozens of variants, the decision model scores each for brand fit, compliance and audience, and only the best go live), support tickets sorted in software, claims fast-tracked in insurance. In each, the decision model makes the calls, the LLM does the work that needs it, and a rule you own decides what runs on its own.
 
 We call this family of patterns **Read and weigh**, **Sort and solve** and **Propose and choose**, with worked examples in our [open examples repository](https://github.com/peterdschmitt/decision-layer-examples).
 
