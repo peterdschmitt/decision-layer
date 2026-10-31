@@ -1,6 +1,6 @@
 ---
-title: "Best-in-class finance teams process invoices for 77% less. Pairing two kinds of AI could get you there."
-dek: "The gap between an average and a best-in-class accounts payable team is about $8 an invoice, ten days of cycle time and a supplier discount most companies leave on the table. Almost all of it comes down to how many invoices need a person. Here’s why an LLM alone hasn’t closed that gap, how pairing it with a decision model can, and how to work out what it’s worth to you."
+title: "The AI got 1 in 5 invoice numbers wrong. A different kind of AI caught every one."
+dek: "In a published test, an LLM-based reader misread 20% of the values on two supplier invoices, and nothing in its output said which. A decision model, a different kind of AI, flagged all three errors and cleared the rest. That pairing is how a finance team gets to the touchless processing behind best-in-class costs: $2.36 an invoice against an average of $10.18. Here is what it’s worth in cost, cash and customers, and how to work out your own number."
 kind: Explainer
 readMinutes: 12
 author: The Decision Layer desk
@@ -10,13 +10,15 @@ lastChecked: 2026-10-31
 modelVersion: jev-1.14.0
 episode: ep-022-check-the-scanner
 stats:
+  - value: "20%"
+    label: "of invoice values the LLM-based reader got wrong in TypeSafe’s test (3 of 15)"
+  - value: "3 of 3"
+    label: "errors the decision model flagged, with no correct values sent to a person"
   - value: "77%"
     label: "lower cost per invoice at best-in-class AP teams ($2.36 vs $10.18)"
   - value: "96% vs 38%"
     label: "PO invoices processed with no human touch, best-in-class vs average"
-  - value: "1.4 vs 11.6"
-    label: "days to process a PO invoice, best-in-class vs average"
-statsNote: "Ardent Partners benchmarks as reported by Medius, an AP software vendor, in September 2026. Industry figures, not our test."
+statsNote: "The first two are from TypeSafe’s published test on two invoices (Jev 1.14, Oct 15, 2026), too small to predict an error rate. The last two are Ardent Partners benchmarks reported by Medius, an AP software vendor, in September 2026. None are our measurements."
 snapshot:
   - label: "Why it matters"
     text: "Invoice processing is a cost line, a cash lever and a supplier relationship at once. The spread between average and best-in-class teams is large, measured, and mostly explained by one thing you can change."
