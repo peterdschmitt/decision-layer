@@ -1,13 +1,33 @@
 ---
-title: "The scanner read 2028. The invoice said 2026. Five reasons Jev is the right checker for claim paperwork"
-dek: "Letting AI read invoice photos saves hours, but it misreads a few values. Jev doesn’t read them again. It checks each value against the photo, flags the doubtful ones for a person, and shows where on the page to look."
+title: "The scanner said 2028. The invoice said 2026. Jev caught it."
+dek: "Software that reads invoice photos saves your team hours, but a few numbers come out wrong, and they look just like the right ones. In TypeSafe’s test, Jev flagged every misread and nothing else. Here’s why it works, what it would look like on a claim, and what we still don’t know."
 kind: Worked example
-readMinutes: 6
+readMinutes: 9
 author: The Decision Layer desk
+audience: For agency owners and service teams who handle claim paperwork
 published: 2026-10-31
 lastChecked: 2026-10-31
 modelVersion: jev-1.14.0
 episode: ep-022-check-the-scanner
+stats:
+  - value: "3 of 3"
+    label: "misread values Jev flagged"
+  - value: "0 of 12"
+    label: "correct values it flagged by mistake"
+  - value: "3 of 15"
+    label: "values a person had to look at"
+statsNote: "TypeSafe’s test: two supplier invoices photographed on a phone, Jev 1.14, October 15, 2026. Not our test, and not claim paperwork."
+snapshot:
+  - label: "The problem"
+    text: "Software that reads invoice photos is fast and mostly right. The few values it gets wrong look exactly like the right ones, so nobody spots them."
+  - label: "What Jev does"
+    text: "It asks one yes-or-no question about each value, twice: does it match the whole page, and does it match a close-up? Anything doubtful goes to a person, with a box drawn on the photo."
+  - label: "What the test showed"
+    text: "Neither check caught every mistake on its own. Together they caught all three, and flagged nothing that was right."
+  - label: "What it means for you"
+    text: "Your team checks three values instead of fifteen, and a wrong date or invoice number doesn’t reach the carrier."
+  - label: "What we haven’t done"
+    text: "Run it on real claim invoices. And TypeSafe says image questions aren’t ready for production yet."
 respondingTo:
   lede: "NPR reports that AI writing detectors are flagging people’s own work as machine-written, and leaving them no way to see why. A magazine editor who uses these tools says a flag should send work to a person, never decide on its own. Any AI that reads your claim paperwork needs the same rule."
   outlet: NPR
@@ -84,6 +104,36 @@ Here’s how it goes:
 Without the check, a 2028 date could get the invoice bounced as a future date, and the wrong invoice number makes duplicates hard to catch later.
 
 Now a messier one: the hotel receipt is crumpled, and the total sits right on a fold. The close-up is a blur. Is the value right? Jev can’t tell, and it doesn’t pretend to. TypeSafe’s close-up question tells Jev to “Answer no if it is cut off, unreadable or different,” so a blurry crop scores low and lands on the review list instead of slipping through. That’s the point: “I can’t read this, please look” is an answer your person can act on.
+
+## What your team would see
+
+This is how we’d set up the screen. It isn’t a TypeSafe product; it’s what your developer would build on top of Jev’s answers.
+
+- **A short list, not a long one.** Only the flagged values show up. On a typical packet, that might be two or three lines instead of every field on every invoice.
+- **The photo, with a box.** Each flagged value opens the invoice photo with an orange box around the spot where it’s printed, so your person reads the real number in two seconds.
+- **Both scores, in plain words.** “Doesn’t match the page” or “close-up doesn’t match,” instead of 0.17 and 0.66.
+- **One click to fix.** The value is right there to correct. The fix is saved before anything goes to the carrier.
+
+## How to try it in two weeks
+
+You don’t need to trust any of this. You can test it on work your team has already done.
+
+1. **Pull fifty old invoices** from claims your team keyed in by hand. Those hand-keyed values are your answer key.
+2. **Run your scanner on the photos** and compare its values with the answer key. Now you know how many it gets wrong.
+3. **Run Jev’s two checks** on the scanner’s values.
+4. **Count two things:** how many wrong values Jev flagged, and how many right ones it flagged by mistake.
+5. **Move the cut-off and count again.** Raise it and you’ll catch more mistakes but look at more right values. Pick the trade your team can live with.
+6. **Then go live slowly.** For the first month, a person still glances at every invoice, and you compare what they catch with what Jev flagged.
+
+## Questions your team will ask
+
+**Does this replace the person who checks invoices?** No. It points that person at the few values worth checking. They still fix them, and the carrier still decides the claim.
+
+**What does it cost?** TypeSafe lists Jev at $0.042 per million tokens for text ([TypeSafe](https://docs.typesafe.ai/models.md)). Its models page doesn’t list a separate price for images, which are still in early release, so ask TypeSafe before you budget for photos.
+
+**What if our scanner is already very accurate?** Then Jev will flag very little, and you’ll have a number that shows it, instead of a feeling.
+
+**Could Jev miss a mistake?** Yes. In TypeSafe’s test, each check alone missed one of the three. That’s why it checks twice, why you test on your own invoices first, and why bank details always get a phone call.
 
 ## The fine print
 

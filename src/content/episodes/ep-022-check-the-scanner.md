@@ -1,9 +1,9 @@
 ---
 number: 22
-title: "The scanner read 2028"
+title: "The scanner said 2028"
 summary: "AI detectors should flag for a person, not accuse. Same for software reading invoice photos: Jev checks each value twice and sends the doubtful ones to your team, boxed on the photo."
 status: planned
-minutes: 6
+minutes: 9
 hosts: ["The Decision Layer desk"]
 post: repair-invoices-check-what-the-scanner-read
 sources:
@@ -25,7 +25,7 @@ sources:
 
 ## Script
 
-**Cold open.** The scanner read 2028. The invoice said 2026. Nobody would spot that in a list.
+**Cold open.** The scanner said 2028. The invoice said 2026. Nobody would spot that in a list.
 
 **Why Jev.** It checks instead of reading again. It looks at the whole page and at a close-up, because neither catches everything alone. It leaves the right values alone. It shows where to look. And it works with the scanner you already have.
 

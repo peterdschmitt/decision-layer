@@ -27,6 +27,10 @@ const posts = defineCollection({
       impact: z.string(),
     }).optional(),
     summary: z.array(z.string()).default([]),
+    audience: z.string().optional(), // who the post is for, shown in the byline
+    stats: z.array(z.object({ value: z.string(), label: z.string() })).default([]), // 2 to 4 headline numbers, each sourced in the post
+    statsNote: z.string().optional(), // where the numbers come from
+    snapshot: z.array(z.object({ label: z.string(), text: z.string() })).default([]), // the at-a-glance box; replaces "In short" when present
     sources: z.array(z.object({
       title: z.string(),
       url: z.string().url(),

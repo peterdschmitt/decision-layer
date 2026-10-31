@@ -94,15 +94,24 @@ const html = `<!doctype html>
     <div style="font-size:13px;letter-spacing:2px;text-transform:uppercase;color:${C.orange};font-weight:bold;">Decision Layer</div>
     <div style="font-size:12px;color:${C.navyMuted};margin:2px 0 18px;">Unofficial. Not affiliated with TypeSafe.</div>
     <div style="font-size:13px;color:${C.navyMuted};text-transform:uppercase;letter-spacing:1px;">${esc(meta.kind ?? 'Post')} · ${meta.readMinutes ?? ''} min read</div>
-    ${r ? `<h1 style="font-family:${font};font-size:26px;line-height:1.25;color:#FFFFFF;margin:8px 0 14px;">${esc(r.lede)}</h1>
-    <div style="border-left:4px solid ${C.orange};padding:6px 0 6px 14px;margin:0 0 14px;font-size:17px;line-height:1.5;color:#FFFFFF;font-style:italic;">“${esc(r.quote)}”<div style="font-style:normal;font-size:13px;color:${C.navyMuted};margin-top:6px;">${r.quoteBy ? esc(r.quoteBy) + ' · ' : ''}<a href="${esc(r.url)}" style="color:${C.orange};">${esc(r.outlet)}, ${fmtDate(r.date)}</a></div></div>
-    <p style="font-size:16px;line-height:1.55;color:${C.navyInk};margin:0 0 14px;">${esc(r.impact)}</p>
-    <div style="font-size:15px;color:${C.orange};font-weight:bold;margin:0 0 10px;">${esc(meta.title)}</div>` : `<h1 style="font-family:${font};font-size:28px;line-height:1.2;color:#FFFFFF;margin:8px 0 12px;">${esc(meta.title)}</h1>
-    <p style="font-size:16px;line-height:1.55;color:${C.navyInk};margin:0 0 14px;">${esc(meta.dek ?? '')}</p>`}
-    <div style="font-size:13px;color:${C.navyMuted};">${esc(meta.author ?? '')} · ${fmtDate(meta.published)}${meta.modelVersion ? ` · Model: ${esc(meta.modelVersion)}` : ''}</div>
+    <h1 style="font-family:${font};font-size:30px;line-height:1.15;color:#FFFFFF;margin:8px 0 12px;">${esc(meta.title)}</h1>
+    <p style="font-size:17px;line-height:1.55;color:${C.navyInk};margin:0 0 16px;">${esc(meta.dek ?? '')}</p>
+    <table role="presentation" cellpadding="0" cellspacing="0" style="border-top:1px solid ${C.navy2};padding-top:12px;width:100%;"><tr>
+      <td style="width:40px;padding:12px 12px 0 0;vertical-align:top;"><div style="width:40px;height:40px;line-height:40px;text-align:center;background:${C.orange};color:${C.navy};font-weight:bold;font-size:15px;">DL</div></td>
+      <td style="padding-top:12px;font-size:14px;line-height:1.45;color:${C.navyInk};">By <strong style="color:#FFFFFF;">${esc(meta.author ?? '')}</strong>${meta.audience ? ` · ${esc(meta.audience)}` : ''}<br><span style="font-size:13px;color:${C.navyMuted};">Published ${fmtDate(meta.published)} · Sources checked ${fmtDate(meta.lastChecked)}${meta.modelVersion ? ` · Checked against ${esc(meta.modelVersion)}` : ''}</span></td>
+    </tr></table>
   </td></tr>
+  ${(meta.stats ?? []).length ? `<tr><td style="background:${C.navy2};padding:16px 24px 12px;">
+    <table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;"><tr>${meta.stats.map((s) => `<td style="vertical-align:top;padding:0 8px 8px 0;"><div style="border-left:3px solid ${C.orange};padding-left:10px;"><div style="font-size:30px;font-weight:bold;line-height:1.05;color:#FFFFFF;">${esc(s.value)}</div><div style="font-size:13px;line-height:1.35;color:${C.navyInk};margin-top:4px;">${esc(s.label)}</div></div></td>`).join('')}</tr></table>
+    ${meta.statsNote ? `<div style="font-size:12px;color:${C.navyMuted};margin-top:6px;">${esc(meta.statsNote)}</div>` : ''}
+  </td></tr>` : ''}
   <tr><td style="padding:24px 24px 8px;">
-    ${(meta.summary ?? []).length ? `<div style="background:${C.wash};border-radius:6px;padding:14px 16px;margin:0 0 20px;"><div style="font-weight:bold;color:${C.navy};margin:0 0 8px;font-size:15px;">In short</div><ul style="margin:0;padding-left:20px;">${meta.summary.map((s) => `<li style="margin:0 0 6px;font-size:15px;line-height:1.5;color:${C.ink2};">${esc(s)}</li>`).join('')}</ul></div>` : ''}
+    ${(meta.snapshot ?? []).length ? `<div style="border:1px solid ${C.line};border-top:4px solid ${C.orange};background:${C.surface};padding:12px 16px 4px;margin:0 0 20px;"><div style="font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:${C.muted};font-weight:bold;margin:0 0 6px;">Snapshot</div>${meta.snapshot.map((s, i) => `<div style="padding:8px 0;${i ? `border-top:1px solid ${C.line};` : ''}"><div style="font-size:13px;letter-spacing:1px;text-transform:uppercase;color:${C.navy};font-weight:bold;margin:0 0 3px;">${esc(s.label)}</div><div style="font-size:15px;line-height:1.5;color:${C.ink};">${esc(s.text)}</div></div>`).join('')}</div>`
+      : (meta.summary ?? []).length ? `<div style="background:${C.wash};border-radius:6px;padding:14px 16px;margin:0 0 20px;"><div style="font-weight:bold;color:${C.navy};margin:0 0 8px;font-size:15px;">In short</div><ul style="margin:0;padding-left:20px;">${meta.summary.map((s) => `<li style="margin:0 0 6px;font-size:15px;line-height:1.5;color:${C.ink2};">${esc(s)}</li>`).join('')}</ul></div>` : ''}
+    ${r ? `<div style="background:${C.wash};padding:14px 16px 2px;margin:0 0 20px;"><div style="font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:${C.muted};font-weight:bold;margin:0 0 8px;">Why this matters today · <a href="${esc(r.url)}" style="color:${C.orangeInk};">${esc(r.outlet)}, ${fmtDate(r.date)}</a></div>
+      <p style="margin:0 0 12px;font-size:15px;line-height:1.55;color:${C.ink};">${esc(r.lede)}</p>
+      <div style="border-left:3px solid ${C.orange};background:${C.orangeWash};padding:8px 12px;margin:0 0 12px;font-size:15px;color:#4A2205;">“${esc(r.quote)}”${r.quoteBy ? `<div style="font-size:12px;color:${C.muted};margin-top:4px;">${esc(r.quoteBy)}</div>` : ''}</div>
+      <p style="margin:0 0 12px;font-size:15px;line-height:1.55;color:${C.ink};">${esc(r.impact)}</p></div>` : ''}
     ${marked.parse(body)}
     ${news ? `<h2 style="font-family:${font};font-size:22px;color:${C.navy};margin:32px 0 10px;padding-top:14px;border-top:3px solid ${C.orange};">In the news</h2><ul style="margin:0 0 16px;padding-left:20px;">${news}</ul>` : ''}
     ${sources ? `<h3 style="font-family:${font};font-size:16px;color:${C.navy};margin:20px 0 8px;">Sources</h3><ul style="margin:0 0 16px;padding-left:20px;">${sources}</ul>` : ''}
