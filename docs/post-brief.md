@@ -60,7 +60,7 @@ The process:
 4. Put the top three or four in the thread and the email with one line on each.
 5. Use Peter's pick, or the recommended one if he hasn't answered by the time of sending.
 
-Peter gives the point, Claude crafts the headline (Peter, 14:11Z: "That's the point I'm making. You need to craft the headline"). A good example, from Peter's point "one LLM is wrong 20 percent of the time; coupled with a decision model it is 100 percent right": "The LLM went from 80% right to 100% right. It didn't get smarter. It got a decision model." Number, turn, and the coupling as the reveal. A bad example is a description with no number or tension, like "An LLM alone reads the invoice. Coupled with a decision model, it clears it for payment."
+Peter gives the point, Claude crafts the headline (Peter, 14:11Z: "That's the point I'm making. You need to craft the headline"). A good example, from Peter's point "one LLM is wrong 20 percent of the time; coupled with a decision model it is 100 percent right": "The LLM went from 80% right to 100% right. It didn't get smarter. It got a decision model." Number, turn, and the coupling as the reveal. Peter (14:12Z): "Much better. I don't want shorter, I want more intrigue and interest building headlines." Build a curiosity gap: hold back the reveal for the dek. Current: "The LLM went from 80% right to 100% right. It didn't get smarter. It got a partner that never writes a word." A bad example is a description with no number or tension, like "An LLM alone reads the invoice. Coupled with a decision model, it clears it for payment."
 
 ## 5. The lens passes
 
