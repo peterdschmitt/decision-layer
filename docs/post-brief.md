@@ -12,6 +12,13 @@ The site shows one idea: **an LLM coupled with a decision model produces a drama
 - The payoff, in Peter's words: higher quality and more robust actionable outcomes, less slop, more legitimate outcomes, faster accurate action, "for fractions of the cost and dramatic improvements in speed".
 - **Analogy:** the tractor is the LLM and the hydraulics are the decision model. Together they give immense power: digging fast and precisely, and lifting enormous loads with little effort. Never use brakes, a checker, an editor or precision as the analogy.
 
+### The point every post makes (Peter confirmed, 2026-10-31 14:07Z: "Yes. You understand the point.")
+
+Most companies bolt an LLM onto a process and get output someone still has to check, so AI never moves the numbers that matter. Couple that same LLM with a decision model and the output changes from "something to check" into "something to act on". That one change is what makes AI pay at scale: decisions that are faster, cheaper and defensible, instead of more slop for people to clean up.
+
+- **Apply it through use cases, and say why it matters.** Peter: "Now you just need to apply it through use cases. Make sure to understand why it's important."
+- **The use case is a process redesign, not a task.** Peter, on the invoice post: "it's not about clearing invoices, it's about changing a process for full automation with confidence." Each post shows a process moving from AI-assisted (a person checks everything) to fully automated with confidence (automation by default, people only where there is real doubt), and what that is worth.
+
 ## 2. Who reads it
 
 - The reader is executives and leaders deciding how AI runs their processes. It is not insurance staff and not junior employees. Insurance is one example among many.
