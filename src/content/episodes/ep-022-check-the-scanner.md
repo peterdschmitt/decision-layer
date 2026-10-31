@@ -1,6 +1,6 @@
 ---
 number: 22
-title: "The 77% invoice gap"
+title: "The 1-in-5 invoice error"
 summary: "Best-in-class finance teams process invoices for 77% less, mostly because almost none need a person. Why an LLM alone hasn’t closed that gap, how pairing it with a decision model can, and what it’s worth in cost, cash and customers."
 status: planned
 minutes: 12
