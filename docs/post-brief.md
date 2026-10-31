@@ -4,6 +4,13 @@ The section-by-section outline, the ten-stage writing process and the final chec
 
 This is everything Peter has asked for, in one place. Every daily post is checked against every line before it goes to him. If a rewrite fixes one point, re-check all the others: a fix must never drop earlier feedback. When Peter gives new direction, add it here the same day, with his words and the date.
 
+## Writing process v2, agreed so far (Peter, 2026-10-31 17:25Z; full process being written with Peter in https://claude.ai/artifact/6ZdPMG7rZvL6UMzcaMQ2J4)
+
+- **Peter's voice.** "My voice." Posts make Peter's point in his own phrasing (e.g. "Stop using LLMs alone", "However, when coupled with a decision model…", "No one automates and then manually reviews. They take an unknown risk."). The byline stays "The Decision Layer desk" until Peter gives the exact name to use.
+- **Never a blank page.** Every post starts from Peter's own words plus a real, sourced case from use-case-catalog.md.
+- **Writing model.** "Use articles from Michael Schmitt from the Wall Street Journal": study how they open, move and prove a point; never copy wording. (Articles not yet in hand.)
+- **No strong idea, no post.** "Yes": on a day the material holds no strong idea, send Peter one specific question instead of a post.
+
 ## Guardrails changed (Peter, 2026-10-31 14:46Z, chose "Change all five" after asking "What are the guardrails that are affecting your competency?")
 
 These five changes override anything older in this brief, in post-outline.md, daily-post-process.md and HANDOFF.md:
