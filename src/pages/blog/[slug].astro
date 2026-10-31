@@ -18,7 +18,7 @@ const toc = headings.filter((h) => h.depth === 2);
 const epLive = ep && ep.data.status === 'published' && ep.data.audioUrl;
 const epLabel = ep && `Listen · Episode ${ep.data.number}${ep.data.minutes ? ` · ${ep.data.minutes} min` : ''}`;
 ---
-<Base title={d.title} description={d.dek} article>
+<Base title={d.title} description={d.dek} article paper>
   <div class="read-progress" aria-hidden="true"><span></span></div>
 
   <header class="post-hero" slot="hero">
