@@ -19,6 +19,8 @@ Most companies bolt an LLM onto a process and get output someone still has to ch
 - **Apply it through use cases, and say why it matters.** Peter: "Now you just need to apply it through use cases. Make sure to understand why it's important."
 - **The use case is a process redesign, not a task.** Peter, on the invoice post: "it's not about clearing invoices, it's about changing a process for full automation with confidence." Each post shows a process moving from AI-assisted (a person checks everything) to fully automated with confidence (automation by default, people only where there is real doubt), and what that is worth.
 
+- **Then "we show you how."** Peter: "Then. The 'we show you how'". After the point and why it matters, the post walks the reader through how to make the change in their own process, step by step: the process before, the process after, what to build, how to set the confidence bar, and how to prove it on their own work before trusting it.
+
 ## 2. Who reads it
 
 - The reader is executives and leaders deciding how AI runs their processes. It is not insurance staff and not junior employees. Insurance is one example among many.
