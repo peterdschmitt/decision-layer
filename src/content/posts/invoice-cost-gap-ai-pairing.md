@@ -1,6 +1,6 @@
 ---
 title: "Stop using LLMs alone. On its own, an LLM got 1 in 5 invoice values wrong, so someone had to check every one. Coupled with a decision model, it was 100% right, and the process could finally run on its own: faster, and at a fraction of the cost."
-dek: "In a published test, an LLM read two invoices and got 1 in 5 values wrong, with no sign which. Coupled with a decision model, the same LLM made 15 right calls out of 15: every correct value let through, every wrong one stopped before anyone acted on it. That is the difference between AI a person has to check and a process that runs on its own with confidence, and in accounts payable it is the gap between a $10.18 invoice and a $2.36 one. Here’s why it matters, how a decision model works, and how to make the change in your own process."
+dek: "Most companies use AI one way: an LLM on its own, with a person checking what it produces. That method can’t automate anything, because an LLM alone gives no sign which of its answers are wrong. Coupling the LLM with a decision model changes the method and the output: a probability behind every value, and a rule you own that acts on it. In a published two-invoice test, the coupled pair made 15 right calls out of 15. In accounts payable, the gap between checking everything and letting it run is the gap between a $10.18 invoice and a $2.36 one. Here’s why the method matters, how a decision model works, and how to make the switch."
 kind: Explainer
 readMinutes: 12
 author: The Decision Layer desk
@@ -21,7 +21,7 @@ stats:
 statsNote: "The first two are from TypeSafe’s published test on two invoices (Jev 1.14, Oct 15, 2026), which proves the mechanism, not a rate. The last two are Ardent Partners benchmarks reported by Medius, an AP software vendor, in September 2026. None are our measurements."
 snapshot:
   - label: "Why it matters"
-    text: "Most companies have put AI into their processes and kept a person on every case. That isn’t automation, and it’s why the cost barely moves. The prize is the step from AI-assisted to fully automated with confidence, and in accounts payable the benchmarks put it at 77% off the cost of every invoice."
+    text: "The usual method, an LLM on its own with a person checking it, keeps a person on every case. That isn’t automation, and it’s why the cost barely moves. Coupling the LLM with a decision model is a different method, and it’s what lets a process run on its own with confidence. In accounts payable, the benchmarks put that at 77% off the cost of every invoice."
   - label: "Where the money is"
     text: "About $782,000 a year for a business processing 100,000 invoices, from processing cost alone. Paying in days instead of weeks also opens early-payment discounts worth 2% of qualifying spend, an annualized return of roughly 37%."
   - label: "Why AI alone hasn’t delivered it"
@@ -96,15 +96,17 @@ inTheNews:
     date: 2026-10-22
 ---
 
-## The point: 80% right means 100% checked
+## The method is the problem: LLMs alone
 
-Picture an LLM that reads your invoices and gets 4 out of 5 values right. That sounds like progress. It isn’t, because nothing in its output tells you which value is the wrong one. A wrong invoice number reads exactly like a right one. So someone has to check every value on every invoice, and the AI hasn’t taken a single step out of the process. It has only added one.
+Most companies putting AI into their processes use it the same way: an LLM on its own, with a person behind it. The LLM reads, drafts or sorts. The person checks. It feels like progress, but the method has a ceiling, and the ceiling is the person.
 
-That is where most companies are with AI today: AI-assisted, with a person on every case. The work feels faster, but the cost per case, the cycle time and the headcount barely move, because the person never leaves the loop.
+Picture an LLM that reads your invoices and gets 4 out of 5 values right. That sounds good. It isn’t, because nothing in its output tells you which value is the wrong one. A wrong invoice number reads exactly like a right one. So someone has to check every value on every invoice, and the AI hasn’t taken a single step out of the process. It has only added one.
+
+That’s the ceiling: AI-assisted, with a person on every case. The work feels faster, but the cost per case, the cycle time and the headcount barely move, because the person never leaves the loop.
 
 The number in the headline isn’t made up. In a published test, an LLM-based reader pulled fifteen values from two supplier invoices photographed on a phone and got three of them wrong: 20%. None of the three looked wrong.
 
-## Coupled with a decision model, the output changes
+## The new method: couple the two
 
 A tractor on its own can cross a field and pull a load. Couple it with hydraulics and the output changes in kind: trenches dug in minutes, loads lifted that no crew could move, with a touch of a lever. It isn’t a better tractor. It’s a machine that does a different job.
 
