@@ -1,6 +1,6 @@
 ---
 title: "In a published test, AI got 1 in 5 invoice numbers wrong. A different kind of AI caught every one."
-dek: "In a published test, an LLM-based reader misread 20% of the values on two supplier invoices, and nothing in its output said which. A decision model, a different kind of AI, flagged all three errors and cleared the rest. That pairing is how a finance team gets to the touchless processing behind best-in-class costs: $2.36 an invoice against an average of $10.18. Here is what it’s worth in cost, cash and customers, and how to work out your own number."
+dek: "On two supplier invoices in TypeSafe’s test, an LLM-based reader misread 20% of the values, and nothing in its output said which. A decision model, a different kind of AI, flagged all three errors and cleared the rest. That pairing is how a finance team gets to the touchless processing behind best-in-class costs: $2.36 an invoice against an average of $10.18. Here is what it’s worth in cost, cash and customers, and how to work out your own number."
 kind: Explainer
 readMinutes: 12
 author: The Decision Layer desk
