@@ -8,7 +8,7 @@ This is everything Peter has asked for, in one place. Every daily post is checke
 
 - **Peter's voice.** "My voice." Posts make Peter's point in his own phrasing (e.g. "Stop using LLMs alone", "However, when coupled with a decision model…", "No one automates and then manually reviews. They take an unknown risk."). The byline stays "The Decision Layer desk" until Peter gives the exact name to use.
 - **Never a blank page.** Every post starts from Peter's own words plus a real, sourced case from use-case-catalog.md.
-- **Writing model.** "Use articles from Michael Schmitt from the Wall Street Journal": study how they open, move and prove a point; never copy wording. (Articles not yet in hand.)
+- **Writing model.** Peter: "Use articles from Michael Schmitt from the Wall Street Journal", then linked https://www.nytimes.com/by/michael-s-schmidt (Michael S. Schmidt, New York Times). Study how his pieces open, move and prove a point; never copy wording. First read from his headlines and summaries: from-to arc headlines with a named actor ("How a Top Law Firm Went From Standing Up to Trump to Bending the Knee"), "How X happened", one summary sentence of stakes plus what was checked, plain hard verbs, a short takeaways companion. Full articles not yet in hand (the NYT blocks access).
 - **No strong idea, no post.** "Yes": on a day the material holds no strong idea, send Peter one specific question instead of a post.
 
 ## Guardrails changed (Peter, 2026-10-31 14:46Z, chose "Change all five" after asking "What are the guardrails that are affecting your competency?")
