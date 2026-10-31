@@ -1,6 +1,6 @@
 ---
-title: "Stop using LLMs alone. On its own, an LLM read invoices and 1 in 5 of the numbers it pulled were actually wrong, so someone had to check every one. However, when coupled with a decision model, it was 100% right, and the process could finally run on its own: faster, and at a fraction of the cost."
-dek: "Most companies use AI one way: an LLM on its own, with a person checking what it produces. That method can’t automate anything: an LLM alone gives no sign which of its answers are wrong, so you either pay a person to confirm everything or take a risk of hallucinations you can’t quantify. Coupling the LLM with a decision model changes the method and the output: a probability behind every value, and a rule you own that acts on it. In a published two-invoice test, the coupled pair made 15 right calls out of 15. In accounts payable, the gap between checking everything and letting it run is the gap between a $10.18 invoice and a $2.36 one. Here’s why the method matters, how a decision model works, and how to make the switch."
+title: "Stop using LLMs alone. On its own, an LLM read invoices and 1 in 5 of the numbers it pulled were actually wrong, with no sign which: an unknown risk in every invoice it touched. However, when coupled with a decision model, it was 100% right, and the process could run on its own with confidence: faster, and at a fraction of the cost."
+dek: "Most companies that automate with AI use one method: an LLM on its own, left to run. No one reviews its output, so every result carries a risk of hallucination that no one can measure: no one knows how many answers are wrong, or which. Coupling the LLM with a decision model changes the method and turns that unknown risk into a known one: a probability behind every value, and a bar you set for what runs on its own. In a published two-invoice test, the coupled pair made 15 right calls out of 15. Here’s why the method matters, how a decision model works, and how to make the switch."
 kind: Explainer
 readMinutes: 12
 author: The Decision Layer desk
@@ -21,13 +21,13 @@ stats:
 statsNote: "The first two are from TypeSafe’s published test on two invoices (Jev 1.14, Oct 15, 2026), which proves the mechanism, not a rate. The last two are Ardent Partners benchmarks reported by Medius, an AP software vendor, in September 2026. None are our measurements."
 snapshot:
   - label: "Why it matters"
-    text: "The usual method, an LLM on its own with a person checking it, keeps a person on every case. That isn’t automation, and it’s why the cost barely moves. Coupling the LLM with a decision model is a different method, and it’s what lets a process run on its own with confidence. In accounts payable, the benchmarks put that at 77% off the cost of every invoice."
+    text: "The usual method, an LLM on its own left to run, automates the work and an unknown risk along with it. Leaders who won’t take that risk don’t automate at all, and pay for people instead. Coupling the LLM with a decision model is a different method: the risk becomes a number you can see and set, so the process can run on its own with confidence. In accounts payable, the benchmarks put full automation at 77% off the cost of every invoice."
   - label: "Where the money is"
     text: "About $782,000 a year for a business processing 100,000 invoices, from processing cost alone. Paying in days instead of weeks also opens early-payment discounts worth 2% of qualifying spend, an annualized return of roughly 37%."
   - label: "Why AI alone hasn’t delivered it"
-    text: "An LLM alone produces values with no measure of how far to trust them. If it’s wrong 1 time in 5 and you can’t tell which, you either pay a person to confirm all 5, or skip the check and take a risk of hallucinations you can’t quantify. Coupled with a decision model, that risk gets a number, and you choose where to set it."
+    text: "An LLM alone produces values with no measure of how far to trust them. Nobody automates and then reviews everything, so in practice its output runs, and if it’s wrong 1 time in 5 you don’t know which 1. That is an unknown risk in every case. Coupled with a decision model, that risk gets a number, and you choose where to set it."
   - label: "What to do"
-    text: "Couple the LLM with a decision model. The output changes from something to check into something to act on: a probability behind every value and a rule you own that decides. The process runs on its own by default, and people handle only the exceptions."
+    text: "Couple the LLM with a decision model. The output changes from a guess you hope is right into a decision with a known level of confidence: a probability behind every value and a rule you own that decides. The process runs on its own by default, and people see only the few cases below your bar."
   - label: "What we haven’t done"
     text: "Measured this ourselves. The benchmarks are industry figures, and the only public test of the coupling used two invoices. Your own baseline and a month of shadow testing are what tell you your number."
 respondingTo:
@@ -38,10 +38,10 @@ respondingTo:
   date: 2026-10-31
   quote: "Submissions should end in rejection, not an accusation."
   quoteBy: "Neil Clarke, publisher and editor of Clarkesworld, quoted by NPR"
-  impact: "Detectors show the trap every leader faces with AI in a process. Without a measured level of confidence, you have two bad choices: let the AI decide and live with its mistakes, or have people review everything and lose the point of automating. Automation you can trust needs a third option: every output carries a probability, a rule you own decides what runs on its own, and people see only what needs them. That comes from coupling an LLM with a decision model, not from either one alone."
+  impact: "Detectors show the trap every leader faces with AI in a process. Without a measured level of confidence, you have two bad choices: let the AI decide and carry a risk you can’t measure, or don’t automate and keep paying people to do the work. Automation you can trust needs a third option: every output carries a probability, a rule you own decides what runs on its own, and people see only what needs them. That comes from coupling an LLM with a decision model, not from either one alone."
 summary:
-  - "If AI is wrong 1 time in 5 and you can’t tell which, a person checks every case, so AI-assisted processes never become automated ones."
-  - "Coupling the LLM with a decision model changes the output from something to check into something to act on, so the process can run on its own with confidence."
+  - "An LLM left to run on its own carries an unknown risk: if it’s wrong 1 time in 5, no one knows which 1."
+  - "Coupling the LLM with a decision model turns that unknown risk into a known one, so the process can run on its own with confidence."
   - "In accounts payable that is the gap between 38% and 96% touchless and $10.18 vs $2.36 an invoice. Here’s how to make the change, step by step."
 sources:
   - title: "Medius: How much does it cost to process an invoice? (Sept 17, 2026; cites Ardent Partners)"
@@ -98,11 +98,11 @@ inTheNews:
 
 ## The method is the problem: LLMs alone
 
-Most companies putting AI into their processes use it the same way: an LLM on its own, with a person behind it. The LLM reads, drafts or sorts. The person checks. It feels like progress, but the method has a ceiling, and the ceiling is the person.
+Most companies automating with AI use it the same way: an LLM on its own, left to run. The LLM reads, drafts or sorts, and its output flows straight into the next step. Nobody automates and then reviews every result; that would defeat the point. So every result carries a risk nobody can see.
 
-Picture an LLM that reads your invoices and gets 4 out of 5 values right. That sounds good. It isn’t, because nothing in its output tells you which value is the wrong one. A wrong invoice number reads exactly like a right one. That leaves two choices, and both are bad. Have a person confirm every value on every invoice, and the AI hasn’t taken a single step out of the process; it has only added one. Or skip the check and let the LLM’s output run, and you are taking a risk of hallucinations you can’t put a number on: no one can say how many wrong payments are going out, or which ones.
+Picture an LLM that reads your invoices and gets 4 out of 5 values right. That sounds good. It isn’t, because nothing in its output tells you which value is the wrong one. A wrong invoice number reads exactly like a right one. Let that output run, and you are taking a risk of hallucinations you can’t put a number on: no one can say how many wrong invoice numbers, dates or amounts are flowing into your ledger, or which ones.
 
-Most companies pick the first, and that’s the ceiling: AI-assisted, with a person on every case. The work feels faster, but the cost per case, the cycle time and the headcount barely move, because the person never leaves the loop.
+That leaves leaders two bad options. Automate with the LLM alone and carry an unknown risk. Or decide the risk is too high, don’t automate, and keep paying people to do the work, which is why the average company still touches most of its invoices by hand. Either way, the method is the problem.
 
 The number in the headline isn’t made up. In a published test, an LLM-based reader pulled fifteen values from two supplier invoices photographed on a phone and got three of them wrong: 20%. None of the three looked wrong.
 
@@ -114,12 +114,12 @@ An LLM coupled with a decision model is the same kind of change. The LLM reads e
 
 | | An LLM alone | An LLM coupled with a decision model |
 | --- | --- | --- |
-| What you get | A list of values to check | A decision: proceed, or send this one value to a person |
+| What you get | A list of values you hope are right | A decision: proceed, or send this one value to a person |
 | How sure it is | No measure | A probability behind every value |
-| Who checks it | A person, every case | A person, only where there’s real doubt |
-| What happens next | Waits in a queue | Your rule acts on it at once |
+| The risk | Unknown: no one knows which outputs are wrong | Known: a probability on every value, and a bar you set |
+| What happens next | It runs, right or wrong | Your rule acts on it at once |
 | Why it was done | The model’s word | The questions, the scores and the rule, logged |
-| What the process becomes | AI-assisted | Fully automated, with confidence |
+| What the process becomes | Automated blind, or not automated at all | Fully automated, with confidence |
 
 We call this pattern **Read and weigh**: the LLM supplies the material and the decision model supplies the call. It’s one of five patterns for coupling an LLM with a decision model, each with a worked example in our [open examples repository](https://github.com/peterdschmitt/decision-layer-examples).
 
@@ -139,13 +139,13 @@ That is the whole idea in miniature. The LLM didn’t get smarter. Coupled with 
 
 Two invoices prove the mechanism, not a rate. Your rate is something you measure on your own documents, and the steps below show how.
 
-## Why it matters: the gap between assisted and automated
+## Why it matters: the gap between manual and automated
 
 Every finance leader knows the cost-per-invoice number. Fewer look at what drives it. Ardent Partners’ benchmarks, as reported by the AP software vendor Medius in September, put the average cost of processing an invoice at $10.18 and the best-in-class cost at $2.36: 77% less ([Medius](https://www.medius.com/blog/how-much-does-cost-process-invoice-where-you-save/)).
 
 The driver is the share of work no person touches. Average teams process 38.3% of purchase-order invoices without a human touch and take 11.6 days per invoice. Best-in-class teams hit 96.3% and take 1.4 days. Medius’s reading of the data: the jump in touchless processing “is where the bulk of AP automation ROI actually comes from.” Treat a vendor’s numbers with care, but the independent benchmarker APQC points the same way. It finds that top performers’ AP costs are “one-fifth of what it is for organizations performing in the bottom quartile”, and that bottom performers need four times as many staff ([APQC](https://www.apqc.org/blog/4-kpis-set-good-accounts-payable-organizations-apart)).
 
-So the question for a leader isn’t “should we use AI on invoices?” It’s “what would it take to move our touchless rate from 38% toward 96%, safely?” An LLM alone can’t answer that, for the reason in the headline. An LLM coupled with a decision model can, because it gives you the confidence to let the work run on its own.
+So the question for a leader isn’t “should we use AI on invoices?” It’s “what would it take to move our touchless rate from 38% toward 96%, safely?” An LLM alone can’t answer that, because it raises the touchless rate only by raising a risk you can’t measure. An LLM coupled with a decision model can, because it gives you the confidence to let the work run on its own.
 
 **The math for a 100,000-invoice operation.** These are industry figures multiplied out, not a forecast for your business:
 
@@ -176,16 +176,16 @@ The gap is about $782,000 a year, plus ten days on every invoice.
 
 Three things leaders should know about the training. Jev “is not trained on customer requests or responses”. It isn’t fine-tuned on your data: “the same weights serve every account”, and you shape it through the material and the questions you send ([TypeSafe](https://docs.typesafe.ai/models.md)). And TypeSafe hasn’t published where its training data comes from or how big the model is. One independent developer, Alex Molas, adds a useful caution: “calibration is not just a property of the model, but also of your data distribution.” His advice is to treat the outputs as good scores that rank cases well, and to measure calibration on your own data before relying on the exact numbers ([Alex Molas](https://www.alexmolas.com/2026/09/23/jev-cant-be-calibrated.html)). That is exactly what the steps below do.
 
-## We show you how: from AI-assisted to fully automated in six steps
+## We show you how: from an LLM alone to automation with confidence, in six steps
 
 Here is the process before and after:
 
-| Step | Today: AI-assisted | After: automated with confidence |
+| Step | Today: an LLM alone, or people | After: coupled, automated with confidence |
 | --- | --- | --- |
 | Invoice arrives | Queued for a person | Read by the LLM at once |
 | Values pulled | The LLM, or a person keying them | The LLM |
-| Values checked | A person, every value, every invoice | The decision model, every value, in seconds |
-| Decision | A person approves | Your rule: clears the bar, it proceeds; doesn’t, one value goes to a person |
+| Values checked | No one, so errors flow through; or a person, every value | The decision model, every value, in seconds |
+| Decision | Runs blind, or waits for a person | Your rule: clears the bar, it proceeds; doesn’t, one value goes to a person |
 | Exceptions | Mixed in with everything else | A short list, each with the doubtful value boxed |
 | Record | A name on an approval | The questions, scores and rule, logged with the invoice |
 
@@ -197,7 +197,7 @@ Here is the process before and after:
 
 **4. Set the confidence bar on your own history.** Take a few hundred past cases where you know the right answers. Run the LLM and the decision model on them. Pick the bar where no wrong value gets through, and count how many cases would have run untouched. That count is your first real touchless estimate. Set stricter bars for large amounts and new suppliers, and always phone the supplier about a changed bank account.
 
-**5. Run in shadow mode for a month.** People keep checking everything while the coupled system makes its calls in the background. Compare the two every week. Where the system and the people disagree, find out who was right.
+**5. Run in shadow mode for a month.** Keep today’s process running while the coupled system makes its calls in the background, and check a sample of its calls by hand. Compare the two every week. Where the system and the people disagree, find out who was right.
 
 **6. Flip the default.** Let cases that clear the bar run on their own, and send only the exceptions to people. Give the touchless rate, the error rate and the bars to one named owner, review a sample every week, and raise the bars you trust step by step.
 
@@ -216,9 +216,9 @@ Jev isn’t the only decision model anymore. OpenAI made its Jev competitor wide
 
 **Is it really 100% right?** In the published test, yes: fifteen right calls out of fifteen. That’s two invoices, so it proves the mechanism, not a rate. Your step 4 and step 5 numbers are the ones to trust.
 
-**Does this replace the AP team?** It changes what they do. Best-in-class teams still have people, but they spend their time on exceptions, suppliers and cash, not on re-checking.
+**Does this replace the AP team?** It changes what they do. Best-in-class teams still have people, but they spend their time on exceptions, suppliers and cash, not on keying and checking.
 
-**Why not just buy a better LLM?** A better LLM is wrong less often, but it still can’t tell you which answers are wrong, so you still check everything. The change comes from coupling it with a decision model, not from a bigger LLM.
+**Why not just buy a better LLM?** A better LLM is wrong less often, but it still can’t tell you which answers are wrong, so the risk is smaller but still unknown. The change comes from coupling it with a decision model, not from a bigger LLM.
 
 **Could a bad invoice get through?** Yes, at some rate. That’s why you set the bar on your own history, keep stricter bars for large amounts and bank details, and log every decision. Compare that rate with today’s manual error rate, which you can measure too.
 
