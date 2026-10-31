@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import { getCollection, getEntry, render } from 'astro:content';
 import Icon from '../../components/Icon.astro';
+import SubscribeBox from '../../components/SubscribeBox.astro';
 import { UNOFFICIAL } from '../../site';
 
 export async function getStaticPaths() {
@@ -92,6 +93,8 @@ const epLabel = ep && `Listen · Episode ${ep.data.number}${ep.data.minutes ? ` 
           ))}</ul>
         </section>
       )}
+
+      <SubscribeBox />
 
       <p class="post-end"><a href="/blog/">All posts</a><span>{UNOFFICIAL}</span></p>
     </div>

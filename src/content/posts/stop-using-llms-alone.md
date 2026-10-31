@@ -192,7 +192,7 @@ The examples above already span hiring, software operations, document handling, 
 
 **Marketing is already doing it.** Builders have published working versions of the coupling for ads. [Ad Lab](https://github.com/artemnovitckii/ad-pattern-lab), an open-source tool, has Jev read competitor ad images and label each one’s format, hook, angle, offer, proof, objection and call to action in a single request, then turns the patterns into briefs for your next test, with an optional LLM to write the copy. Higgsfield showed Jev filtering and selecting assets before DeepSeek and Higgsfield turned them into ads, and Matt Berman broke down 724 competitor ads with Jev, a demo that drew more than 6,000 likes ([awesome-jev-use-cases](https://github.com/walidboulanouar/awesome-jev-use-cases)). A free [guide for marketers](https://github.com/brent-phillips/jev-for-marketers) puts the split plainly: use an LLM to write, and Jev “for the decision in the middle of the workflow”, such as how on-message a draft is. These are demos and tools, not audited results, but the method is the same: the LLM writes, the decision model chooses.
 
-We call this family of patterns **Read and weigh**, **Sort and solve** and **Propose and choose**, with worked examples in our [open examples repository](https://github.com/peterdschmitt/decision-layer-examples).
+We call this family of patterns **Read and weigh**, **Sort and solve** and **Propose and choose**, with worked examples in our examples repository, which [subscribers get access to](/subscribe/).
 
 ## Which decision model for this job
 
@@ -222,4 +222,4 @@ There is now a category, not a single product. TypeSafe’s Jev was first. OpenA
 
 ## For your developer
 
-The coupling is a few lines: the decision model makes the call, your rule acts on the probability, and the LLM handles only what falls below the bar or needs writing. Start with TypeSafe’s [quick start](https://docs.typesafe.ai/introduction/quickstart.md) or OpenAI’s Decisions API guide, then pick a worked example from our [examples repository](https://github.com/peterdschmitt/decision-layer-examples) that matches your process. Log every question, score and bar with each case, so any decision can be explained later.
+The coupling is a few lines: the decision model makes the call, your rule acts on the probability, and the LLM handles only what falls below the bar or needs writing. Start with TypeSafe’s [quick start](https://docs.typesafe.ai/introduction/quickstart.md) or OpenAI’s Decisions API guide, then pick a worked example that matches your process from our examples repository ([subscribe for access](/subscribe/)). Log every question, score and bar with each case, so any decision can be explained later.

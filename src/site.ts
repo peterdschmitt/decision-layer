@@ -19,6 +19,7 @@ export const NAV = [
   { href: '/guides/', label: 'Guides', also: ['/use-cases/', '/how-to/', '/glossary/', '/start/'] },
   { href: '/tests/', label: 'Tests' },
   { href: '/about/', label: 'About' },
+  { href: '/subscribe/', label: 'Subscribe' },
 ];
 
 export const PODCAST = {
