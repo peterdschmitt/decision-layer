@@ -64,18 +64,19 @@ This is the doc, Part 2: Peter's beliefs, how he builds an argument, the phrases
 2. Run 10 to 12 minutes.
 3. Fit the order to the format.
 4. Use the seven sections agreed with Peter on 2026-10-31. They replace the old 16 required elements and apply to every post, not only one case. Include every detail the source gives, and say plainly what it doesn't.
-   1. **Title, description, opening line and big numbers.** The title is short (about 12 to 16 words): "How a [company or kind of company] did [result with %] using a decision model". The description below it, in a smaller font, carries the long arc: the method change (stop using an LLM alone, couple it with a decision model), the problem with a number, and the result. Peter, 2026-10-31 19:26Z: "the Title is way too long", "then do the description. in a smaller font". The opening line grants what LLMs do well, then turns: "However, when coupled with a decision model…". Then 3 or 4 big numbers, as percentages and annual dollar totals. Byline Peter Schmitt.
+   1. **Title, description, opening line and big numbers.** The title is short (at most 16 words, one number): "How a [company or kind of company] did [result] using a decision model". The description below it, in a smaller font, is one or two plain sentences, at most 35 words and one number (Peter, 2026-11-01: the 60-word subtitle was "written very very poorly"). The opening line grants what LLMs do well, then turns: "However, when coupled with a decision model…". Then 3 or 4 big numbers, each label 10 words or fewer. Byline Peter Schmitt.
    2. **The story, in full detail.** Who the company is. How the process worked before: the steps, the volume, and where the cost or risk piled up (the trap: an LLM alone is an unknown, unquantified risk). What they changed: what the LLM does now and what the decision model does. How they tested it, how fast it went live, and what it unlocked next. If a post covers several companies, this becomes two or three shorter stories.
    3. **How it works.** What a decision model is. How it's trained: what the maker publishes and what it hasn't disclosed. What this company did to set it up: the questions it asks, its cut-offs, and the data it tested on. Use the tractor and hydraulics image once.
    4. **What it means for you.** Money, customers, revenue and risk at the reader's scale. Where else it works: real examples from other industries, labelled. The hard questions a skeptical leader would ask, answered. Then how to make the same change in your own process, step by step.
    5. **For your developer.** One short code snippet (10 to 15 lines) showing the coupling for this post's process: the decision model makes the call, a rule acts on its score, and the LLM writes or handles what falls below the bar. The snippet is our own code, never copied, and says "expected, not measured", because we don't run model calls ourselves. Name the matching worked example in the private decision-layer-examples repo and link /subscribe/ for access, not the repo itself. If none matches, add one to that repo with the post. Also link other people's public repos that do the same thing, each labelled (for example, community demo).
    6. **The fine print.** Who published each number, which decision model and LLM were used, caveats stated once in plain words, what we still don't know, and the sources.
    7. **One next step: subscribe.** Peter (2026-10-31 18:35-18:37Z): "how about subscribe to get access to the github repository?", then "private repo. access when subscribed". Every post ends with the subscribe box (built into the post page): email plus GitHub username, and the reader is invited to the private decision-layer-examples repo. In the post text, never link the repo directly (non-subscribers would get a 404); link [subscribe for access](/subscribe/) instead.
-5. Hooks:
+5. **Write it clearly** (Peter, 2026-11-01). Follow the clarity rules at the top of [post-brief.md](post-brief.md): first write the story in five plain sentences a friend would follow; then one fact per sentence, sentences averaging 16 words or fewer and none over 28, one number per sentence and two per paragraph, no insider terms, no asides in brackets, a real example for every abstract point, the story told in order. Run `python3 scripts/clarity-check.py` on the draft and fix every failure before review.
+6. Hooks:
    a. At least 10 headline candidates, scored.
    b. The top three go to Peter.
    c. Two alternative opening paragraphs.
-6. Never write any of these (full list in the brief):
+7. Never write any of these (full list in the brief):
    a. Generic AI advice or invented stories.
    b. Buzzwords.
    c. Filler.
@@ -99,21 +100,14 @@ This is the doc, Part 2: Peter's beliefs, how he builds an argument, the phrases
    e. Skeptic.
    f. Line editor.
    g. Publisher.
-2. Get a cold read from a separate reviewer (a subagent). It sees only the draft and Peter's voice file, never the research or the brief.
-3. The reviewer answers Peter's ten questions, plus two more:
-   a. Does it lead with the method change?
-   b. Is the decision model named everywhere?
-4. The reviewer returns:
-   a. A score from 1 to 10.
-   b. The likely reader reaction.
-   c. Weak passages.
-   d. Evidence concerns.
-   e. Exact edits.
-   f. A recommendation.
-5. Gate on the score:
-   a. 8 to 10: fact check and send.
-   b. 6 or 7: apply the edits, then get a new cold read. At most two rounds.
-   c. Under 6: no post. Ask Peter one specific question.
+2. Run `python3 scripts/clarity-check.py` again. It must pass.
+3. Get a **clarity read** from a separate reviewer (a subagent). It sees only the draft. It reads once, as a busy executive on a phone, and lists every sentence it had to read twice, every term it didn't know and every paragraph that lost it, with a clarity score from 1 to 10.
+4. Get a **cold read** from a separate reviewer (a subagent). It sees only the draft and Peter's voice file, never the research or the brief. It answers Peter's ten questions, plus: does it lead with the method change? Is the decision model named everywhere? Does it read like Michael S. Schmidt: plain, short sentences, one fact each? It returns a score from 1 to 10, the likely reader reaction, weak passages, evidence concerns, exact edits and a recommendation.
+5. Gate (Peter, 2026-11-01: a 7/10 draft went out and he called it confusing):
+   a. The script passes and both reads score 8 or higher: fact check and send.
+   b. Anything less: apply the edits, rerun the script and both reads. Up to three rounds.
+   c. Still under 8 after three rounds: don't send the post. Tell Peter in one line what is blocking it, or ask him one specific question.
+   d. Never send a draft below the gate, and always report both scores honestly.
 6. Fact check every number and quote against the fact sheet.
 
 ## 7. Revise, learn, deliver
