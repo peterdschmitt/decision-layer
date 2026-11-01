@@ -1,6 +1,6 @@
 ---
-title: "How a customer-messaging company handed 88% of its AI’s decisions to a decision model"
-dek: "Stop using LLMs alone. Entagl’s AI answers customers on WhatsApp and web chat, and frontier LLMs made every call about what to do with each message. Then it tested coupling those LLMs with a decision model: each call cost 96% less and came five times faster. When the decision model was at least 85% sure, it handled 88% of the calls at 99.75% accuracy, and the LLM took the rest."
+title: "A chat company coupled its LLM with a decision model. One client’s wrong decisions fell two-thirds"
+dek: "Stop letting LLMs, the AI behind ChatGPT, make every decision alone. Entagl coupled its chat LLM with a decision model. That simpler AI picks from a list and says how sure it is."
 kind: Worked example
 readMinutes: 10
 author: Peter Schmitt
@@ -9,15 +9,15 @@ published: 2026-11-01
 lastChecked: 2026-11-01
 modelVersion: jev-1.13.0
 stats:
+  - value: "2/3"
+    label: "fewer wrong decisions for one client, in real chats"
   - value: "88%"
-    label: "of decisions handled by the decision model alone in testing, at 99.75% accuracy, with the rest sent to the LLM"
-  - value: "96%"
-    label: "lower cost per decision than a frontier LLM; about 84% lower once the LLM takes the unsure 12% (my arithmetic)"
-  - value: "986 of 986"
-    label: "answers right when the decision model said it was at least 97% sure"
+    label: "of decisions left to the decision model, in a test"
+  - value: "84%"
+    label: "lower bill overall, by my math, in that test"
   - value: "5x"
-    label: "faster: a typical decision in a third of a second, against 1.6 seconds for the LLM"
-statsNote: "All figures are Entagl’s own, from a test it published on Sept. 23, 2026: 1,357 hand-labelled decisions plus 402 real routing decisions replayed from two clients. It reports no annual dollar figures or production results. The fine print says what the test can and can’t show."
+    label: "faster on the decisions it makes"
+statsNote: "From Entagl’s report of Sept. 23, 2026. The first figure comes from replayed real chats. The other three come from a test on messages Entagl wrote. The 84% is my math on its numbers."
 sources:
   - title: "Entagl: TypeSafe Jev vs Gemini on 1,759 decisions: 5x faster, 25x cheaper, 98.5% accurate (Entagl Research, Sept. 23, 2026)"
     url: https://entagl.com/blog/typesafe-jev-benchmark-ai-decision-models
@@ -41,102 +41,146 @@ sources:
     url: https://emdashcms.com/blog/how-emdash-uses-clef-to-moderate-the-plugin-registry
     grade: Company report
 ---
+A professional-services firm in the Middle East talks to most of its customers on WhatsApp. An AI answers them. Before each reply, the AI decides what to do with the message. It can answer it, hand it to staff, send a standard reply, or ignore it.
 
-An LLM is very good at writing the reply a customer reads. It is a costly way to make the many small calls behind that reply, such as who should answer, whether this is a sales lead, or whether the customer just asked you to stop messaging them, and when it gets one wrong, nothing tells you. However, when coupled with a decision model, those calls come back fast and cheap, each with a probability that says when to trust it and when to hand it to the LLM. I’ll show you how Entagl tested exactly that, and how to do the same.
+LLMs from Google and OpenAI made those decisions. LLMs are the kind of AI behind ChatGPT. In a checked sample from three weeks of chats, about one decision in 11 was wrong. Nobody knew which ones, because an LLM does not say when it is unsure.
 
-Entagl sells AI employees to businesses: assistants that answer customers on WhatsApp, Instagram, TikTok, email, web chat and the phone, in any language, and take bookings, orders and complaints. Behind every reply sits a string of decisions. Should the AI answer this message, ignore it, hand it to a person or send a standard reply? Which of the client’s specialists owns it? Is it a real lead? Is someone trying to slip instructions to the AI?
+Entagl, which makes the firm’s WhatsApp assistant, found the mistakes while testing a change. It coupled the LLM with a decision model. On the same three weeks of chats, wrong decisions fell to about one in 36.
 
-Frontier LLMs from Google and OpenAI made those calls. They were good at it. But every call paid for a model built to write, and the answers came with no measure of doubt. So Entagl tested a decision model, TypeSafe’s Jev, on the same decisions: a model that doesn’t write, but answers a narrow question with a probability. Each call cost 96% less and came five times faster. Entagl called the probability the most useful thing Jev offers.
+A decision model is a simpler kind of AI. It only picks an answer from a fixed list. It also says how sure it is, as a percentage. When it was unsure, the LLM decided, as before.
 
-## How the decisions worked before
+## Why couple the two
 
-Each incoming message went to a frontier LLM, Google’s Gemini or OpenAI’s GPT, along with the client’s written rules. The LLM decided what to do with the message and who should answer, and the AI employee acted on it. Nobody read those decisions one by one; at the volume of a busy inbox, nobody could. That is the trap with an LLM alone: if a call is wrong, you find out from an annoyed customer, or not at all.
+Every reply depends on quick decisions like what to do with a message. Is this a real sales lead? Which person on the team should take it? Does this customer want us to stop messaging them?
 
-## The test
+An LLM can make those calls. But it is a costly model built to write paragraphs. And it gives no sign of which calls to doubt.
 
-Entagl ran two rounds and published everything, including where the decision model broke.
+The decision model Entagl tested is called Jev, made by a company called TypeSafe. Entagl joined it to the LLM with one rule. If the decision model is sure enough, act on its answer. If not, pass the decision to the LLM.
 
-**Round one: a labelled test.** Entagl wrote 283 realistic cases across 13 decision tasks and set the right answer for each before running anything. The tasks included routing a message to the right specialist, spotting text written to hijack the AI, reading a phone-call transcript for its outcome, and flagging a reply that quotes a price the business never set. The cases came in 13 languages, from English and Turkish to four varieties of Arabic. The hard cases ran three times to check that answers repeat, and each run was scored on several decisions: 1,357 in all. Jev and a frontier Gemini model got identical facts, questions and options.
+Entagl ran two tests. In the first, on messages it wrote, “sure enough” meant at least 85%. In the second, on real chats, it meant at least 90%.
 
-| | Frontier LLM (Gemini) | Decision model (Jev) |
+| | LLM alone | LLM coupled with a decision model |
 | --- | --- | --- |
-| Accuracy, 1,357 decisions | 99.0% | 98.5% |
-| Typical answer | 1.6 s | 0.33 s |
-| Cost per decision | baseline | 96% lower |
-| A confidence you can act on | no | yes |
+| Who decides | The LLM, every time | The decision model, most of the time |
+| Typical time per decision | 1.6 seconds | A third of a second, when the decision model decides |
+| Says when it is unsure | No | Yes, on every answer |
+| Yearly bill if the LLM alone cost $1 million, my math | $1 million | About $160,000 |
 
-On accuracy the two were level; the differences were small and ran both ways. Jev knew that “I’m not interested anymore” is not a request to stop messaging; Gemini flagged it. Gemini judged “a bit expensive, maybe later” not worth a follow-up, “which is exactly the lead you want to nudge,” Entagl wrote.
+## The first test: messages Entagl wrote
 
-**The probability.** When Jev said it was at least 97% sure, it was right 986 times out of 986. Entagl then set one rule: use Jev’s answer when it is at least 85% sure, otherwise ask the bigger model. Under that rule, Jev handled 88% of the decisions at 99.75% accuracy, and 17 of its 20 mistakes went to the LLM instead. Its weakest spot, telling Gulf Arabic from Egyptian or Levantine, came with confidence of 36% to 40% every time, so the rule caught all of them.
+Entagl wrote hundreds of realistic customer messages in 13 languages. It set the right answer for each one first. Then it ran the LLM and the decision model on them.
 
-**Round two: real conversations.** Entagl then took 402 routing decisions its product had already made for two clients over 21 days and replayed them through Jev. One client is a professional-services firm in the Middle East, mostly Arabic on WhatsApp; the other a healthcare support service, mostly English and Portuguese on web chat. Names, numbers, emails and links were masked first. Where Jev and the original decision disagreed, Entagl read the conversation and judged which answer matched the client’s own written rules.
+On its own, the decision model scored about the same as the LLM, half a point lower. Both got nearly every answer right.
 
-| Decision | Original LLM | Decision model | Coupled: decision model when 90%+ sure, else LLM |
-| --- | --- | --- | --- |
-| Client A: what to do with the message | 91.2% | 94.0% | 97.2% |
-| Client A: which specialist answers | 98.1% | 91.4% | 97.1% |
-| Client B: what to do with the message | 87.4% | 93.0% | 86.7% |
-| Client B: which specialist answers | 97.8% | 83.7% | 98.9% |
+The gain from coupling came in speed and cost. The decision model made 88% of the decisions by itself. It got 99.75% of those right. The decisions it was unsure of went to the LLM.
 
-The coupled setup was the best of the three in two of the four decisions and close behind in a third. The decision model on its own was better than the LLM at deciding what to do with a message, and worse at choosing the specialist. The reason: most of those misses were short follow-ups like “India” or “I will discuss tomorrow” in a conversation already running with one specialist. The client’s rules say stay with that specialist. Jev saw the last eight messages but wasn’t told who owned the chat; the LLM setup was. In client B, coupling made the message decision slightly worse than the LLM alone, because on the messages Jev was unsure about, the fallback was the original LLM’s weakest answers.
+Most of its mistakes came on answers it was unsure of. The rule sent those to the LLM. When it was very sure, it was almost always right.
 
-**What the replay found in the old setup’s work.** Checking the decision model meant checking the old decisions too, and some were wrong in ways no spot-check had caught. A rule sent a standard referral reply whenever a customer wrote “legal” or “lawyer”; in a sample of 20, 15 were ordinary business questions such as what documents they needed. After customers had given their name and number once, a later “thanks” or “obrigada” triggered a fresh handover to staff: 17 of 41 sampled handovers were repeats like that. And two of a client’s rules contradicted each other, so both models were guessing. Entagl flagged all of them to fix at the source.
+Each decision it made cost about 96% less than the same decision by the LLM.
 
-## What it unlocked
+The whole bill falls by less, about 84% by my math. The decision model reads every message first. The 12% it is unsure of then go to the LLM too, so those are paid for twice.
 
-Entagl’s conclusion sums up the method. A decision model belongs “anywhere an LLM is asked to pick from a list and nobody reads the output”: first-pass routing and screening “with a confidence gate and a larger model behind it,” and analysis of every conversation instead of a sample. It is not for writing replies, anything numeric, or “anything where a confidently wrong answer silences a real customer.” And it doesn’t switch everything at once: “Run the new model silently next to the old one and switch per task.” Entagl hasn’t published production results yet.
+Its weak spot was telling kinds of Arabic apart. It mixed up Arabic from the Gulf with Arabic from Egypt or Lebanon. But on those misses it was never more than 40% sure. So each one went to the LLM.
+
+## The second test: real chats
+
+Next, Entagl took about 400 decisions its product had already made for two clients over three weeks. One was the professional-services firm. The other was a healthcare support service.
+
+It ran the decision model on the same chats. Wherever the old decision and the decision model’s answer differed, a person checked the client’s written rules to see which was right.
+
+For each client, Entagl checked two kinds of decision: what to do with a message, and who should answer it. That made four scores.
+
+For the professional-services firm, wrong decisions on what to do fell by about two-thirds. The other three scores barely changed. Each moved by about one point, up or down.
+
+The decision model was weakest at choosing who should answer. A customer would send a short follow-up, like “India” or “I will discuss tomorrow.” A staff member was already handling that chat, and the client’s rule said that person should keep it.
+
+The decision model often missed this. The LLMs had been told who owned the chat. The decision model had not.
+
+## What else the test found
+
+To judge the decision model, Entagl had to check the old decisions too. Some of the old mistakes came not from the LLMs but from fixed rules added around them.
+
+One rule sent a standard reply, pointing people to a lawyer, whenever a customer wrote “legal” or “lawyer.” Most of the messages that set it off were ordinary questions, like “What legal documents do I need for this?”
+
+Entagl checked 20 of those standard replies. In three of four, the customer should have gotten a real answer instead. The decision model chose to answer those.
+
+When a customer said “thanks,” the old system sometimes handed the chat to staff again. That happened even when the customer had already left a name and number. Entagl checked 41 hand-offs. Two in five were repeats like that.
+
+## What Entagl concluded
+
+Entagl says a decision model belongs “anywhere an LLM is asked to pick from a list and nobody reads the output.” In other words, wherever the answer goes straight into the process, with no person checking it.
+
+It would not use one to write replies. Nor would it use one for “anything where a confidently wrong answer silences a real customer,” such as blocking a message by mistake.
+
+Its advice on switching: “Run the new model silently next to the old one and switch per task.” The second test reran past chats. Entagl has not yet published results from live use.
 
 ## How it works
 
-**What a decision model does.** You send it the facts, here a message, a short history and a list of options, and a typed question: yes or no (“Does this message ask us to stop contacting them?”), one of a set (“Which of these four teams should answer?”), or a place on a scale (“How frustrated is this customer?”). It returns a probability for each answer in one pass. It can’t write replies, call tools or read images, which is why the LLM stays.
+**What a decision model does.** It answers questions that have a fixed list of answers. For each answer, it gives a percentage.
 
-Think of hydraulics on a tractor: the same engine lifts far more. Entagl’s LLM still writes every reply and takes the hard calls; coupled with the decision model, the system makes the routine calls at a fraction of the cost and knows which ones to doubt.
+The questions sound like these. Does this customer want us to stop messaging them? Which of these four teams should answer? How upset is this customer?
 
-**Why the probability matters.** TypeSafe trains Jev with a method it calls reinforcement learning for calibrated decisions; the goal, in Entagl’s words, is that “90% sure” really means right about nine times in ten, something ordinary LLMs are poor at. On Entagl’s test it held: every answer at 97% or more was right, and only 73% below 60%. That is what lets a rule act on the confident answers and route the rest.
+It cannot write, use tools or read images. That is why the LLM stays.
 
-**What TypeSafe publishes, and doesn’t.** Jev bills only for what it reads; it writes nothing, so there is no output cost, which is most of why it is cheaper. TypeSafe says English is its main training language and other languages are handled “but not equally well”; Entagl saw it, at 99.1% in English, 98.4% in Turkish and 96.5% in Arabic. TypeSafe also lists its own weak spots: arithmetic, counting, comparing dates, long inputs full of irrelevant detail, and text written to manipulate it. It hasn’t published what data Jev was trained on.
+Think of a tractor. The LLM is the engine. The decision model is the hydraulic arm that does the heavy lifting, load after load.
 
-**What Entagl set up.** The same questions and options the LLM had, the last eight messages of the chat, and one cut-off: 85% in the labelled test, 90% in the replay. The lessons it drew are setup rules: compute the facts the answer depends on, such as who owns the chat or whether contact details were already collected, in ordinary code and hand them over; and strip the template line that click-to-chat ads put at the start of a conversation (“I’d like to know more about your services”), which led Jev to wave job-seekers through as sales leads, one at 92% confidence.
+**Why the percentage means something.** TypeSafe trains Jev so that when it says 90% sure, it is right about nine times in ten. Entagl’s researchers note that ordinary LLMs are poor at this. In their test, when Jev was at least 97% sure, it was right every time.
+
+TypeSafe has not said what data it trained Jev on.
+
+**Why it costs so little.** LLMs bill for the text they write as well as what they read. Entagl says Jev costs less mainly because it bills only for what it reads. Its answers are also short.
+
+**Where it is weaker.** TypeSafe lists the limits itself. Jev is weak at arithmetic, counting and dates, and at long, noisy messages or text written to trick it. English is its strongest language.
+
+**How Entagl set it up.** It gave the decision model the same questions and answers the LLM had. It also passed in the last eight messages of each chat.
+
+Entagl drew two lessons.
+
+First, don’t make the model guess facts your system already knows, such as who owns the chat. Look them up and pass them in.
+
+Second, some ads open a chat with a line already filled in for the customer: “I’d like to know more about your services.” Remove it before the decision model reads the chat. That line led it to treat several job-seekers as sales leads.
 
 ## What it means for you
 
-**Money.** Entagl gives no annual figures. By my arithmetic on its numbers, if the LLM calls behind your customer conversations cost $1 million a year, coupling them the way Entagl tested, the decision model on every call and the LLM on the unsure 12%, would bring that to about $160,000. That is before the cost of making the switch, which Entagl doesn’t give.
+**Money.** Entagl gives no yearly figures, so here is my math. Say you spend $1 million a year on LLM decisions in your customer chats, not counting the replies. Coupled the way Entagl tested, that bill would fall to about $160,000, using its first test’s numbers. That leaves out the cost of making the switch.
 
-**Customers.** On the calls the decision model handles, the decision takes a third of a second instead of 1.6, before the LLM starts writing the reply.
+**Customers.** At the professional-services firm, fewer customers got the wrong decision. When the decision model makes the call, that call takes a third of a second instead of 1.6 seconds. The reply itself still comes from the LLM.
 
-**Revenue.** Both rounds found calls the old setup mishandled: in the test, the LLM dropped a lukewarm “maybe later” as not worth a follow-up; in the replay, a keyword rule sent real business questions a canned legal referral.
+**Revenue.** In the test on messages Entagl wrote, a customer wrote, “A bit expensive, maybe later.” Google’s Gemini, one of the LLMs, judged the lead not worth a follow-up. The decision model kept it as a lead worth chasing.
 
-**Risk.** With an LLM alone, a wrong routing call is invisible until a customer complains. A decision model puts a number on every call, so you decide where the line sits and what happens below it. Entagl is plain about the limit: one Turkish agency’s “we would like to work with you” was read as a job application at 95% confidence, three runs out of three. “A confidence score is evidence, not permission,” it wrote. Keep checking real outcomes after you switch.
+**Risk.** With an LLM alone, you take an unknown risk. Nothing tells you which decisions are wrong. With a decision model, every decision carries a number, and you decide where to draw the line.
+
+That number is not a guarantee. In the first test, a Turkish ad agency wrote, “We would like to work with you.” The decision model read it as a job application, and was 95% sure. Entagl’s lesson: “A confidence score is evidence, not permission.”
 
 ### The same move in other industries
 
-- **Data analytics.** Isotopes AI uses the decision model Jev to interpret follow-up questions in its analytics agents and decide whether the data already loaded can answer them. In production it reports the workflow running roughly two to five times faster. (Company report.)
-- **Internal agents.** Sanity, the content platform, routes requests among 66 company-built agents in Slack with the decision model Jev; when the top agent’s probability is below 40%, it shows the user the three most likely ones to pick from. It publishes no performance figures. (Company report.)
-- **Marketplace moderation.** EmDash, a content-management system backed by Cloudflare, moderates plugin listings with Cloudflare’s decision model Clef. A score of 45% or higher sends a listing to an operator; it made the right pass-or-review call in all 63 test runs. (Company report, vendor-affiliated.)
+- **Data analytics.** Isotopes AI uses the decision model Jev to read follow-up questions in its analytics tools. It says the work now runs two to five times faster. (Company report.)
+- **Help desks.** Sanity, a content platform, uses Jev to send staff questions in Slack to the right in-house AI helper. When Jev is unsure, it asks the person to pick. (Company report.)
+- **Software marketplaces.** EmDash, a website builder backed by Cloudflare, uses Cloudflare’s decision model Clef to review add-ons before they are listed. Doubtful ones go to a person. (Company report, tied to the vendor.)
 
-### The hard questions
+### Hard questions
 
-**“The LLM was slightly more accurate. Why switch?”** On raw accuracy, 99.0% against 98.5%, the two were level at this size. Coupled, the decision model took 88% of the calls at 99.75% and passed most of its mistakes to the LLM. You keep the LLM where it’s needed and stop paying it for the calls it doesn’t need to make.
+**The LLM alone scored half a point higher in the first test. Why switch?** That gap is too small to matter in a test this size. The gain is speed and cost, plus about two-thirds fewer wrong decisions for one client in real chats.
 
-**“What about languages?”** Test every language your customers use. An average of 98% can hide 96% in the language half your customers write in. Entagl’s Arabic misses came with low confidence, so the gate caught them, but that is something to confirm on your own traffic, not assume.
+**What about other languages?** Test every language your customers use. A good average can hide a weak language.
 
-**“Isn’t ‘agrees with our current model’ good enough?”** No. Raw agreement in Entagl’s replay was only 74% to 84%, and much of the gap was the old setup being wrong. Judge disagreements against your written rules.
+**Isn’t it enough that it agrees with our current system?** No. Your current system is often the one that is wrong. Check each disagreement against your own written rules.
 
-**“What if the vendor changes the model?”** Pin the version you tested, keep the LLM as the fallback, and re-run your test set before moving. Jev is new and TypeSafe says its rate limits may change.
+**What if the vendor changes the model?** Stay on the version you tested. Keep the LLM as the backup, and test again before you upgrade.
 
 ### How to make the change
 
-1. **List the decisions behind each reply:** what to do with the message, who answers, is it a lead, does it ask you to stop.
-2. **Write each as a typed question** with the options your rules allow.
-3. **Compute in code what the model can’t see:** who owns the chat, what the customer already gave you, any dates or numbers.
-4. **Build a labelled test** in every language you serve, hard cases included.
-5. **Run the decision model silently next to your LLM** on real traffic, and judge disagreements against your rules.
-6. **Set the cut-off per task** where the decision model’s confident answers stop making mistakes; send the rest to the LLM.
-7. **Switch one task at a time,** and keep tracking outcomes.
+1. **List the quick decisions behind each reply.** Who answers? Is it a lead? Does the customer want you to stop messaging?
+2. **Write each one as a question** with the answers your rules allow.
+3. **Work out in code what the model can’t see,** such as who owns the chat.
+4. **Build a test set** with known answers in every language you serve.
+5. **Run the decision model quietly next to your LLM** on real chats. Check each disagreement against your rules.
+6. **Set a cut-off for each decision.** Pick the confidence level above which its answers are almost never wrong. Send everything below it to the LLM.
+7. **Switch one decision at a time,** and keep tracking results.
 
 ## For your developer
 
-The decision model makes the routing call; a rule acts on its probability; the LLM takes the unsure ones and writes every reply. This is my sketch of the design Entagl describes, not its code, and I haven’t run it on its data, so treat it as expected, not measured.
+The decision model decides what to do with each message. A rule acts on its percentage. The LLM takes the unsure cases and writes every reply. This is my sketch of the design Entagl describes, not its code. I haven’t run it on Entagl’s data, so treat it as expected, not measured.
 
 ```python
 from typesafe_sdk import Choice, TypeSafeClient
@@ -152,20 +196,22 @@ def route(client, last_messages, chat_owner, contact_collected):
              "contact_already_collected": contact_collected}               # not left to guess
     answer = client.system_one(model="jev-1.13.0",  # the version Entagl tested
                                state=state, questions=Q).answers["action"]
-    if (answer.confidence or 0) >= 0.85:           # confident: act, no LLM call
+    if (answer.confidence or 0) >= 0.85:           # 0.85 in the written test, 0.90 in real chats
         return answer.choice, "decision_model"
     return llm_route(state), "llm"                 # unsure: the LLM decides, as today
 ```
 
-The worked example for this post (chat-routing-confidence-gate) runs this routing offline, with tests, including the per-language check. [Subscribe for access](/subscribe/).
+The worked example for this post runs this routing offline with tests, including a check by language. [Subscribe for access](/subscribe/).
 
 ## The fine print
 
-- **Who published the numbers.** Every Entagl figure comes from its own post of Sept. 23, 2026. Cost compares billed tokens for identical calls at each vendor’s list price in September 2026; it is not an invoice. The 84% and the $160,000 are my arithmetic, assuming every call goes through the decision model first and 12% also go to the LLM. Isotopes, Sanity and EmDash report on their own systems. I have measured none of them.
-- **Models.** Jev version 1.13.0 against a frontier Google Gemini model at low reasoning effort in the labelled test; the original decisions in the replay came from Gemini and OpenAI GPT models Entagl doesn’t name further. TypeSafe now serves Jev 1.14.0, which the test didn’t cover.
-- **What the test can show.** Entagl wrote and labelled the test cases itself, and one person reviewed the replay. In the replay, rare outcomes were over-sampled and unclear cases left out, so the percentages are not a production average. Accuracy of 98.5% against 99.0% is a tie at this size, which is why I say the decision model held accuracy, not that it lost it.
-- **What isn’t live yet.** Entagl recommends the coupled design and says where it would and wouldn’t use it, but hasn’t published production results, volumes or savings.
-- **What we don’t know.** The coupled setup’s overall accuracy in the labelled test (Entagl gives the 88% the decision model kept, not how the LLM did on the rest), the exact wording of Entagl’s questions, its message volumes, and how the coupled setup does over months of real traffic.
+- **Who published the numbers.** Every Entagl figure comes from its own report of Sept. 23, 2026. I have not measured any of them. Isotopes, Sanity and EmDash report on their own systems, and Sanity publishes no results.
+- **The first test in detail.** Entagl wrote 283 cases across 13 decision tasks and 13 languages, including four kinds of Arabic. Each case asked several questions, and the 94 harder cases ran three times: 471 runs and 1,357 scored decisions in all. The “maybe later” message was one of these written cases. Entagl lists it among the small differences between the two models, as a Gemini miss. The decision model scored 98.5% and Google’s Gemini 99.0%, a tie at this size. Under the 85% rule, 17 of the decision model’s 20 mistakes went to the LLM, and three stayed above the line. At 97% sure or higher it was right 986 times out of 986. Below 60% sure it was right 73% of the time. On the Arabic misses it was 36% to 40% sure. By language it scored 99.1% in English, 98.4% in Turkish and 96.5% in Arabic.
+- **The second test in detail.** 402 decisions from two clients over 21 days, with names, numbers, emails and links removed. The rule there used 90%, not 85%. Accuracy, old system against coupled: 91.2% and 97.2% on what to do with a message for the first client, which is where the one-in-11 and one-in-36 figures come from, 98.1% and 97.1% on who answers. For the healthcare client, 87.4% and 86.7% on what to do, 97.8% and 98.9% on who answers. The decision model alone scored 94.0%, 91.4%, 93.0% and 83.7%. On the healthcare client’s messages, the cases the decision model passed on were the ones the old system handled worst. The two systems agreed on 74% to 84% of decisions before anyone checked who was right. One person reviewed the disagreements. Rare cases were over-represented and unclear ones left out, so the results are not an everyday average. Two of one client’s rules contradicted each other, so neither model could get those cases right.
+- **Speed and cost.** A typical decision took 0.33 seconds against 1.6 seconds for the LLM. Decisions passed on to the LLM take longer, since both models run. Cost compares the bills for identical calls at each vendor’s list price in September 2026. It is not an invoice. The $160,000 is my math: every call goes to the decision model first, and the 12% it is unsure of also go to the LLM.
+- **Models.** Jev version 1.13.0 against a Google Gemini model in the first test. In the second, the old decisions came from Gemini and OpenAI GPT models Entagl does not name. TypeSafe now offers Jev 1.14.0, which neither test covered.
+- **Other details.** The Turkish agency message was misread in all three runs. No harm came of it, because a second question flagged the message as a sales pitch, and that answer won. One of the job-seekers that the ad opening line let through was treated as a lead at 92% confidence. Sanity shows the user three choices when no helper scores above 40%. EmDash sends a listing to a person at a score of 45% or more, and made the right call in all 63 test runs.
+- **What we don’t know.** How the coupled setup scored overall in the first test, the exact wording of Entagl’s questions, its message volumes, and how the setup does over months of live use.
 - **This site** is independent and not affiliated with TypeSafe, Entagl, Google, OpenAI, Cloudflare or any company named here.
 
-The full worked example for this post, with tests, comes with a subscription below.
+We show you how in the full worked example, with tests. It comes with a subscription below.
