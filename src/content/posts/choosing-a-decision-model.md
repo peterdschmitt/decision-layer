@@ -73,7 +73,7 @@ So stop using LLMs alone. Couple an LLM with a decision model, and each decision
 
 You set a cut-off. Above it, the system acts. Below it, the case goes to the LLM or a person.
 
-It pays off. Entagl, which makes AI that answers customer chats, tested this for one client. Coupling the two cut wrong decisions by about two-thirds. Entagl published the result in September.
+It pays off. Entagl, which makes AI that answers customer chats, tested this for one client. Coupling the two cut wrong decisions on that client’s messages by about two-thirds. Entagl published the result in September.
 
 So which decision model should you pick? TypeSafe released Jev in September. Cloudflare, Microsoft and OpenAI have since released their own. Others are free to download and run yourself.
 
@@ -248,9 +248,9 @@ Public code from others, each labelled:
 - **How the models are made.** Clef is further training of Alibaba’s open Qwen3.8-27B model, and Clef-flash of the smaller Qwen3.5-9B. Microsoft’s Decision-1 is also built on Qwen3.5-9B. TypeSafe says Jev isn’t trained on customer requests and that the same model serves every account. Mr. Akita notes that OpenAI can swap the model behind its name, as Cloudflare does with Clef-flash.
 - **What the tests can show.** All are small. Mr. Akita’s cases were written with AI help and checked against his policies, without independent human labels. Half of his cases were in Portuguese. Construct’s 117 cases were synthetic and labelled with an AI assistant, and Clef’s lead over Jev there is not statistically significant. GlassFlow’s reference was the LLM’s own decisions, not confirmed incidents. Better Stack’s referee was another model. Treat each as one careful test, not a ranking for your work.
 - **Harness and Jack & Jill.** Those figures come from the companies’ own reports, covered in my earlier posts.
-- **Entagl.** The two-thirds figure is for one client’s decision on what to do with a message: 91.2% right with LLMs alone, 97.2% coupled with Jev. Entagl checked about 400 real decisions by hand and over-sampled hard cases. On three other measures, the change was about a point either way.
+- **Entagl.** The two-thirds figure is for one client’s decision on what to do with a message: 91.2% right with LLMs alone, 97.2% coupled with Jev. Entagl reviewed the disagreements in about 400 real decisions, with rare cases over-sampled. On three other measures, the change was about a point either way.
 - **Versions.** Mr. Akita and Construct tested Jev 1.13.0, and Artificial Analysis tested Jev 1.13. TypeSafe now serves 1.14.0, which none of these tests covers.
 - **What we don’t know.** Why Jev’s scores moved for Construct, how OpenAI’s Decisions model is trained, and how any of these models does on your data, which is the point of this post.
-- **This site** is independent and not affiliated with TypeSafe, Cloudflare, Microsoft, OpenAI, Construct, GlassFlow, Better Stack or Entagl, or any company named here.
+- **This site** is independent and not affiliated with TypeSafe, Cloudflare, Microsoft, OpenAI, Construct, GlassFlow, Better Stack, Entagl or any company named here.
 
 The full worked example for this post, with tests, comes with a subscription below.
