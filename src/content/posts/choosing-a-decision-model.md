@@ -14,7 +14,7 @@ stats:
   - value: "$800"
     label: "a year at most, at a million emails a month"
   - value: "8.5 points"
-    label: "more accuracy for one model, once given its own cut-off"
+    label: "more accuracy for one model, given its own cut-off"
   - value: "26 points"
     label: "apart on judging tone, for two models about even overall"
 statsNote: "From Fabio Akita’s independent test of Oct. 10, 2026, and tests published by Construct and Better Stack. The $800 is for a million short emails a month. All are small tests. The fine print says what they can and can’t show."
@@ -55,13 +55,15 @@ Fabio Akita wanted to know which decision model he could trust with a simple job
 
 A decision model is a new kind of AI. You pair it with an LLM, the kind of AI behind ChatGPT. It answers a fixed question, like which queue an email belongs in. It also says how sure it is.
 
-Mr. Akita, a software developer in Brazil, tested 23 decision models. Some are paid services, run by their makers. He priced those at 10,000 emails a month. Each cost less than a dollar a month.
+Mr. Akita, a software developer in Brazil, tested 23 decision models. Some are paid services, run by their makers. He calls these hosted models.
+
+He priced those at 10,000 emails a month. Each cost less than a dollar a month.
 
 The mistakes were not cheap. The most accurate paid models were Jev, from the company TypeSafe, and Microsoft’s Decision-1. At that volume, each would get about 240 emails wrong a month.
 
 Cloudflare’s Clef-flash, the least accurate of the paid ones, would get about 1,250 wrong.
 
-Five times the mistakes, for almost the same bill. The cheapest, Decision-1, was among the most accurate. “The price difference between the hosted models is irrelevant next to the cost of being wrong,” Mr. Akita wrote.
+Five times the mistakes, for almost the same bill. The cheapest, Decision-1, was tied for the most accurate. “The price difference between the hosted models is irrelevant next to the cost of being wrong,” Mr. Akita wrote.
 
 ## Why the choice matters now
 
@@ -81,13 +83,13 @@ My verdict: don’t choose on price, and don’t choose on a leaderboard. Choose
 
 ## Fabio Akita: the mistake that costs the most
 
-A good average can also hide the one mistake that costs the most.
+A good average can hide the one mistake that costs the most.
 
-Mr. Akita’s test asked how serious each problem was. One email described a customer whose data was permanently lost, which his written policy calls critical. Jev, Decision-1 and Clef-flash called it critical.
+Mr. Akita’s test asked how serious each problem was. One email described a customer whose data was permanently lost. His written policy calls that critical. Jev, Decision-1 and Clef-flash called it critical.
 
-Two others got it wrong: Clef, the larger version of Clef-flash, and OpenAI’s model, Decisions. They called it “degraded,” a lower level.
+Two others called it “degraded,” a lower level. One was Clef, the larger version of Clef-flash. The other was OpenAI’s Decisions, a different model from Microsoft’s Decision-1.
 
-He also checked whether each model’s confidence was earned. On his short cases, none of the paid models made a mistake when it said it was more than 90% sure. One small free model, Decision 3.0 Edge, was not so careful. When it claimed that much confidence, it was wrong about one time in five.
+He also checked whether each model’s confidence was earned. On his test cases, which were short, none of the paid models made a mistake when it said it was more than 90% sure. One small free model, Decision 3.0 Edge, was not so careful. When it claimed that much confidence, it was wrong about one time in five.
 
 His closing advice: “none of these models replaces the rule that’s already in code.” Fixed limits and policies stay in ordinary code. The decision model reads what people wrote. “And the test that matters is yours.”
 
@@ -99,13 +101,13 @@ When Cloudflare released Clef, it said Clef could be swapped in for Jev with no 
 
 Using Jev’s cut-offs, Clef-flash got 82.1% right. With cut-offs set for Clef-flash itself, it got 90.6%, level with Jev. Nothing else changed.
 
-Clef-flash had been judged by a cut-off made for Jev. “It was being read with another model’s ruler,” wrote Ankush Singh of Construct. His rule: a cut-off belongs to one model asking one question.
+“It was being read with another model’s ruler,” wrote Ankush Singh of Construct. His rule: a cut-off belongs to one model asking one question.
 
 ## Construct: a cut-off that went stale
 
 Construct also found that a cut-off can stop working.
 
-In September, Construct asked Jev whether two records described the same person. If Jev was at least 70% sure, the records were merged. Real matches had scored above that.
+In September, Construct asked Jev whether two records described the same person. If Jev was at least 70% sure, the records were merged. Jev’s confidence on real matches had been above that.
 
 Two weeks later, it asked Jev the same test questions again, over and over. Not one answer reached the cut-off. None of those records would have been merged.
 
@@ -117,11 +119,11 @@ Construct is now moving that decision to Clef, carefully. Jev keeps deciding whi
 
 GlassFlow, a data company, had an LLM watching its own systems. Every 10 minutes, the LLM read the latest system logs. Those logs record what its software was doing. The LLM decided whether anything needed a closer look.
 
-GlassFlow ran Clef-flash beside it for six days, on the same logs. On average, Clef-flash was more sure something was wrong in the logs the LLM flagged. It was less sure about the rest.
+GlassFlow ran Clef-flash beside it for six days, on the same logs. When the LLM flagged a log, Clef-flash was usually more sure something was wrong. When the LLM did not, Clef-flash was usually less sure.
 
-But Clef-flash’s standard cut-off did not work. It raised six times as many alarms as the LLM. It still missed a third of what the LLM caught. At the cut-offs GlassFlow tried, Clef-flash could not replace the LLM.
+But the cut-off Clef-flash came with did not work. It raised six times as many alarms as the LLM. It still missed a third of what the LLM caught. At the cut-offs GlassFlow tried, Clef-flash could not replace the LLM.
 
-GlassFlow also tried using Clef-flash as a filter, to pick which logs the LLM should read. With a lower cut-off, the LLM would have read about 80% fewer logs. But a third of the problems the LLM had flagged would never have reached it. GlassFlow wants more data before it switches.
+GlassFlow also tried using Clef-flash as a filter, to pick which logs the LLM should read. With a lower cut-off, the LLM would have read about 80% fewer logs. But again, a third of the problems the LLM had flagged would never have reached it. GlassFlow wants more data before it switches.
 
 “The default line is not a setting to trust,” wrote Ashish Bagri of GlassFlow. The right cut-off, he wrote, “came from our data.”
 
@@ -145,9 +147,7 @@ It returns a percentage for each answer in one step. It writes no text, which is
 
 **Why the number is the whole point.** Your system acts on that percentage.
 
-Think of a tractor. The LLM is the engine. The decision model is the hydraulic arm that does the heavy lifting, load after load.
-
-The arm only works if that number is honest. If a model says 90% sure, it should be right about nine times in ten on your kind of question. Mr. Akita checked exactly that.
+That only works if the number is honest. If a model says 90% sure, it should be right about nine times in ten on your kind of question. Mr. Akita checked exactly that.
 
 **How these models are made.** TypeSafe has not said how big Jev is or what data trained it. It says only that customer requests are not used.
 
@@ -155,7 +155,7 @@ Cloudflare built Clef on an open model from Alibaba. It sells Clef as a service,
 
 Microsoft built its model on a smaller Alibaba model, the same one behind Clef-flash.
 
-One warning covers all of them. Any model its maker runs for you can change behind the same name. Construct saw that happen.
+One warning covers every paid model. Any model its maker runs for you can change behind the same name. Construct saw Jev’s scores fall with no new version number.
 
 **Why the cut-off belongs to you.** Two models can give the same case very different percentages. So a cut-off copied from a vendor’s example, or from the model you used before, is a guess.
 
@@ -163,9 +163,9 @@ One warning covers all of them. Any model its maker runs for you can change behi
 
 **Money.** The decision model’s bill is the smallest number in this choice.
 
-Now scale Mr. Akita’s test up to a million short emails a month. In Mr. Akita’s test, no paid model would cost more than about $800 a year.
+Scale Mr. Akita’s prices up to a million short emails a month. By my arithmetic, no paid model would cost more than about $800 a year.
 
-The real cost is the mistakes. Think of a misrouted ticket, a missed match, or a critical problem filed as routine. Put a price on each kind of mistake before you compare models.
+The real cost is the mistakes. At that volume, by my arithmetic, Clef-flash would make about 1.2 million more mistakes a year than the best models. Think of each as a misrouted ticket or a missed match. Put a price on each kind of mistake before you compare models.
 
 Testing is cheap too. Construct’s whole test cost about five cents in fees, it reported.
 
@@ -244,12 +244,12 @@ Public code from others, each labelled:
 - **Mr. Akita’s numbers in detail.** Jev and Microsoft’s Decision-1 were the most accurate paid models, at 97.6%. Clef-flash scored 87.5%. Scaled to a million emails a month, by my arithmetic, Clef-flash would make about 1.2 million more mistakes a year than the best, to save about $100 a year against Jev. Against Microsoft’s model it saved nothing: Decision-1 cost the least. The dearest, Clef, comes to about $760 a year at that volume, and about $4,000 if your texts run five times longer than his. Jev claimed more than 90% confidence on almost 90% of cases, Clef-flash on about 40%. On his short cases, Jev, Clef, Clef-flash, Microsoft’s and OpenAI’s models made no mistakes when more than 90% sure. The small free model, Decision 3.0 Edge, was wrong on 14 of the 68 answers it gave with that much confidence.
 - **Construct’s numbers in detail.** With Jev’s cut-offs, Clef-flash scored 82.1%. With its own, 90.6%, against Jev’s 90.9% and Clef’s 93.2%, each with cut-offs chosen on cases held back for the purpose. Real matches had scored 0.71 to 0.82 in September. Two weeks later, three test questions asked 20 times each never reached 0.70; the highest was 0.66. The drop showed up even with the version pinned on TypeSafe’s own service. On a separate test of 30 pairs at that cut-off in October, Jev never merged two different people but made only 44% of the merges it should have. Jev’s answers to identical questions varied slightly from call to call; Clef’s never did.
 - **GlassFlow’s numbers in detail.** The LLM was Anthropic’s Claude Haiku 4.5, and the test covered 833 ten-minute windows. Average confidence was about 0.5 on windows the LLM escalated and about 0.2 on the rest. The cut-off Clef-flash came with was 0.5. At that setting it flagged six times as many windows as the LLM and still missed a third of what the LLM caught. At a cut-off of 0.4, the filter would have passed 17% of windows to the LLM and kept 12 of its 18 escalations. GlassFlow’s six days cost about $8, nearly all of it for the LLM.
-- **Better Stack and Artificial Analysis in detail.** Better Stack used Anthropic’s Claude Opus 5.5 as the referee. Overall, Jev matched it 86% of the time and Clef 83%. On toxicity, Clef won, 88% to 81%. On the Artificial Analysis index, Jev 1.13 scored 58, ahead of Fastino’s GLiDE and Microsoft’s Decision-1 at 54. Across almost all confidence levels, every model it tested was right less often than it claimed, mostly on knowledge and reasoning questions. On classification and tool choice, most were fairly well matched to their confidence.
-- **How the models are made.** Clef is further training of Alibaba’s open Qwen3.8-27B model, and Clef-flash of the smaller Qwen3.5-9B. Microsoft’s Decision-1 is also built on Qwen3.5-9B. TypeSafe says Jev isn’t trained on customer requests and that the same weights serve every account. Mr. Akita notes that OpenAI can swap the model behind its name, as Cloudflare does with Clef-flash. On his machine, the best open models took over a second per decision.
+- **Better Stack and Artificial Analysis in detail.** Better Stack used Anthropic’s Claude Opus 5.5 as the referee. Overall, Jev matched it 86% of the time and Clef 83%. On toxicity, Clef won, 88% to 81%. On the Artificial Analysis index, Jev 1.13 scored 58, ahead of Fastino’s GLiDE and Microsoft’s Decision-1 at 54. Across almost all confidence levels, every model it tested was right less often than it claimed, mostly on knowledge and reasoning questions. On classification and tool choice, most were fairly well matched to their confidence. On the index’s test of when to call a software tool, Jev scored 81 and placed fourth.
+- **How the models are made.** Clef is further training of Alibaba’s open Qwen3.8-27B model, and Clef-flash of the smaller Qwen3.5-9B. Microsoft’s Decision-1 is also built on Qwen3.5-9B. TypeSafe says Jev isn’t trained on customer requests and that the same model serves every account. Mr. Akita notes that OpenAI can swap the model behind its name, as Cloudflare does with Clef-flash.
 - **What the tests can show.** All are small. Mr. Akita’s cases were written with AI help and checked against his policies, without independent human labels. Half of his cases were in Portuguese. Construct’s 117 cases were synthetic and labelled with an AI assistant, and Clef’s lead over Jev there is not statistically significant. GlassFlow’s reference was the LLM’s own decisions, not confirmed incidents. Better Stack’s referee was another model. Treat each as one careful test, not a ranking for your work.
 - **Harness and Jack & Jill.** Those figures come from the companies’ own reports, covered in my earlier posts.
 - **Entagl.** The two-thirds figure is for one client’s decision on what to do with a message: 91.2% right with LLMs alone, 97.2% coupled with Jev. Entagl checked about 400 real decisions by hand and over-sampled hard cases. On three other measures, the change was about a point either way.
-- **Versions.** Mr. Akita and Construct tested Jev 1.13.0, and Artificial Analysis tested Jev 1.13. TypeSafe now serves 1.14.0, which none of these tests covers. Construct’s September-to-October drop rests on three test questions.
+- **Versions.** Mr. Akita and Construct tested Jev 1.13.0, and Artificial Analysis tested Jev 1.13. TypeSafe now serves 1.14.0, which none of these tests covers.
 - **What we don’t know.** Why Jev’s scores moved for Construct, how OpenAI’s Decisions model is trained, and how any of these models does on your data, which is the point of this post.
 - **This site** is independent and not affiliated with TypeSafe, Cloudflare, Microsoft, OpenAI, Construct, GlassFlow, Better Stack or Entagl, or any company named here.
 
