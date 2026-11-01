@@ -15,6 +15,8 @@ Since 2026-10-31 14:46Z (Peter, "Change all five") this list is only the start: 
 
 - [x] **Harness (software security):** PUBLISHED 2026-10-31 via PR #7 (/blog/harness-ai-api-inventory-decision-model/). Jev answers two yes/no questions per API endpoint, an LLM explains positives and handles the unsure band. 99.9% lower cost (est.), 20x faster, 98.6% vs ~99% accuracy, all 7 errors in the 3.4% marked unsure. Source: https://www.harness.io/blog/judgment-not-generation-rebuilding-our-ai-api-classifier-on-jev
 
+- [ ] **DRAFTED 2026-11-01, awaiting Peter's "publish": Entagl (customer messaging).** Decision model makes the routing calls behind AI chat replies; at an 85% gate it handled 88% at 99.75%, LLM takes the rest; 25x cheaper, 5x faster (Entagl's own test, Sept 23). Post entagl-customer-chat-routing-decision-model on branch claude/post-2026-11-01; example on decision-layer-examples branch claude/chat-routing-example. Do not draft again.
+
 ## From Peter's five videos (jev-top5-findings.md, 2026-10-31 19:47Z)
 
 Peter (19:46Z): "i added 5 different transcripts that you should use for 5 different blogs." The file (~/Downloads/jev-top5-findings.md, copy in /mnt/project-files/decision-layer/jev-top5-findings.md) is a summary built from video descriptions, chapter lists and the creators' repos, not full transcripts; the numbers are the creators' own and unchecked. Each post needs full research first: watch or read what can be reached, open every repo, find a named-company case at scale for the same pattern, and label creator numbers as such. Every post still leads with the method change and names the decision model.
