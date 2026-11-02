@@ -146,6 +146,23 @@ Format: **Who (industry)**: LLM does / decision model does. Numbers. Source, dat
 - **Gmail triage plus drafted replies (n8n #20705, Dr. Firas, 2026-10-09)**. Jev: urgency, needs-reply, upset sender, and department route. OpenAI: drafts the reply. https://n8n.io/workflows/20705. **Community demo.**
 - **UK regulatory news filter, FCA RSS (n8n #19786, 2026-09-21)**. Embeddings dedupe; Jev scores and approves stories. https://n8n.io/workflows/19786. **Community demo.**
 
+## Research 2026-11-02 (daily run)
+
+Most hosts could not be opened by the research tools this run (network policy); items marked "not opened" rest on search summaries only. Kiva and Isotopes AI were opened directly.
+
+- **Kiva Inc. (Japan; Samurai App, a work platform with AI agents)**. LLM: the agents read, write and act; before, a fast general LLM also made every backend call with a self-reported confidence ("no absolute meaning": 0.95-0.97 on right screen moves, 0.70 on wrong ones). Jev 1.13 (via OpenRouter): ten backend calls (document attack check, company-rule check, did the scheduled task succeed, should the AI reply in team chat, weekly duplicate check, tool shortlist, skill choice, approval needed, next screen move, next browser move), moved in two days from 2026-09-18. Numbers on Kiva's own test cases: of 7 compared, 3 better, 4 equal, 0 worse (task success 51/54 to 54/54; document check 57/60 to 60/60); 1.6-4.5x faster; cost 1/8 to 1/11. Lessons: bar on the safe answer's probability, not the top pick's confidence; fix option descriptions, not the bar; backup LLM needs its own bar and must return probabilities. Not yet measured on real tenant data. Source: https://zenn.dev/kiva/articles/c325f91bd8eab8 (CTO "uchida", 2026-09-21, Japanese). **Published case (company test, small own test sets).** Used for the 2026-11-02 post.
+- **Isotopes AI (aidnn; analytics agents)**, re-opened 2026-11-02: 0.50 confidence gate on a "Reflex" fast path for dashboard follow-ups; unresolved questions go to the full agent team; "our production experience has been roughly 2–5× faster for this workflow"; Jev 1.13 passed 264 of 264 attempts vs OpenAI 180 and Microsoft 164 on its private suite. Source: https://isotopes.ai/blog/decision-models (Prasanth Jayachandran, 2026-10-15). **Published case.**
+- **OpenAI Decisions API customers (Box, Sierra, Ramp, Datadog, Speak)**: quotes from named people (Box: Biswaroop Palit, VP Product; Sierra: Ajeet Grewal; Ramp: René Sultan; Datadog: AJ Stuyvenberg; Speak: Andrew Hsu, CTO) appear only on OpenAI's GA page (Oct 22, 2026), which returns 403 to our tools. Box's own demo (X post Oct 15 and a dev.to tutorial) used 30 certificates and sends every route to a person. **Vendor claim; not opened.**
+- **Musubi PolicyLM-1.7B (content moderation)**: policy-conditioned scores plus a threshold; 84.2% vs 90.9% for gpt-oss-safeguard-20B on Musubi's benchmark; no named customer. TechCrunch 2026-10-06. **Vendor claim; not opened.**
+- **Classmethod (Japan; trade-document page types)**: about 20 OCR'd pages; every page Jev got wrong had a low probability. https://dev.classmethod.jp/articles/typesafe-jev-doc-type-classification/ **Community demo; not opened.**
+- **Kartha Health (medical coding review on Jev)**: "LLM-free clinical agents"; demo only, no numbers. LinkedIn. **Community demo; not opened.**
+- **Litigaze (eDiscovery)**: CEO Len Hickey interviewed on decision systems; no numbers. Artificial Lawyer, 2026-10-13. **Unverified; not opened.**
+- **HAQQ (legal AI)**: own test found Jev scored fabricated citations above real ones. https://www.haqq.ai/blog/jev-legal-ai-hallucination-detection.html **Independent result; not opened.** A caution for hallucination judging.
+- **Check Point Research (security)**: prompt injection flipped Jev's verdict in 25 of 27 runs (as reported by StationX). **Independent result; not opened.** A caution for auto-acting on confident calls.
+- **Kyoto (kyotofin, tax-doc-classifier)**, re-checked: Kyoto is "an AI Financial Advisor grounded in your tax liability", not a tax firm; "314 filled pages, 0 errors" is a TaxCalcBench row, not Kyoto's documents.
+- **Hassan El Mghari (fraud emails)**, re-checked: his repo says 92 of 100 and about $0.102, not the post's 96/100.
+- **New models (launches, no customer)**: vLLM Semantic Router + AMD d3-ultra (27B open, Oct 26); Liquid AI LFM3 with d1-2B and d1-omni-2B (Oct 27); Parallel Decisions API, web-grounded with citations (Oct 22 or 25). **Vendor claims.**
+
 ## Checked and left out
 
 - Perplexity "Decider powers Pro Search": found only in secondary blogs; Perplexity's model card and docs don't say it.

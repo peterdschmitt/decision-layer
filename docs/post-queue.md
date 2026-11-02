@@ -17,6 +17,8 @@ Since 2026-10-31 14:46Z (Peter, "Change all five") this list is only the start: 
 
 - [ ] **DRAFTED 2026-11-01, awaiting Peter's "publish": Entagl (customer messaging).** Decision model makes the routing calls behind AI chat replies; at an 85% gate it handled 88% at 99.75%, LLM takes the rest; 25x cheaper, 5x faster (Entagl's own test, Sept 23). Post entagl-customer-chat-routing-decision-model on branch claude/post-2026-11-01; example on decision-layer-examples branch claude/chat-routing-example. Do not draft again.
 
+- [ ] **DRAFTED 2026-11-02, awaiting Peter's "publish": Kiva (software; hidden AI decisions in a work platform).** Kiva's CTO moved ten backend decisions from a fast LLM (self-reported confidence, 0.70 on wrong moves) to Jev in two days: of 7 compared, 3 better, 4 equal, 0 worse; 1.6-4.5x faster; 1/8-1/11 the cost. Format: takeaways. Post kiva-ai-decisions-decision-model on branch claude/post-2026-11-02; example task-outcome-safe-bar on decision-layer-examples branch claude/task-outcome-example. Do not draft again.
+
 ## From Peter's five videos (jev-top5-findings.md, 2026-10-31 19:47Z)
 
 Peter (19:46Z): "i added 5 different transcripts that you should use for 5 different blogs." The file (~/Downloads/jev-top5-findings.md, copy in /mnt/project-files/decision-layer/jev-top5-findings.md) is a summary built from video descriptions, chapter lists and the creators' repos, not full transcripts; the numbers are the creators' own and unchecked. Each post needs full research first: watch or read what can be reached, open every repo, find a named-company case at scale for the same pattern, and label creator numbers as such. Every post still leads with the method change and names the decision model.
