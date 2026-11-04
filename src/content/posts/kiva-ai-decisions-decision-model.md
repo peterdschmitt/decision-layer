@@ -12,7 +12,7 @@ stats:
   - value: "About 90%"
     label: "lower cost on the five decisions Kiva priced"
   - value: "0"
-    label: "of the seven decisions Kiva compared got worse"
+    label: "of the seven decisions Kiva compared ended up worse"
   - value: "Up to 4.5x"
     label: "faster than the old LLM on the decisions compared"
   - value: "2 days"
@@ -42,7 +42,7 @@ When a task ended, an LLM read the agent’s last message. An LLM is the kind of
 
 In Kiva’s tests, the LLM sometimes got it wrong. It judged finished tasks as failed, which would send the user a false notice. One finished task it reported as failed ended with this message: “The investigation is complete. The two items that need a decision have been handed to the person in charge.”
 
-The LLM also gave a number for how sure it was. Kiva learned that number had no fixed meaning.
+The LLM also gave a number for how sure it was. Kiva learned that number could not be taken at face value.
 
 ## The trap
 
@@ -52,25 +52,25 @@ Kiva’s product made many decisions like these behind the scenes. Is this docum
 
 Every one rested on the LLM’s own guess about how sure it was.
 
-However, when coupled with a decision model, each decision comes back with a number you can test and set a bar on. A decision model is an AI that picks from a fixed list of answers and says how sure it is. Kiva sets a bar, a level of confidence, and the system acts above it.
+However, when coupled with a decision model, each decision comes back with a number you can test and set a bar on. A decision model is an AI that picks from a fixed list of answers and says how sure it is. Kiva sets a bar, a level of confidence, for each decision. The system acts only when the number clears it.
 
-The LLM keeps doing the agent’s work: reading, writing and acting. The decision model makes the decisions.
+The LLM keeps doing the agent’s work: reading, writing and acting. The decision model makes the decisions. That is full automation with confidence.
 
 In September, Kiva’s chief technology officer, Uchida, coupled the company’s LLM with a decision model. The decision model is called Jev, and it comes from a company called TypeSafe. Jev took over ten of those decisions. The switch took two days.
 
-Uchida then published the results, the mistakes included. Kiva scored seven of the ten before and after the switch. Three got better, and four stayed the same. None ended up worse, though one was worse until Kiva fixed it.
+Uchida then published the results, the mistakes included. Kiva could compare seven of the ten decisions with the old setup. Three got better, and four stayed the same. One of those four was worse at first, until Kiva fixed it.
 
-They also ran up to 4.5 times faster. Where Kiva measured cost, it fell about 90%.
+The compared decisions also ran up to 4.5 times faster. Where Kiva measured cost, it fell about 90%.
 
-Kiva’s write-up holds five lessons. They apply to any company whose AI makes decisions no one sees.
+Here is what Kiva learned, in five lessons, and how to use each one. They apply to any company whose AI makes decisions no one sees.
 
 ## Takeaway 1: an LLM’s own confidence has no fixed meaning
 
 Ask an LLM how sure it is, and it will give you a number. But that number is a guess, written like any other text.
 
-Kiva saw this when its LLM worked a computer screen, step by step. It was about 95% sure of the steps it got right.
+Kiva saw this when its LLM used a computer on its own, one step at a time. It was about 95% sure of the steps it got right.
 
-It was still 70% sure of the steps it got wrong. A bar could sit between the two.
+It was still 70% sure of the steps it got wrong. A bar set between those two numbers could tell right steps from wrong ones.
 
 But Kiva could place that bar only because it measured. It had to measure again for every decision. The number itself, Uchida wrote, “has no absolute meaning.”
 
@@ -82,15 +82,15 @@ For seven of the ten decisions, Kiva ran the old LLM and Jev on the same test ca
 
 Kiva’s usual code tests passed with both models. So those tests couldn’t show which model judged better. “This kind of change can’t be judged without measuring it,” Uchida wrote.
 
-The test found the problem with the task notices. The old LLM got three of the test answers wrong. Each time, a finished task was reported as failed.
+The side-by-side test found the problem with the task notices. The old LLM got three of the test answers wrong. Each time, a finished task was reported as failed.
 
-Jev had three answers to choose from: succeeded, failed or “needs a person.” At first it made the same mistake. Kiva then added one sentence to the description of “needs a person”: handing finished work to a person does not mean the task needs a person. After that, Jev got every case right.
+Jev had three answers to choose from: succeeded, failed or “needs a person.” At first it made the same mistake. Kiva then added one sentence to the description of “needs a person”: handing finished work to a person does not mean the task needs a person. After that, Jev got every test answer right.
 
 ## Takeaway 3: put the bar on the safe answer
 
 Kiva asked Jev to sort each incoming document. It could be clean, or one of four kinds of attack. An attack here means hidden text that tries to take over the AI.
 
-At first, Kiva stopped a document only when Jev was sure enough that it was one kind of attack. Kiva found that would fail.
+At first, Kiva stopped a document only when Jev was sure enough that it was one kind of attack. That would have missed the worst attacks.
 
 The worst attacks looked like two kinds of attack at once. So Jev split its answer between them and wasn’t sure of either. Its confidence fell to about 45%. With a bar at 50%, the attack would have got through.
 
@@ -106,7 +106,7 @@ Raising the bar didn’t fix it. Rewriting the skill descriptions did. Kiva adde
 
 A request to book paid leave had been matched to a skill for looking up other software. After the new sentence, Jev stopped making that match. The decision ended up as good as the LLM had been.
 
-But a “this does not cover” line can also turn away requests that belong. In one draft of the new wording, Jev’s confidence in a correct match fell from 84% to well below the bar. So check each test case, not just the overall score.
+But a “this does not cover” line can also turn away requests the skill should handle. In one draft of the new wording, a correct match fell to 21% confidence. Kiva’s bar for this decision was 40%. So check each test case, not just the overall score.
 
 ## Takeaway 5: plan for the day the decision model is down
 
@@ -142,7 +142,7 @@ By my arithmetic, a company spending $1 million a year on LLM decisions like the
 
 Kiva didn’t report revenue. Any gain there is indirect, through a product that is right more often and quicker.
 
-**Risk.** With the LLM alone, Kiva took an unknown risk. Coupled with a decision model, each decision comes back with a percentage, and Kiva sets the bar.
+**Risk.** With the LLM alone, Kiva could not say how often a hidden decision was wrong. Now each decision comes with a percentage, and a bar that Kiva set from its own tests.
 
 ### The same pattern in other industries
 
@@ -152,7 +152,7 @@ Kiva didn’t report revenue. Any gain there is indirect, through a product that
 
 ### The hard questions
 
-**If the LLM was mostly right, why switch?** Because no one could tell which of its answers were wrong. Its own number meant nothing until Kiva measured it, decision by decision.
+**If the LLM was mostly right, why switch?** Because no one could tell which of its answers were wrong. Its own number could not be trusted until Kiva measured it, decision by decision.
 
 **Isn’t this a lot of engineering?** Kiva moved ten decisions in two days. In my view, the slow part is writing good test cases, not the code.
 
@@ -182,22 +182,25 @@ from typing import Callable
 
 @dataclass
 class Decider:
-    decide: Callable[[str], dict[str, float]]  # returns a probability per answer
+    decide: Callable[[str], dict[str, float]]  # a probability per answer
     min_safe: float  # each decider keeps its own bar; an LLM's own scores run high
 
-def task_succeeded(last_message: str, main: Decider, backup: Decider) -> bool:
+def task_notice(last_message: str, main: Decider, backup: Decider) -> str:
     for d in (main, backup):
         try:
-            probs = d.decide(last_message)  # e.g. {"succeeded": .., "failed": .., "needs_human": ..}
+            probs = d.decide(last_message)  # {"succeeded": .., "failed": .., "needs_human": ..}
         except Exception:
-            continue  # decision model down: try the old LLM prompt
-        return probs.get("succeeded", 0.0) >= d.min_safe  # bar on the safe answer, not on the top pick
-    raise RuntimeError("no decider available; hold the notice")
+            continue  # decision model down: try the old LLM setup
+        if probs.get("succeeded", 0.0) >= d.min_safe:  # bar on the safe answer
+            return "done"
+        top = max(probs, key=probs.get)
+        return "failed" if top == "failed" else "needs_you"  # unsure: ask, don't claim failure
+    return "hold"  # nobody answered: send nothing rather than a guess
 ```
 
 The worked example for this post asks Jev whether a scheduled task succeeded, keeps the old LLM prompt as the backup, and compares the two on the same test cases before you switch. It comes with offline tests. [Subscribe for access](/subscribe/).
 
-Public code from others, each labelled:
+Public material from others, each labelled:
 
 - **Kiva’s write-up** (company report): its request shapes and code fragments, in Japanese, at the link in the sources below.
 - **TypeSafe’s docs** (vendor docs): the yes-or-no and choice question types Kiva used.
@@ -205,9 +208,9 @@ Public code from others, each labelled:
 ## The fine print
 
 - **Who published the numbers.** Every figure comes from Kiva’s own post, written by its chief technology officer, who signs as Uchida, on Sept. 21, 2026. I have measured none of them. Quotes are my translations from Japanese.
-- **The calls Kiva moved.** Ten in all, between Sept. 18 and 19, 2026. Seven had a before-and-after comparison: the document check, a check of messages against company rules, whether a scheduled task succeeded, whether the AI should reply in a team chat, a weekly check for duplicate suggestions, a shortlist of connected tools, and the choice of skill. Three were new to Jev, with no before-and-after score: whether a step needs the user’s approval, the next move on a computer screen, and the next move in a web browser.
+- **The decisions Kiva moved.** Ten in all, between Sept. 18 and 19, 2026. Seven had a before-and-after comparison: the document check, a check of messages against company rules, whether a scheduled task succeeded, whether the AI should reply in a team chat, a weekly check for duplicate suggestions, a shortlist of connected tools, and the choice of skill. Three were new to Jev, with no before-and-after score: whether a step needs the user’s approval, the next move on a computer screen, and the next move in a web browser.
 - **The results in detail.** Kiva counts answers, not distinct cases. The count of three better and four the same is Kiva’s own. Document check, 57 of 60 right before and 60 of 60 after. Task succeeded, 51 of 54 before and 54 of 54 after. Team-chat reply, 41 of 45 before and 43 of 45 after. The other four were unchanged, including the skill choice. It scored 165 to 167 of 168 with the LLM and 167 of 168 with Jev after the fix. Before the fix it fell to 158 or 159. Raising its bar to 0.65 still left six wrong matches. The skill whose score fell from 0.84 to 0.21 was in a draft Kiva did not keep.
-- **Speed and cost.** Kiva reports the compared decisions ran 1.6 to 4.5 times faster on its test cases. The five it priced cost one-eighth to one-eleventh as much. That is 87.5% to 91% less; “about 90%” is my rounding. Kiva gave before-and-after costs for five of the calls. The $1 million example is my arithmetic, not Kiva’s.
+- **Speed and cost.** Kiva reports the compared decisions ran 1.6 to 4.5 times faster on its test cases. The five it priced cost one-eighth to one-eleventh as much. That is 87.5% to 91% less; “about 90%” is my rounding. Kiva gave before-and-after costs for five of the decisions. The $1 million example is my arithmetic, not Kiva’s.
 - **The 95% and 70%.** Kiva measured the old LLM’s own confidence on its screen agent before the switch: 0.95 to 0.97 on right moves, 0.70 on wrong ones. The screen agent itself was new to Jev, so it has no before-and-after score.
 - **The 45% and the 50% bar.** Kiva reports that the worst attacks split Jev’s answer across kinds of attack and pushed its confidence down to about 0.45. The 0.5 bar is the example Kiva gives of a bar that would miss them. The chance of “clean” does not split that way.
 - **Which models.** The decision model was TypeSafe’s Jev 1.13, through OpenRouter. Kiva doesn’t name the LLM it used before, beyond a fast general model.
