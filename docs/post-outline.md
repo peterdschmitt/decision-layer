@@ -107,7 +107,7 @@ This is the doc, Part 2: Peter's beliefs, how he builds an argument, the phrases
    a. The script passes and both reads score 8 or higher: fact check and send.
    b. Anything less: apply the edits, rerun the script and both reads. Up to three rounds.
    c. Still under 8 after three rounds: don't send the post. Tell Peter in one line what is blocking it, or ask him one specific question.
-   d. Never send a draft below the gate, and always report both scores honestly.
+   d. Every day ends with an email to Peter (Peter, 2026-11-04: "no activity is unacceptable"). A draft below the bar is still sent, labelled "below the bar" with both scores and the reasons at the top. 8+ on both reads means "ready to publish". Always report both scores honestly.
 6. Fact check every number and quote against the fact sheet.
 
 ## 7. Revise, learn, deliver
