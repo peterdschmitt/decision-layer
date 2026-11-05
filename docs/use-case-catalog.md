@@ -177,6 +177,16 @@ Most hosts could not be opened by the research tools this run (network policy); 
 - **distil labs (accounts payable pay-or-hold)**. Synthetic data: Jev 0.79 vs 0.98 for a fine-tuned small model. https://www.distillabs.ai/blog/jev-or-a-fine-tuned-small-model-we-built-a-pipeline-with-both-to-see-the-real-difference/ **Vendor claim (competitor).**
 - **AI Neversleep (Korea; inquiry routing in Slack)**. No results yet. https://www.aineversleep.com/blog/jev-decision-model-inquiry-router/ **Community demo.**
 
+## Research 2026-11-05 (daily run; every source opened with curl)
+
+- **Southbridge AI (entity resolution, Ohio campaign finance) — USED Nov 5.** Three-way test on 200 hard groups: LLMs alone (GPT-5.6 Luna + Gemini 3.7 Flash) 199, 30.12¢, 715 s; Jev alone 195 (1 wrong, 4 declined), 3.37¢, 56 s; Jev + Luna reviewing the 5 least-sure groups 199, 4.35¢, 115 s; Fable alone 200, $9.83. Ten reviews: fixed 5, broke 1. Answer key model-built (Luna helped), mistakes hand-audited. Data files published (economics.json, research-results.json). Hrishi Olickel, 2026-09-20. **Company report (pipeline-tool vendor).**
+- **Microsoft (Microsoft-Decision-1, internal teams)**. Xbox Research: 10,000+ feedback items into themes, "competitive on quality with GPT-6 Sol", 14x faster, 200x cheaper; Copilot QA "competitive with GPT5.6 Luna and 100 times faster"; Discovery uses it as the grader inside an LLM agent loop, "46 times more consistent". No method. Achint Srivastava, 2026-10-09. https://commandline.microsoft.com/microsoft-decision-1-model-foundry/ **Vendor claim.**
+- **Cisco AI Defense (safety classification)**. Jev vs Cisco's fine-tuned 1B classifier on 6 datasets incl. 18k multi-turn: recall at 0.5% FPR 61% vs 34%; Jev beat a Gemma 4 31B judge on AUC in 7 of 8. LLM-made labels; no cost. 2026-10-05. **Independent result (competitor).**
+- **Torq (security alert triage)**. Public dataset: Jev 21.13%, Gemini Flash 46.48%, Torq's classifier 80.28%. 2026-09-24. **Negative result (competitor).**
+- **Databricks / MLflow (answer judging)**. 72 hand-built answers: Jev agreed with humans on 64, GPT-OSS-120B on 72; Jev about 7x faster; sending Jev's 0.2-0.8 band to GPT-OSS gave 72/72 with 12-13 rerouted (band chosen on the same data). 2026-09-25. **Community/vendor demo.**
+- **Proceda (community demo)**. Qwen + Jev on 360 public cases: 29.6% fewer LLM calls, 26.6% lower cost, 360/360 vs 357/360. 2026-10-12. **Community demo.**
+- **Follow-ups:** Trellis has no post after Sept 18 (still shadow). Recruitly's benchmark page now shows Jev 302/310 (was 267/274), undated. The Startup Fortune TypeSafe "leak" report is unconfirmed; AIToolsRecap retracted its copy on Oct 31.
+
 ## Checked and left out
 
 - Perplexity "Decider powers Pro Search": found only in secondary blogs; Perplexity's model card and docs don't say it.
