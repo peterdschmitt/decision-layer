@@ -13,10 +13,10 @@ stats:
     label: "lower AI cost than the LLM alone"
   - value: "76%"
     label: "of messages the decision model handled without the LLM"
-  - value: "0.4 points"
-    label: "lower accuracy than the LLM alone"
+  - value: "0.4"
+    label: "percentage points of accuracy lost against the LLM alone"
   - value: "13x"
-    label: "faster answers on the messages the decision model handled"
+    label: "faster than the LLM, at the median"
 statsNote: "All four figures come from one test by OpenRouter, published on Sept. 22, 2026, on a public set of 3,080 bank customer messages. The bar was chosen on the same messages, so these are best-case figures. The fine print says more."
 sources:
   - title: "OpenRouter: Is Jev as accurate as frontier models at classification? (Kenny Rogers, Sept. 22, 2026, updated Oct. 16)"
@@ -44,7 +44,7 @@ The best LLMs are good at it. But they are slow and costly at volume. And they g
 
 However, when coupled with a decision model, each answer comes back with a number that says how sure it is. A decision model is an AI that picks from a fixed list of answers and gives a percentage for each. It writes no words, so it is fast and cheap.
 
-You set a bar, a minimum level of sureness. Answers above the bar go straight through. The LLM handles only the rest. That is full automation, with a number you can check on every answer.
+You set a bar, a minimum level of sureness. Answers above the bar go straight through. The LLM handles only the rest. That is full automation, and every answer carries a number that says how far to trust it.
 
 ## The questions a leader would ask
 
@@ -60,7 +60,7 @@ Both sorted the same set of 3,080 bank customer messages. Each message belonged 
 
 The LLM alone sorted 84% of the messages correctly. The decision model alone got 81%.
 
-So the LLM was better by about three percentage points. But it was also 13 times slower. Alone, it cost about 20 times as much.
+So the LLM was better by about three percentage points. But it was also 13 times slower. And it cost about 20 times as much as the decision model.
 
 ### What happened when they were coupled?
 
@@ -80,11 +80,11 @@ When it was less than half sure, it was right less than a third of the time. Tha
 
 ### Where did the decision model beat the LLM?
 
-On some kinds of request. Messages about a stolen card are one. The LLM often read them as a question about a payment the customer didn’t recognize. The decision model sorted them better.
+On some kinds of request. Messages about stolen card details are one. The LLM often read them as a question about a payment the customer didn’t recognize. The decision model sorted them better.
 
 ### Where did both fail?
 
-On one kind of request, both scored zero. The request covered questions about a PIN that arrives separately from the card. Its name didn’t say so. Both models sent most of those messages to “change my PIN.”
+On one kind of request, both scored zero. The request covered questions about a PIN that arrives separately from the card. The request’s name didn’t mention that. Both models sent most of those messages to “change my PIN.”
 
 A real support team would fix that by writing a clearer description of each request.
 
@@ -94,15 +94,15 @@ A real support team would fix that by writing a clearer description of each requ
 
 **How OpenRouter set it up.** Both models got the same one-line description of each of the 77 requests. OpenRouter wrote those descriptions from the request names alone, without looking at the test messages.
 
-**How it is trained.** TypeSafe says it trains Jev so that its percentages track how often it is right, but it has not said what data it used. In this test, OpenRouter found that when Jev was only fairly sure, it was right a little less often than its percentages claimed. Its percentages still ranked the answers well, from surest to least sure.
+**How it is trained.** TypeSafe says it trains Jev so that its percentages track how often it is right, but it has not said what data it used. When Jev was only fairly sure, it was right a little less often than it claimed. Still, its surest answers were right most often, and its least sure answers were right least often.
 
 ## What it means for you
 
 **Money.** On this test, the coupled setup cost about 70% less than the LLM alone. By my arithmetic, a desk spending a million dollars a year on LLM sorting would save about $700,000.
 
-**Customers.** Three in four messages were answered by the decision model, 13 times faster than the LLM. For a customer in a chat window, that is the difference between an instant reply and a pause.
+**Customers.** The decision model sorted three in four messages, 13 times faster than the LLM. For a customer in a chat window, that is the difference between an instant handoff and a pause of about two seconds.
 
-**Risk.** With the LLM alone, you don’t know which answers are shaky. Coupled, you know which answers are shaky. Those go to the LLM.
+**Risk.** With the LLM alone, you don’t know which answers are shaky. Coupled, most shaky answers are flagged. Those go to the LLM.
 
 **Revenue.** OpenRouter didn’t measure revenue. Any gain is indirect: faster help, and the right team on the first try.
 
@@ -115,7 +115,7 @@ A real support team would fix that by writing a clearer description of each requ
 
 **Is a three-point gap acceptable?** For the decision model alone, maybe not. Coupled, the gap shrank to less than half a point.
 
-**Is this a real bank?** No. It is a public test set of bank messages, and OpenRouter is not a bank. Treat it as a strong guide, then test on your own messages.
+**Is this a real bank?** No. It is a public test set of bank messages, and OpenRouter is not a bank. Treat it as a guide, then test on your own messages.
 
 **Where should the bar go?** OpenRouter chose its bar on the same messages it scored. So the result is a best case. Set your bar on one set of messages and check it on another.
 
@@ -128,7 +128,7 @@ A real support team would fix that by writing a clearer description of each requ
 3. **Run your LLM and a decision model on the same messages.**
 4. **Set a bar** on one batch of messages, and check it on a second batch.
 5. **Send everything below the bar to the LLM,** as you do today.
-6. **Watch the share that clears the bar.** That share is your saving.
+6. **Watch the share that clears the bar.** The bigger that share, the bigger your saving.
 
 ## For your developer
 
