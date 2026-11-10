@@ -187,6 +187,18 @@ Most hosts could not be opened by the research tools this run (network policy); 
 - **Proceda (community demo)**. Qwen + Jev on 360 public cases: 29.6% fewer LLM calls, 26.6% lower cost, 360/360 vs 357/360. 2026-10-12. **Community demo.**
 - **Follow-ups:** Trellis has no post after Sept 18 (still shadow). Recruitly's benchmark page now shows Jev 302/310 (was 267/274), undated. The Startup Fortune TypeSafe "leak" report is unconfirmed; AIToolsRecap retracted its copy on Oct 31.
 
+## Research 2026-11-10 (daily run; every source opened with curl)
+
+- **Hightouch (marketing platform; checking customer profiles for wrongly joined people) — USED Nov 10.** 1,000 made-up profiles: Claude Opus 5.5 alone 99.0% at $3.86/1k; Jev alone 95.7% at $0.05; Jev with Opus on its 30-90% zone 98.8% at $0.88 (77% less), 22% sent. Harder set: Opus 95.1% $5.39, coupled Jev 95.3% $2.94, coupled GPT-6 Luna 91.6% (overconfident). 2026-11-04. https://hightouch.com/blog/llm-judges-identity-resolution **Published case (company test, synthetic data).**
+- **Amazon internal ticketing (AWS Strands Decider replaced Claude Sonnet 4.6 on 20 ticket categories).** Side-by-side on live traffic, every disagreement judged; about 98% lower cost per ticket, 4,215 ms vs 897 ms, "millions" saved a year; no accuracy figure. 2026-11-09. https://strandsagents.com/blog/amazon-saves-millions-replacing-sonnet-with-strands-decider/ **Vendor claim (replacement, not coupling).**
+- **OpenRouter Auto Router (production).** A decision model rates each request, then a policy picks the LLM; routing step 0.65 s vs 1.96 s at p90; 4x fewer invalid tool calls in beta; Auto Code "in line with" Opus 5.5 at 74% less per task. 2026-11-06. **Company claim.**
+- **Salesforce Koa Decisions (Agentforce routing).** 26 ms vs 1.4 s for an LLM. 2026-11-06. **Vendor claim.**
+- **Ragic (no-code database).** 10,000+ runs about $200 on Gemini Flash; 97-98% saving with Jev estimated from price lists. 2026-11-06. **Press release, estimate.**
+- **Kiva (Japan) follow-up.** Decision model decides whether a chat needs a reply before the LLM writes one; no numbers. 2026-11-06. **Published case (architecture only).**
+- **AWS how-to.** Decision model screens every agent turn; an LLM judge reviews only flagged ones; no numbers. 2026-11-04. **Vendor how-to.**
+- **Vercel AI Gateway index.** Decision models are 26% of gateway requests and 0.53% of spend. 2026-11-09. **Vendor data.**
+- **Follow-ups:** no change at Trellis, Recruitly (302/310), Southbridge, Entagl, Harness, Jack & Jill, Microsoft, Cisco, Torq, MLflow, Proceda, Astronomer, Weathernews, YTAL, KOIYAL, distil labs, Paraform, Metaview.
+
 ## Checked and left out
 
 - Perplexity "Decider powers Pro Search": found only in secondary blogs; Perplexity's model card and docs don't say it.
