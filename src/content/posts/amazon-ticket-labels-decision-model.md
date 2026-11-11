@@ -26,7 +26,7 @@ sources:
 
 Somewhere inside Amazon, an alarm goes off on a server. A ticket opens. Before anyone reads it, software has to decide what kind of ticket it is.
 
-It could be a customer escalation, a request for more computing power, or a security finding. There are 20 kinds in all. Every ticket has to fit one of them.
+It could be a customer escalation, a request for more computing power, or a security finding. There are 20 kinds in all.
 
 Many companies hand a job like this to an LLM. It works. But it is a costly way to pick one answer from a fixed list.
 
@@ -34,15 +34,17 @@ Many companies hand a job like this to an LLM. It works. But it is a costly way 
 
 An LLM is the kind of AI behind ChatGPT. To label a ticket, it reads long instructions, reasons in words, and then writes out its answer. Every one of those words costs money and time.
 
-It also gives no sign of which labels are shaky. So you take an unknown risk on every ticket.
+A decision model is a different kind of AI. It picks from a fixed list of answers.
 
-A decision model is a different kind of AI. It picks from a fixed list of answers and gives a percentage for each.
+An LLM alone gives no sign of which labels are shaky. So you take an unknown risk on every ticket.
 
 However, when coupled with a decision model, each answer comes back with a number that says how sure it is. A decision model writes no words, so it is fast and cheap.
 
 ## The story
 
-**Who.** Carr Onstott and Mehul Jaiswal are engineers on one of the largest internal ticketing systems in the world, at Amazon. On Nov. 9, they described their switch on the blog of Strands Agents, a project of AWS, Amazon’s cloud business. AWS makes the decision model, so it has a stake in the result.
+**Who.** Carr Onstott and Mehul Jaiswal are Amazon engineers. They work on one of the world’s largest internal ticketing systems. On Nov. 9, they described their switch on the blog of Strands Agents, a project of AWS, Amazon’s cloud business.
+
+AWS makes the decision model, so it has a stake in the result.
 
 **Before.** For a while, Claude Sonnet 4.6, an LLM from Anthropic, sorted every ticket. It read a long set of instructions each time. Then it wrote out its answer and its reasoning.
 
@@ -54,7 +56,7 @@ However, when coupled with a decision model, each answer comes back with a numbe
 
 ## How they switched
 
-The engineers did not flip a switch and hope. They built a switch with three positions.
+The engineers built a switch with three positions.
 
 **First position: the LLM only.** This was the old way.
 
@@ -68,7 +70,7 @@ Then the team looked at every case where the two disagreed. They wrote that this
 
 The decision model sorted tickets just as well, the team says. The team has not published an accuracy figure.
 
-Each call to the model now takes 78% less time.
+Each call to the decision model takes 78% less time than a call to the LLM did.
 
 At list prices, the model cost per ticket fell 98%. The post says the change will save millions of dollars a year in model fees.
 
@@ -84,9 +86,9 @@ At list prices, the model cost per ticket fell 98%. The post says the change wil
 
 ## What it means for you
 
-**Money.** Take a team that spends a million dollars a year on LLM sorting. By my arithmetic, it would spend about $22,500 at Amazon’s rate. That assumes servers as busy as Amazon’s, and no tickets sent back to the LLM.
+**Money.** Take a team that spends a million dollars a year on LLM sorting. By my arithmetic, a decision model would do the same work for about $22,500 at Amazon’s rate. That assumes the decision model’s servers stay as busy as Amazon’s, and no tickets go back to the LLM.
 
-**Speed.** A call to the decision model takes under a second. A call to the LLM took about four.
+**Speed.** A call to the decision model takes under a second. A call to the LLM took about four seconds.
 
 **Risk.** With an LLM alone, you don’t know which labels are shaky. With a decision model, each label comes with a number, and a bar decides which ones go through. My advice: send every ticket below the bar to the LLM, as before.
 
@@ -95,14 +97,14 @@ At list prices, the model cost per ticket fell 98%. The post says the change wil
 ### The same pattern in other industries
 
 - **Security software.** Harness tested a decision model on real customer traffic. Every mistake fell among the few cases where it said it was unsure. [How Harness did it](/blog/harness-ai-api-inventory-decision-model/).
-- **Hiring.** Jack & Jill had a decision model score candidates one criterion at a time, with an LLM reading the shortlist. Its screening costs fell 88%. [How Jack & Jill did it](/blog/jack-and-jill-coupled-llm-decision-model/).
+- **Hiring.** Jack & Jill had a decision model score job candidates one criterion at a time. An LLM read the shortlist. Its screening costs fell 88%. [How Jack & Jill did it](/blog/jack-and-jill-coupled-llm-decision-model/).
 - **Fraud.** Sardine, a fraud-prevention company, tested a decision model on one real fraud ring. It caught 27 of 29 fraudulent transactions.
 
 ### The hard questions
 
-**How accurate is it?** Amazon has not published a number. The team says the decision model beat the LLM on a separate set of its own tickets. Ask for your own numbers before you switch.
+**How accurate is it?** Amazon has not published a number. The team says the decision model beat the LLM on a separate test set of Amazon tickets. Ask for your own numbers before you switch.
 
-**Did they drop the LLM entirely?** For this one job, yes. The LLM is still one flip of the switch away. Amazon went further than I would: I would keep the LLM for every ticket below the bar.
+**Did they drop the LLM entirely?** For this one job, yes. Amazon went further than I would: I would keep the LLM for every ticket below the bar.
 
 **When won’t this work?** The engineers name three cases where you should not switch. Keep the LLM if a label needs a written explanation. Keep it if the list of labels changes every week, or if the decision model can’t see enough of the ticket.
 
