@@ -148,7 +148,7 @@ Public material from others:
 
 - **Who published the numbers.** Every Amazon figure comes from the post by Carr Onstott and Mehul Jaiswal with the Strands Agents team, dated Nov. 9, 2026. Strands Agents is an AWS project, and Strands Decider is AWS’s own model. So AWS has a stake in the result. I have measured none of it.
 - **Accuracy.** No figure, no sample size and no count of disagreements is published. The post says the decision model “performed just as well” and beat the LLM on a separate set of tickets.
-- **Time.** The LLM averaged 4,215 milliseconds per call. The decision model averaged 897. The ticket-handling software ran 74% faster on the day the LLM was turned off.
+- **Time.** The LLM averaged 4,215 milliseconds per call. The decision model averaged 897. On the day the LLM was turned off, the ticket-handling software took 74% less time per ticket.
 - **Cost.** At list prices, the LLM cost about $0.0222 per ticket. The decision model cost about $0.0005, about 98% less. Lambda costs are left out. On a $1 million yearly bill, that is about $22,500. The decision model’s cost depends on how busy its servers are. The “millions of dollars a year” is the team’s own estimate. The post does not give ticket volume.
 - **Words read and written.** The LLM read about 6,550 tokens, or word pieces, per ticket and wrote about 170. The decision model read about 2,000 and wrote one.
 - **Models.** Claude Sonnet 4.6 from Anthropic, through Amazon Bedrock. Strands Decider, the “E4B” size built on Google’s Gemma 4, which beat the smaller first version on Amazon’s test set.
