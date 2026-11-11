@@ -12,7 +12,7 @@ stats:
   - value: "98%"
     label: "lower cost per ticket than the LLM"
   - value: "78%"
-    label: "less time for each call to label a ticket"
+    label: "less time per model call"
   - value: "20"
     label: "kinds of ticket, picked from a fixed list"
   - value: "45 seconds"
@@ -22,14 +22,11 @@ sources:
   - title: "Strands Agents blog: Amazon saves millions by replacing Sonnet 4.6 with Strands Decider (Carr Onstott, Mehul Jaiswal and the Strands Agents team, Nov. 9, 2026)"
     url: https://strandsagents.com/blog/amazon-saves-millions-replacing-sonnet-with-strands-decider/
     grade: Vendor case study
-  - title: "Hacker News discussion of the Amazon post"
-    url: https://news.ycombinator.com/item?id=50436640
-    grade: Independent reporting
 ---
 
 Somewhere inside Amazon, an alarm goes off on a server. A ticket opens. Before anyone reads it, software has to decide what kind of ticket it is.
 
-It could be a customer escalation, a request for more computing power, or a security finding. There are 20 kinds in all. The label decides which team sees the ticket first.
+It could be a customer escalation, a request for more computing power, or a security finding. There are 20 kinds in all. Every ticket has to fit one of them.
 
 Many companies hand a job like this to an LLM. It works. But it is a costly way to pick one answer from a fixed list.
 
@@ -45,13 +42,13 @@ However, when coupled with a decision model, each answer comes back with a numbe
 
 ## The story
 
-**Who.** Carr Onstott and Mehul Jaiswal are engineers on one of the largest internal ticketing systems in the world, at Amazon. On Nov. 9, they described their switch on the blog of Strands Agents, a project of AWS, Amazon’s cloud business.
+**Who.** Carr Onstott and Mehul Jaiswal are engineers on one of the largest internal ticketing systems in the world, at Amazon. On Nov. 9, they described their switch on the blog of Strands Agents, a project of AWS, Amazon’s cloud business. AWS makes the decision model, so it has a stake in the result.
 
 **Before.** For a while, Claude Sonnet 4.6, an LLM from Anthropic, sorted every ticket. It read a long set of instructions each time. Then it wrote out its answer and its reasoning.
 
-**The decision model.** A month before the post, AWS had released Strands Decider, its own decision model. The engineers gave it the same tickets and one question: which of the 20 labels fits? They also added a 21st answer, “none.”
+**The decision model.** A month before the post, AWS had released Strands Decider, its own decision model. The engineers gave it the same tickets and one question: which of the 20 labels fits? They also added one more answer, “none.”
 
-**Shorter instructions.** The LLM’s label descriptions were too long for the decision model to read. So the team rewrote each label as one or two plain sentences.
+**Shorter instructions.** The LLM’s label descriptions were too long for the decision model to read. So the team rewrote each label as one or two plain sentences. On long tickets, the decision model drops the oldest comments to fit.
 
 **A bar.** The team then set a bar, a minimum level of sureness. The decision model applies a label only when it is at least that sure. The engineers have not said what happens to a ticket below the bar.
 
@@ -71,9 +68,9 @@ Then the team looked at every case where the two disagreed. They wrote that this
 
 The decision model sorted tickets just as well, the team says. The team has not published an accuracy figure.
 
-Each call to label a ticket now takes 78% less time.
+Each call to the model now takes 78% less time.
 
-The cost per ticket fell 98%. The team says the change will save millions of dollars a year.
+At list prices, the model cost per ticket fell 98%. The post says the change will save millions of dollars a year in model fees.
 
 ## How it works
 
@@ -87,9 +84,9 @@ The cost per ticket fell 98%. The team says the change will save millions of dol
 
 ## What it means for you
 
-**Money.** By my arithmetic, a team spending a million dollars a year on LLM sorting would spend about $22,500 at Amazon’s rate.
+**Money.** Take a team that spends a million dollars a year on LLM sorting. By my arithmetic, it would spend about $22,500 at Amazon’s rate. That assumes servers as busy as Amazon’s, and no tickets sent back to the LLM.
 
-**Speed.** A ticket gets its label in under a second, instead of about four seconds. The right team sees it sooner.
+**Speed.** A call to the decision model takes under a second. A call to the LLM took about four.
 
 **Risk.** With an LLM alone, you don’t know which labels are shaky. With a decision model, each label comes with a number, and a bar decides which ones go through. My advice: send every ticket below the bar to the LLM, as before.
 
@@ -113,16 +110,16 @@ The cost per ticket fell 98%. The team says the change will save millions of dol
 
 ### How to make the change
 
-1. **Pick one job** where an LLM picks from a fixed list today.
+1. **Pick one high-volume job** where an LLM picks from a fixed list today.
 2. **Write each answer as one or two plain sentences.**
 3. **Build the switch:** LLM only, both side by side, decision model only.
 4. **Run both side by side** on live work, and read every disagreement.
-5. **Set a bar.** Send everything below it to the LLM.
+5. **Set a bar.** My choice: send everything below it to the LLM.
 6. **Switch to the decision model** only when the disagreements stop surprising you.
 
 ## For your developer
 
-Here is the pattern as code. A switch picks one of three modes. In the side-by-side mode, the LLM’s label is used and the decision model’s is logged. This is my sketch, not Amazon’s code. Unlike Amazon’s post, it sends every ticket below the bar to the LLM. Treat it as expected, not measured.
+Here is the pattern as code. A switch picks one of three modes. In the side-by-side mode, the LLM’s label is used and the decision model’s is logged. This is my sketch, not Amazon’s code. Amazon has not said what happens below the bar, so my sketch sends those tickets to the LLM. Treat it as expected, not measured.
 
 ```python
 def label_ticket(ticket, mode, decide, llm_label, log, bar=0.80):
@@ -139,23 +136,23 @@ def label_ticket(ticket, mode, decide, llm_label, log, bar=0.80):
     return llm_label(ticket)  # below the bar: the LLM labels it, as before
 ```
 
-We show you how in a worked example. It has the three-way switch, a log of every disagreement, and a report that tells you when the decision model is ready. It comes with tests. [Subscribe for access](/subscribe/).
+I show you how in a worked example. It has the three-way switch, a log of every disagreement, and a report that tells you when the decision model is ready. It comes with tests. [Subscribe for access](/subscribe/).
 
 Public material from others:
 
-- **[The Amazon post](https://strandsagents.com/blog/amazon-saves-millions-replacing-sonnet-with-strands-decider/)** (vendor case study): the full tables, and links to the Strands Decider code and serving notes.
+- **[The Amazon post](https://strandsagents.com/blog/amazon-saves-millions-replacing-sonnet-with-strands-decider/)** is a vendor case study. It has the full tables, and links to the Strands Decider code and serving notes.
 
 ## The fine print
 
 - **Who published the numbers.** Every Amazon figure comes from the post by Carr Onstott and Mehul Jaiswal with the Strands Agents team, dated Nov. 9, 2026. Strands Agents is an AWS project, and Strands Decider is AWS’s own model. So AWS has a stake in the result. I have measured none of it.
 - **Accuracy.** No figure, no sample size and no count of disagreements is published. The post says the decision model “performed just as well” and beat the LLM on a separate set of tickets.
-- **Time.** Average time per call: 4,215 milliseconds for the LLM, 897 for the decision model, 78% less. The ticket-handling software ran 74% faster on the day the LLM was turned off.
-- **Cost.** At list prices, about $0.0222 per ticket for the LLM and about $0.0005 for the decision model, which is about 44 times cheaper, or 98% less. On a $1 million yearly bill, that is about $22,500. The decision model’s cost depends on how busy its servers are. The “millions of dollars a year” is the team’s own estimate. The post does not give ticket volume.
+- **Time.** The LLM averaged 4,215 milliseconds per call. The decision model averaged 897. The ticket-handling software ran 74% faster on the day the LLM was turned off.
+- **Cost.** At list prices, the LLM cost about $0.0222 per ticket. The decision model cost about $0.0005, about 98% less. Lambda costs are left out. On a $1 million yearly bill, that is about $22,500. The decision model’s cost depends on how busy its servers are. The “millions of dollars a year” is the team’s own estimate. The post does not give ticket volume.
 - **Words read and written.** The LLM read about 6,550 tokens, or word pieces, per ticket and wrote about 170. The decision model read about 2,000 and wrote one.
 - **Models.** Claude Sonnet 4.6 from Anthropic, through Amazon Bedrock. Strands Decider, the “E4B” size built on Google’s Gemma 4, which beat the smaller first version on Amazon’s test set.
 - **The field-order surprise.** Changing the order of fields moved percentages “by up to 0.19,” the post says.
 - **Sardine, Harness and Jack & Jill.** Those details come from each company’s own report. Sardine’s figure covers 29 transactions from one fraud ring.
-- **What we don’t know.** The accuracy, the ticket volume, the bar, and what happens below it.
+- **What we don’t know.** The accuracy, the ticket volume, the bar, what happens below it, and what changed for the people who handle tickets.
 - **This site** is independent and not affiliated with Amazon, AWS, Anthropic, Google or any company named here.
 
 The full worked example for this post, with tests, comes with a subscription below.
