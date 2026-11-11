@@ -199,6 +199,17 @@ Most hosts could not be opened by the research tools this run (network policy); 
 - **Vercel AI Gateway index.** Decision models are 26% of gateway requests and 0.53% of spend. 2026-11-09. **Vendor data.**
 - **Follow-ups:** no change at Trellis, Recruitly (302/310), Southbridge, Entagl, Harness, Jack & Jill, Microsoft, Cisco, Torq, MLflow, Proceda, Astronomer, Weathernews, YTAL, KOIYAL, distil labs, Paraform, Metaview.
 
+## Research 2026-11-11 (daily run; every source opened with curl)
+
+- **Amazon internal ticketing — USED Nov 11.** See the Nov 10 entry: Strands Decider replaced Claude Sonnet 4.6 on 20 labels after a three-way switch; 98% lower cost per ticket, 78% less time per call; no accuracy figure. **Vendor case study (replacement).**
+- **AWS Builder Center demo (Nick Ihm, security-camera frames).** Strands Decider 2B screens frames before a vision LLM writes the alert. In front of Gemma 4 31B: cutoff 0.1 sends 92% to the LLM, saves 7%, accuracy unchanged at 88.0%; cutoff 0.2 sends 66%, saves 32%, accuracy 85.2%. Simulated from stored answers, cutoffs tuned on the test set. 2026-11-10. **Community demo (AWS employee).**
+- **CodeCut (Khuyen Tran, product matching on public Abt-Buy).** Embeddings shortlist 3, Jev picks one or none; at p > 0.7, 808 merges with 1 wrong vs 318-341 wrong for free tools; about $0.03 for 1,081 questions. No LLM in the loop. 2026-11-11. **Independent result.**
+- **Sardine (fraud/KYC).** Jev caught 27 of 29 fraudulent transactions in one real ring vs 18 for Claude Sonnet and 26 for rules, about 1/25th the cost. Replacement, tiny sample. 2026-11-02. https://www.sardine.ai/blog/typesafe-ai-jev-fraud-detection **Published case.**
+- **Ahrefs Reviewotron (AI code review).** Jev approves or rejects which LLM security-analysis agents run; on 14 real reviews kept 20/20 findings, mean net saving $0.16 per review (counterfactual replay). 2026-09-22/28. https://github.com/ahrefs/reviewotron **Published experiment (coupled).**
+- **Audiala (travel app).** Jev router rolled back after 23 minutes; hybrid gain did not repeat. 2026-09-22. https://audiala.com/blog/jev-in-production **Published case (negative).**
+- **Hirundo study.** Decision models on Qwen backbones show a China-topic bias; Jev 1.13 marked 12 of 20 neutral China explainers not brand-safe. 2026-11-09. **Independent result (vendor of a fix).**
+- **Korean launches (Upstage Solar Decide, Trillion Labs, Dachi Cloud).** No customer data. 2026-11-11. **News.**
+
 ## Checked and left out
 
 - Perplexity "Decider powers Pro Search": found only in secondary blogs; Perplexity's model card and docs don't say it.
