@@ -210,6 +210,17 @@ Most hosts could not be opened by the research tools this run (network policy); 
 - **Hirundo study.** Decision models on Qwen backbones show a China-topic bias; Jev 1.13 marked 12 of 20 neutral China explainers not brand-safe. 2026-11-09. **Independent result (vendor of a fix).**
 - **Korean launches (Upstage Solar Decide, Trillion Labs, Dachi Cloud).** No customer data. 2026-11-11. **News.**
 
+## Research 2026-11-12 (daily run; every source opened with curl)
+
+- **Currents News API (media, news briefings): USED Nov 12.** Jev screens each article's headline and summary before an LLM (Claude Sonnet 4.6, Gemini 3.8 Flash, GLM 5.3 Flash) writes a briefing. 2,000 live articles, blind panel of 4 AI judges: at a 0.70 bar LLM input fell 16-18%, 5 of 6 quality cells too close to call; net positive with Sonnet, negative with GPT-5 Mini by Currents' price math. Company report, Sept 20, 2026. https://currentsapi.services/en/blog/cut-llm-token-costs-typesafe-jev-prefiltering
+- **Google Gemini Notebook (consumer AI, model routing).** The Gemini Decisions API sends each query to a model tier and thinking level, "with up to 40% lower latency". Also Stitch, CC and a Search safety layer. Vendor claim, no share routed or accuracy. Launch Nov 11, 2026. https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/
+- **Alibaba Cloud HiRoute (agent tooling, cheap vs flagship model per turn).** Decision model answers three questions per turn; code picks the model. Jev 1.14 policy accuracy "54.86% → 100.00%" (math) on synthetic reviewed checkpoints; no realized savings. Vendor research, Qiita Nov 10. https://qiita.com/alibabacloud-sa/items/dabbd16e1d1f26f2ae4a
+- **Momentuum blue / Coforge (insurance underwriting).** Four decision models swapped into an LLM pipeline; Jev 8 of 8 rule-derived outcomes; an agreement step with the LLM caught a bad approval. Synthetic, tiny. https://www.momentuumblue.si/whitepaper/decision-models-under-audit
+- **CIO column, Pete Johnson (MongoDB): Pac-Man planner.** Code beat Jev beat Claude Haiku; "I don't know of any customers running System One models in production yet." Nov 12. https://www.cio.com/article/4247450/jev-and-the-era-of-model-tetris.html
+- **sao.dev (tagging): OpenAI Decisions vs a fine-tuned 4B model.** 0.77 vs 0.91 macro F1; OpenAI answers "overconfident". Independent result, Oct 15. https://blog.sao.dev/decision-models-need-labels/
+- **OpenRouter tutorial (support intake): LLM extracts fields, Jev labels intent and needs_human.** 24 messages only. Nov 10. https://openrouter.ai/blog/tutorials/structured-output-llm/
+- **Development Seed stac-zap (geospatial search).** Jev picks the satellite catalog, collection and place; no LLM in the loop. README only. https://github.com/developmentseed/stac-zap
+
 ## Checked and left out
 
 - Perplexity "Decider powers Pro Search": found only in secondary blogs; Perplexity's model card and docs don't say it.
