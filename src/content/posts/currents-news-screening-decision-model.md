@@ -1,6 +1,6 @@
 ---
 title: "How a news search company cut what its LLM reads 16% with a decision model"
-dek: "Stop using LLMs alone. Currents had a decision model screen 2,000 news articles before its LLMs wrote briefings. Quality scores barely moved. But Currents’ own math shows a cheap LLM would lose money."
+dek: "Stop using LLMs alone. Currents had a decision model screen 2,000 news articles before its LLMs wrote briefings. Quality barely moved. But by Currents’ math, screening loses money in front of a cheap LLM."
 kind: Reality check
 readMinutes: 9
 author: Peter Schmitt
@@ -15,8 +15,8 @@ stats:
     label: "blind comparisons where quality scores were too close to call"
   - value: "2,000"
     label: "live news articles in the test"
-  - value: "Lost money"
-    label: "with a cheap LLM, by Currents’ own price math"
+  - value: "Would lose money"
+    label: "when screening a cheap LLM’s reading, by Currents’ math"
 statsNote: "All four come from one test Currents News API ran on its own service and published Sept. 20, 2026. AI models, not people, judged the quality. The fine print says more."
 sources:
   - title: "Currents News API: Cutting LLM Token Costs with Currents News API and TypeSafe Jev Pre-Filtering (Currents Team, Sept. 20, 2026)"
@@ -34,7 +34,7 @@ Currents News API sells news search to AI agents. Say one agent follows a single
 
 Some are real reporting. Others are press releases, copies of the same wire story, or lists that name the stock in passing.
 
-An LLM reads every one of them before it writes the morning briefing. It pays for every word it reads, on topic or not.
+An LLM reads every one of them before it writes the morning briefing. Whoever runs it pays for every word it reads, on topic or not.
 
 ## The trap
 
@@ -50,7 +50,7 @@ The decision model asks of each article: is this really about the company? Only 
 
 ## The story
 
-**Who.** Currents News API sells a news search service. AI agents use it to find articles and write briefings. On Sept. 20, its team published a test of this setup on its own service.
+**Who.** On Sept. 20, the Currents team published a test of this setup on its own service.
 
 **Before.** A search returns every article that mentions the topic. Currents says its search is built to find everything that matches. So the LLM read the whole pile, every time the agent ran.
 
@@ -66,15 +66,15 @@ Four AI models then judged the pairs. They did not know which briefing was which
 
 ## The result
 
-**Less to read.** Jev dropped about one article in five. That cut the text the LLMs read by about a sixth.
+**Less to read.** Jev dropped about one article in five. That cut the text the LLMs read by at least 16%.
 
-**Quality held, mostly.** In five of the six comparisons, the quality scores were too close to call. In the sixth, the screened briefing scored lower.
+**Quality held, mostly.** In five of the six comparisons, the quality scores were too close to call. In the sixth, the screened briefing scored clearly lower.
 
 **The twist.** The decision model costs money too. With Claude Sonnet, a pricey LLM in the test, screening cost about 20 cents for every dollar it saved.
 
 Currents then priced a cheap LLM it did not test, GPT-5 Mini. There, screening would cost nearly $3 for every dollar it saved.
 
-Currents drew a plain lesson. Screening pays in front of an expensive LLM. In front of a cheap one, it may not be worth doing.
+Currents drew a plain lesson. A decision model pays in front of an expensive LLM. In front of a cheap one, it may not be worth doing.
 
 ## Why the savings were modest
 
@@ -94,24 +94,26 @@ Here, the text was a headline and summary. The question was whether the article 
 
 **How Currents set it up.** In Currents’ published example code, the question told Jev what to drop: watchlists, news about other companies, and law-firm ads seeking shareholders. Your code compares each percentage with the bar. Only the articles that clear it go on to the LLM.
 
-**How it is trained.** TypeSafe says it trains Jev so that its percentages track how often it is right. It says Jev is not trained on customer data. It has not published what data it does use.
+**How it is trained.** TypeSafe says it trains Jev so that its percentages are honest. When it says 70%, it should be right about seven times in ten.
+
+It says Jev is not trained on customer data. It has not published what data it does use.
 
 ## What it means for you
 
-**Money.** Coupling pays when two things are true. The LLM is expensive, and much of what it reads is noise. Check both before you build anything. By my math, the saving is small in dollars unless you run at large volume.
+**Money.** Coupling pays when two things are true. The LLM is expensive, and much of what it reads is noise. Check both before you build anything. The cheaper the LLM, the less the decision model saves.
 
 **Risk.** With an LLM alone, every article goes in, junk included, and nothing tells you which ones mattered. That is an unknown risk. With a decision model, every article gets a number. You set the bar, and you can see what was dropped.
 
-**Customers.** Readers of the briefings should not notice the screening. In most of Currents’ tests, the blind judges couldn’t reliably tell.
+**Customers.** Readers of the briefings should not notice the screening. In five of Currents’ six comparisons, the blind judges’ scores were too close to call.
 
-**Revenue.** This test shows no revenue gain. The case is margin: the same briefing for less, when the LLM is expensive.
+**Revenue.** This test shows no revenue gain. The gain is profit margin: the same briefing for less money, when the LLM is expensive.
 
 **The bar.** A higher bar saves more and risks dropping something that mattered. Test quality at the bar you plan to use. Currents advises a lower bar when missing an article is costly.
 
 ### The same pattern in other industries
 
 - **Security cameras.** An AWS architect put a decision model in front of an LLM that describes camera frames. With no loss in accuracy, it removed only 7% of the LLM’s work. Removing more meant missing real events, such as a blocked fire exit.
-- **Security software.** Harness tested a decision model on real customer traffic. Every mistake fell among the few cases where it said it was unsure. [How Harness did it](/blog/harness-ai-api-inventory-decision-model/).
+- **Security software.** Harness tested a decision model on real customer traffic. Every mistake it made came on the few cases where it said it was unsure. [How Harness did it](/blog/harness-ai-api-inventory-decision-model/).
 - **Hiring.** Jack & Jill had a decision model score every candidate. An LLM read only the shortlist. Its screening costs fell 88%. [How Jack & Jill did it](/blog/jack-and-jill-coupled-llm-decision-model/).
 
 ### The hard questions
@@ -166,7 +168,7 @@ Public material from others:
 - **Who published the numbers.** Every Currents figure comes from its post by the “Currents Team”, dated Sept. 20, 2026. I have measured none of it. Currents sells news search, so the test also promotes its service. It sells no decision model.
 - **The test.** Two topic pools of 1,000 live articles each, pulled from Currents at test time, split into batches of 200. Each batch was briefed twice by each of three LLMs: Claude Sonnet 4.6, Gemini 3.8 Flash and GLM 5.3 Flash. That made 60 briefings.
 - **The judges.** Four AI judge models, none of them the author of a briefing it scored, Currents says, scored 30 pairs on coverage, faithfulness, unsupported claims and usefulness. They gave 82 verdicts. The Claude judge finished 12 of its 20 assignments before hitting a usage quota.
-- **Quality.** Five of six model-and-topic cells were within the margin of error. GLM 5.3 Flash on the Greenland topic scored 1.2 points lower when screened, outside the margin of error. Claude Sonnet 4.6 on AST SpaceMobile scored 3.0 points lower, just inside it. Currents does not give the scale. In three of six cells, judges slightly preferred the screened briefing.
+- **Quality.** Five of six model-and-topic cells were within the margin of error. GLM 5.3 Flash on the Greenland topic scored 1.2 points lower when screened, and its range of likely values stayed below zero. Claude Sonnet 4.6 on AST SpaceMobile scored 3.0 points lower, but its wider range crossed zero. Each cell has its own range. Currents does not give the scale. In three of six cells, judges slightly preferred the screened briefing.
 - **Less to read.** Text sent to the LLMs fell 18.0% on Greenland and 16.3% on AST SpaceMobile at the 70% bar. Jev kept about 82% of articles. At an 85% bar it dropped 30% to 35% of articles. At 95%, about half.
 - **Cost.** By Currents’ figures, screening cost about 22% of what it saved with Claude Sonnet 4.6. GPT-5 Mini was not in the test: Currents applied its list price to the average text removed, and screening came to about 2.75 times the saving. Currents also notes that one screening can feed several LLMs, and that its numbers assume no saved screening answers. Currents priced the LLMs at list input rates. It did not report total briefing costs, so I give no percentage cut in the total bill.
 - **The opening example.** The agent that follows one stock is my illustration. Currents’ test pulled news on AST SpaceMobile and on Greenland.
