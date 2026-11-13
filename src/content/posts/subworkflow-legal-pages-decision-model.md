@@ -95,7 +95,7 @@ The test went well. Subworkflow still won’t send its customers’ documents to
 
 Ragextract’s users upload contracts, invoices, medical letters and case files. TypeSafe’s contract says it won’t train on customer data without consent.
 
-But it also lets TypeSafe use what it calls telemetry. That includes what it learns from how customers use the service. TypeSafe may use it “without restriction, including to improve the Services or TypeSafe’s other products and services.” Telemetry includes “learnings related to Customer’s use of the Services.”
+But it also lets TypeSafe use what it calls telemetry. That includes what it learns from how customers use the service. TypeSafe may use it “without restriction, including to improve the Services or TypeSafe’s other products and services.”
 
 The contract also lets TypeSafe use customer data, in perpetuity, to produce that telemetry.
 
