@@ -12,10 +12,10 @@ stats:
   - value: "19 of 20"
     label: "questions with the right page ranked first; search managed 12"
   - value: "8 of 10"
-    label: "missing answers marked “not found” before the LLM was asked"
+    label: "no-answer questions marked “not found” before the LLM was asked"
   - value: "0 of 20"
     label: "real answers wrongly marked “not found”"
-  - value: "A third of a second"
+  - value: "Under half a second"
     label: "typical time for the decision model to judge a page"
 statsNote: "All four come from one test Subworkflow ran on a made-up 300-page legal file and published Oct. 18, 2026. Nothing has shipped. The fine print says more."
 sources:
@@ -37,8 +37,6 @@ Picture a paralegal with a 300-page file from a business dispute. It holds email
 
 The paralegal asks the software for the total on invoice AEC-2025-101234. There is no such invoice.
 
-What the software says next decides whether anyone can trust it.
-
 ## The trap
 
 Most AI tools that answer from documents work the same way. A search finds the pages that look most like the question. An LLM, the kind of AI behind ChatGPT, reads those pages and writes the answer.
@@ -57,11 +55,11 @@ A decision model is an AI that answers a fixed yes-or-no question and gives a pe
 
 Typical columns: What is the total on this invoice? Who signed the agreement? When can it be terminated?
 
-**The insight.** Subworkflow’s team noticed that the questions are written before any document arrives. So why search at all? Why not have a decision model read each page and judge whether it answers each question?
+**The insight.** Subworkflow’s team noticed that the questions are written before any document arrives. So a decision model could judge whether each page answers each question.
 
 **Before.** Ragextract turns every page into a kind of digital fingerprint. Each question pulls back the six pages whose fingerprints look most like it. The LLM reads those six and writes the answer.
 
-**The change.** Subworkflow tested a decision model, Jev from a company called TypeSafe, as a judge. The search still picks a shortlist of pages. Jev then gives each page a percentage: how likely it is to answer the question.
+**The change.** Subworkflow tested a decision model, Jev from a company called TypeSafe, as a judge. The search still picks a shortlist of 15 pages. Jev then gives each page a percentage: how likely it is to answer the question.
 
 The LLM reads the six pages Jev rates highest and writes the answer, as before.
 
@@ -81,11 +79,11 @@ People who did not know which method had found each page graded the results.
 
 The search’s worst miss shows why. The file held 20 invoices with the same layout. To the search, they all looked alike, so it ranked the right invoice 12th.
 
-The LLM reads only six pages, so it never saw it. Jev read the invoice number and ranked the page first.
+The LLM reads only six pages, so it never saw that invoice. Jev read the invoice number and ranked the page first.
 
-**“Not found” you can trust.** The decision model caught 8 of the 10 missing answers. It wrongly marked none of the real answers “not found.” The search, using its own scores, caught only 3 of the 10.
+**“Not found” you can trust.** The decision model caught 8 of the 10 missing answers. It wrongly marked none of the real answers “not found.” Search, at the best cut-off on its own match scores, caught only 3 of the 10.
 
-To the search, the made-up invoice looked like a better match than most of the real answers.
+The made-up invoice number got a higher match score from search than most of the real answers did.
 
 **Where it slipped.** Two traps fooled the decision model. One asked when a “Metering Services Agreement” could end. No such agreement exists, but a similar one had an ending clause.
 
@@ -95,7 +93,9 @@ The other asked what settlement the two sides had agreed. None was ever reached,
 
 The test went well. Subworkflow still won’t send its customers’ documents to Jev.
 
-Ragextract’s users upload contracts, invoices, medical letters and case files. TypeSafe’s contract says it won’t train on customer data without consent. But it also lets TypeSafe use what it calls telemetry “without restriction, including to improve the Services or TypeSafe’s other products and services.” Telemetry includes “learnings related to Customer’s use of the Services.”
+Ragextract’s users upload contracts, invoices, medical letters and case files. TypeSafe’s contract says it won’t train on customer data without consent.
+
+But it also lets TypeSafe use what it calls telemetry. That includes what it learns from how customers use the service. TypeSafe may use it “without restriction, including to improve the Services or TypeSafe’s other products and services.” Telemetry includes “learnings related to Customer’s use of the Services.”
 
 The contract also lets TypeSafe use customer data, in perpetuity, to produce that telemetry.
 
@@ -107,11 +107,11 @@ If you know your questions before the documents arrive, let a decision model jud
 
 If the questions arrive live, as in a chatbot, you still need search. Subworkflow plans to keep both: search makes the shortlist, and the decision model decides.
 
-For the paralegal, that means a blank cell, not a made-up total.
+For the paralegal, that means a blank cell, and no chance for the LLM to guess.
 
 ## How it works
 
-**What a decision model does.** You send it a page image and one or more questions. It returns a percentage for each, typically in about a third of a second here.
+**What a decision model does.** You send it a page image and one or more questions. It returns a percentage for each, typically in under half a second here.
 
 One request can carry every column at once. A column added later needs only its own shortlist judged.
 
@@ -125,7 +125,7 @@ It says Jev is not trained on customer requests, and it has not published its tr
 
 **Risk.** An LLM alone can invent an answer for a document that has none. In legal, medical or financial work, a wrong answer can be costly. A decision model puts a number on every shortlisted page, so “not found” becomes a real answer.
 
-**Money.** The judging adds to the bill. It does not replace the search. On this file, judging the shortlist added about 12% to what preparing the file for search cost.
+**Money.** The judging adds to the bill. It does not replace the search. On this file, judging the shortlist added about 12% on top of what it cost to prepare the file for search.
 
 The LLM’s cost did not change. As volume grows the sums shift, because judging grows with every page and every question.
 
@@ -147,7 +147,7 @@ The LLM’s cost did not change. As volume grows the sums shift, because judging
 
 **Did it ship?** No. Subworkflow calls it an experiment, and its customers’ files are not sent to a decision model today.
 
-**What fools it?** A question about something very like what is in the file. Keep the LLM reading the pages, so it can still decline.
+**What fools the decision model?** A question about something very like what is in the file. Keep the LLM reading the pages, so it can still decline.
 
 **Who should own it?** The team that owns the document product should own the questions, the bar and the vendor’s terms.
 
@@ -191,8 +191,8 @@ Public material from others:
 - **The setup.** Search used Voyage’s voyage-multimodal-3.5 page embeddings, what Ragextract runs today. The judge was TypeSafe’s jev-1.14 through OpenRouter. The numbers in the story are for “JAG rerank”: search shortlists 15 pages and Jev judges them. Judging all 300 pages with no search did about as well, but caught 7 of the 10 missing answers, not 8.
 - **Results.** Answer page first: 19 of 20 for Jev, 12 of 20 for search. At least one answer page in the top six: 20 of 20 against 19 of 20. Absent questions caught at a 0.3 bar: 8 of 10 with all 20 answerable kept, against 3 of 10 for search at its best cut-off, which also kept all 20 answerable. The made-up invoice number scored 0.589 on search, higher than 16 of the 20 real answers.
 - **The two misses.** The judge scored 0.97 and 0.96 on the two near-miss traps.
-- **Cost and speed.** Judging the shortlisted pages (160, as Subworkflow counts them) cost $0.023, against $0.196 to embed the file. Judging all 300 pages cost $0.080. A page image costs about the same to judge however many questions ride along, so per-page rates differ with the number of questions. The median judgment took about 0.37 seconds. These are page-finding costs only. The LLM that writes answers is the same in every setup.
-- **Contract terms.** From TypeSafe’s Master Customer Agreement, last updated Sept. 23, 2026, section 4.3: “TypeSafe may Process Telemetry without restriction, including to improve the Services or TypeSafe’s other products and services.” Subworkflow notes that zero data retention is offered to enterprise customers through TypeSafe’s sales team.
+- **Cost and speed.** Judging the 160 shortlisted pages, as Subworkflow counts them, cost $0.023, against $0.196 to embed the file. Judging all 300 pages cost $0.080. Each extra question adds little to a page’s cost: about 107 tokens on top of about 3,130 for the page image. The median judgment took about 0.37 seconds. These are page-finding costs only. The LLM that writes answers is the same in every setup.
+- **Contract terms.** From TypeSafe’s Master Customer Agreement, last updated Sept. 23, 2026, section 4.3: “TypeSafe may Process Telemetry without restriction, including to improve the Services or TypeSafe’s other products and services.” Section 4.1 also grants TypeSafe a license to use, “in perpetuity, any Customer Data (i) to derive and generate Telemetry.” Subworkflow notes that zero data retention is offered to enterprise customers through TypeSafe’s sales team.
 - **The opening example.** The paralegal is my illustration. The invoice number is one of Subworkflow’s traps.
 - **Parcha Labs.** From founder Miguel Rios Berrios’s Oct. 30, 2026, post. The 20 test documents were invented, and the thresholds were tuned on those same 20. The four unseen pages are the fairer test.
 - **Harness and Jack & Jill.** Those details come from each company’s own report.
