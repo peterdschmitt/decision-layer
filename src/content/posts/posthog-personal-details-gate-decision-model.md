@@ -1,5 +1,5 @@
 ---
-title: "How PostHog keeps 98.7% of its personal-data checks away from the LLM with a decision model"
+title: "How PostHog keeps 98.7% of its recording summaries away from the LLM with a decision model"
 dek: "Stop using LLMs alone. A decision model screens every PostHog recording summary for personal details. Only the flagged few go to an LLM to be rewritten."
 kind: How-to
 readMinutes: 9
@@ -14,7 +14,7 @@ stats:
   - value: "About a tenth"
     label: "as many false alarms with two narrow questions, not one"
   - value: "40%"
-    label: "the flagging score, set low because misses cost most"
+    label: "the score that sends a summary to the LLM"
 statsNote: "All three come from PostHog’s own newsletter of Nov. 9, 2026. Only the 98.7% is reported as a result from live use. The fine print says more."
 sources:
   - title: "PostHog: Not everything needs an LLM (Jina Yoon, Nov. 9, 2026)"
@@ -47,7 +47,7 @@ Gemini is Google’s LLM. The other choice was hand-written rules, which she say
 
 However, when coupled with a decision model, the LLM sees only the summaries that need it.
 
-A decision model is an AI that answers a fixed yes-or-no question and gives a percentage. It writes no words, so it costs far less to run than an LLM, its makers say.
+A decision model is an AI that answers a fixed yes-or-no question and gives a percentage. It writes no words. TypeSafe, which makes one, says that makes it far cheaper to run than an LLM.
 
 | | An LLM alone | Coupled with a decision model |
 | --- | --- | --- |
@@ -61,13 +61,13 @@ A decision model is an AI that answers a fixed yes-or-no question and gives a pe
 
 Each answer comes back as a percentage. PostHog set a bar: the score at which a summary counts as flagged.
 
-The bar is 40%. If either question scores that high, Gemini rewrites the summary without the personal details. Then the rewritten summary is checked again.
+The bar is 40%. If either answer scores 40% or more, Gemini rewrites the summary without the personal details. Then the rewritten summary is checked again.
 
 If both scores stay under the bar, the summary is saved as it is. Gemini never sees it.
 
 **The result.** In production, 98.7% of summaries skip the LLM entirely, PostHog says. Gemini rewrites only the few the decision model flags.
 
-I take four lessons from PostHog’s write-up. Each one applies well beyond recordings.
+I take four lessons from PostHog’s write-up. Each one fits any company that pays an LLM to read everything.
 
 ## Lesson 1: Set the bar by the mistake that costs more
 
@@ -75,11 +75,11 @@ A decision model is sometimes wrong, so PostHog chose which mistake it would rat
 
 A false alarm sends a clean summary to Gemini. That costs one extra LLM call. A miss saves personal data as if it were clean.
 
-The miss is far worse. So PostHog set the bar low, at 40%. A summary goes to the rewrite even when personal data looks less likely than not.
+The miss is far worse. So PostHog set the bar low, at 40%. A summary that scores 40% is probably clean. It still goes to the rewrite.
 
 PostHog’s Slack bot shows the other side. It can now answer questions in a channel without being asked by name. There, the costly mistake is butting in when no one wanted it.
 
-So the bot asks two questions about each message. Is someone asking for information? Could PostHog answer it? It replies only when both score 85% or more.
+So a decision model asks two questions about each message. Is someone asking for information? Could PostHog answer it? It replies only when both score 85% or more.
 
 ## Lesson 2: Ask narrow questions
 
@@ -113,7 +113,7 @@ PostHog is candid about what didn’t work.
 
 **New versions.** PostHog tested a decision model on merging similar error reports. When the model got a new version, the old bars stopped working.
 
-PostHog made the bars adjustable for each customer project. The check kept running, but PostHog ignored its answers while it reset the bars from examples people had checked by hand.
+PostHog made the bars adjustable for each customer. Then it reset them using examples people had checked by hand. The check kept running during that time, but PostHog ignored its answers.
 
 For harder calls, PostHog points to Jeeves, a decision model its own AI research team built. It answers right away when it is sure and stops to reason when it is not. It is now PostHog’s default when a request names no model.
 
@@ -149,8 +149,8 @@ PostHog’s own example: “Are hedgehogs mammals?” comes back “Yes, 0.99.�
 
 - **Insurance claims.** Altis AI builds an AI that helps repair shops with insurance claims. A decision model decides which technical documents are worth sending to its expensive LLM.
 
-  Altis set the bar to keep the documents behind more than 90% of suggestions it had already reviewed. Its CEO says that cut the cost of the LLM step by 30%.
-- **Education.** Emuyn, a small Japanese app maker, had a decision model check 1,727 word groupings in its dictionary. Claude, an LLM, then looked at only the few that scored low and fixed the mistakes it found.
+  Altis tested the bar on past cases it had reviewed. The LLM still saw the documents behind more than 90% of those suggestions. Its CEO says that cut the cost of the LLM step by 30%.
+- **Education.** Emuyn, a small Japanese app maker, had a decision model check 1,727 word groupings in its dictionary. Claude, an LLM, then looked only at the groupings the decision model doubted, and fixed the mistakes it found.
 - **Hiring.** Jack & Jill had a decision model score every candidate. An LLM read only the shortlist. Its screening costs fell 88%. [How Jack & Jill did it](/blog/jack-and-jill-coupled-llm-decision-model/).
 
 ### The hard questions
@@ -212,8 +212,8 @@ Public material from others:
 - **Narrow questions.** “Using narrow questions like this cuts false flags to about a tenth of what a single question produced.” PostHog does not give the underlying counts or publish the single question it replaced. The broad question in Lesson 2 is my illustration.
 - **Search.** “On 20 test queries, this improved ranking quality by about 25%.” PostHog does not name the measure.
 - **The failures.** The chained job “sent large requests – up to 32 sessions and 12-38k tokens each – which flooded the model server and blocked other products’ calls for hours.” The code-review test used five yes-or-no questions and scored an AUC of 0.52, where 0.5 is chance. The bars that changed between versions came from a test on merging similar error logs. PostHog says it kept that check “in shadow mode while recalibrating based on hand-labeled data.”
-- **Which decision model.** PostHog names TypeSafe’s Jev for its chart picker and the code-review test. It does not say which model runs the personal-details check or the Slack bot. Jeeves is “our default for any decision call at PostHog that doesn’t name a model.”
-- **Jeeves.** From its GitHub README: a 9-billion-parameter model built on Qwen3.5-9B, MIT license, “trained on public data.” It answers directly at 0.9 confidence or more and reasons otherwise. On test data it was not trained on, it scored 0.905. The 0.857 it lists for Jev is a figure published by Kev’s makers, on different items from the same sources.
+- **Which decision model.** PostHog names TypeSafe’s Jev for a tool that picks chart types and for the code-review test. It does not say which model runs the personal-details check or the Slack bot. Jeeves is “our default for any decision call at PostHog that doesn’t name a model.”
+- **Jeeves.** From its GitHub README: a 9-billion-parameter model built on Qwen3.5-9B, MIT license, “trained on public data.” It answers directly at 0.9 confidence or more and reasons otherwise. On test data it was not trained on, it scored 0.905. The 0.857 it lists for Jev comes from the makers of Kev, another open decision model, on different items from the same sources.
 - **TypeSafe’s claim.** PostHog cites TypeSafe that decision models are “up to 444.6x cheaper and 193.6x faster than frontier models.” That is a vendor claim, and I have not checked it.
 - **Altis AI.** From co-founder and CEO Nayan Kote’s HackerNoon post, Oct. 6, 2026. The 30% is in the post’s title only. The body gives no cost table or volumes. On failures, Altis writes that they “fail open.” The “more than 90%” is how much reviewed source material was kept, not final accuracy. The post does not say whether the filter is fully live.
 - **Emuyn.** From the company’s Qiita post, Nov. 14, 2026, in Japanese. A one-off cleanup, not a live service. Its LLM looked at 60 of the 1,727 groupings, about 3.5%, and fixed 42 errors. Jev cost about $0.06 for the 1,727 checks, by the company’s estimate. In a 150-pair test with known answers, Jev scored an AUC of 0.973.
