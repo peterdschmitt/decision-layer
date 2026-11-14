@@ -234,6 +234,20 @@ Most hosts could not be opened by the research tools this run (network policy); 
 - **OrbitronAI "System 1 Models" (banking, government, Gulf).** Locally hosted launch, waitlist, no customer or numbers. Nov 12.
 - **Inception Mercury API shutting down Dec 28, 2026** (Inception email as posted on HN 50470335). Drop Mercury Decide from the product list after that date.
 
+## Research 2026-11-14 (daily run; every source opened with curl)
+
+- **PostHog (developer tools, product analytics): USED Nov 14.** Production: two narrow yes/no decision-model questions screen each Replay Vision recording summary for personal details; at 0.4 or above Gemini rewrites it and it is checked again; "In production, 98.7% skip the LLM call entirely." Also a Slack-bot answer filter (0.85 on two questions), a choice-question model router, a rerank after embeddings (about 25% better on 20 queries), a Jev chart picker; failures: PR-review ranking AUC 0.52, a chained job that flooded the model server, bars that moved between model versions. Own model Jeeves (9B, MIT, reasons when unsure) is the default. Company report, Jina Yoon, Nov 9, 2026 (HN Nov 14). https://posthog.com/newsletter/decision-models
+- **Altis AI (P&C insurance claims for repair shops).** Jev decides which technical documents reach the frontier-model reasoner; bar keeps sources behind more than 90% of previously reviewed suggestions; fails open; 30% reasoner-cost cut in the title only. Company report (CEO Nayan Kote), Oct 6, 2026. Runner-up Nov 14. https://hackernoon.com/using-jev-to-reduce-our-reasoner-cost-by-30percent
+- **Parcha Labs / AgentRun (KYB) deep dive.** Demo code recovered from tag v0.1.0-beta.33 (removed from main Nov 11): exact questions, thresholds, answer key. All 4 "unseen" pages were valid, so 4 of 4 never tests catching a defect; no agent baseline for documents. Runner-up again.
+- **Emuyn LLC (education apps, Japan).** Jev scores 1,727 dictionary groupings; Claude Code reviews only 60 (about 3.5%) and fixes 42 errors; Jev about $0.06; 150-pair pilot AUC 0.973. Company report, Qiita, Nov 14. https://qiita.com/emuyn/items/50bbed74e49e49198587
+- **Takatama (public-sector FAQ search, test).** Gemini Decision 1 replaces Gemini Flash as reranker on 587 municipal-FAQ questions: median 2.43 s to 0.38 s, cost $1.447 to $0.177, top-1 84.7% to 82.8%. Single developer's test, Qiita, Nov 14.
+- **Google Developers Blog router (Nov 3) deep dive.** Jev router 50/50 for $0.02287 at 1.90 s vs best no-router setup 50/50 for $0.02632 at 3.55 s (about 13% cheaper, 46% faster, our arithmetic); the post's own advice: start with Flash on low thinking (52% cut, no router).
+- **Perplexity Decider follow-up (FourWeekMBA, Nov 13).** Flagged log records go to an agent that proposes rule fixes; a security engineer approves each. Primary post still blocked.
+- **Cmpnd / Drew Breunig (Nov 13).** An LLM edits a decision model's weights; +6.5 to 20.0 accuracy points with threshold refitting. Benchmark only.
+- **Amplitude (late Sept).** Jev as first-pass chart-anomaly screen, escalating to an LLM or analyst; synthetic.
+- **Deep Noodle decide CLI (Show HN Nov 13).** Decision model scores every function; Claude reads the top 15.
+- **Nace.AI (Business Wire, Nov 13).** Drex Max tops a decision index; vendor claim, no named customer.
+
 ## Checked and left out
 
 - Perplexity "Decider powers Pro Search": found only in secondary blogs; Perplexity's model card and docs don't say it.
