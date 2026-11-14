@@ -7,7 +7,7 @@ author: Peter Schmitt
 audience: For executives whose AI writes or stores text that could hold customers’ personal details
 published: 2026-11-14
 lastChecked: 2026-11-14
-modelVersion: not named by PostHog
+modelVersion: PostHog’s newsletter (model not named)
 stats:
   - value: "98.7%"
     label: "of summaries skip the LLM, in production"
