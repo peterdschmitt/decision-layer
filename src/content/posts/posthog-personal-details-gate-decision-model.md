@@ -1,6 +1,6 @@
 ---
-title: "How PostHog’s decision model lets 98.7% of session summaries skip the LLM"
-dek: "Stop using LLMs alone. PostHog has a decision model check each recording summary for personal details. Only the flagged ones go to an LLM to be rewritten. Here is what it learned."
+title: "How PostHog keeps 98.7% of its personal-data checks away from the LLM with a decision model"
+dek: "Stop using LLMs alone. A decision model screens every PostHog recording summary for personal details. Only the flagged few go to an LLM to be rewritten."
 kind: How-to
 readMinutes: 9
 author: Peter Schmitt
@@ -12,12 +12,10 @@ stats:
   - value: "98.7%"
     label: "of summaries skip the LLM, in production"
   - value: "About a tenth"
-    label: "the false alarms, with two narrow questions instead of one"
+    label: "as many false alarms with two narrow questions, not one"
   - value: "40%"
-    label: "the low bar, because missing personal details costs most"
-  - value: "About 25%"
-    label: "better search results once the decision model re-sorts them"
-statsNote: "All four come from PostHog’s own newsletter of Nov. 9, 2026, about its production use. PostHog gave no volumes or costs. The fine print says more."
+    label: "the flagging score, set low because misses cost most"
+statsNote: "All three come from PostHog’s own newsletter of Nov. 9, 2026. Only the 98.7% is reported as a result from live use. The fine print says more."
 sources:
   - title: "PostHog: Not everything needs an LLM (Jina Yoon, Nov. 9, 2026)"
     url: https://posthog.com/newsletter/decision-models
@@ -37,33 +35,39 @@ PostHog makes tools that show software teams how people use their apps. One of t
 
 A summary can pick up things it should never keep. A user types a colleague’s name into an invite form. Another enters an email address at checkout.
 
-PostHog has to scrub those details before the summary is saved. Almost every summary is clean. The hard part is finding the few that aren’t.
+PostHog has to scrub those details before the summary is saved. Almost every summary is clean. The hard part is finding the few that aren’t. Any company whose AI stores what customers type has the same problem.
 
 ## The trap
 
 An LLM is the kind of AI behind ChatGPT. It is good at rewriting a summary so a name or an email address disappears.
 
-Used alone, it has to read every summary to find the few that need it. PostHog’s Jina Yoon put the choice plainly. Without another tool, they would be “sending every summary to Gemini to catch the 1% that need it.”
+Used alone, it has to read every summary to find the few that need it. PostHog’s Jina Yoon put the choice plainly. Without the decision model, they would be “sending every summary to Gemini to catch the 1% that need it.”
 
 Gemini is Google’s LLM. The other choice was hand-written rules, which she says “miss things.” Either way, nothing tells you how likely a summary is to hold personal details. That is an unknown risk on every one.
 
 However, when coupled with a decision model, the LLM sees only the summaries that need it.
 
-A decision model is an AI that answers a fixed yes-or-no question and gives a percentage. It writes no words, so it is fast and cheap.
+A decision model is an AI that answers a fixed yes-or-no question and gives a percentage. It writes no words, so it costs far less to run than an LLM, its makers say.
+
+| | An LLM alone | Coupled with a decision model |
+| --- | --- | --- |
+| Who reads every summary | Gemini | The decision model |
+| What Gemini does | Reads every one, rewrites a few | Rewrites only the flagged few |
+| What you know about the risk | Nothing, summary by summary | A score on every summary, and a bar you set |
 
 ## The story
 
-**The gate.** Each summary now gets two questions from a decision model. “Does this name a real person?” “Does this show contact details or an ID?”
+**The check.** Each summary now gets two questions from a decision model. “Does this name a real person?” “Does this show contact details or an ID?”
 
 Each answer comes back as a percentage. PostHog set a bar: the score at which a summary counts as flagged.
 
-The bar is 40%. If either question scores that high, Gemini rewrites the summary without the personal details. Then the decision model checks it again.
+The bar is 40%. If either question scores that high, Gemini rewrites the summary without the personal details. Then the rewritten summary is checked again.
 
 If both scores stay under the bar, the summary is saved as it is. Gemini never sees it.
 
 **The result.** In production, 98.7% of summaries skip the LLM entirely, PostHog says. Gemini rewrites only the few the decision model flags.
 
-PostHog has written up four lessons from running decision models like this. I think each one applies well beyond session recordings.
+I take four lessons from PostHog’s write-up. Each one applies well beyond recordings.
 
 ## Lesson 1: Set the bar by the mistake that costs more
 
@@ -71,7 +75,7 @@ A decision model is sometimes wrong, so PostHog chose which mistake it would rat
 
 A false alarm sends a clean summary to Gemini. That costs one extra LLM call. A miss saves personal data as if it were clean.
 
-The miss is far worse. So PostHog set the bar low, at 40%. Anything that looks even slightly like personal data goes to the rewrite.
+The miss is far worse. So PostHog set the bar low, at 40%. A summary goes to the rewrite even when personal data looks less likely than not.
 
 PostHog’s Slack bot shows the other side. It can now answer questions in a channel without being asked by name. There, the costly mistake is butting in when no one wanted it.
 
@@ -79,13 +83,13 @@ So the bot asks two questions about each message. Is someone asking for informat
 
 ## Lesson 2: Ask narrow questions
 
-PostHog asks two narrow questions about personal details, not one broad one.
+PostHog asks two narrow questions about personal details, not one broad one. A broad question, such as “Is there anything private here?”, leaves the decision model to guess what private means. Each narrow question looks for one thing.
 
 The narrow pair cuts false alarms to about a tenth of what a single question produced, PostHog says. Fewer clean summaries go to Gemini for nothing.
 
 ## Lesson 3: Let the decision model pick the cheapest LLM that will do the job
 
-The same Slack bot uses a decision model to choose which LLM handles each request. It asks one multiple-choice question.
+The same Slack bot uses a decision model to choose which LLM handles each request. Here the decision model picks from a list instead of answering yes or no.
 
 The question reads: “Pick the cheapest option that will most likely finish the task correctly on the first try. A failed run costs more than a smarter option.”
 
@@ -93,9 +97,9 @@ Each option carries a short note on what that LLM is good for. One cheap model i
 
 ## Lesson 4: Let search find, and let the decision model judge
 
-The same tool lets people search recordings by theme, such as “onboarding friction.” The search sometimes brings back odd results.
+PostHog’s recording tool also lets people search recordings by theme, such as “onboarding friction.” The search sometimes brings back odd results.
 
-So PostHog lets the search pull a first list. Then the decision model asks of each result whether it matches what the person searched for. The list is re-sorted by that score.
+A decision model can’t rank a whole list at once, PostHog says. So the search pulls a first list. Then the decision model scores how well each result matches the search, one at a time. The list is re-sorted by that score.
 
 PostHog tried it on 20 test searches. Ranking quality improved by about 25%, it says.
 
@@ -107,9 +111,11 @@ PostHog is candid about what didn’t work.
 
 **Open-ended judgment.** It asked a decision model which findings from its code-review AI deserved a developer’s attention. The answers were no better than chance.
 
-**New versions.** In a test on merging similar error reports, the bars that worked on one version of a decision model shifted on the next. PostHog now sets the bars separately for each customer project. It kept the check running without acting on it until the bars were set again from hand-checked examples.
+**New versions.** PostHog tested a decision model on merging similar error reports. When the model got a new version, the old bars stopped working.
 
-PostHog then built its own decision model, Jeeves. It answers right away when it is sure and stops to reason when it is not. It is now PostHog’s default.
+PostHog made the bars adjustable for each customer project. The check kept running, but PostHog ignored its answers while it reset the bars from examples people had checked by hand.
+
+For harder calls, PostHog points to Jeeves, a decision model its own AI research team built. It answers right away when it is sure and stops to reason when it is not. It is now PostHog’s default when a request names no model.
 
 ## My verdict
 
@@ -123,47 +129,51 @@ Screening for personal details is that kind of job. The LLM still does the writi
 
 PostHog’s own example: “Are hedgehogs mammals?” comes back “Yes, 0.99.”
 
-**What the percentage means.** A well-trained decision model is right about as often as it says. Answers that score 80% should be right about eight times in ten, PostHog says. An answer at 50% is a coin flip.
+**What the percentage means.** A decision model trained to be honest about its odds is right about as often as it says. Answers that score 80% should be right about that often, PostHog says. An answer at 50% is a coin flip.
 
 **How it is trained.** PostHog does not say which decision model runs the personal-details check. Jeeves, its default, was trained on public data. PostHog has published its weights, training code and test data.
 
 ## What it means for you
 
-**Risk.** With an LLM alone, every summary goes through and nothing tells you which ones held personal data. With a decision model, every summary gets a number. You choose the bar, and you know which way your mistakes will lean.
+**Risk.** With an LLM alone, nothing tells you how likely each summary was to hold personal data. With a decision model, every summary gets a number. You choose the bar, so you choose which mistake you make more often.
 
-**Money.** PostHog published no costs. But the expensive LLM now runs on only the small share of summaries that need it. The decision model is the step that runs on every one.
+**Money.** PostHog published no costs. Next to sending every summary to Gemini, the LLM now sees only 1.3% of them. The decision model runs on all of them, so the net saving turns on its price.
 
-**Customers.** People whose sessions are recorded expect their names and emails not to be kept. A low bar errs on their side.
+**Customers.** The people in these recordings never asked for their names or emails to be stored. A low bar errs on their side. The Slack bot’s high bar protects people too, from an AI that butts into their conversations.
 
-**Revenue.** This post shows no revenue gain. The gain is a privacy check on every summary, without paying the LLM to read every one.
+**Revenue.** PostHog reports no revenue gain, and I won’t claim one. I think the case is indirect. A tool that screens every summary for personal details is easier to sell to buyers who worry about privacy.
 
-**Ownership.** The team that owns the data should own the questions and the bar. Someone should re-check the bar whenever the decision model changes version.
+**Ownership.** The team that owns the stored data should own the questions and the bar. That same team re-sets the bar whenever the decision model changes version.
 
 ### The same pattern in other industries
 
-- **Insurance claims.** Altis AI builds an AI that helps repair shops with insurance claims. A decision model decides which technical documents are worth sending to its expensive LLM. It tuned the bar to keep the material behind more than 90% of suggestions it had already reviewed.
-- **Education.** Emuyn, a small Japanese app maker, had a decision model check 1,727 word groupings in its dictionary. Claude, an LLM, then looked at only the few dozen that scored low and fixed the mistakes it found.
+- **Insurance claims.** Altis AI builds an AI that helps repair shops with insurance claims. A decision model decides which technical documents are worth sending to its expensive LLM.
+
+  Altis set the bar to keep the documents behind more than 90% of suggestions it had already reviewed. Its CEO says that cut the cost of the LLM step by 30%.
+- **Education.** Emuyn, a small Japanese app maker, had a decision model check 1,727 word groupings in its dictionary. Claude, an LLM, then looked at only the few that scored low and fixed the mistakes it found.
 - **Hiring.** Jack & Jill had a decision model score every candidate. An LLM read only the shortlist. Its screening costs fell 88%. [How Jack & Jill did it](/blog/jack-and-jill-coupled-llm-decision-model/).
 
 ### The hard questions
 
-**Is this in production?** Yes, PostHog says the personal-details check runs in production. It gives no volumes, costs or error rates.
+**Is this live?** Yes. PostHog says the personal-details check runs in production.
 
-**How many misses get through?** PostHog doesn’t say. The bar is set low so that misses are rare. The post gives no measured rate.
+**How many misses get through?** PostHog doesn’t say. It set the bar low so that misses would be rare.
 
-**What if the decision model is down?** PostHog doesn’t say. In my own version, a summary counts as flagged and goes to the rewrite.
+**What if the decision model is down?** PostHog doesn’t say. In my code sketch below, the summary counts as flagged and goes to the rewrite. Altis AI does the same when its decision model fails.
 
-**Who should own it?** The team that owns the stored data, with the bar written down and checked at every model change.
+**What happens to a summary that stays flagged?** PostHog doesn’t say. In my sketch, it is held for a person after two rewrites.
 
 ### How to make the change
 
 1. **Find a step where an LLM reads everything** to catch the few items that need it.
 2. **Write two or three narrow yes-or-no questions** that spot those items.
-3. **Label a sample by hand,** so you know which items really need the LLM.
+3. **Mark a sample by hand,** so you know which items really need the LLM.
 4. **Price both mistakes.** What does a false alarm cost, and what does a miss cost?
 5. **Set the bar** where the total cost of mistakes is lowest. A costly miss means a low bar.
-6. **Check the LLM’s work again** with the same questions.
-7. **Re-set the bar** every time the decision model changes version, before the new one acts.
+6. **Ask the same questions of the rewritten text,** and hold anything still flagged for a person.
+7. **Decide what happens when the decision model is down.** Treat every item as flagged.
+8. **Run it without acting on it first,** and compare its answers with your hand-checked sample.
+9. **Re-set the bar** every time the decision model changes version, before the new one acts.
 
 ## For your developer
 
@@ -197,20 +207,20 @@ Public material from others:
 ## The fine print
 
 - **Who published the numbers.** Every PostHog figure comes from “Not everything needs an LLM,” by Jina Yoon, in PostHog’s newsletter, dated Nov. 9, 2026. I have measured none of it. PostHog sells product analytics and developer tools, not decision models.
-- **The 98.7%.** PostHog’s words: “In production, 98.7% skip the LLM call entirely.” It is the share of summaries that never go to Gemini. It is not an accuracy figure, and PostHog gives no miss rate, volume, cost or speed for the check.
+- **The 98.7%.** PostHog’s words: “In production, 98.7% skip the LLM call entirely.” It is the share of summaries that never go to Gemini. It is not an accuracy figure, and PostHog gives no miss rate, volume, cost or speed for the check. The 1.3% in the Money section is my arithmetic from that figure. PostHog’s own “1%” is its rough estimate of how many summaries need the rewrite.
 - **The bars.** 0.4 for the two personal-details questions, and 0.85 on both questions for the Slack bot. PostHog: “a false positive only costs us an extra LLM call, whereas a false negative stores personal data as clean.”
-- **Narrow questions.** “Using narrow questions like this cuts false flags to about a tenth of what a single question produced.” PostHog does not give the underlying counts.
+- **Narrow questions.** “Using narrow questions like this cuts false flags to about a tenth of what a single question produced.” PostHog does not give the underlying counts or publish the single question it replaced. The broad question in Lesson 2 is my illustration.
 - **Search.** “On 20 test queries, this improved ranking quality by about 25%.” PostHog does not name the measure.
 - **The failures.** The chained job “sent large requests – up to 32 sessions and 12-38k tokens each – which flooded the model server and blocked other products’ calls for hours.” The code-review test used five yes-or-no questions and scored an AUC of 0.52, where 0.5 is chance. The bars that changed between versions came from a test on merging similar error logs. PostHog says it kept that check “in shadow mode while recalibrating based on hand-labeled data.”
 - **Which decision model.** PostHog names TypeSafe’s Jev for its chart picker and the code-review test. It does not say which model runs the personal-details check or the Slack bot. Jeeves is “our default for any decision call at PostHog that doesn’t name a model.”
-- **Jeeves.** From its GitHub README: a 9-billion-parameter model built on Qwen3.5-9B, MIT license, “trained on public data.” It answers directly at 0.9 confidence or more and reasons otherwise. On test data it was not trained on, it scored 0.905 against 0.857 for Jev, by PostHog’s own measure.
+- **Jeeves.** From its GitHub README: a 9-billion-parameter model built on Qwen3.5-9B, MIT license, “trained on public data.” It answers directly at 0.9 confidence or more and reasons otherwise. On test data it was not trained on, it scored 0.905. The 0.857 it lists for Jev is a figure published by Kev’s makers, on different items from the same sources.
 - **TypeSafe’s claim.** PostHog cites TypeSafe that decision models are “up to 444.6x cheaper and 193.6x faster than frontier models.” That is a vendor claim, and I have not checked it.
-- **Altis AI.** From co-founder and CEO Nayan Kote’s HackerNoon post, Oct. 6, 2026. The title claims a 30% cut in what its LLM step costs, but the body gives no cost table or volumes. The “more than 90%” is how much reviewed source material was kept, not final accuracy. The post does not say whether the filter is fully live.
-- **Emuyn.** From the company’s Qiita post, Nov. 14, 2026, in Japanese. A one-off cleanup, not a live service. Jev cost about $0.06 for the 1,727 checks, by the company’s estimate. In a 150-pair test with known answers, Jev scored an AUC of 0.973.
-- **Jack & Jill.** Those details come from the company’s own report.
-- **The product.** The tool that summarizes recordings is PostHog’s Replay Vision. Emuyn’s LLM looked at 60 of the 1,727 groupings, about 3.5%, and fixed 42 errors.
+- **Altis AI.** From co-founder and CEO Nayan Kote’s HackerNoon post, Oct. 6, 2026. The 30% is in the post’s title only. The body gives no cost table or volumes. On failures, Altis writes that they “fail open.” The “more than 90%” is how much reviewed source material was kept, not final accuracy. The post does not say whether the filter is fully live.
+- **Emuyn.** From the company’s Qiita post, Nov. 14, 2026, in Japanese. A one-off cleanup, not a live service. Its LLM looked at 60 of the 1,727 groupings, about 3.5%, and fixed 42 errors. Jev cost about $0.06 for the 1,727 checks, by the company’s estimate. In a 150-pair test with known answers, Jev scored an AUC of 0.973.
+- **Jack & Jill.** Those details come from my earlier post, which cites its sources.
+- **The product.** The tool that summarizes recordings is PostHog’s Replay Vision.
 - **The opening examples.** The colleague’s name and the email at checkout are my illustrations of what PostHog’s questions look for.
-- **What we don’t know.** How many summaries PostHog screens, what the check costs, how many misses get through, and what happens when the decision model is down.
+- **What we don’t know.** How many summaries PostHog screens, what the check costs, how many misses get through, what happens when the decision model is down, and where it runs. PostHog also reports no result for the Slack bot’s model picker.
 - **This site** is independent and not affiliated with PostHog, TypeSafe, Google, Altis AI, Emuyn or any company named here.
 
 The full worked example for this post, with tests, comes with a subscription below.
