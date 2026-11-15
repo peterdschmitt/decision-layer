@@ -149,7 +149,7 @@ PostHog’s own example: “Are hedgehogs mammals?” comes back “Yes, 0.99.�
 
 - **Insurance claims.** Altis AI builds an AI that helps repair shops with insurance claims. A decision model decides which technical documents are worth sending to its expensive LLM.
 
-  Altis tested the bar on past cases it had reviewed. The LLM still saw the documents behind more than 90% of those suggestions. Its CEO says that cut the cost of the LLM step by 30%.
+  Altis tested the bar on past cases it had reviewed. The LLM still saw the documents behind more than 90% of those suggestions. The headline of its CEO’s post claims a 30% cut in that step’s cost.
 - **Education.** Emuyn, a small Japanese app maker, had a decision model check 1,727 word groupings in its dictionary. Claude, an LLM, then looked only at the groupings the decision model doubted, and fixed the mistakes it found.
 - **Hiring.** Jack & Jill had a decision model score every candidate. An LLM read only the shortlist. Its screening costs fell 88%. [How Jack & Jill did it](/blog/jack-and-jill-coupled-llm-decision-model/).
 
