@@ -248,6 +248,18 @@ Most hosts could not be opened by the research tools this run (network policy); 
 - **Deep Noodle decide CLI (Show HN Nov 13).** Decision model scores every function; Claude reads the top 15.
 - **Nace.AI (Business Wire, Nov 13).** Drex Max tops a decision index; vendor claim, no named customer.
 
+## Research 2026-11-15 (daily run; every source opened with curl)
+
+- **Rakuten Ichiba (retail marketplace search): USED Nov 15.** Search retrieves up to 50 candidates; a decision model "that leverages LLM for intent-understanding" returns match or not "with a probability" from product photos, description and full context; results re-ordered. A/B test vs production baseline, Oct 2026: conversion +32.3% (p < 0.01), "Combined effect: Decision Model + Next-Generation Search Engine. The test does not isolate the Decision Model contribution." Plan: decision models for "search, recommendation, and ads". Company report (Q3 FY2026 deck, slides 55-56, Nov 13). https://global.rakuten.com/corp/investors/assets/doc/documents/26Q3MAINPPT_E.pdf ; PPC Land Nov 14 (Ting Cai quote).
+- **Crissy Field GmbH (security research, Hamburg).** Local elephant-1 decision model screened Supabase data from 24,664 Lovable sites at an 85% threshold; "nearly 4,000 websites leaked" privacy-sensitive data; results to Lovable's head of security. HN comments by the author only (Nov 14). Runner-up.
+- **Hiroyamayu (household school-letter calendar, Japan).** Gemini extracts events, Gemini Decision 1 picks one of 8 calendars for 203 candidates, Flash Lite writes names; about 10 yen to about 3 yen per run; 0.5-0.6 band to the person. Individual, Zenn Nov 15. Runner-up.
+- **Plainlamp (Dutch pre-launch startup, lesson gating).** Bake-off of 8 decision models on 339 descriptions; Perplexity Decider V1.2 336/339, none better; test cost US$0.434; Claude wrote and marked the test set. Nov 13-14.
+- **Sumibi IME (Japanese input method, one developer).** Decision model decides when to convert per keystroke: Gemini 26/28, Jev 25/28, OpenAI 12/28; p50 373 ms Gemini vs 229 ms Jev. Zenn Nov 15.
+- **Altis AI deep dive.** 30% appears only in title/metadata; body gives no cost or volume; enforce mode not confirmed; company facts unconfirmable outside the post. Downgrade evidence to 2.
+- **Aurora Mobile GPTBots.ai (Sep 22).** Router, retrieval filter and intent classifier on Jev, GPT and Claude for reasoning. Vendor claim, no customer numbers.
+- **Parloa (Oct 6).** CX-agent company tested Jev as an evaluation judge vs 13 generative models; "most accurate and the fastest"; no numbers; not in live pipeline.
+- **LG U+ (telecom).** "Model routing" cut costs over 25-30% in internal tests; not shown to be a decision model. Adjacent only.
+
 ## Checked and left out
 
 - Perplexity "Decider powers Pro Search": found only in secondary blogs; Perplexity's model card and docs don't say it.
