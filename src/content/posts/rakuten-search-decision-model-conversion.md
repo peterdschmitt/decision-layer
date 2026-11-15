@@ -37,19 +37,19 @@ Some are exactly right. Others are boot covers, narrow boots or walking shoes th
 
 The order matters. A shopper who has to scroll past the wrong boots may never buy.
 
-On Nov. 13, Rakuten told investors it had tested a new way to set that order, built around a decision model. More shoppers bought. If your customers search before they buy, your results face the same problem.
+On Nov. 13, Rakuten told investors it had tested a new way to set that order, built around a decision model. In a live test, the share of shoppers who bought rose 32.3%. If your customers search before they buy, your results face the same problem.
 
 ## The trap
 
 Ordinary search matches words. It can’t tell that “wide fit” is a requirement, not a nice extra.
 
-An LLM, the kind of AI behind ChatGPT, does understand that. But an LLM writes text. But a paragraph about each pair of boots can’t put the boots in order.
-
-However, when coupled with a decision model, the LLM’s understanding goes into a plain yes or no for each product.
+An LLM, the kind of AI behind ChatGPT, does understand that. But an LLM writes text. A paragraph about each pair of boots can’t put the boots in order.
 
 A decision model is an AI that answers a fixed yes-or-no question and gives a percentage. It writes no words.
 
-Rakuten’s own slide makes the contrast plainly. An LLM puts out “generated text.” A decision model puts out a yes or no, with a probability. Rakuten’s version uses an LLM to understand what the shopper means.
+However, when coupled with a decision model, the LLM’s understanding goes into a plain yes or no for each product.
+
+Rakuten’s own slide draws the same line. An LLM puts out “generated text.” A decision model puts out a yes or no, with a probability. Rakuten’s decision model uses an LLM to understand what the shopper means.
 
 | | An LLM alone | A decision model built on an LLM |
 | --- | --- | --- |
@@ -58,21 +58,21 @@ Rakuten’s own slide makes the contrast plainly. An LLM puts out “generated t
 
 ## The story
 
-**Who.** Rakuten is a Japanese company that runs Ichiba, a marketplace with tens of thousands of merchants. Ting Cai is its Chief AI and Data Officer. He presented the result with Rakuten’s third-quarter earnings on Nov. 13.
+**Who.** Rakuten is a Japanese company that runs Ichiba, a marketplace with tens of thousands of merchants. Ting Cai is its Chief AI and Data Officer. Rakuten published the result with its third-quarter earnings on Nov. 13.
 
 **Before.** Ichiba’s live search chose and ordered the products. Rakuten does not describe how it worked.
 
-**The change.** In the new setup, search first picks up to 50 likely products. A decision model then looks at each one’s photos, its description and what Rakuten calls the full context.
+**The change.** In the new setup, search first picks up to 50 likely products. Rakuten says its AI looks at each one’s photos, its description and what it calls the full context.
 
 It answers one question per product: does this match what the shopper asked for? The answer is match or no match, with a percentage. Rakuten re-sorts the results from those answers.
 
 Cai summed up the trade. “So, we get the understanding of an LLM at the cost and speed of traditional search,” he said, as reported by PPC Land, a trade publication.
 
-**The test.** In October, Rakuten tested the new setup on live shoppers. Some shoppers got the old search. Others got the decision model and a new search engine.
+**The test.** In October, Rakuten tested the new setup on live shoppers. Some shoppers got the old search. Others got the new setup: the decision model plus a new search engine.
 
 Conversion is the share of shoppers who buy. With the new setup, it was 32.3% higher than with the old search.
 
-Rakuten says a gain that large would be very unlikely if the new setup did nothing.
+By Rakuten’s test, a gain that large is very unlikely to be chance.
 
 ## The twist
 
@@ -106,13 +106,13 @@ The search still decides which products get judged at all. Rakuten doesn’t say
 
 ## What it means for you
 
-**Revenue.** Rakuten reported the share of shoppers who bought. It did not report sales. If your customers search before they buy, a better order can raise sales. To size it, apply your own test’s lift to your yearly sales from search.
+**Revenue.** Rakuten reported the share of shoppers who bought. It did not report sales. If your customers search before they buy, a better order can raise sales. To size it, run your own test and measure sales per visit, not only the share who buy.
 
 **Money.** Rakuten gave no costs. Cai’s claim is that the decision model runs at about the cost and speed of ordinary search. Judging up to 50 products for every search still adds up, so work out the yearly cost at your own number of searches.
 
 **Customers.** The decision model is meant to put products that meet every part of a search first. In the boots example, the boot covers drop down the list. Sellers feel it too, since their products rise or fall on how well the decision model says they match.
 
-**Risk.** An LLM alone is an unknown risk. It gives you text and no measure of how sure it is. A decision model gives every product a percentage, so you can see how sure it was about each one.
+**Risk.** An LLM alone is an unknown risk, because it gives you text and no measure of how sure it is. A decision model gives every product a percentage, so you can see how sure it was about each one.
 
 **Ads.** PPC Land notes that reshuffling the regular results can pull shoppers’ attention toward or away from paid ads. Rakuten has not said whether the decision model ranks ads yet. Its slide lists ads among the areas it plans to improve.
 
@@ -129,8 +129,6 @@ The search still decides which products get judged at all. Rakuten doesn’t say
 **Did sales rise, or only conversion?** Rakuten hasn’t said. It reported the share of shoppers who bought, not sales or order size.
 
 **Is it live for every shopper?** Rakuten hasn’t said. It reported a test against live search.
-
-**How big was the test, and how long did it run?** Rakuten hasn’t said.
 
 **Which decision model is it?** Rakuten hasn’t named it.
 
