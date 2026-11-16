@@ -14,7 +14,7 @@ stats:
   - value: "Three"
     label: "hidden jobs the old LLM did besides choosing"
   - value: "50%"
-    label: "how sure it must be to leave an event off"
+    label: "how sure the model must be to drop an event"
 statsNote: "All three come from one engineer’s own write-up of one household’s system, published Nov. 15, 2026. The fine print says what it can and can’t show."
 sources:
   - title: "Zenn: Hiroyama Yu, Gemini Decision 1 cut our school-calendar judging cost 70% (Nov. 15, 2026, in Japanese)"
@@ -33,7 +33,7 @@ sources:
 
 A parent in Hokkaido scans a letter from school. Letters like it carry the pool days and deadlines a family can’t miss.
 
-The family’s home server reads it. An AI decides which child each event belongs to and puts it on that child’s Google Calendar. The night before, a phone buzzes.
+The family’s home server reads it. Software decides which child each event belongs to and puts it on that child’s Google Calendar. The night before, a phone buzzes.
 
 The parent is Hiroyama Yu, an engineer with three children. On Zenn, a Japanese site for engineers, Hiroyama Yu wrote up how the cost of that AI step fell by about 70%. The cut came from one turn: they stopped asking one LLM to do everything. They handed the choosing to a decision model, an AI that answers a fixed question with a percentage and writes no words.
 
@@ -41,7 +41,7 @@ The parent is Hiroyama Yu, an engineer with three children. On Zenn, a Japanese 
 
 An LLM, the kind of AI behind ChatGPT, is good at reading a messy letter and writing a clean note. It is a costly way to make a simple choice, over and over.
 
-It also gives no clear measure of how sure it is. Hiroyama Yu says an LLM asked for a fixed answer often returns no percentage for each option. Without one, you can’t set a rule like “when in doubt, keep it.”
+It also gives no clear measure of how sure it is. Hiroyama Yu says that when you ask an LLM to pick from a set list, it often gives no percentage for each option. Without one, you can’t set a rule like “when in doubt, keep it.”
 
 However, when coupled with a decision model, the LLM only does the writing. The decision model makes the choice, and every choice comes with a number.
 
@@ -53,7 +53,7 @@ However, when coupled with a decision model, the LLM only does the writing. The 
 
 ## The story
 
-**Who.** Hiroyama Yu has been an engineer for more than 15 years and is raising three children in Hokkaido, in northern Japan. They built a home system that files the family’s paperwork. They say the only thing a person does is scan the paper. Their eldest, a daughter, is in elementary school, and a son is in kindergarten.
+**Who.** Hiroyama Yu has been an engineer for more than 15 years and is raising three children in Hokkaido, in northern Japan. Hiroyama Yu built a home system that files the family’s paperwork. They say the only thing a person does is scan the paper. Their eldest, a daughter, is in elementary school, and a son is in kindergarten.
 
 **Before.** Letters arrive from the elementary school and the kindergarten. The same event shows up in the yearly schedule, the school newsletter and the grade letter, often under a slightly different name.
 
@@ -65,11 +65,13 @@ It chose which events mattered and whose calendar each went on. That step was th
 
 The options were seven calendars: one for each child and parent, one for the whole family and one for optional events. There was also “don’t add.”
 
-Used alone, the decision model cost about a ninth as much as the old LLM. It put every event already on the family’s calendars back on a calendar, almost always the same one. It also put one event on the calendar that had been missing all along: the farewell party for the sixth graders.
+Used alone, the decision model cost about a ninth as much as the old LLM. It placed every event the old LLM had placed, almost always on the same calendar. It also placed one event the old LLM had missed all along: the farewell party for the sixth graders.
+
+It made mistakes too. It added 13 awareness days, such as traffic-safety days, that change nothing a child does. One added line in the rules fixed that.
 
 **The turn.** Then Hiroyama Yu looked closer at what the old LLM had been doing. They found it had been doing three other jobs besides choosing.
 
-It merged repeats. Five entries for the same recital became a single entry. One of them was called a nursery recital.
+It merged repeats. Five entries for the same recital, one of them called a nursery recital, became a single entry.
 
 It wrote names that told the family what to do. A graduation ceremony, with a note that younger grades get the day off, became “Day off: graduation.” Without the LLM, the entry would have read “Graduation,” which looks like an event the eldest daughter should attend.
 
@@ -81,7 +83,7 @@ They could keep the old LLM and run the decision model beside it, which saved no
 
 Or the decision model could choose and a cheaper LLM, Gemini Flash Lite, could write. They picked that one. In their words: “the AI that chooses and the AI that writes,” kept apart.
 
-**The result.** In a final test before going live, the new setup cost about 70% less per run than the old LLM alone. Its calendar differed from the existing one in only five places. The farewell party was one of them.
+**The result.** In a final test before going live, the new setup cost about 70% less per run than the old LLM alone. Its calendar differed from the old LLM’s in only five places. The farewell party was one of them.
 
 ## The twist
 
@@ -111,7 +113,7 @@ The method is the one I would use in any inbox.
 
 **The writing.** The cheaper LLM gets only the events the decision model kept. It merges repeats and writes names and notes. It also sees last run’s names, so the same event keeps the same name.
 
-**The safety nets.** If the cheaper LLM drops an event the decision model kept, code puts it back. In both tests with the cheaper LLM, it dropped the farewell party. If either model fails, the old LLM runs the whole job, as before.
+**The safety nets.** If the cheaper LLM drops an event the decision model kept, code puts it back. In both tests, the cheaper LLM dropped the farewell party, and code put it back. If either model fails, the old LLM runs the whole job, as before.
 
 **Where a person decides.** For three events, the decision model’s top answer was only a little better than even. Hiroyama Yu decided each one and wrote the answer into the rules. They concluded that where the percentages split is where a person should decide.
 
@@ -123,14 +125,14 @@ The method is the one I would use in any inbox.
 
 **Revenue.** There is no revenue here. In a business, the gain shows up as more work handled for the same AI bill.
 
-**Customers.** The family keeps one clear entry per event, with a name that says what to do. A straight swap would have lost that. Your customers feel the same thing when one request isn’t logged three times under three names.
+**Customers.** The family keeps one clear entry per event, with a name that says what to do. A straight swap would have lost that. Your customers notice the same thing: one request logged once, not three times under three names.
 
-**Risk.** An LLM alone is an unknown risk. Nobody knows how sure it was. The decision model puts a number on every choice, so you can set the risk yourself. Hiroyama Yu set it to keep events when in doubt.
+**Risk.** An LLM alone is an unknown risk. Nobody knows how sure it is. The decision model puts a number on every choice, so you can set the risk yourself. Hiroyama Yu set it to keep events when in doubt.
 
 ### The same pattern in other industries
 
 - **Customer support.** Japan Trading Card Center uses a decision model alone, with no LLM, to judge every post about the company on X. Negative posts go to support, and the company puts the cost at about $60 a year. [The company’s write-up, in Japanese](https://zenn.dev/jtcc/articles/x-pulse-jev-cs).
-- **Publishing.** Thorsten Meyer runs a fleet of news sites. An LLM sorts stories by topic, and a decision model takes over when the LLM fails. He says a decision model’s nightly scan of every article for the wrong language cost about $2. [His write-up](https://thorstenmeyerai.com/reality-check/24-ways-to-use-jev-a-decision-model-playbook/).
+- **Publishing.** Thorsten Meyer runs a fleet of news sites. An LLM sorts stories by topic, and a decision model takes over when the LLM fails. He says one night’s scan of his articles for the wrong language, by a decision model, cost about $2. [His write-up](https://thorstenmeyerai.com/reality-check/24-ways-to-use-jev-a-decision-model-playbook/).
 - **Hiring.** Jack & Jill had a decision model score every candidate. An LLM read only the shortlist. Jack & Jill’s screening costs fell 88%. [How Jack & Jill did it](/blog/jack-and-jill-coupled-llm-decision-model/).
 
 ### The hard questions
@@ -183,7 +185,7 @@ Public material from others:
 ## The fine print
 
 - **Who published the numbers.** Every number about this system comes from Hiroyama Yu’s own article on Zenn, published Nov. 15, 2026, in Japanese. It covers one household. The whole system has run for about two months. The decision-model version had run for a few days at most when it was written up. I read it in full. I have measured none of it. The translations are mine.
-- **The cost.** The old LLM cost about ¥10 a run, or about ¥110 for 13 runs over 30 days. The new setup cost about ¥3 a run in the final test before launch. That per-run drop is the “70%” in the article’s title. Hiroyama Yu puts the new monthly cost at about ¥40, which is about 64% less. The yearly saving is about ¥840, or about $5. Thirteen runs at ¥3 would be about ¥39, and the article rounds to ¥40. The decision model alone cost about ¥1.1 a run, about a ninth of the old cost. Hiroyama Yu converts at ¥152 to the dollar.
+- **The cost.** The old LLM cost about ¥10 a run, or about ¥110 for 13 runs over 30 days. That works out nearer ¥8.5 a run, so the true per-run cut may be closer to 65%. The new setup cost about ¥3 a run in the final test before launch. That per-run drop is the “70%” in the article’s title. Hiroyama Yu puts the new monthly cost at about ¥40, which is about 64% less. The yearly saving is about ¥840, or about $5.50. Thirteen runs at ¥3 would be about ¥39, and the article rounds to ¥40. The decision model alone cost about ¥1.1 a run, about a ninth of the old cost. Hiroyama Yu converts at ¥152 to the dollar.
 - **The test.** One set of 203 possible events, compared with the 34 events the old LLM had already put on the calendars. The decision model alone put all 34 on a calendar, and 31 on the same one. It also added 13 awareness days, such as traffic-safety days, that don’t change what a child does. One rule line fixed that. In the second trial, the decision model kept 77 and the cheaper LLM merged them into 36.
 - **The final test before launch.** About 35 events, five differences from the current calendar. Two were added, one was removed and one moved calendars. The article lists four of the five.
 - **The three split cases.** All scored 0.5 to 0.6. Hiroyama Yu says these were the events they were unsure about. Hiroyama Yu decided them once and wrote rules. In a reply to a reader, they say uncertain items go to the side a person looks at. The article describes no standing review step.
