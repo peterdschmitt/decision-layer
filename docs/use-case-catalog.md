@@ -260,6 +260,24 @@ Most hosts could not be opened by the research tools this run (network policy); 
 - **Parloa (Oct 6).** CX-agent company tested Jev as an evaluation judge vs 13 generative models; "most accurate and the fastest"; no numbers; not in live pipeline.
 - **LG U+ (telecom).** "Model routing" cut costs over 25-30% in internal tests; not shown to be a decision model. Adjacent only.
 
+## Added Nov 16, 2026 (research r1116)
+
+- **Hiroyama Yu, household school-letter calendar (Zenn, Nov 15). USED Nov 16.** Gemini Decision 1 picks one of 7 calendars or "don't add" for ~200 events in one request; Flash Lite merges and names; code does dates (jpholiday); fallback to old 3.6 Flash. Old LLM was secretly merging, naming and writing notes, so a straight swap was rejected. ~¥10 to ~¥3 per run (70%); monthly ~¥110 to ~¥40. Self-report, one household, days in production.
+- **Japan Trading Card Center x-pulse (Zenn, Oct 22 and 26). Production since Oct 3.** Jev judges every X post (relevance, 8 types, 5-level sentiment); negatives to CS in Slack. ~$5/month, ~0.7 s/post; batching 75 questions: one-per-request was 6.3x slower, 1.3x costlier. Ported to OpenAI Decisions: $7.75 vs $16.55/month. No LLM in loop. Company report.
+- **Thorsten Meyer publishing fleet (Sep 29).** Three Jev uses live, ~90,000 decisions; Jev is fallback when the primary LLM classifier errors; 78,889-article language scan for $2.01; 89% agreement with a frontier LLM, 97-99% at 0.8+. Self-reported.
+- **TOKIUM invoices (Zenn, Oct 8).** Gemini Flash-Lite extracts; Clef, OpenAI Decisions, Jev asked if each value is right. Fixed 0.9 line rejected 40-45% of good values; shared-OCR misreads scored high. Image re-read plus code checks: 94.5% accepted, 0 errors. Synthetic documents, test only. Negative finding for decision-model-only gating.
+- **Mastra GitHub issues.** Jev matched the maintainer ~10 of 78. Company's own test.
+- **chot Inc. website inquiries.** Jev replaced gpt-5.6-luna for routing to HubSpot forms: 290/290 vs 288/290, median 375 ms vs 1,605 ms, 29 rewritten real messages.
+- **Kusuri no Madoguchi phone agent.** Jev reads partial speech so GPT starts early: 2,583 ms to 1,296 ms reply delay. Prototype.
+- **Sapeet HR.** Jev scores engineer-to-project fit; made-up data.
+- **Zoom `zoom-decisions`.** New vendor decision model; one developer demo only.
+- **Forecall (miraistudio).** Jev before and after Claude/GPT in an MCP-tool failure knowledge base; production, few numbers.
+- **Emuni Inc. hackathon.** Four Jev manufacturing uses; one team has Jev score and an LLM write.
+- **Akhil Koduri claims triage (Nov 5).** Jev vs Claude Opus 5 on 46 synthetic claims. Prototype.
+- **Plannotator sem-jiff (Show HN, Nov 15).** Rules, then Jev, then Clef tie-break in code review: finds 66% to 87% of 193 cases, wrong 1 to 5.
+- **Hirokazu Fujihira (Zenn, Nov 15).** Gemini Decision 1, Jev, GPT-6 Luna on 300 Japanese intent questions: 250, 250, 246.
+- **Not opened:** TypeSafe CEO AI Engineer talk (Nov 15, YouTube 429), Databricks ai_decide() vs Jev (Medium 403), Snowflake blog (403).
+
 ## Checked and left out
 
 - Perplexity "Decider powers Pro Search": found only in secondary blogs; Perplexity's model card and docs don't say it.
