@@ -14,7 +14,7 @@ stats:
   - value: "Three"
     label: "hidden jobs the old LLM did besides choosing"
   - value: "50%"
-    label: "the bar to leave an event off the calendar"
+    label: "how sure it must be to leave an event off"
 statsNote: "All three come from one engineer’s own write-up of one household’s system, published Nov. 15, 2026. The fine print says what it can and can’t show."
 sources:
   - title: "Zenn: Hiroyama Yu, Gemini Decision 1 cut our school-calendar judging cost 70% (Nov. 15, 2026, in Japanese)"
@@ -35,7 +35,7 @@ A parent in Hokkaido scans a letter from school. Letters like it carry the pool 
 
 The family’s home server reads it. An AI decides which child each event belongs to and puts it on that child’s Google Calendar. The night before, a phone buzzes.
 
-The parent is Hiroyama Yu, an engineer with three children. In a post on Zenn, a Japanese site for engineers, they wrote up how they cut the cost of that AI step by about 70%. The cut came from one turn: they stopped asking one LLM to do everything. They handed the choosing to a decision model, an AI that answers a fixed question with a percentage and writes no words.
+The parent is Hiroyama Yu, an engineer with three children. On Zenn, a Japanese site for engineers, Hiroyama Yu wrote up how the cost of that AI step fell by about 70%. The cut came from one turn: they stopped asking one LLM to do everything. They handed the choosing to a decision model, an AI that answers a fixed question with a percentage and writes no words.
 
 ## The trap
 
@@ -53,27 +53,31 @@ However, when coupled with a decision model, the LLM only does the writing. The 
 
 ## The story
 
-**Who.** Hiroyama Yu has been an engineer for more than 15 years and is raising three children in Hokkaido, in northern Japan. They built a home system that files the family’s paperwork. They say the only thing a person does is scan the paper.
+**Who.** Hiroyama Yu has been an engineer for more than 15 years and is raising three children in Hokkaido, in northern Japan. They built a home system that files the family’s paperwork. They say the only thing a person does is scan the paper. Their eldest, a daughter, is in elementary school, and a son is in kindergarten.
 
 **Before.** Letters arrive from the elementary school and the kindergarten. The same event shows up in the yearly schedule, the school newsletter and the grade letter, often under a slightly different name.
 
-An LLM pulls the events out of each letter. That leaves about 200 possible upcoming events. Until now, a second LLM, Gemini 3.6 Flash, judged all of them in one go.
+An LLM pulls the events out of each letter. Together, the letters hold about 200 possible upcoming events. Until now, a second LLM, Gemini 3.6 Flash, judged all of them in one go.
 
 It chose which events mattered and whose calendar each went on. That step was the most expensive routine job in the household’s AI bill. Google’s price for that model doubles in January.
 
-**The first try.** Gemini Decision 1, Google’s decision model, came out on Nov. 11. Hiroyama Yu asked it one question per event: which calendar does this go on? The options were seven family calendars, plus “don’t add.”
+**The first try.** Gemini Decision 1, Google’s decision model, came out on Nov. 11. Hiroyama Yu asked it one question per event: which calendar does this go on?
 
-Alone, the decision model cost about a ninth as much. It kept every event already on the family’s calendars. It also put one event on the calendar that had been missing all along: the farewell party for the sixth graders.
+The options were seven calendars: one for each child and parent, one for the whole family and one for optional events. There was also “don’t add.”
+
+Used alone, the decision model cost about a ninth as much as the old LLM. It put every event already on the family’s calendars back on a calendar, almost always the same one. It also put one event on the calendar that had been missing all along: the farewell party for the sixth graders.
 
 **The turn.** Then Hiroyama Yu looked closer at what the old LLM had been doing. They found it had been doing three other jobs besides choosing.
 
-It merged repeats. Five entries for the same recital, one called a nursery recital, became one.
+It merged repeats. Five entries for the same recital became a single entry. One of them was called a nursery recital.
 
-It wrote names that told the family what to do. A graduation ceremony, with a note that younger grades get the day off, became “Day off: graduation.” Without the LLM, the entry would have read “Graduation,” which looks like an event the daughter should attend.
+It wrote names that told the family what to do. A graduation ceremony, with a note that younger grades get the day off, became “Day off: graduation.” Without the LLM, the entry would have read “Graduation,” which looks like an event the eldest daughter should attend.
 
 It wrote notes. A year-end cleaning day with a short schedule became “4 periods: year-end cleaning.” Without that note, the entry wouldn’t say the children come home early.
 
-**The choice.** Hiroyama Yu weighed three designs. They could keep the old LLM and run the decision model beside it, which saved nothing. Or the decision model could replace the LLM, which was cheapest, but the names and notes would get worse.
+**The choice.** Hiroyama Yu weighed three designs.
+
+They could keep the old LLM and run the decision model beside it, which saved nothing. Or the decision model could replace the LLM. That was cheapest, but the names and notes would get worse.
 
 Or the decision model could choose and a cheaper LLM, Gemini Flash Lite, could write. They picked that one. In their words: “the AI that chooses and the AI that writes,” kept apart.
 
@@ -81,9 +85,9 @@ Or the decision model could choose and a cheaper LLM, Gemini Flash Lite, could w
 
 ## The twist
 
-The decision model was not always right when it was sure. In the first test, it put a substitute holiday, a Monday with no school, on the daughter’s calendar. It was 97% sure.
+The decision model was not always right when it was sure. In the first test, it put a substitute holiday, a Monday with no school, on the eldest daughter’s calendar. It was 97% sure.
 
-Hiroyama Yu traced the cause. The decision model doesn’t reason, so it doesn’t know which Monday is a public holiday. Google’s own guide says to do dates in code.
+Hiroyama Yu traced the cause. The decision model doesn’t reason, so it doesn’t know which Monday is a public holiday. Google’s own guide says to work out dates in ordinary code, not in the model.
 
 So the calendar math moved to code. The holiday was dropped on the next run.
 
@@ -107,15 +111,15 @@ The method is the one I would use in any inbox.
 
 **The writing.** The cheaper LLM gets only the events the decision model kept. It merges repeats and writes names and notes. It also sees last run’s names, so the same event keeps the same name.
 
-**The safety nets.** If the cheaper LLM drops an event the decision model kept, code puts it back. It dropped the farewell party in both trials. If either model fails, the old LLM runs the whole job, as before.
+**The safety nets.** If the cheaper LLM drops an event the decision model kept, code puts it back. In both tests with the cheaper LLM, it dropped the farewell party. If either model fails, the old LLM runs the whole job, as before.
 
-**Where a person decides.** Three events split close to even. Hiroyama Yu decided each one and wrote the answer into the rules. They concluded that where the percentages split is where a person should decide.
+**Where a person decides.** For three events, the decision model’s top answer was only a little better than even. Hiroyama Yu decided each one and wrote the answer into the rules. They concluded that where the percentages split is where a person should decide.
 
 **How it is trained.** Hiroyama Yu doesn’t say how Gemini Decision 1 was trained. They rely on Google’s description: it answers fixed questions with a percentage and writes nothing. There is no “can’t decide” answer, so every answer lands on one of the choices.
 
 ## What it means for you
 
-**Money.** For this household, the saving comes to about $5 a year. The point is the split, which cut each run’s cost by about 70%. To size it for you, start from your yearly bill for the LLM step that sorts incoming work.
+**Money.** The split cut each run’s cost by about 70%. To size it for you, start from your yearly bill for the LLM step that sorts incoming work.
 
 **Revenue.** There is no revenue here. In a business, the gain shows up as more work handled for the same AI bill.
 
@@ -130,10 +134,6 @@ The method is the one I would use in any inbox.
 - **Hiring.** Jack & Jill had a decision model score every candidate. An LLM read only the shortlist. Jack & Jill’s screening costs fell 88%. [How Jack & Jill did it](/blog/jack-and-jill-coupled-llm-decision-model/).
 
 ### The hard questions
-
-**Is one household proof?** No. It shows the method, not the size of the gain at your scale.
-
-**Is it live?** The whole system has run for about two months. The decision-model version had run for a few days at most when it was written up.
 
 **Was it more accurate?** Unknown. The test compared it with the old LLM’s calendar, not with an answer list a person made in advance.
 
@@ -162,7 +162,7 @@ def route(items, decide, write, fallback, drop_bar=0.5):
         kept = []
         for item in items:
             probs = scores[item["id"]]
-            if probs["drop"] >= drop_bar:  # leave out only when fairly sure
+            if probs["drop"] >= drop_bar:  # leave out only when "drop" is at least even
                 continue
             owner = max((o for o in probs if o != "drop"), key=probs.get)
             kept.append({**item, "owner": owner})
@@ -182,8 +182,8 @@ Public material from others:
 
 ## The fine print
 
-- **Who published the numbers.** Every number about this system comes from Hiroyama Yu’s own article on Zenn, published Nov. 15, 2026, in Japanese. It covers one household. I read it in full. I have measured none of it. The translations are mine.
-- **The cost.** The old LLM cost about ¥10 a run, or about ¥110 over 30 days. The new setup cost about ¥3 a run in the final test before launch. That per-run drop is the “70%” in the article’s title. Hiroyama Yu puts the new monthly cost at about ¥40, which is about 64% less. The yearly saving is about ¥840, or about $5. The decision model alone cost about ¥1.1 a run, about a ninth of the old cost. Hiroyama Yu converts at ¥152 to the dollar.
+- **Who published the numbers.** Every number about this system comes from Hiroyama Yu’s own article on Zenn, published Nov. 15, 2026, in Japanese. It covers one household. The whole system has run for about two months. The decision-model version had run for a few days at most when it was written up. I read it in full. I have measured none of it. The translations are mine.
+- **The cost.** The old LLM cost about ¥10 a run, or about ¥110 for 13 runs over 30 days. The new setup cost about ¥3 a run in the final test before launch. That per-run drop is the “70%” in the article’s title. Hiroyama Yu puts the new monthly cost at about ¥40, which is about 64% less. The yearly saving is about ¥840, or about $5. Thirteen runs at ¥3 would be about ¥39, and the article rounds to ¥40. The decision model alone cost about ¥1.1 a run, about a ninth of the old cost. Hiroyama Yu converts at ¥152 to the dollar.
 - **The test.** One set of 203 possible events, compared with the 34 events the old LLM had already put on the calendars. The decision model alone put all 34 on a calendar, and 31 on the same one. It also added 13 awareness days, such as traffic-safety days, that don’t change what a child does. One rule line fixed that. In the second trial, the decision model kept 77 and the cheaper LLM merged them into 36.
 - **The final test before launch.** About 35 events, five differences from the current calendar. Two were added, one was removed and one moved calendars. The article lists four of the five.
 - **The three split cases.** All scored 0.5 to 0.6. Hiroyama Yu says these were the events they were unsure about. Hiroyama Yu decided them once and wrote rules. In a reply to a reader, they say uncertain items go to the side a person looks at. The article describes no standing review step.
