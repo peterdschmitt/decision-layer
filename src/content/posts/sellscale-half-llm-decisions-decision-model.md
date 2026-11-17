@@ -12,11 +12,11 @@ stats:
   - value: "About half"
     label: "of SellScale’s tested LLM tasks passed its bar"
   - value: "99%"
-    label: "the pass mark to replace an LLM step that worked"
+    label: "the score a task needed to leave a working LLM"
   - value: "41%"
-    label: "what the pair cost versus the LLM alone, independent test"
+    label: "of the LLM’s cost when paired, in an independent test"
   - value: "Over 2x"
-    label: "faster than the quickest LLM SellScale tried"
+    label: "faster per decision than the quickest LLM SellScale tried"
 statsNote: "Three come from SellScale’s own write-up of Sept. 22, 2026. The 41% comes from a Carnegie Mellon study. The fine print has the details."
 sources:
   - title: "SellScale: How we use decision models in production (Sept. 22, 2026)"
@@ -37,11 +37,11 @@ A sales team is talking in a Slack channel. One person says a prospect booked a 
 
 An AI agent called Selix sits in that channel. It answers the first message without being tagged. It stays out of the lunch order.
 
-That one choice, speak or stay quiet, is made by a decision model. SellScale, the company behind Selix, measured how much of its other LLM work a decision model could take. The answer was about half.
+That one choice, speak or stay quiet, is made by a decision model, an AI that picks from fixed answers and says how sure it is. SellScale, the company behind Selix, measured how much of its other LLM work a decision model could take. The answer was about half.
 
 ## The trap
 
-Cloudflare’s Michelle Chen gave IEEE Spectrum a bold answer on Nov. 16. She said a decision model could probably take 80 percent of typical LLM tasks.
+Cloudflare’s Michelle Chen made a bold claim to IEEE Spectrum on Nov. 16. She said a decision model could probably take 80 percent of typical LLM tasks.
 
 That is a guess, not a measurement. If you act on it, you swap out an LLM that works and hope.
 
@@ -52,14 +52,14 @@ However, when coupled with a decision model, each decision first gets a percenta
 | | An LLM alone | A decision model coupled with the LLM |
 | --- | --- | --- |
 | Who decides | The LLM, every time | The decision model, when it is sure |
-| What happens when it is unsure | Nobody knows it is unsure | The LLM takes the item |
+| What happens when it is unsure | Nobody knows it is unsure | The LLM takes the item, or the agent holds back |
 | What you can see | An answer | An answer, how sure it was, and who made it |
 
 ## The story
 
 **Who.** SellScale sells Selix, an AI agent that finds and contacts sales prospects for its customers. Selix works inside customers’ Slack channels and acts for them around the clock.
 
-**Before.** In its data and testing work, LLMs made many small judgments. Is this record useful or noise? Is it a duplicate? None of these needs a written answer.
+**Before.** In the data SellScale uses to test its agents, LLMs made many small judgments. Is this record useful or noise? Is it a duplicate? None of these needs a written answer.
 
 One feature could not ship at all. SellScale wanted Selix to follow group chats and speak up without being tagged. Even the fastest LLMs it tried took long enough that people noticed the pause.
 
@@ -69,17 +69,19 @@ It set a high bar. To replace an LLM step that already worked, Jev had to score 
 
 **The result.** The scores spread widely. Complex quality questions, the kind with a long scoring guide, scored lowest. Many others fell short of the bar too.
 
-Simple yes-or-no labelling scored 99% or higher. About half of the tasks SellScale tested passed, mostly simple yes-or-no questions. It moved those and left the rest on the LLM.
+About half of the tasks passed. Most were simple yes-or-no questions, which scored 99% or higher. SellScale switched those and left the rest on the LLM.
 
-**What changed.** In group chats, the decision model now makes one call per message: stay quiet, reply, or bring in the right teammate. When it isn’t sure, Selix stays quiet. SellScale says it would rather miss a reply than talk over people.
+**What changed.** The decision model was more than twice as fast as the quickest LLM SellScale tried.
+
+In group chats, the decision model now makes one call per message: stay quiet, reply, or bring in the right teammate. When it isn’t sure, Selix stays quiet. SellScale says it would rather miss a reply than talk over people.
 
 Selix posts a quick emoji while the full reply is being written, so people know it heard them.
 
-In SellScale’s data work, the decision model sorts each record first: a useful example, noise, or a product problem. Confident answers are accepted. Unsure ones go to the LLM SellScale already used, and every label records which model made it.
+In SellScale’s test data, the decision model sorts each record from an agent’s work first: a useful example, noise, or a product problem. Confident answers are accepted. Unsure ones go to the LLM SellScale already used, and every label records which model made it.
 
 ## The twist
 
-An independent study found a line much like SellScale’s.
+An independent study found the decision model passed and failed on the same kinds of tasks.
 
 Researchers at Carnegie Mellon, including Ramayya Krishnan, tested how well Jev could grade answers to questions. OpenAI’s GPT-6 LLM did the same grading job. Jev’s accuracy came within three points of the LLM’s when the answer could be read straight off the text. It fell behind when the judgment needed math, code or logic.
 
@@ -109,9 +111,9 @@ Stop using LLMs alone. Couple the LLM with a decision model, measure which tasks
 
 ## What it means for you
 
-**Money.** Don’t budget on someone else’s share. Start from your own list of LLM calls that pick one answer, and test each one. In the Carnegie Mellon test, the coupled pair cost 41% of the LLM alone, with no loss in accuracy.
+**Money.** Don’t budget on someone else’s estimate, such as Cloudflare’s 80%. Start from your own list of LLM calls that pick one answer, and test each one. In the Carnegie Mellon test, the coupled pair cost 41% of the LLM alone, with no loss in accuracy.
 
-**Revenue.** SellScale’s group-chat feature could not ship on an LLM at all. The decision model made it possible. A feature customers couldn’t have before is where new revenue starts.
+**Revenue.** SellScale’s group-chat feature could not ship on an LLM at all. The decision model made it possible. That is a feature customers could not have before.
 
 **Customers.** SellScale chose to have Selix stay quiet when unsure. Your customers feel that choice. Decide which mistake costs more, a missed reply or an unwanted one, and set the bar to match.
 
@@ -125,7 +127,7 @@ Stop using LLMs alone. Couple the LLM with a decision model, measure which tasks
 
 ### The hard questions
 
-**Why did only about half pass?** SellScale’s bar was strict, and many of its tasks need judgment that has to be worked out. The Carnegie Mellon study found the same line.
+**Why did only about half pass?** SellScale’s bar was strict, and many of its tasks need judgment that has to be worked out.
 
 **Did SellScale save money?** It hasn’t said. It gave no volumes or costs, only speed and pass rates.
 
