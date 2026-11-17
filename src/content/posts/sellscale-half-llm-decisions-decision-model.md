@@ -12,9 +12,9 @@ stats:
   - value: "About half"
     label: "of SellScale’s tested LLM tasks passed its bar"
   - value: "99%"
-    label: "the score a task needed to leave a working LLM"
+    label: "the test score needed to take over from an LLM"
   - value: "41%"
-    label: "of the LLM’s cost when paired, in an independent test"
+    label: "of the LLM’s cost, in a test pairing the two"
   - value: "Over 2x"
     label: "faster per decision than the quickest LLM SellScale tried"
 statsNote: "Three come from SellScale’s own write-up of Sept. 22, 2026. The 41% comes from a Carnegie Mellon study. The fine print has the details."
@@ -41,11 +41,11 @@ That one choice, speak or stay quiet, is made by a decision model, an AI that pi
 
 ## The trap
 
-Cloudflare’s Michelle Chen made a bold claim to IEEE Spectrum on Nov. 16. She said a decision model could probably take 80 percent of typical LLM tasks.
+Cloudflare’s Michelle Chen gave IEEE Spectrum a figure this week. She said a decision model could probably take 80 percent of typical LLM tasks.
 
 That is a guess, not a measurement. If you act on it, you swap out an LLM that works and hope.
 
-An LLM alone has its own problem. It answers in text, with no number on how sure it is. Every answer goes through on faith, an unknown risk.
+An LLM alone has its own problem. It answers in text, with no number on how sure it is. You accept every answer on faith. That is an unknown risk.
 
 However, when coupled with a decision model, each decision first gets a percentage. You keep the confident ones and send the rest to the LLM.
 
@@ -59,15 +59,15 @@ However, when coupled with a decision model, each decision first gets a percenta
 
 **Who.** SellScale sells Selix, an AI agent that finds and contacts sales prospects for its customers. Selix works inside customers’ Slack channels and acts for them around the clock.
 
-**Before.** In the data SellScale uses to test its agents, LLMs made many small judgments. Is this record useful or noise? Is it a duplicate? None of these needs a written answer.
+**Before.** SellScale used LLMs for many small judgments, such as sorting the records it uses to test its agents. Is this record useful or noise? Is it a duplicate? None of these needs a written answer.
 
 One feature could not ship at all. SellScale wanted Selix to follow group chats and speak up without being tagged. Even the fastest LLMs it tried took long enough that people noticed the pause.
 
 **The test.** When TypeSafe released its Jev decision model in September, SellScale did not switch on faith. It ran Jev through the tests it already used for its LLM steps, on its own data.
 
-It set a high bar. To replace an LLM step that already worked, Jev had to score 99% or better on those tests. For the group-chat feature, which had no working version, 96% was enough.
+It set a high bar. To replace an LLM step that already worked, Jev had to score 99% or better on those tests. For the group-chat feature, which had no working version, 96% was enough. Jev met it exactly.
 
-**The result.** The scores spread widely. Complex quality questions, the kind with a long scoring guide, scored lowest. Many others fell short of the bar too.
+**The result.** The scores varied widely from task to task. Complex quality questions, the kind with a long scoring guide, scored lowest. Many others fell short of the bar too.
 
 About half of the tasks passed. Most were simple yes-or-no questions, which scored 99% or higher. SellScale switched those and left the rest on the LLM.
 
@@ -77,13 +77,15 @@ In group chats, the decision model now makes one call per message: stay quiet, r
 
 Selix posts a quick emoji while the full reply is being written, so people know it heard them.
 
-In SellScale’s test data, the decision model sorts each record from an agent’s work first: a useful example, noise, or a product problem. Confident answers are accepted. Unsure ones go to the LLM SellScale already used, and every label records which model made it.
+In that sorting work, the decision model now labels each record first. Is it a useful example, noise, or a product problem?
+
+Confident answers are accepted. Unsure ones go to the LLM SellScale already used. Every label records which model made it.
 
 ## The twist
 
-An independent study found the decision model passed and failed on the same kinds of tasks.
+An independent study found the decision model passed and failed on similar kinds of tasks.
 
-Researchers at Carnegie Mellon, including Ramayya Krishnan, tested how well Jev could grade answers to questions. OpenAI’s GPT-6 LLM did the same grading job. Jev’s accuracy came within three points of the LLM’s when the answer could be read straight off the text. It fell behind when the judgment needed math, code or logic.
+Researchers at Carnegie Mellon, including Ramayya Krishnan, gave Jev and OpenAI’s GPT-6 LLM the same job: grading answers to questions. Jev’s accuracy came within three points of the LLM’s when the answer could be read straight off the text. It fell behind when the judgment needed math, code or logic.
 
 That looks like SellScale’s split. Simple questions moved. Questions that need working out did not.
 
@@ -113,7 +115,7 @@ Stop using LLMs alone. Couple the LLM with a decision model, measure which tasks
 
 **Money.** Don’t budget on someone else’s estimate, such as Cloudflare’s 80%. Start from your own list of LLM calls that pick one answer, and test each one. In the Carnegie Mellon test, the coupled pair cost 41% of the LLM alone, with no loss in accuracy.
 
-**Revenue.** SellScale’s group-chat feature could not ship on an LLM at all. The decision model made it possible. That is a feature customers could not have before.
+**Revenue.** SellScale’s group-chat feature could not ship on an LLM at all. The decision model made it possible. SellScale has not said what the feature earns.
 
 **Customers.** SellScale chose to have Selix stay quiet when unsure. Your customers feel that choice. Decide which mistake costs more, a missed reply or an unwanted one, and set the bar to match.
 
@@ -121,7 +123,7 @@ Stop using LLMs alone. Couple the LLM with a decision model, measure which tasks
 
 ### The same pattern in other industries
 
-- **Web automation.** Lightpanda, which makes a browser for AI agents, has Jev decide what kind of page it is on and which button to click. The chat model keeps the writing, and in Lightpanda’s own test, signing in took about 93% less time. [Lightpanda’s write-up](https://lightpanda.io/blog/posts/lightpanda-and-jev).
+- **Web automation.** Lightpanda, which makes a browser for AI agents, has Jev decide what kind of page it is on and which button to click. The LLM keeps the writing, and in Lightpanda’s own test, signing in took about 93% less time. [Lightpanda’s write-up](https://lightpanda.io/blog/posts/lightpanda-and-jev).
 - **Editing tools.** A developer’s Japanese proofreading tool has Jev answer each question about context first. Confident answers are kept and the LLM reads the rest, which the developer says cut the LLM’s share of the work by 60%. [The write-up, in Japanese](https://zenn.dev/bamboo_nova/articles/c6176164dcffd0).
 - **Hiring.** Jack & Jill had a decision model score every candidate. An LLM read only the shortlist. Jack & Jill’s screening costs fell 88%. [How Jack & Jill did it](/blog/jack-and-jill-coupled-llm-decision-model/).
 
@@ -176,10 +178,11 @@ Public material from others:
 ## The fine print
 
 - **SellScale’s numbers.** All come from its own post of Sept. 22, 2026, signed “kevin.” I read it in full. It names Jev but not the version, and gives no volumes, costs or business results. “About half of the workflows we tested were acceptable, mostly simple yes/no questions.” Complex rubric questions scored 60 to 70%, many others 70 to 90%, and some 99% or higher.
-- **The speed.** SellScale says Jev decides in 100 to 120 milliseconds. GPT-OSS on Cerebras took 280 to 390 milliseconds, and GPT Luna on its fast setting took 400 to 600.
+- **The opening scene.** It follows a screenshot of a Slack channel in SellScale’s post.
+- **The speed.** SellScale says Jev decides in 100 to 120 milliseconds. Of the LLM times, it says: “In real channels that pause was noticeable.” GPT-OSS on Cerebras took 280 to 390 milliseconds, and GPT Luna on its fast setting took 400 to 600.
 - **The group chat.** The 96% bar applied there because no working LLM version existed. SellScale’s scorecard shows the decision model scored 96% on it, exactly the bar.
 - **Cloudflare’s 80%.** Michelle Chen, a group product manager at Cloudflare, told IEEE Spectrum: “You can probably offload 80 percent of your typical LLM tasks to a System One model.” Cloudflare makes its own decision models. The article gives no measurement behind the figure. It says Cloudflare uses decision models in place of custom-built sorting models, for spam, phishing and prompt attacks, and does not describe an LLM working alongside them.
-- **The Carnegie Mellon study.** Yubo Li, Yidi Miao, Ramayya Krishnan and Rema Padman, arXiv 2609.26550, first posted Sept. 22, 2026, revised Oct. 29. It is a preprint, not yet peer reviewed. Jev alone came within three points of GPT-6 where the verdict can be read off the text, at 0.36% of its fee. The cascade was 0.9 points more accurate than GPT-6 on 1,610 held-out pairs, at 41% of its fee. In a live test on two new workloads, it matched GPT-6’s accuracy exactly. The authors say the method weakens on answers written to fool it by style, and on prose with no reference answer.
+- **The Carnegie Mellon study.** Yubo Li, Yidi Miao, Ramayya Krishnan and Rema Padman, arXiv 2609.26550, first posted Sept. 22, 2026, revised Oct. 29. It is a preprint, not yet peer reviewed. Jev alone came within three points of GPT-6 where the verdict can be read off the text, at 0.36% of its fee. The coupled pair was 0.9 points more accurate than GPT-6 on 1,610 test pairs, at 41% of its fee. In a live test on two new workloads, it matched GPT-6’s accuracy exactly. The authors say the method weakens on answers written to fool it by style, and on prose with no reference answer.
 - **The proofreading tool.** A community project by the Zenn author bamboo_nova, Oct. 12, 2026. Jev settled 12 of 20 hand-built questions, and 36 accepted answers over three runs had no errors. The developer calls the drop in the LLM’s load 60%.
 - **Lightpanda.** Its own test on one sign-in page, over five runs: 0.34 seconds with Jev against 5.0 seconds with Claude Haiku 5.5, published Nov. 10, 2026, in its release 1.0.3.
 - **Training.** From TypeSafe’s docs page on its models.
