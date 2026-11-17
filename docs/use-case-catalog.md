@@ -278,6 +278,22 @@ Most hosts could not be opened by the research tools this run (network policy); 
 - **Hirokazu Fujihira (Zenn, Nov 15).** Gemini Decision 1, Jev, GPT-6 Luna on 300 Japanese intent questions: 250, 250, 246.
 - **Not opened:** TypeSafe CEO AI Engineer talk (Nov 15, YouTube 429), Databricks ai_decide() vs Jev (Medium 403), Snowflake blog (403).
 
+## Added Nov 17, 2026 (research r1117)
+
+- **SellScale / Selix (Sept 22). USED Nov 17.** Production. Decision model decides speak / stay quiet / bring in teammate in Slack group chats (unsure = stay quiet); LLM writes the reply. Eval-data pipeline: decision model labels records, unsure to the LLM, every label logs its source. Bar 99% to replace a working LLM step, 96% for the new group-chat feature; "About half of the workflows we tested were acceptable"; rubric questions 60-70%. Jev 100-120 ms vs 280-600 ms for fast LLMs. No volumes or costs. Company report.
+- **Lightpanda (Nov 10), release 1.0.3.** Jev makes page judgments (login wall, CAPTCHA, which button), chat model writes; sign-in 0.34 s vs 5.0 s with Claude Haiku 5.5; semantic tree cut wrong answers ~2/3; 30-site crawl. Company report, small tests.
+- **CMU preprint arXiv 2609.26550 (Li, Miao, Krishnan, Padman).** Jev-as-a-judge within 3 points of GPT-6 where verdict readable from text, at 0.36% of fee; cascade 0.9 points more accurate than GPT-6 on 1,610 pairs at 41% of fee; live test matched exactly. Independent research.
+- **IEEE Spectrum (Nov 16).** Cloudflare's internal decision-model uses (spam PRs, phishing, prompt injection, outage emails); Michelle Chen: "offload 80 percent". Journalism; no Cloudflare numbers.
+- **OpenRouter chart (Nov 17, via FourWeekMBA).** Jev served 31% of OpenRouter classification requests, week of Nov 9. Market share, not a case.
+- **TypeSafe CEO talk and 20VC (Nov 15-16), via BigGo AI summaries only.** "a third of the Fortune 500" usage; real automation "tied at roughly 0%". Unverified against video.
+- **kyotofin tax-doc-classifier (@nedwize).** Jev replaced Claude Sonnet page classifier: ~97% cheaper per page, ~3.3 s to ~0.5 s, 0 wrong on 314 forms. Org unnamed; production unclear.
+- **SCSK TechHarmony.** Jev vs Sonnet 4.6 on accounting-support triage: 149x cheaper, 6.5x faster, 299/300 agreement; recommends Jev then LLM in series. Synthetic.
+- **Dataiku.** Eight decision models as router in a supplier-onboarding agent: OpenAI Decisions 91% vs GPT-6.1 Sol 92% at ~4% of cost. Synthetic.
+- **Karl Weinmeister (Google Cloud Community, Nov 17).** Gemini Decision 1 router in front of Gemini tiers cut spend "nearly 40%" on 150 tasks. Community demo.
+- **Nicholas Lisac (HackerNoon, Nov 17).** Clef-Flash router in RAG made retrieval worse. Negative independent result.
+- **Others:** FlatkeyAI (OpenAI Decisions for ticket routing, Qiita), Liquid d1.2 launch, Advancing Analytics (ai_decide behaves like OpenJev), bamboo_nova proofreading plugin (Jev between linter and LLM), Tankariya FDA recall router (logistics demo), arXiv 2609.22753 edge admission control.
+- **Thorsten Meyer deep dive (r1117/meyer.md):** only 2-3 uses live; relevance gate may be shadow; all self-reported; "every article" was wrong (78,889 of 1.1M+).
+
 ## Checked and left out
 
 - Perplexity "Decider powers Pro Search": found only in secondary blogs; Perplexity's model card and docs don't say it.
