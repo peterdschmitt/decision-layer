@@ -1,5 +1,5 @@
 ---
-title: "How Microsoft sorts Copilot requests with a decision model, at 77% less than an LLM"
+title: "How Microsoft sorts Copilot requests with a decision model, at 77% lower cost than an LLM"
 dek: "Microsoft now has a decision model choose where each Copilot request goes. The LLMs still do the work, and Microsoft says the choice is as accurate as an LLM’s."
 kind: News
 readMinutes: 10
@@ -16,7 +16,7 @@ stats:
   - value: "Same"
     label: "accuracy as an LLM, by Microsoft’s measure"
   - value: "4,000+"
-    label: "customers used Microsoft’s decision model in about five weeks"
+    label: "customers have used the same model in their own work"
 statsNote: "All four come from Microsoft’s own announcement of Nov. 17, 2026. The 77% is my conversion of its “4.4x lower cost.” The fine print has the details."
 sources:
   - title: "Microsoft: Microsoft-Decision-1.1 is now generally available for fast, low-cost decision making (Achint Srivastava, Nov. 17, 2026)"
@@ -64,41 +64,39 @@ However, when coupled with a decision model, each of those choices comes with a 
 
 **The choice.** Every request needs a home. A question about a travel policy belongs in chat. A request to set up a meeting and send the slides belongs with Cowork.
 
-**The change.** Microsoft has its own decision model, Microsoft-Decision-1.1, make that choice. It released the model for wide use on Nov. 17, at its Ignite conference.
+**The change.** Microsoft’s own decision model, Microsoft-Decision-1.1, makes that choice. Microsoft released the model to all customers this week. More than 4,000 had used it in their own work during a preview of about five weeks.
 
 **The result.** Microsoft says the decision model makes the choice as accurately as an LLM. It is 2.2 times as fast. The cost is about 77% lower.
 
 **A second job.** Inside Cowork, the same decision model sets how hard the LLM should think about each task. Microsoft calls the feature Auto. A quick job gets a quick pass, and a hard one gets more effort.
 
-**Beyond Copilot.** Satya Nadella, Microsoft’s chief executive, said the company uses the model for hundreds of other jobs. His examples included sorting, personalization and content filtering.
+**Beyond Copilot.** Satya Nadella, Microsoft’s chief executive, said Microsoft itself uses the model for hundreds of other jobs. His examples included sorting, personalization and content filtering.
 
 ## Four takeaways
 
 ### 1. Even an LLM seller doesn’t use LLMs alone for small choices
 
-Microsoft makes and sells LLMs. Yet inside its own flagship product, it gives this choice to a decision model.
+Microsoft sells access to some of the biggest LLMs. Yet inside Copilot, it gives this choice to a decision model.
 
 Microsoft’s announcement says why. It is “reserving larger models for more complex tasks.”
 
-The same shift shows up across the market. TechCrunch reported that in October, more than one in four requests sent through Vercel’s AI service went to decision models. Vercel’s service passes requests to many AI models.
+Others are doing the same. Vercel runs a service that passes requests to many AI models. TechCrunch reported that in October, more than one in four of those requests went to decision models.
 
 ### 2. Each model gets one plain job
 
 The split is simple. The decision model picks where a request goes and how much effort it gets. The LLM reads, writes and acts.
 
-Neither does the other’s job. The decision model writes nothing. The LLM spends no time deciding where a request belongs.
+The decision model writes nothing. The LLM steps in on the choice only when the decision model is unsure.
 
 ### 3. The choice runs on every request, so the savings repeat
 
 This choice is made before any work starts. Every request needs one.
 
-The saving of about 77% is on this sorting step, not on the LLM’s work that follows. That saving repeats on every request, every day.
+The saving of about 77% is on the decision model’s sorting step, not on the LLM’s work that follows. That saving repeats on every request, every day.
 
 ### 4. The decision model says when it isn’t sure
 
-An LLM alone gives an answer with no number on how sure it is. That is an unknown risk.
-
-Microsoft says its decision models give a percentage with each answer. That lets software “defer when uncertainty is high.” When the decision model is unsure, the program can hold back or ask the LLM.
+Microsoft says its decision models give a percentage with each answer. That lets software “defer when uncertainty is high.” When the decision model is unsure, the software can hold back or hand the choice to the LLM.
 
 That turns an unknown risk into a known one. You pick how sure it must be before it acts on its own.
 
@@ -106,25 +104,25 @@ That turns an unknown risk into a known one. You pick how sure it must be before
 
 **What a decision model is.** It is an AI that answers a fixed question with a percentage for each allowed answer. It writes no words. In Copilot’s case, the question is “chat or Cowork?”
 
-**How Microsoft built it.** Microsoft started from Gemma, an open model from Google. It trained the model on hundreds of collections of example decisions, some made up and some licensed. Microsoft says it also trained the model to say how sure it is, and to decline when information is missing.
+**How Microsoft built it.** Microsoft started from Gemma, an open model from Google. It trained the model on hundreds of collections of example decisions, some written for training and some licensed. Microsoft says it also trained the model to say how sure it is, and to decline when information is missing.
 
-**How Microsoft set it up in Copilot.** Microsoft has not published the setup. The fine print lists what it left out.
+**How Microsoft set it up in Copilot.** Microsoft has not published the setup. The hard questions below cover what it left out.
 
 **What it costs.** Microsoft charges only for what the model reads. It charges nothing for the answer.
 
 ## What it means for you
 
-**Money.** Look for the choices your LLMs make on every request: where to send it, which model to use, how much effort to spend. Those small choices add up. Microsoft’s figure suggests a decision model can make them for under a quarter of the cost.
+**Money.** Stop using LLMs alone for the small choices. Look for the choices your LLMs make on every request: where to send it, which model to use, how much effort to spend. Those small choices add up. Microsoft’s figure suggests a decision model can make them for under a quarter of the cost.
 
-**Customers.** The choice happens before the customer sees anything. A wrong choice means a meeting request answered with advice instead of booked. Test how often your choice goes wrong before you switch.
+**Customers.** The choice happens before the customer sees anything. A wrong choice means someone asks for a meeting and gets advice instead of a booking. Before you switch, test how often the decision model gets this choice wrong.
 
-**Revenue.** Microsoft’s announcement puts it plainly: “cheaper, faster models can be integrated in more places in software.” A choice that costs under a quarter as much can run on every request. That lets you offer AI features that cost too much to run before.
+**Revenue.** Microsoft’s announcement puts it plainly: “cheaper, faster models can be integrated in more places in software.” A decision model that costs under a quarter as much can run on every request. That lets you offer AI features that cost too much to run before.
 
-**Risk.** An LLM alone is an unknown risk. With a decision model in front, you know how sure each choice was and can set your own bar.
+**Risk.** With a decision model in front, you know how sure each choice was. You set your own bar.
 
 ### The same pattern in other industries
 
-- **HR software.** Workday’s new home screen uses Jev, a decision model made by TypeSafe. With every keystroke, Jev picks which form, calendar or approval card to show, while Workday’s Sana agents do the work. [Workday’s announcement](https://newsroom.workday.com/2026-10-13-Sana-Is-the-New-Workday-Home-A-Dynamic-Agentic-Experience-Built-to-Finish-the-Work,-Not-Just-Answer-Questions).
+- **HR software.** Workday’s new home screen uses a decision model called Jev, made by TypeSafe. With every keystroke, Jev picks which form, calendar or approval card to show, and Workday’s AI agents do the work. [Workday’s announcement](https://newsroom.workday.com/2026-10-13-Sana-Is-the-New-Workday-Home-A-Dynamic-Agentic-Experience-Built-to-Finish-the-Work,-Not-Just-Answer-Questions).
 - **Privacy.** An AWS architect in Korea put a small decision model ahead of an LLM. It screens each request for personal data, and only clean requests reach the LLM. In AWS’s own test, it made few mistakes and answered far faster than an LLM. [The write-up, in Korean](https://aws.amazon.com/ko/blogs/tech/aws-laya/).
 - **Hiring.** Jack & Jill had a decision model score every candidate. An LLM read only the shortlist. Jack & Jill’s screening costs fell 88%. [How Jack & Jill did it](/blog/jack-and-jill-coupled-llm-decision-model/).
 
@@ -151,7 +149,7 @@ That turns an unknown risk into a known one. You pick how sure it must be before
 
 ## For your developer
 
-Here is the pattern as code. The decision model answers two questions before any LLM works: where the request goes, and how much effort it gets. Unsure routes go to the LLM router you already have. This is my sketch, not Microsoft’s code. I haven’t run it on Copilot’s traffic, so treat it as expected, not measured.
+Here is the pattern as code. The decision model answers two questions before any LLM works: where the request goes, and how much effort it gets. When it is unsure where a request goes, the LLM you already use decides. This is my sketch, not Microsoft’s code. I haven’t run it on Copilot’s traffic, so treat it as expected, not measured.
 
 ```python
 def handle(request, decide, llm_route, workers, bar=0.8):
@@ -167,7 +165,7 @@ def handle(request, decide, llm_route, workers, bar=0.8):
     return workers[route](request, level)  # the LLM does the work
 ```
 
-My worked example adds the step before you switch: compare the decision model with your current router on past requests. It also steps effort up a level when the decision model is unsure, with tests. [Subscribe for access](/subscribe/).
+My worked example adds two steps, with tests. It compares the decision model with your current LLM on past requests. It raises effort a level when the decision model is unsure. [Subscribe for access](/subscribe/).
 
 Public material from others:
 
@@ -179,12 +177,13 @@ Public material from others:
 - **Microsoft’s numbers.** The Copilot claims come from Microsoft’s post of Nov. 17, 2026, by Achint Srivastava, a vice president of software engineering. The exact words: “It makes that call as accurately as a large language model, 2.2x faster and at 4.4x lower cost.” I converted 4.4 times lower cost to about 77% lower. Microsoft gives no volumes, no error rate and no name for the LLM it compared against.
 - **Customers.** Microsoft says “more than 4,000 customers” used the model in “just over five weeks” since its preview. It names Epic, Equinor, Atos Group and Raiffeisen Bank as early adopters. Epic’s Garrett Adams, a senior vice president, said Epic is “exploring” it for patient questions, help during doctor visits, and back-office work.
 - **Cowork.** Microsoft’s documentation says Cowork sends emails, schedules meetings, creates documents and posts in Teams. The examples of a chat request and a Cowork request in the story are mine.
+- **How it was built.** Microsoft says Microsoft-Decision-1.1 is built on Gemma 4, an open model from Google. It was trained on “hundreds of synthetic and licensed datasets.”
 - **Auto.** Microsoft says the model “powers Auto, dynamically adjusting how much reasoning effort Cowork applies to each task.” It gives no numbers for Auto.
 - **Nadella.** From the Official Microsoft Blog, Nov. 17, 2026. His full list: “routing, data labeling, personalization, content filtering and hundreds of other use cases.”
 - **A figure I didn’t use.** Posts on Nov. 17 said the model was 200 times cheaper than an LLM. That figure is not in Microsoft’s announcement, so I left it out. Microsoft’s own Ignite page says the model is “50x faster and 79x cheaper than GPT-Sol 6.1,” without naming the test. I used the announcement’s Copilot figure instead.
 - **Price.** In Microsoft Foundry, $0.042 per million tokens read, with answers free. Microsoft gives no reason for the free answers.
 - **TechCrunch.** Tim Fernholz, Nov. 17, 2026: “more than one in four requests on Vercel’s AI model router went to decision models” in October.
-- **Workday.** Its Oct. 13 release says the new home screen is “Powered by Jev,” from TypeSafe AI. Sana is the AI company Workday bought, and its agents carry out the requests. Joel Hellermark, Workday’s chief AI officer, told iTWire: “With every keystroke, there’s a decision model that selects the right UI components for that.” He said it takes about 300 milliseconds. Workday gives no accuracy or cost figures for Jev.
+- **Workday.** Its Oct. 13 release says the new home screen is “Powered by Jev,” from TypeSafe AI, and can show “forms, calendars, approval cards, visualizations.” Sana is the AI company Workday bought, and its agents carry out the requests. Joel Hellermark, Workday’s chief AI officer, told iTWire: “With every keystroke, there’s a decision model that selects the right UI components for that.” He said it takes about 300 milliseconds. Workday gives no accuracy or cost figures for Jev.
 - **AWS Korea.** A test by an AWS solutions architect, Sangbeom Ma, on 398 sentences not used in training. After its criteria and training data were improved twice, the decision model got 5 wrong. It answered in 35 to 39 milliseconds, against about 1,250 for Claude Haiku 5.5. It is not a customer deployment. The author says that below about 3.3 million checks a month, calling an LLM is cheaper.
 - **Jack & Jill.** From my earlier post, which cites its sources.
 - **This site** is independent and not affiliated with Microsoft, Workday, TypeSafe, Amazon or any company named here.
