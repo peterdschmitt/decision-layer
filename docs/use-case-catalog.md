@@ -294,6 +294,22 @@ Most hosts could not be opened by the research tools this run (network policy); 
 - **Others:** FlatkeyAI (OpenAI Decisions for ticket routing, Qiita), Liquid d1.2 launch, Advancing Analytics (ai_decide behaves like OpenJev), bamboo_nova proofreading plugin (Jev between linter and LLM), Tankariya FDA recall router (logistics demo), arXiv 2609.22753 edge admission control.
 - **Thorsten Meyer deep dive (r1117/meyer.md):** only 2-3 uses live; relevance gate may be shadow; all self-reported; "every article" was wrong (78,889 of 1.1M+).
 
+## Added Nov 18, 2026 (research r1118)
+
+- **Microsoft Copilot / Cowork on Microsoft-Decision-1.1 (Nov 17, Ignite GA). USED Nov 18.** Production. Decision model chooses Copilot chat vs Cowork for each request "as accurately as a large language model, 2.2x faster and at 4.4x lower cost" (about 77% lower); in Cowork it powers Auto (reasoning effort per task). 4,000+ customers in about five weeks; early adopters Epic ("exploring": Emmie, Art, Penny), Equinor, Atos, Raiffeisen. No volumes, no baseline LLM named. Company report.
+- **Workday / Sana + Jev (Oct 13 release; iTWire Oct 15; IT Leaders Nov 18).** Production. Jev picks the UI component (form, calendar, approval card) on every keystroke in about 300 ms; Sana agents do the work. Leave requests >80% faster is Sana as a whole, not Jev. Company report.
+- **AWS Korea Laya (Nov 16).** Fine-tuned open decision model screens requests for Korean personal data before Bedrock; LLM writes training data. 398 unseen sentences: errors 53 -> 5 after two retrainings, 35-39 ms; Jev untrained 4 missed / 20 wrongly blocked; Haiku 5.5 7 / 1 at ~1,250 ms. LLM cheaper below 3.3M checks a month. Vendor test.
+- **UPGRADE Inc. (Zenn, Nov 18).** Jev auto-routed 33/42 inquiries, Luna Decisions 15/42, both no errors (thresholds not portable); fixed-format LLM router most accurate (16/16) but 4-5x slower. Consultancy test, fictional data.
+- **Vercel eve 1.0 (Nov 17).** Ambient mode: decision model screens each channel message before the LLM agent takes a turn. Vendor product, no numbers.
+- **TechCrunch (Nov 17, Tim Fernholz).** >1 in 4 Vercel AI router requests went to decision models in October; OpenRouter >1.5B TypeSafe queries in a week. Market data.
+- **Esri (Nov 16).** "Exploring" Jev and OpenAI Decisions to pick map layers and fields instead of embeddings. Not in production.
+- **Ingenix Thalamus Decision (Nov 17).** RNA-seq decision model: 62.6% of decisions automated at 5% target error (6.3% realised). Vendor claim, no LLM coupling.
+- **AWS ML blog (Nov 17).** "Code for rules, models for judgment": rule, then decision call, unsure escalates to right-sized model. Guidance.
+- **Single Grain (Oct 14).** Jev sorts leads hold/route/recommend, fails closed at 0.55, human yes before bot acts. Scenario numbers only. Sales.
+- **Community demos:** Ananmay Sharan pen sketches to UI components; Alginte CVE severity triage in Kafka Streams; jimbanks/ad-library-saver (Jev tags Meta ad cards: format, CTA, funnel stage; ad creative); gauravlahoti/Switchboard (IT service desk).
+- **Lightpanda deep dive (r1118/deep.md):** coupling confirmed in code (12 yes/no page questions, threshold 0.5, chat model drives and calls Jev as a tool); "two thirds fewer wrong answers" compares input formats, not Jev vs LLM; no cost, no named users of the Jev feature.
+- **kyotofin deep dive (r1118/deep.md):** pure replacement, no LLM in repo; org unidentified; cost is an estimate; ~97% cheaper per page, 0 wrong on 314 synthetic forms.
+
 ## Checked and left out
 
 - Perplexity "Decider powers Pro Search": found only in secondary blogs; Perplexity's model card and docs don't say it.
