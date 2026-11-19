@@ -1,8 +1,8 @@
 ---
-title: "How a product-catalog company cut its category errors 85% with a decision model"
-dek: "Channel3 had an LLM file products into categories, and about a fifth landed in the wrong place. A decision model choosing from a short list got nearly all of them right."
+title: "How a product-catalog company cut category errors 85% in a test of a decision model"
+dek: "Channel3’s LLM filed nearly a fifth of products in the wrong category. In a test, a decision model making the same pick removed most of those errors."
 kind: Worked example
-readMinutes: 9
+readMinutes: 10
 author: Peter Schmitt
 audience: For executives whose AI sorts, files or labels things at scale
 published: 2026-11-19
@@ -13,8 +13,8 @@ stats:
     label: "fewer products filed in the wrong category"
   - value: "97.2%"
     label: "filed correctly by the decision model, against 81.9% before"
-  - value: "Same"
-    label: "cost per product as the LLM step it replaced"
+  - value: "About the same"
+    label: "cost per product as the LLM step"
   - value: "Tens of millions"
     label: "of products Channel3 processes every day"
 statsNote: "All four come from Channel3’s own write-up of Oct. 5, 2026. The 85% is my arithmetic from its two accuracy figures. The fine print has the details."
@@ -32,25 +32,33 @@ sources:
 
 Take a Nike fleece jacket. Before a shopping site can show it, someone has to file it. Clothing, then outerwear, then coats and jackets.
 
-Channel3 files products like that for a living. It builds a catalog of physical products that AI shopping assistants search, and it processes tens of millions of products a day.
+Channel3 files products like that for a living. It builds a catalog of physical products for AI shopping assistants to search. It processes tens of millions of products a day.
 
-For one step of that filing, Channel3 used an LLM. About a fifth of the products landed in the wrong category. Then it handed the step to a decision model, an AI that picks from fixed answers and says how sure it is. Nearly all of them landed in the right place, at about the same cost.
+For one step of that filing, Channel3 used an LLM. Nearly a fifth of the products landed in the wrong category. Then it tested a decision model on that step, in place of the LLM. Most of those errors went away, at about the same cost.
 
-That matters to anyone whose AI sorts, files or labels things. An LLM alone picks an answer and gives no number on how sure it is. That is an unknown risk, repeated millions of times a day.
+A decision model is an AI that picks from a list it is given and says how sure it is. An LLM alone picks an answer and gives no number on how sure it is. That is an unknown risk, repeated millions of times a day. Stop using LLMs alone to pick from a list.
 
-However, when coupled with a decision model, each pick comes with a percentage. The sure ones can stand, and the rest can go to the LLM.
+However, when coupled with a decision model, each pick comes with a percentage. The picks it is sure of can stand. The rest can go to the LLM.
+
+Channel3 tested the first part. The second part is my suggestion.
+
+| | An LLM alone | A decision model coupled with the LLM |
+| --- | --- | --- |
+| Who picks the category | The LLM | The decision model, when sure |
+| How sure it was | Unknown | A percentage on every pick |
+| What happens when unsure | Nobody knows | The LLM picks instead |
 
 ## The story
 
-**Who.** Channel3 is a New York company that sells product data to developers and AI shopping assistants. Its system takes raw retailer pages and turns them into clean product records. Evan Fenster of Channel3 described the change in a company blog post on Oct. 5.
+**Who.** Channel3 is a New York company that sells product data to developers, brands and businesses. Its system takes raw retailer pages and turns them into clean product records. Evan Fenster of Channel3 described the change in a company blog post on Oct. 5.
 
 **Before.** Channel3’s category list has thousands of entries, arranged like a family tree. First, a cheap search pulled the 30 categories that looked closest to each product. Then an LLM picked the best one from those 30.
 
 The search did its part well. The right category was almost always somewhere in the 30. The LLM’s pick was the weak link. It was right 81.9% of the time.
 
-**The first try.** Channel3 tested TypeSafe’s Jev decision model. It began with a method from TypeSafe’s own guide: walk down the tree one level at a time, keeping the best few paths.
+**The first try.** Channel3 tested Jev, a decision model made by a company called TypeSafe. It began with a method from TypeSafe’s own guide: walk down the tree one level at a time, keeping the best few paths.
 
-It broke on a youth bicycle. Retail category lists file bicycles under sporting goods, three levels down. Near the top of the tree, “vehicles” looked like the better match.
+It broke on a youth bicycle. Retail category lists file bicycles under sporting goods, three levels down. Near the top of the tree, “vehicles” looked like a better match than “sporting goods.”
 
 By the time the decision model reached the bicycle level, the right path was already gone. The bike was filed as a motor vehicle.
 
@@ -58,52 +66,50 @@ By the time the decision model reached the bicycle level, the right path was alr
 
 But there are about 6,000 categories. Asking about each one would have cost about 2,000 times as much as Channel3’s setup.
 
-**The switch.** The answer was to keep the cheap search and its 30 candidates. Only the last step changed. The decision model, not the LLM, picked one category from the 30.
+**The third try.** Channel3 kept the cheap search and its 30 candidates. Only the last step changed. The decision model, not the LLM, picked one category from the 30.
 
 **The result.** The decision model was right 97.2% of the time. The cost per product stayed about the same.
 
-Wrong categories fell from about a fifth of products to fewer than three in a hundred. That is about 85% fewer errors.
+Before, nearly one product in five was filed in the wrong category. With the decision model, those errors fell by about 85%.
 
 ## The limit Channel3 was honest about
 
-The saving was in accuracy, not money.
+The gain was in accuracy, not money.
 
-Channel3 runs cheap open models in large batches. Against those, Fenster wrote, the decision model costs about the same. Against big, expensive LLMs, the decision model is far cheaper.
+Channel3’s LLM was already cheap, because it was an open model run in large batches. Against that kind of model, Fenster wrote, the decision model costs about the same. Against big, expensive LLMs, he wrote, it is far cheaper.
 
-His list of where it worked is short. Picking from a short list. Making a choice with no training examples. Replacing small, cheap decisions.
+He listed where it worked. It did well picking from a short list, with no training examples. It also did well taking over small decisions from both cheap and expensive models.
 
-His list of where it didn’t is shorter. Searching a huge list one step at a time. Cutting costs that were already low.
+He also listed where it didn’t. It struggled to search a huge list one step at a time. It didn’t cut costs that were already low.
 
 ## How it works
 
-**What a decision model is.** It is an AI that answers a fixed question with a percentage for each allowed answer. It writes no words. At Channel3, the question is “which of these 30 categories fits this product?”
+**What a decision model is.** It is an AI that answers a question with a percentage for each answer it is allowed to give. At Channel3, the question is “which of these 30 categories fits this product?”
 
-**How it is trained.** TypeSafe says Jev is trained with a method it calls RLCD, so its percentages track how often it is right. TypeSafe also says Jev is not trained on customers’ requests. It hasn’t published its training data.
+**How it is trained.** TypeSafe says Jev is trained so its percentages track how often it is right. TypeSafe also says Jev is not trained on customers’ requests. It hasn’t published its training data.
 
 **How Channel3 set it up.** The cheap search narrows thousands of categories to 30. The decision model picks one. Channel3 used no training examples of its own for this step.
 
-**What Channel3 didn’t say.** It hasn’t said whether the new step is live, how many products it tested, or what happens to the products the decision model is unsure about.
+**What Channel3 didn’t say.** The hard questions below cover what it left out.
 
 ## What it means for you
 
 **Money.** Don’t expect a saving if you already use a cheap model for this kind of choice. Expect fewer mistakes. If you use a big, expensive LLM to pick from a list, the saving can be large.
 
-**Customers.** A jacket filed under vehicles is a jacket no shopper finds by browsing. At Channel3’s volume, fewer wrong categories means fewer lost products.
+**Customers.** A youth bike filed under motor vehicles is a bike an AI shopping assistant may never show a parent. Channel3 didn’t measure an effect on shoppers.
 
-**Revenue.** Channel3’s customers are AI shopping assistants that choose what to show. Their answers are only as good as the categories underneath. Channel3 hasn’t tied the change to sales.
+**Revenue.** Channel3’s product data feeds AI shopping assistants that choose what to show. Their answers are only as good as the categories underneath. Channel3 hasn’t tied the change to sales.
 
-**Risk.** Stop using LLMs alone to pick from a list. With a decision model, each pick has a percentage. You set a bar, the level of sureness at which the pick stands. Picks below the bar go to the LLM.
+**Risk.** With a decision model, each pick has a percentage. You set a bar, the level of sureness at which the pick stands. Picks below the bar go to the LLM.
 
 ### The same pattern in other industries
 
-- **Call centers.** In a Dialpad test on its own call-center tasks, when Jev was very sure of what a caller wanted, it was right 97.1% of the time. Across all calls, it was right 78.7% of the time. Its researchers recommend keeping the sure answers and sending the rest to a stronger LLM, in [Dialpad’s study](https://arxiv.org/abs/2611.22949).
+- **Call centers.** In a Dialpad test on its own call-center tasks, when Jev was very sure of what a caller wanted, it was right 97.1% of the time. Across all of those questions, sure or not, it was right 78.7% of the time. Its researchers say this supports keeping the sure answers and sending the rest to a stronger model, in [Dialpad’s study](https://arxiv.org/abs/2611.22949).
 - **Hiring.** Jack & Jill had a decision model score every candidate. An LLM read only the shortlist. Jack & Jill’s screening costs fell 88%. [How Jack & Jill did it](/blog/jack-and-jill-coupled-llm-decision-model/).
 
 ### The hard questions
 
-**Is the new step live?** Channel3 doesn’t say. It calls its existing setup “our current production setup,” and describes the decision model as a test result.
-
-**How big was the test?** Channel3 doesn’t say.
+**Is the new step live?** Channel3 doesn’t say, and it gives no test size. It describes the decision model as a test against the setup it runs today.
 
 **Why not let the decision model search the whole list?** Channel3 tried both ways. Walking the tree lost the right answer early. Asking about every category was too costly.
 
@@ -144,19 +150,19 @@ My worked example adds the checks around it, with tests. It measures how often t
 Public material from others:
 
 - **[Channel3’s write-up](https://www.trychannel3.com/blog/where-jev-fits)** (company report): the three approaches it tried, with accuracy and cost for each.
-- **[Dialpad’s study](https://arxiv.org/abs/2611.22949)** (company research): nine decision models against thirteen LLMs on contact-center tasks.
+- **[Dialpad’s study](https://arxiv.org/abs/2611.22949)** (company report): nine decision models against thirteen LLMs on contact-center tasks.
 
 ## The fine print
 
 - **Channel3’s numbers.** All come from its post of Oct. 5, 2026, by Evan Fenster. The exact words: “Jev improved our product categorization accuracy from 81.9% to 97.2% at roughly the same cost when we used it to choose from 30 prefiltered categories.” It names Jev but not the version. It gives no test size.
-- **The 85%.** My arithmetic. At 81.9% right, 18.1% were wrong. At 97.2% right, 2.8% were wrong. That is about 85% fewer errors.
-- **The LLM before.** Channel3 names it as Gemma 4 31B, an open model from Google.
+- **The 85%.** My arithmetic. At 81.9% right, 18.1% were wrong. At 97.2% right, 2.8% were wrong. That is 84.5% fewer errors, which I round to about 85%.
+- **The LLM before.** Channel3 names it as Gemma 4 31B, an open model.
 - **The search step.** Channel3 says the closest single category was right less than 40% of the time. The right one was in the top 30 more than 99% of the time.
 - **The cost.** Channel3 gives $0.0005 a product for the decision-model step. Asking about all 6,000 categories reached 98.0% accuracy at $1.08 a product, which Channel3 says “would have increased our costs ~2,000×.”
-- **The limit.** Fenster: “For those benchmarking Jev against cheaper open source models, it’s closer to a 50% discount than many multiples of savings. At Channel3, we use batched inference that makes the costs nearly identical to Jev.”
+- **The limit.** In Fenster’s words: “For those benchmarking Jev against cheaper open source models, it’s closer to a 50% discount than many multiples of savings. At Channel3, we use batched inference that makes the costs nearly identical to Jev.”
 - **The bicycle.** Channel3 says the bicycle category scored 0.94 on its own, but the path to it scored 0.091, so the tree walk chose motor vehicles.
 - **The opening jacket.** Channel3’s post uses the Nike Sportswear Club Fleece as its example. The path given is Clothing & Accessories, Clothing, Outerwear, then Coats & Jackets.
-- **Dialpad.** Md Tahmid Rahman Laskar, Xue-Yong Fu and Shashi Bhushan TN of Dialpad, arXiv 2611.22949, submitted Nov. 17, 2026. “Very sure” means 90% or more. It is an offline study, and the intent examples are synthetic. The authors write that their results “support accepting confident predictions and routing the remainder to a stronger model.” On another task, call outcome, Jev and three other decision models were that sure on only 14 to 28% of calls.
+- **Dialpad.** Md Tahmid Rahman Laskar, Xue-Yong Fu and Shashi Bhushan TN of Dialpad, arXiv 2611.22949, submitted Nov. 17, 2026. “Very sure” means 90% or more. It is an offline study, and the intent examples are synthetic. Most decision models in it rarely answered “no intent” when none of the listed intents fit, so a “none of these” answer needs testing. In the authors’ words, their results “support accepting confident predictions and routing the remainder to a stronger model.” On another task, call outcome, Jev and three other decision models were that sure on only 14 to 28% of calls.
 - **Training.** From TypeSafe’s docs page on its models.
 - **Jack & Jill.** From my earlier post, which cites its sources.
 - **This site** is independent and not affiliated with Channel3, TypeSafe, Dialpad, Google or any company named here.
