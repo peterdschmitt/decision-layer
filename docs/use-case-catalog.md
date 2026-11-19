@@ -310,6 +310,22 @@ Most hosts could not be opened by the research tools this run (network policy); 
 - **Lightpanda deep dive (r1118/deep.md):** coupling confirmed in code (12 yes/no page questions, threshold 0.5, chat model drives and calls Jev as a tool); "two thirds fewer wrong answers" compares input formats, not Jev vs LLM; no cost, no named users of the Jev feature.
 - **kyotofin deep dive (r1118/deep.md):** pure replacement, no LLM in repo; org unidentified; cost is an estimate; ~97% cheaper per page, 0 wrong on 314 synthetic forms.
 
+## Added Nov 19, 2026 (research r1119)
+
+- **Channel3 (Oct 5, Evan Fenster). USED Nov 19.** Retail product catalog (tens of millions of products a day). Embedding search returns top 30 categories (Recall@30 >99%); Gemma 4 31B picked 81.9% right; Jev picking from the 30: 97.2% "at roughly the same cost" ($0.0005/product), ~85% fewer errors. Tree walk failed (youth bicycle -> motor vehicle); scoring all 6,000 categories 98.0% but ~2,000x cost. vs batched cheap open models, costs "nearly identical". Production not stated; no test size. Company report.
+- **Workday / Sana deep dive (r1119/workday.md).** Subprocessor entry Oct 9 ("Intent classification; Confidence scoring"); Jev gets every design-system component, no hard-coded selection (The New Stack via RSS); Adaptive GM: Jev routes simple things in Decision Intelligence, cost "dropped pretty significantly". Leave-request figure (>80% or >90%) is Sana overall, method undisclosed; "255 components" is Jev's option limit, not Workday's.
+- **Pulumi Delivery (Nov 18).** Agents ship infra changes; Jev risk score gates promotion (maximumRisk 0.1), risky ones wait for a person. Agents' share of operations 15% (Apr) -> 40%+ (Oct), not credited to Jev. Public preview. Company report.
+- **Dialpad (arXiv 2611.22949, Nov 17).** 9 decision models vs 13 LLMs on contact-center tasks; Jev 97.1% at p>=0.9 vs 78.7% overall on intent; decision APIs $0.09-0.23 per 1,000 vs $0.29 GPT-6-Luna; recommend accept confident, send rest to stronger LLM. Offline, synthetic intents. Company research.
+- **Sionic AI (Qiita, Nov 19).** decider-4b picks continue/end/transfer, gpt-6.1-sol writes; vs single LLM cost -42.7%, latency -17.8% on 6 cases x 10 runs. Company test.
+- **Continua (Oct 2).** Lending: LLM drafts credit memo, Jev answers supports/contradicts/says_nothing per claim; ~1.34% of GPT's cost, 1.1 s vs 40-60 s, same false-positive rate. Internal tests. (Framing caution: decision model judging LLM output.)
+- **Hostinger (Oct 7).** Phishing domains: Jev 88.5% vs Gemma 90.0%, 5.3x faster; support-chat product labels 79.3% vs GPT-5 mini 86.9%. Honest split; not deployed.
+- **There There / Spatie (Sep 18/30).** Production helpdesk: Jev screens bounces/auto-replies/spam so the LLM doesn't summarize them; picks assignee, unclear leaves unchanged. 639 ms for three questions. No accuracy/cost.
+- **AIMultiple router benchmark (Nov 18).** Jev as router 29.4% vs GPT-6 Luna alone 38.8% (sent 98.29% of calls to one model). Independent counter-evidence.
+- **RENCI / NCATS Translator (Nov 18).** Jev drops unsupported text-mined edges: 110,469 of 336,369 (33%) for $38; precision ~0.93-0.97 vs Claude-made labels. Public research infrastructure.
+- **ASPI (Nov 19).** Qwen-based decision models (incl. Clef) biased on CCP-sensitive topics in hiring/moderation tests. Independent risk result.
+- **Disney Imagineering + AWS (Nov 18).** "Fast-decision models handle quick reactions, while larger models help weigh the bigger picture" in robotic characters. Prototype, no numbers.
+- **Others:** Leonis Capital (659 YC companies, 7 s, $0.03), GC AI hackathon (Jev 89% F1 vs 57% regex on clauses), Housecat email labels, satoshi_yoneda mail gate (live), Eason Lai ICD-10 fine-tune (58.3% -> 98.8%, synthetic), Telnyx decision models (voice branching), Cloudflare Clairic open weights, KDnuggets Gemini Decision 1 spot check, Rayline ARC, riurretx arXiv screen-then-extract.
+
 ## Checked and left out
 
 - Perplexity "Decider powers Pro Search": found only in secondary blogs; Perplexity's model card and docs don't say it.
