@@ -1,6 +1,6 @@
 ---
-title: "Hostinger found a decision model about 80% cheaper than LLMs, but good enough for one job"
-dek: "Stop using LLMs alone, but test before you switch. Hostinger’s decision model was good enough to spot phishing sites, not yet to sort support chats."
+title: "Hostinger found a decision model about 80% cheaper than LLMs, yet fit for only one job"
+dek: "Stop using LLMs alone, but test before you switch. The decision model Hostinger tested was good enough to spot phishing sites, not yet to sort support chats."
 kind: Reality check
 readMinutes: 10
 author: Peter Schmitt
@@ -12,7 +12,7 @@ stats:
   - value: "About 80%"
     label: "lower cost than the LLMs it was priced against"
   - value: "About 5x"
-    label: "faster than the main LLM on each job"
+    label: "faster than the most accurate LLM on each job"
   - value: "88.5%"
     label: "of phishing checks right, against 90% for the best LLM"
   - value: "79.3%"
@@ -59,13 +59,11 @@ Hostinger tested the decision model alone, against its LLMs. The coupled setup i
 
 ## The trap
 
-There are two traps here.
+The first trap is trusting a vendor’s best case. Hostinger tested Jev, a decision model made by a company called TypeSafe. TypeSafe’s home page said Jev was more than 190 times faster than LLMs.
 
-The first is a vendor’s best case. Hostinger tested Jev, a decision model made by a company called TypeSafe. TypeSafe’s home page said Jev was about 194 times faster than LLMs.
+It also said Jev was more than 440 times cheaper. TypeSafe’s own launch post says it expects those figures are “on the higher end of real world gains.”
 
-It also said Jev was about 445 times cheaper. TypeSafe’s own launch post says it expects those figures are “on the higher end of real world gains.”
-
-The second trap is swapping out an LLM that works because a cheaper model looks close. Hostinger avoided both.
+The second trap is dropping an LLM that works just because a cheaper model looks close. Hostinger’s test avoided both.
 
 ## The story
 
@@ -77,29 +75,27 @@ The second trap is swapping out an LLM that works because a cheaper model looks 
 
 Only then did it test on 781 web addresses the model had never seen. The decision model judged 88.5% of them right.
 
-The best LLM in the test, Google’s Gemma, got 90.0% right. The decision model answered about 5 times faster.
+The best LLM in the test, Google’s Gemma, got 90.0% right. The decision model answered about 5 times faster than Gemma.
 
 **Job two: support chats.** The test used 528 past chats. The decision model named the right product for 79.3% of them.
 
-The LLM Hostinger uses today got 86.9% right. The decision model was again about 5 times faster, and far cheaper.
+The LLM Hostinger uses today got 86.9% right. The decision model was again about 5 times faster than that LLM, and far cheaper.
 
 **The decision.** For phishing, Hostinger wrote, it would “take that trade without much thought.” For support chats, the gap was “too much for us to switch today.”
 
 ## The twist
 
-The speed and the price were not what Hostinger valued most.
-
 Hostinger wrote that “speed and price get the headlines.” But “the confidence score is the most useful part of Jev.” That score says how clear-cut each answer was.
 
-A model that is right nearly every time still can’t run on its own if nothing flags the answers that may be wrong. The decision model flags its own shaky answers.
+Even a model that is almost always right can’t be left alone if nothing flags its likely mistakes. The decision model flags its own shaky answers.
 
-Hostinger’s advice follows from that. Let the software act on the sure answers. Pass the unsure ones to a bigger model.
+Hostinger’s advice follows from that. Let the software act on the sure answers. Pass the unsure ones to a bigger model, such as the LLM you already run.
 
 ## My verdict
 
-A decision model is good enough for checks asked thousands of times, where it comes within a small gap of the LLM. Phishing is that kind of job.
+A decision model is good enough where it comes within a small gap of the LLM on your own examples. On phishing, it did.
 
-It is not yet good enough to replace an LLM where every point of accuracy counts. Hostinger’s support chats are that kind of job.
+It is not yet good enough to replace an LLM where the gap is large. On support chats, it was.
 
 But the choice isn’t one model or the other. On support chats, the decision model can file the chats it is sure of. The LLM can take the rest.
 
@@ -115,17 +111,17 @@ Stop using LLMs alone. Couple the LLM with a decision model. Then test each job 
 
 ## What it means for you
 
-**Money.** Don’t budget on a vendor’s best case. Hostinger found costs about 80% lower than the LLMs it priced against. Each unsure choice you send on to the LLM costs what it costs today, so the saving shrinks as more go there.
+**Money.** Don’t budget on a vendor’s best case. Hostinger found costs about 80% lower than the LLMs it priced against. Each unsure choice sent to the LLM costs what it costs today. The more you send, the less you save.
 
 **Customers.** Hostinger held back on support chats because the gap was too large. Customers feel that kind of gap when a chat lands with the wrong team. Set the highest bar where a mistake reaches a customer.
 
-**Revenue.** Hostinger didn’t tie the test to sales. Its own example shows where revenue sits. A sales lead filed as spam could cost a customer.
+**Revenue.** Hostinger didn’t tie the test to sales. But a wrong answer can cost sales. In Hostinger’s example, a sales lead filed as spam could lose a customer.
 
-**Risk.** Set a bar for each job: how sure the decision model must be for its answer to stand. Below the bar, the LLM decides. If too many wrong answers get through, Hostinger says to rebuild the example set, not nudge the bar.
+**Risk.** Set a bar for each job: how sure the decision model must be for its answer to stand. If too many wrong answers get through, Hostinger says to rebuild the example set, not nudge the bar.
 
 ### What other companies found
 
-- **Developer tools.** In production, Jev now picks which saved notes Unblocked’s AI agent reads before it answers a question. In Unblocked’s test, the share of useful notes rose by about a third. [Unblocked’s write-up](https://getunblocked.com/blog/jev-in-production-vs-cross-encoder/).
+- **Developer tools.** In production, Jev now picks which saved notes Unblocked’s AI agent reads before answering staff questions. In Unblocked’s test, the share of useful notes rose by about a third. [Unblocked’s write-up](https://getunblocked.com/blog/jev-in-production-vs-cross-encoder/).
 - **Travel.** Airbnb screens content for breaks in its rules on pricing and payments, thousands of times a minute. It found Jev the most accurate ready-made model that answered in under a tenth of a second. A model Airbnb trained itself on its own examples did better still. [Airbnb’s test](https://airbnb.tech/ai-ml/frontier-quality-at-1-of-the-cost-a-production-benchmark-of-llm-classifiers/).
 - **Customer service.** Gen-AX, a Japanese software company, found Jev matched LLMs at spotting clear faults in help-center answers. But every decision model it tested missed more than 80% of answers that left out one condition. [The write-up, in Japanese](https://zenn.dev/genax_corp/articles/20261109-judge-models-faq-check).
 
@@ -185,14 +181,17 @@ Public material from others:
 - **Phishing cost.** Gemma runs on Hostinger’s own computers, so it has no price per question. Hostinger priced Jev against OpenAI’s GPT-5.6 Luna, which scored 84.5%. Jev cost about $0.021 per 1,000 web addresses, against an estimated $0.09 for Luna. That is about 77% less. Luna’s figure is Hostinger’s estimate, not a bill. Jev was 4.1 times faster than Luna.
 - **Support chats.** “Jev picked the right product 79.3% of the time, against 86.9% for GPT-5 mini.” When both the product and the reason for the chat had to be right, Jev scored 42.9% and GPT-5 mini 42.4%. Jev took a median of 0.81 seconds against 4.54, and cost $0.23 per 1,000 chats against $1.27. That is about 82% less.
 - **Speed.** Phishing times are averages. Support-chat times are medians.
+- **LLMs and guessing.** Hostinger: “LLMs rarely say when they’re guessing.”
+- **Upkeep.** Hostinger: “If too many wrong answers slip through, build a better calibration set and repeat the process rather than nudging the cutoff on the test results.”
+- **Spam and sales leads.** Hostinger: “a sales lead filed as spam could cost you a customer, so we’d set a much higher bar before anything gets marked as spam.”
 - **The summary line.** In Hostinger’s words: “In both tests, Jev was about 5x faster and 4 to 6 times cheaper. That’s far less than TypeSafe’s launch claims of roughly 193x faster and 444x cheaper.” Hostinger explains that TypeSafe “measured against large frontier models. We measured against the smaller, cheaper models we actually run, on real workloads.”
 - **TypeSafe’s claim.** Its launch post: “This is where the claims of 193.6x faster, 444.6x cheaper on our home page come from, and we expect that these are on the higher end of real world gains.”
 - **The confidence score.** Jev returns a percentage for each answer and, usually, a separate confidence score. In Hostinger’s words, confidence “tells you how clear-cut the decision was.”
 - **The coupling.** Hostinger’s full advice: “let your code act on high-confidence answers, ask for confirmation on the ones in between, and pass low-confidence ones to a person or a bigger model.” It did not build or measure that setup. Sending unsure answers to your current LLM is my version of it.
 - **Follow-up.** I found no later Hostinger post, changelog entry or press release that mentions Jev. That doesn’t prove it isn’t in use.
 - **Unblocked.** From its post of Sept. 22, 2026, by Morteza Milani. “Jev is now making one of the decisions we care most about, on every question, in production.” The share of useful notes went from 34.8% to 46.4%. The test used 292 real questions, graded by an LLM. Unblocked: “This is one workload. Our numbers are not a benchmark and we would not hand them to you as one.” The note-picking step took 0.35 seconds at the median against 0.20, at about the same cost.
-- **Airbnb.** From its post of Nov. 3, 2026. Of Jev: “It is the most accurate off-the-shelf model we tested under 100ms.” Airbnb trained a small version of Google’s Gemma on its own examples. Training lifted that model’s F1, a standard accuracy score, “from 0.563 to 0.902.” Airbnb doesn’t say it uses Jev.
-- **Gen-AX.** From its post of Nov. 20, 2026, on Zenn, in Japanese. It used public government help-center answers, with faults added on purpose. Three of its four decision models, Jev among them, matched the LLMs on clear faults. Jev answered in a median of 0.16 seconds, at about a third to a twenty-fifth of the LLMs’ cost. It is a test, not a deployment.
+- **Airbnb.** From its post of Nov. 3, 2026. The classifier is “called thousands of times per minute.” Of Jev: “It is the most accurate off-the-shelf model we tested under 100ms.” Airbnb trained a small version of Google’s Gemma on its own examples. Training lifted that model’s F1, a standard accuracy score, “from 0.563 to 0.902.” Airbnb doesn’t say it uses Jev.
+- **Gen-AX.** From its post of Nov. 20, 2026, on Zenn, in Japanese. It used public government help-center answers, with faults added on purpose. Three of its four decision models, Jev among them, matched the LLMs on clear faults. On answers missing one condition: “Decision Model の 4 つはいずれも 8 割以上を見逃し” [all four decision models missed more than 80%]. Jev answered in a median of 0.16 seconds, at about a third to a twenty-fifth of the LLMs’ cost. It is a test, not a deployment.
 - **Training.** From TypeSafe’s docs page on its models.
 - **This site** is independent and not affiliated with Hostinger, TypeSafe, Unblocked, Airbnb, Gen-AX, OpenAI, Google, OpenRouter or any company named here.
 
