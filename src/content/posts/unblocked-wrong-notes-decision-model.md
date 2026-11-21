@@ -49,7 +49,7 @@ However, when coupled with a decision model, the LLM sees a note only after the 
 | --- | --- | --- |
 | How a note gets in | A ranking score clears a cutoff | The note’s percentage clears the bar |
 | How sure it was | A score, not a percentage | A percentage on every note |
-| When no note fits | A note got in more than half the time | A note got in less often |
+| When no note fits | A note got in 52% of the time | A note got in 41% of the time |
 
 ## The story
 
@@ -71,27 +71,27 @@ It returns a percentage for each note. Notes above the bar go to the agent.
 
 Instead, it took 292 real questions from production. For each one, it pulled every note that existed at that moment. An LLM graded each note blind, without knowing which tool had picked it.
 
-**The result.** The decision model did better on all three counts that matter. The share of wrong notes among those that reached the agent fell about 18%, and more of the useful notes got through. When no note fit, it added one about 21% less often.
+**The result.** The decision model did better on all three counts: fewer wrong notes, more useful ones, and fewer notes added when none fit. Among the notes the agent read, the share that were wrong fell about 18%, compared with before. When no note fit, it added one about 21% less often.
 
-The step cost about 6% less. It took 0.15 seconds longer. Unblocked says no one notices that behind an answer that takes several seconds.
+Picking the notes cost about 6% less than before. It took 0.15 seconds longer. Unblocked says no one notices that behind an answer that takes several seconds.
 
-**Live.** Unblocked wrote that Jev is now making the choice “on every question, in production.” It said its other choices still run on LLMs, and it is moving them off LLMs too.
+**Live.** Unblocked wrote that Jev is now making the choice “on every question, in production.” It said other decisions in its product are still made by LLMs, and it is moving them off LLMs too.
 
 ## The twist
 
-Asking about one note at a time didn’t work. That version of the decision model did worse than the old tool.
+Unblocked also tried asking the decision model about one note at a time. It didn’t work. That version of the decision model did worse than the old tool.
 
-Unblocked’s explanation is simple. Shown one note alone, the model has nothing to compare it with, so it is too generous. Shown 20 notes, it can see which few really bear on the question.
+Shown one note alone, the model has nothing to compare it with, so it is too generous. Shown 20 notes, it can see which few really bear on the question.
 
 The second lesson was about tuning. Unblocked spent a day trying nine rewordings of its instructions to the model. None of them helped.
 
-What mattered was where Unblocked set the bar. In Unblocked’s words: “Tune the threshold, not the prompt.” In plain terms, adjust the bar, not the instructions.
+What mattered was where Unblocked set the bar. In Unblocked’s words: “Tune the threshold, not the prompt.”
 
 ## How it works
 
 **What a decision model is.** It writes no words, only a percentage. At Unblocked, the question is whether a note helps answer the question in front of the agent.
 
-**How it is trained.** TypeSafe says Jev is trained so that its percentages match how often it is right. Unblocked’s view is that this is what made the bar useful: “the number means what it says.” TypeSafe’s docs don’t describe the training data.
+**How it is trained.** TypeSafe says Jev is trained so that its percentages match how often it is right. Unblocked’s view is that this is what made the bar useful: “the number means what it says.” TypeSafe’s docs say only that Jev is not trained on customer requests or responses.
 
 **How Unblocked set it up.** Each request holds the question and up to 20 notes, and Jev returns a percentage per note. A bar decides which notes reach the agent, up to five. The LLM then writes the answer.
 
@@ -103,7 +103,7 @@ What mattered was where Unblocked set the bar. In Unblocked’s words: “Tune t
 
 **Revenue.** Unblocked sells answers engineers act on. It wrote that a wrong note is “much more expensive to Unblocked's credibility.”
 
-**Risk.** The bar is how sure the decision model must be before a note reaches the LLM. Below the bar, nothing is added. Set it on your own past examples, then leave the instructions alone.
+**Risk.** Below the bar, nothing reaches the LLM. Set it on a fresh graded set of real questions, then leave the instructions alone.
 
 ### The same pattern in other industries
 
@@ -127,7 +127,7 @@ What mattered was where Unblocked set the bar. In Unblocked’s words: “Tune t
 2. **Don’t grade the new model on your old logs.** Build a fresh test set from real questions.
 3. **Have each item graded blind,** without knowing which tool picked it.
 4. **Ask the decision model about a batch of items at once,** not one at a time.
-5. **Set the bar on past examples,** and let nothing through when nothing clears it.
+5. **Set the bar on that graded set,** and let nothing through when nothing clears it.
 6. **Record which items reached the LLM,** and how sure the decision model was.
 
 ## For your developer
@@ -158,11 +158,12 @@ Public material from others:
 
 ## The fine print
 
+- **The opening.** The engineer’s question is the example question in Unblocked’s post. The rest of the scene is my illustration.
 - **Unblocked’s numbers.** All come from its post of Sept. 22, 2026, by Morteza Milani. I read it in full. Its example request names jev-1.13.0. It doesn’t say which customers’ data was used, beyond tuning on some organizations and reporting on others.
 - **The table.** Share of chosen notes that were useful, 34.8% before and 46.4% after. Share of useful notes that reached the agent, 63.8% and 77.6%. Share of questions with no useful note where nothing was added, 48.4% and 59.4%. Cost per 1,000 questions, $1.87 and $1.76. Median time, 0.20 and 0.35 seconds.
 - **My arithmetic.** Wrong notes among those chosen fell from 65.2% to 53.6%, about 18% fewer. Useful notes reaching the agent rose about 22%. Questions that got a note when none applied fell from 51.6% to 40.6%, about 21% fewer. Cost fell about 6%. Time rose 75%.
 - **The worry.** In Unblocked’s words: “A missed note costs a slightly worse answer. A wrong note injected into the prompt costs a confident, specific, wrong answer.”
-- **The old tool.** A cross-encoder, a ranking model, kept notes scoring 0.38 or more, up to five. Unblocked doesn’t name it. In the test, on questions where nothing fit, it added a note 51.6% of the time. That is at the matched setting, which may differ from its live cutoff.
+- **The old tool.** A cross-encoder, a ranking model, kept notes scoring 0.38 or more in production, up to five. Unblocked doesn’t name it. In the test, on questions where nothing fit, it added a note 51.6% of the time. That is at the matched setting, which may differ from its live cutoff.
 - **The test.** 292 production questions and 12,927 question-and-note pairs. Only 1.8% of the pairs were relevant. The grader was GPT-5.6 Terra. On a 10% sample graded twice, it agreed with itself exactly 93.0% of the time. No person checked the grades.
 - **One note at a time.** “Per-pair came back below the incumbent.” Unblocked did not ship that version.
 - **The time.** “150 milliseconds on a path that sits behind an LLM answer taking several seconds is not something a user can perceive.” The cost counts only the call that picks notes.
