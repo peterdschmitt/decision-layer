@@ -179,7 +179,7 @@ My worked example adds the scorecard: how often the decision model answers, how 
 - **The time.** About 0.8 seconds for Jev, against about 7.5 for the LLM alone. That is about 89% less, by my arithmetic. He puts the best-case saving at about six to seven seconds.
 - **The sample.** “Across about four to five days of early live use and 60 decisions so far … the whole period cost less than one US cent.”
 - **Agreement.** Jev was sure on 11 sorting answers, and all 11 matched the LLM. Agreement with the LLM is not proof that either answer was right.
-- **The name.** Laigna calls the project Procurement Mind. Estonia’s government lists a project called Hankearu, AI-assisted small purchases, led by the Ministry of Finance and RTK. Hankearu means “procurement mind.” No official page I found links the two names.
+- **The name.** Laigna calls the project Procurement Mind. Estonia’s government lists a project called Hankearu, for AI-assisted below-threshold procurement, led by the Ministry of Finance and RTK. Hankearu means “procurement mind.” No official page I found links the two names.
 - **Language.** Laigna notes that TypeSafe names English as Jev’s strongest language. He wants stronger Estonian support and an EU region.
 - **Tabbit’s numbers.** From Tabbit’s retrospective, reposted by BAAI Hub on Nov. 21, 2026. The original appeared on WeChat around Nov. 10 to 12, and I could not open it. The author is a Tabbit team member who isn’t named.
 - **Tabbit’s single-step tests.** On 165 screenshots, Jev judged page state 95.2% correctly, level with Kimi K3. Its median time was 0.76 seconds, against 8.54 for K3, about 91% less by my arithmetic. On 36 questions about where to click, Jev got 35 right and K3 got 36.
