@@ -474,6 +474,7 @@ a.feed-item:hover .t { color: var(--orange-ink); }
 .post-dek { font-size: clamp(17px, 1.7vw, 21px); line-height: 1.5; color: var(--navy-ink); max-width: 62ch; margin: 16px 0 0; }
 .post-by { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 14px; margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--navy-line); font-size: 14px; color: var(--navy-muted); }
 .post-by .by-mark { flex: none; width: 42px; height: 42px; display: grid; place-items: center; background: var(--orange); color: var(--navy); font: 700 16px/1 var(--display); letter-spacing: .06em; }
+.post-by .by-photo { flex: none; width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
 .post-by .by-text { display: flex; flex-direction: column; gap: 1px; flex: 1 1 260px; min-width: 0; }
 .post-by .by-text b { color: #fff; font-weight: 600; }
 .post-by .by-aud { color: var(--navy-ink); }
