@@ -28,7 +28,9 @@ const epLabel = ep && `Listen · Episode ${ep.data.number}${ep.data.minutes ? ` 
       <h1 class={d.title.length > 110 ? "h-long" : d.title.length > 70 ? "h-mid" : undefined}>{d.title}</h1>
       <p class="post-dek">{d.dek}</p>
       <div class="post-by">
-        <span class="by-mark" aria-hidden="true">DL</span>
+        {d.author === 'Peter Schmitt'
+          ? <img class="by-photo" src="/images/peter-schmitt-headshot.webp" width="42" height="42" alt="" />
+          : <span class="by-mark" aria-hidden="true">DL</span>}
         <span class="by-text">
           <span>By <b>{d.author}</b></span>
           {d.audience && <span class="by-aud">{d.audience}</span>}
