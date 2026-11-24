@@ -10,7 +10,7 @@ export const SITE = {
 
 export const UNOFFICIAL = 'Decision Layer is independent. It is not affiliated with, sponsored by or endorsed by TypeSafe AI. Jev is a product of TypeSafe AI.';
 
-export const DISCLOSURE_LINE = `Published by ${SITE.publisher}, which provides ${SITE.services} to insurance agencies. We are not paid by any vendor we review. [CONFIRM: Conversely has no commercial relationship with TypeSafe AI or its competitors.]`;
+export const DISCLOSURE_LINE = `Published by ${SITE.publisher}, which provides ${SITE.services} to insurance agencies. We are not paid by any vendor we review. Conversely has no commercial relationship with TypeSafe AI or its competitors.`;
 
 // The blog and the podcast lead. Use cases, how-tos and the glossary sit under Guides.
 export const NAV = [
