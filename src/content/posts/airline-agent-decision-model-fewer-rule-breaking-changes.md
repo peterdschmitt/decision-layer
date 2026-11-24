@@ -108,7 +108,7 @@ TypeSafe says Jev is trained so that its percentages match how often it is right
 
 ## What it means for you
 
-**Risk.** A chat agent that changes the wrong booking costs money and trust. With the LLMs alone, about 7% of chats made a change the rules forbade, with no sign which ones. Coupled with a decision model, it fell to under 2%, a drop of about 77%.
+**Risk.** A chat agent that changes the wrong booking costs money and trust. With the LLMs alone, about 7% of chats made a change the rules forbade, with no sign which ones. Coupled with a decision model, it fell to under 2%.
 
 **Customers.** Lookups that ran one after another now ran at once. On Flash-Lite, the cheaper Gemini model, the typical reply came about 31% faster.
 
