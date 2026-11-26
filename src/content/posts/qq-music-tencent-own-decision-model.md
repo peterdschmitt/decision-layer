@@ -1,21 +1,21 @@
 ---
-title: "Tencent trained its own decision model for QQ Music and doubled the requests it got right"
-dek: "Stop using LLMs alone. Tencent built a decision model to make the first call on requests to QQ Music’s assistant. Trained on cleaned examples, it got both parts of that call right twice as often."
+title: "Tencent’s QQ Music decision model found errors in its own answer key, then doubled its score"
+dek: "Stop using LLMs alone. QQ Music’s decision model makes the first call on each request. With an LLM helping clean its examples, it got that call right twice as often as before training."
 kind: Worked example
 readMinutes: 10
 author: Peter Schmitt
 audience: For executives putting AI assistants in front of customers
 published: 2026-11-26
 lastChecked: 2026-11-26
-modelVersion: Tencent’s own 9B decision model, built on a Qwen3.5-series base, as reported Nov. 26, 2026
+modelVersion: Tencent’s own 9B decision model, as reported Nov. 26, 2026
 stats:
   - value: "From 38% to 78%"
     label: "of test requests with both calls right, after training"
   - value: "35–40%"
     label: "of dozens of old examples the model doubted were wrong"
   - value: "1 graphics chip"
-    label: "runs the decision model live in QQ Music"
-statsNote: "All three come from Tencent’s own write-up, which I read in two Chinese reposts of Nov. 26, 2026. The test set was a few hundred real requests. Tencent gives no cost or traffic figures. The fine print has the details."
+    label: "holds a full copy of the live decision model"
+statsNote: "All three come from Tencent’s own write-up, which I read in a Chinese repost and a Chinese news report of Nov. 26, 2026. The test set was a few hundred real requests. Tencent gives no cost or traffic figures. The fine print has the details."
 sources:
   - title: "Tencent Cloud Developer, repost on 53AI: JEV决策模型落地QQ音乐实践：把决策延迟打到25ms [Putting a JEV decision model into production at QQ Music] (Nov. 26, 2026)"
     url: https://www.53ai.com/news/LargeLanguageModel/2026112624517.html
@@ -35,27 +35,29 @@ Tell a car’s music assistant to “play road rock,” and it may hunt for a so
 
 That first call is where Tencent’s QQ Music started. Before its AI assistant does anything with a request, it must make two calls. Where should the request go? And what does the user want?
 
-Get those calls wrong, and even the best AI after them can’t help. Make them slowly, and the user feels the lag. Every company with an AI assistant makes the same two calls.
+Get those calls wrong, and even the best AI after them may not help. Make them slowly, and the user feels the lag. Every company with an AI assistant makes the same two calls.
 
 A decision model is an AI that answers a fixed question by giving each possible answer a percentage. It writes no words.
 
-The usual way to make these first calls is to ask an LLM. Tencent calls that the heavy approach: slow, costly, and prone to answers in the wrong format.
+One common way to make these first calls is to ask an LLM. Tencent calls that the heavy approach: slow, costly, and prone to answers in the wrong format.
 
 An LLM alone also gives no reliable number on how sure it is. That is an unknown risk on every request. Stop using LLMs alone.
 
-However, when coupled with a decision model, the first call comes with a percentage, and the request goes the right way before any answer is written. Tencent trained its own decision model for QQ Music. On a test of real requests, it got both calls right twice as often as before training.
+However, when coupled with a decision model, the LLM gets a new job. The decision model makes the first call, with a percentage. The LLM helps clean the examples the decision model learns from.
+
+Tencent trained its own decision model for QQ Music this way. On a test of real requests, it got both calls right twice as often as before training.
 
 ## Who did it
 
 QQ Music is Tencent’s music streaming app. Its business team worked with Venus, an AI research team at Tencent.
 
-The business team supplied real conversations from the app and wrote the rules for each call. The Venus team built and trained the model. Tencent Cloud Developer, the company’s developer channel, published the write-up. Reposts appeared on Nov. 26.
+The business team supplied real conversations from the app, wrote the rules for each call and settled disputes. The Venus team built and trained the model. Tencent Cloud Developer, the company’s developer channel, published the write-up. Reposts appeared on Nov. 26.
 
 ## How it worked before
 
 Tencent describes two old ways to make the first call. One is to ask an LLM, the kind of AI that writes text. The other is a set of hand-written rules or a simpler, older kind of model.
 
-The rules and small models break on casual, everyday speech.
+The rules and small models struggle with casual, everyday speech.
 
 ## What went wrong first
 
@@ -63,13 +65,13 @@ The team first tried decision models off the shelf. None was good enough.
 
 Even a large ready-made decision model got both calls right on fewer than half the test requests. Jev, a ready-made decision model sold by a company called TypeSafe, also fell short of what the team needed to go live.
 
-“Post-training is not an option, it is a must,” the team wrote. Post-training means teaching a ready-made model your own rules with your own examples.
+“Post-training is not a nice-to-have. It is a must,” the team wrote. Post-training means teaching a ready-made model your own rules with your own examples.
 
 ## The turn
 
 The team first trained a large decision model on QQ Music’s rules. It got much better at both calls. Then the team noticed something odd in its mistakes.
 
-On dozens of examples, the model was very sure the answer on file was wrong. When the team checked those examples against the written rules, the model often looked right. The QQ Music team reviewed that batch by hand. More than a third of the answers on file were wrong.
+On dozens of examples, the model was very sure the answer on file was wrong. When the team checked those examples against the written rules, the model sometimes looked right. The QQ Music team reviewed that batch by hand. More than a third of those answers on file were wrong.
 
 The model had become good enough to find errors in the examples it learned from. So the team built a three-step cleanup before training again.
 
@@ -87,7 +89,7 @@ The team ended up with about ten thousand clean examples. New mistakes found in 
 
 **Steadier answers.** The team shuffled the order of the possible answers to see if the model would change its mind. Before training, it did so about one time in 15. After training, about one time in 100.
 
-**Live.** Tencent says the mid-sized decision model now runs in QQ Music, on a single graphics chip.
+**Live.** Tencent says the mid-sized decision model now runs in QQ Music. Each copy fits on a single graphics chip.
 
 **Smaller worked too.** In a later test, two smaller decision models scored almost the same. The smallest typically answered in 25 milliseconds, a fortieth of a second. Tencent has not given the speed of the model it runs.
 
@@ -97,9 +99,9 @@ The team ended up with about ten thousand clean examples. New mistakes found in 
 
 **What it reads.** The user’s preference tags, the song now playing, the conversation so far and the new request. Each possible answer comes with a rule the business team wrote. It answers both calls in one step.
 
-**How it was trained.** The team started from a free, open model made by Alibaba and taught it QQ Music’s rules with the cleaned examples. A round of training took a few hours. Tencent says new mistakes become a new model within about a week.
+**How it was trained.** The team taught ready-made decision models QQ Music’s rules with the cleaned examples. The large one was from Alibaba’s Qwen series. A round of training took a few hours, and Tencent says new mistakes feed a new model each week.
 
-**How the percentages are used.** Tencent says the team can set a bar for each answer. The bar is how sure the decision model must be before its answer is used. Tencent has not published its bar.
+**How the percentages are used.** Tencent says the team can set a bar based on the percentages. The bar is how sure the decision model must be before its answer is used. Tencent has not published its bar.
 
 | | An LLM makes the first call | Coupled with a decision model |
 | --- | --- | --- |
@@ -115,21 +117,21 @@ The team ended up with about ten thousand clean examples. New mistakes found in 
 
 **Revenue.** Tencent didn’t report usage or sales, so the effect on revenue is unknown.
 
-**Risk.** Each answer comes with a percentage, so the team can see how sure the model is. With an LLM alone, there is no such number. The bigger risk Tencent found was in its own examples.
+**Risk.** Each answer comes with a percentage, so the team can see how sure the model is. With an LLM alone, there is no such number. Tencent also found risk in its own examples.
 
-### The same pattern in other industries
+### Decision models in other industries
 
-- **Software security.** The Rust Foundation is trying a decision model that scores every new Rust package for signs of malware. People look only at those above its bar. At the bar it reports, 4 of the 15 flagged packages were malicious, [the foundation reports](https://rustfoundation.org/media/needles-haystacks-and-numbers-between-0-and-1/).
+- **Software security.** The Rust Foundation is trying a decision model that scores every new Rust package for signs of malware, with no LLM involved. People look only at those above its bar. At the bar it reports, 4 of the 15 flagged packages were malicious, [the foundation reports](https://rustfoundation.org/media/needles-haystacks-and-numbers-between-0-and-1/).
 - **Small business.** Charlie Krueger runs AI agents for a household and a small business. A decision model picks which AI should answer each request before any LLM runs. Over six weeks it judged about 18,000 requests, [his case study says](https://github.com/milo-M4/jev-case-study).
 - **Hiring.** The recruiting company Jack & Jill had a decision model score every candidate. An LLM read only the shortlist, and screening costs fell 88%. [How Jack & Jill did it](https://decision-layer-indol.vercel.app/blog/jack-and-jill-coupled-llm-decision-model/).
 
 ### The hard questions
 
-**Is 78% good enough?** It is the share with both calls right on a cleaned test of real requests. Tencent doesn’t say what happens to the rest, or how users fared.
+**Is 78% good enough?** It is the share with both calls right on a cleaned test of real requests. About one request in five still had a wrong call. Tencent doesn’t say what happens to the rest, or how users fared.
 
 **Should I build my own?** Tencent did, because no ready-made model knew its rules. Most companies can start by writing their rules into the questions and testing a ready-made model on their own requests.
 
-**Why let an LLM near the training data?** It gives a second opinion from a different kind of model. People decide only where the two disagree.
+**Why let an LLM near the training data?** It gives a second opinion from a different kind of model. People decide only where the two disagree or the decision model is unsure.
 
 ### How to make the change
 
@@ -167,8 +169,8 @@ Tencent has not published its code. My worked example adds the people’s queue 
 
 ## The fine print
 
-- **The source.** Tencent Cloud Developer, “JEV决策模型落地QQ音乐实践：把决策延迟打到25ms” [Putting a JEV decision model into production at QQ Music: decision latency down to 25 ms]. I could not find the original post. I read a full repost on 53AI, dated Nov. 26, 2026, and a news report by Zhidx the same day. The 53AI page hides its last part behind a login, but the text runs through the conclusion. Translations are mine.
-- **JEV, not Jev.** The deployed model is Tencent’s own, not TypeSafe’s Jev. The team uses “JEV” as a name for this kind of model. Its base is a Qwen3.5-series model.
+- **The source.** Tencent Cloud Developer, “JEV决策模型落地QQ音乐实践：把决策延迟打到25ms” [Putting a JEV decision model into production at QQ Music: decision latency down to 25 ms]. I could not find the original post. I read a repost on 53AI, dated Nov. 26, 2026, and a news report by Zhidx the same day. The 53AI page hides its last part behind a login, but the text runs through the conclusion. Translations are mine.
+- **JEV, not Jev.** The deployed model is Tencent’s own, not TypeSafe’s Jev. The team uses “JEV” as a name for this kind of model. The large teacher model is from the Qwen3.5 series. Tencent does not name the base of the deployed 9B model.
 - **The two calls.** “路由+意图” [routing + intent], answered in one pass. The “play road rock” example is from Zhidx, as an illustration. It is not a reported QQ Music result.
 - **Before.** Tencent describes the old ways in general terms: generative LLMs, rules or small classic models. It calls its model a replacement for “替代生成式大模型做判别的重方案” [the heavy approach of using a generative LLM to judge]. It does not say what QQ Music ran before, or give its accuracy.
 - **Off the shelf.** On the raw test set, before cleaning: “即便是27B的JEV模型，joint_acc也只有0.43” [even the 27B JEV model had joint accuracy of only 0.43]. “Typesafe-Jev官方API的效果也不足以支持直接上线” [TypeSafe’s official Jev API was also not good enough to go live]. The team also names Gemini Decisions as falling short.
