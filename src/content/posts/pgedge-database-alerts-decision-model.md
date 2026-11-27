@@ -1,5 +1,5 @@
 ---
-title: "pgEdge took database alert calls from an LLM and gave them to a decision model"
+title: "How pgEdge cut the cost of each database alert call by 98% with a decision model"
 dek: "Stop using LLMs alone. In a test, pgEdge had a decision model make the yes-or-no call on database alerts, and kept the LLM for explanations."
 kind: How-to
 readMinutes: 10
@@ -9,20 +9,20 @@ published: 2026-11-27
 lastChecked: 2026-11-27
 modelVersion: TypeSafe jev-latest, as tested by pgEdge in October 2026
 stats:
-  - value: "Nearly 50x"
+  - value: "About 98%"
     label: "lower cost for each alert call"
   - value: "15x"
     label: "faster answer on each alert"
   - value: "89%"
-    label: "of past readings Jev judged as the LLM had"
+    label: "match between the decision model and the LLM’s past calls"
   - value: "0"
-    label: "alerts Jev hid that the LLM had raised"
+    label: "alerts the LLM had raised that the decision model hid"
 statsNote: "All four come from pgEdge’s own test in October 2026, published Nov. 19. It measured agreement with an LLM’s earlier calls, not right or wrong answers. The fine print has the details."
 snapshot:
   - label: "Why it matters"
-    text: "Every team that watches systems drowns in alerts. Someone has to decide which ones are real."
+    text: "Deciding which alerts are real is a daily cost for any team that runs systems."
   - label: "Where the money is"
-    text: "The final call on each alert costs a small fraction of what the LLM charged."
+    text: "In pgEdge’s test, the final call on each alert cost about 2% of what the LLM charged."
   - label: "Why AI alone hasn’t delivered it"
     text: "An LLM writes a paragraph for every reading, slowly. pgEdge’s tool gives no bar to set on its answers."
   - label: "What to do"
@@ -51,17 +51,19 @@ A database starts taking far longer than usual to answer one query. Is that a fi
 
 That call comes up for every odd reading, on every database, all day. pgEdge, an open-source database company, offers a free tool that makes it automatically.
 
-Every team that runs alerts faces the same call. Get it wrong one way and people miss a real problem. Get it wrong the other way and they stop reading alerts at all.
+Get it wrong one way and people miss a real problem. Get it wrong the other way and they stop trusting alerts.
 
 Until this month, pgEdge’s tool could only ask an LLM to make the final call. The LLM wrote a verdict and a paragraph of reasons for each reading. It took seconds and charged for every word.
 
-An LLM is good at explaining. But with an LLM alone, pgEdge’s tool gives a team no bar to set on its answers. That leaves an unknown risk on every alert. Stop using LLMs alone.
+An LLM is good at explaining. But with an LLM alone, pgEdge’s tool offers no bar, a cutoff that decides which alerts to hide. That leaves an unknown risk on every alert. Stop using LLMs alone.
 
-However, when coupled with a decision model, the LLM no longer makes the call.
+However, when coupled with a decision model, the LLM stops making the call and does what it does well: explain.
 
 A decision model is an AI that answers one fixed question. It gives each possible answer a percentage.
 
-pgEdge’s new test version lets a decision model make the yes-or-no call. The LLM writes an explanation only when a person opens the alert. In pgEdge’s test, the decision model judged past readings much as the LLM had, at a small fraction of the cost.
+pgEdge’s new test version lets a decision model make the yes-or-no call. The LLM writes an explanation only when a person opens the alert.
+
+In pgEdge’s test, the decision model agreed with the LLM’s past calls 89% of the time. It cost about 2% as much.
 
 ## Who did it
 
@@ -95,7 +97,7 @@ The LLM read the details and wrote back a verdict with its reasons. pgEdge says 
 
 pgEdge tested the change in October on a sample of real readings from the previous month. Half had become alerts and half had been hidden. pgEdge measured how often each decision model agreed with the LLM’s earlier calls.
 
-**Jev agreed 89% of the time.** The LLM itself, run again on the same readings, agreed with its own earlier calls 91% of the time.
+**Jev agreed 89% of the time.** That is close to the LLM’s own consistency. Run again, the LLM matched its own earlier calls 91% of the time.
 
 **Jev never hid an alert the LLM had raised.** Every disagreement went the same way. Jev raised an alert where the LLM had hidden the reading. pgEdge calls that the safer way to be wrong.
 
@@ -105,11 +107,11 @@ pgEdge tested the change in October on a sample of real readings from the previo
 
 **Not every decision model did as well.** OpenAI’s decision model agreed less often. It also hid some alerts the LLM had raised. pgEdge recommends Jev on this evidence.
 
-Adding the LLM for explanations “applies the right model to the right task,” said Mr. Page.
+Mr. Page said the pairing “applies the right model to the right task.”
 
 ## How it works
 
-**What the decision model is.** It is a trained AI that reads text and scores a fixed set of answers. Here the answers are “yes, this is real” and “no.” TypeSafe says it trains Jev so that its percentages match how often it is right, but it has not published the training data.
+**What the decision model is.** Jev reads text and scores a fixed set of answers. Here the answers are “yes, this is real” and “no.” TypeSafe says it trains Jev so that its percentages match how often it is right, but it has not published the training data.
 
 **What it reads.** It sees the odd reading and how far it is from normal. It also sees similar past problems, notes people left on past alerts and alerts on related databases.
 
@@ -123,11 +125,11 @@ Adding the LLM for explanations “applies the right model to the right task,”
 
 ## What it means for you
 
-**Money.** pgEdge says some companies held back from AI monitoring because of the bills. The final call now costs about 2% of what the LLM charged. The LLM now writes explanations only for alerts people open.
+**Money.** pgEdge says some companies held back from AI monitoring because of the bills. The yes-or-no call now costs about 2% of the LLM’s price. Explanations cost extra, but only for alerts people open.
 
 **Customers.** A missed alert can mean a database outage that customers feel. In the test, every disagreement Jev had was an extra alert, never a hidden one. The first press of “Why was this flagged?” now waits while the LLM writes.
 
-**Revenue.** pgEdge reports no sales or usage figures for this feature. The case for revenue rests on cost and on fewer missed problems.
+**Revenue.** pgEdge reports no sales or usage figures for this feature. The case for revenue rests on cost. The test cannot show whether fewer problems were missed.
 
 **Risk.** Each call comes with a percentage, so a team can set a bar and see how sure Jev is. The test also showed that decision models differ, so each needs its own test.
 
@@ -176,10 +178,10 @@ def final_call(context, decide, llm_judge, hide_bar=0.5):
         except Exception:
             return {"alert": True, "by": "fail-safe"}           # never hide on failure
 
-def why(alert, llm_explain, store):
-    if alert["id"] not in store:                     # pay for words once, when a person asks
-        store[alert["id"]] = llm_explain(alert)
-    return store[alert["id"]]
+def why(alert_id, details, llm_explain, store):
+    if alert_id not in store:                        # pay for words once, when a person asks
+        store[alert_id] = llm_explain(details)
+    return store[alert_id]
 ```
 
 pgEdge’s tool is open source, so your developer can read the real version. My worked example adds the test against your past calls, which tells you which way each decision model is wrong. [Subscribe for access](https://decision-layer-indol.vercel.app/subscribe/).
@@ -189,8 +191,9 @@ pgEdge’s tool is open source, so your developer can read the real version. My 
 - **The sources.** pgEdge’s press release and a blog post by Sarah Conway of pgEdge, both Nov. 19, 2026, and pgEdge’s developer docs on anomaly detection. The docs describe the test as a “spike in October 2026.” The full data is in GitHub issue #626 of pgEdge’s repository, which I could not open.
 - **What was measured.** This is pgEdge’s own test of its own tool, so treat it as an early sign. The sample was 150 readings. “No user-labelled ground truth existed, so every figure measures agreement with the reasoning model that made the stored decisions, not accuracy.” The 150 readings came from “the previous 30 days, sampled evenly between candidates stored as alerts and candidates stored as suppressed.”
 - **The numbers.** Agreement with stored decisions: Jev 89%, OpenAI gpt-6-luna decisions 79%, Claude Haiku 4.5 run again 91%. Jev agreed with a fresh Haiku run on 88%. The press release and blog describe the 89% as agreement with Haiku, which blurs the two. Median time: about 200 ms for Jev, about 250 ms for OpenAI, about 3 s for Haiku.
-- **The cost.** About $0.04 per 1,000 decisions for Jev against about $1.93 for Haiku, at October 2026 prices. That is about 48 times less, or about 2%. pgEdge could not confirm OpenAI’s price. The LLM explanations come on top, for opened alerts only.
+- **The cost.** About $0.04 per 1,000 decisions for Jev against about $1.93 for Haiku, at October 2026 prices. That is about 48 times less, a cut of about 98%. pgEdge could not confirm OpenAI’s price. The LLM explanations come on top, for opened alerts only.
 - **The bar.** The tool hides an alert when one minus the chance of a real issue is at least 0.5. pgEdge found that “raising the threshold above 0.5 reduced agreement.”
+- **Other claims, from the docs.** “Any decision model failure sends the candidate to the reasoning model.” “The OpenAI decision model suppressed some candidates that were stored as alerts.” “On this evidence typesafe is the recommended decision provider.” The press release says organizations were “reluctant to adopt agentic Postgres database monitoring because of token costs.” TypeSafe calls its training method Reinforcement Learning for Calibrated Decisions.
 - **The safe direction.** “The Jev model never suppressed a candidate stored as an alert; every disagreement was an alert where the stored decision was to suppress.” At 89% of 150, that is roughly 16 extra alerts. pgEdge’s LLM also returns a confidence with its verdict, but the tool’s bar applies only to a decision model.
 - **Upgrading.** The docs say the collector must be upgraded before or with the alerter, or no anomaly alerts are raised. The beta needs Postgres 15 or later, and its database changes can’t be undone.
 - **Changing models.** “jev-latest” changes over time. pgEdge warns that a bar tuned for one decision model does not carry over to another.
@@ -203,4 +206,4 @@ pgEdge’s tool is open source, so your developer can read the real version. My 
 - **Jack & Jill** is from my earlier post, which cites its sources.
 - **This site** is independent and not affiliated with pgEdge, TypeSafe, OpenAI, Anthropic, Dialpad, Outcasts, Fuseforks or any company named here.
 
-We show you how in the full worked example, with tests. It comes with a subscription below.
+We show you how in the full worked example, with tests, for subscribers.
